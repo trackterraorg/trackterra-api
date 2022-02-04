@@ -1,0 +1,31 @@
+name: Generic
+type: Contract
+priority: 99
+transactions:
+  - name: WithdrawLiquidity
+    contract: 
+    classifier:
+      shouldExistAttributes: ['withdraw_liquidity', 'burn']
+      shouldNotExistAttributes: ['zap_out_of_strategy']
+      contractAddressExtractKeys:
+        mainKey: withdraw_liquidity
+        contractKey: contract
+      ignoreContract: true
+    isEliminator: true
+    description: withdraw liquidity
+    tag: remove_liquidity
+    parserClass: WithdrawLiquidity
+
+  - name: ProvideLiquidity
+    contract: 
+    classifier:
+      shouldExistAttributes: ['provide_liquidity', 'mint']
+      shouldNotExistAttributes: ['zap_into_strategy']
+      contractAddressExtractKeys:
+        mainKey: provide_liquidity
+        contractKey: contract
+      ignoreContract: true
+    isEliminator: true
+    description: Add liquidity
+    tag: add_liquidity
+    parserClass: ProvideLiquidity

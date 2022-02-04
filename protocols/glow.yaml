@@ -1,0 +1,27 @@
+name: Glow
+type: Contract
+priority: 0
+transactions:
+  - name: GlowPoolWithdrawal
+    contract: terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
+    classifier:
+      shouldExistAttributes: ['withdraw_ticket']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw_ticket
+        contractKey: contract
+      ignoreContract: false
+    description: Glow pool withdrawal
+    tag: Not defined yet
+
+  - name: GlowStakingReward
+    contract: terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
+    classifier:
+      shouldExistAttributes: ['claim_lottery']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_lottery
+        contractKey: contract
+      ignoreContract: false
+    description: Glow claim stake rewards
+    tag: Not defined yet

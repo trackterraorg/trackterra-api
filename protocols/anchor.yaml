@@ -1,0 +1,226 @@
+name: Anchor
+type: Contract
+priority: 0
+transactions:
+  - name: AnchorBlunaBurn
+    contract: terra1mtwph2juhj0rvjz7dy92gvl6xvukaxu8rfv8ts
+    classifier:
+      shouldExistAttributes: ['burn']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor Bluna Burn
+    tag: Not defined yet
+
+  - name: AnchorBlunaClaimRewards
+    contract: terra17yap3mhph35pcwvhza38c2lkj7gzywzy05h7l0
+    classifier:
+      shouldExistAttributes: ['claim_reward']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_reward
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor bluna claim rewards
+    tag: Not defined yet
+
+  - name: AnchorBlunaMint
+    contract: terra1mtwph2juhj0rvjz7dy92gvl6xvukaxu8rfv8ts
+    classifier:
+      shouldExistAttributes: ['mint', 'increase_balance']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor bluna mint
+    tag: Not defined yet
+    parserClass: AnchorBlunaMint
+
+  - name: AnchorBorrow
+    contract: terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
+    classifier:
+      shouldExistAttributes: ['borrow_stable']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: borrow_stable
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor borrow
+    tag: Not defined yet
+
+  - name: AnchorCollateralDeposit
+    contract: terra1ptjp2vfjrwh0j0faj9r6katm640kgjxnwwq9kn
+    classifier:
+      shouldExistAttributes: ['deposit_collateral']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit_collateral
+        contractKey: contract
+      ignoreContract: false
+      skipForContracts:
+        - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
+    description: Anchor Collateral Deposit
+    tag: Not defined yet
+
+  - name: AnchorColateralWithdrawal
+    contract: terra1ptjp2vfjrwh0j0faj9r6katm640kgjxnwwq9kn
+    classifier:
+      shouldExistAttributes: ['withdraw_collateral']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw_collateral
+        contractKey: contract
+      ignoreContract: true
+      skipForContracts:
+        - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
+    description: Anchor Collateral Withdrawal
+    tag: Not defined yet
+
+  - name: AnchorLpClaimRewards
+    contract: terra1897an2xux840p9lrh6py3ryankc6mspw49xse3
+    classifier:
+      shouldExistAttributes: ['claim_rewards', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_rewards
+        contractKey: contract
+      ignoreContract: true
+    description: Anchor lp claim rewards
+    tag: Not defined yet
+
+  - name: AnchorLpWithdrawStaking
+    contract: terra1897an2xux840p9lrh6py3ryankc6mspw49xse3
+    classifier:
+      shouldExistAttributes: ['withdraw']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor lp withdraw staking
+    tag: Not defined yet
+
+  - name: AnchorRepay
+    contract: terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
+    classifier:
+      shouldExistAttributes: ['repay_stable']
+      shouldNotExistAttributes: ['liquidate_collateral']
+      contractAddressExtractKeys:
+        mainKey: repay_stable
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor repay stable
+    tag: Not defined yet
+
+  - name: AnchorGovernanceDeposit
+    contract: terra1f32xyep306hhcxxxf7mlyh0ucggc00rm2s9da5
+    classifier:
+      shouldExistAttributes: ['send']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: to
+      ignoreContract: false
+    description: Anchor governance deposit
+    tag: Not defined yet
+
+  - name: AnchorGovernanceWithdraw
+    contract: terra1f32xyep306hhcxxxf7mlyh0ucggc00rm2s9da5
+    classifier:
+      shouldExistAttributes: ['withdraw']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor governance withdraw
+    tag: Not defined yet
+
+  - name: AnchorLiquidationRetractBid
+    contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
+    classifier:
+      shouldExistAttributes: ['retract_bid']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: retract_bid
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor liquidation retract bid
+    tag: Not defined yet
+
+  - name: AnchorLiquidationPlaceBid
+    contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
+    classifier:
+      shouldExistAttributes: ['submit_bid']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: submit_bid
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor liquidation place bid
+    tag: Not defined yet
+
+  - name: AnchorClaimLiquidation
+    contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
+    classifier:
+      shouldExistAttributes: ['claim_liquidations']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_liquidations
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor claim liquidation
+    tag: Not defined yet
+
+  - name: AnchorLiquidateCollateral
+    contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
+    classifier:
+      shouldExistAttributes: ['liquidate_collateral']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: contract
+        contractKey: execute_bid
+      ignoreContract: true
+    description: Anchor liquidate collateral
+    tag: Not defined yet
+    parserClass: AnchorLiquidateCollateral
+
+  - name: AnchorBorrowClaimRewards
+    contract: terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
+    classifier:
+      shouldExistAttributes: ['claim_rewards', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_rewards
+        contractKey: contract
+      ignoreContract: false
+    tag: Not defined yet
+      
+  - name: AnchorAustMint
+    contract: terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
+    classifier:
+      shouldExistAttributes: ['deposit_stable', 'mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    description: AnchorAustMint
+    tag: Not defined yet
+    parserClass: AnchorAustMint
+
+  - name: AnchorAustRedeem
+    contract: terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
+    classifier:
+      shouldExistAttributes: ['redeem_stable', 'burn']
+      shouldNotExistAttributes: ['withdraw_ticket']
+      contractAddressExtractKeys:
+        mainKey: burn
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor aUST redeem
+    tag: Not defined yet
+    parserClass: AnchorAustRedeem

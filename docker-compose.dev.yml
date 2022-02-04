@@ -1,0 +1,97 @@
+version: "3.2"
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: server/api-gateway/Dockerfile
+      args:
+        NODE_ENV: development
+    image: "api-gateway:latest"
+    restart: always
+    depends_on:
+      - consul
+      - redis
+    environment:
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=localhost
+    ports:
+    - 50020:50020
+    - 4000:4000
+
+  service-parser:
+    build:
+      context: .
+      dockerfile: server/service-parser/Dockerfile
+      args:
+        NODE_ENV: development
+    image: "service-parser:latest"
+    restart: always
+    depends_on:
+      - consul
+      - redis
+    environment:
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=localhost
+    ports:
+    - 50050:50050
+
+  service-wallet:
+    build:
+      context: .
+      dockerfile: server/service-wallet/Dockerfile
+      args:
+        NODE_ENV: development
+    image: "service-wallet:latest"
+    restart: always
+    depends_on:
+      - consul
+      - redis
+    environment:
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=localhost
+    ports:
+    - 50075:50075
+
+  eventstore:
+    container_name: eventstore
+    ports:
+      - "2113:2113"
+      - "1113:1113"
+    image: eventstore/eventstore:release-5.0.8
+    labels:
+      kompose.service.type: nodeport
+      kompose.service.expose: "true"
+      kompose.image-pull-policy: "Always"
+
+  nats:
+    container_name: nats
+    ports:
+      - "4222:4222"
+      - "6222:6222"
+      - "8222:8222"
+    image: nats
+    labels:
+      kompose.service.type: nodeport
+      kompose.service.expose: "true"
+      kompose.image-pull-policy: "Always"
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: changeit
+    restart: always
+    expose:
+      - 27017
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    expose:
+      - 6379

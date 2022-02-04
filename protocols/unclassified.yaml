@@ -1,0 +1,39 @@
+name: Unclassified
+type: Contract
+priority: 100
+transactions:
+  - name: Swap
+    contract: 
+    classifier:
+      shouldExistAttributes: ['swap']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    parserClass: Swap
+    tag: Unclassified
+
+  - name: Transfer
+    contract: 
+    classifier:
+      shouldExistAttributes: ['transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    tag: Unclassified
+      
+
+  - name: Send
+    contract: 
+    classifier:
+      shouldExistAttributes: ['send']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    tag: Unclassified
+      

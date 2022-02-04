@@ -1,0 +1,104 @@
+name: Mir Protocol
+type: Contract
+priority: 1
+transactions:
+  - name: MirrorOpenShortFarm
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [open_position, increase_short_token]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: open_position
+        contractKey: contract
+      ignoreContract: false
+    parserClass: MirOpenShortFarm
+    description: Mirror open short farm
+    tag: Defined in class
+
+  - name: MirrorAutoStaking
+    contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
+    classifier:
+      shouldExistAttributes: [auto_stake]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: auto_stake
+        contractKey: contract
+      ignoreContract: false
+    parserClass: MirAutoStake
+    description: Mirror auto stake
+    tag: Defined in class
+
+  - name: MirrorCloseShortFarm
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [send, decrease_short_token]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: to
+      ignoreContract: false
+    parserClass: ToBeDefined
+    tag: Not defined yet
+
+  - name: MirrorOpenCDP
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [open_position, increase_short_token]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: open_position
+        contractKey: contract
+      ignoreContract: false 
+    parserClass: ToBeDefined
+    tag: Not defined yet
+
+  - name: MirrorCloseCDP
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [burn]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn
+        contractKey: contract
+      ignoreContract: false
+    parserClass: ToBeDefined
+    tag: Not defined yet
+
+  - name: MirrorGovStake
+    contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
+    classifier:
+      shouldExistAttributes: [staking]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: staking
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Mirror Gov Stake
+    tag: Not defined yet
+
+  - name: MirrorGovUnStake
+    contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
+    classifier:
+      shouldExistAttributes: [withdraw]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Mirror Gov Unstake
+    tag: Not defined yet
+
+  - name: MirrorClaimRewards
+    contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
+    classifier:
+      shouldExistAttributes: [withdraw, transfer]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Mirror staking claim rewards
+    tag: Not defined yet

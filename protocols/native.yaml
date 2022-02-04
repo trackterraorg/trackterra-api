@@ -1,0 +1,38 @@
+name: Native
+type: Native
+priority: 0
+transactions:
+  - name: NativeSendReceive
+    contract: 
+    classifier:
+      shouldExistAttributes: [transfer]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: 
+        contractKey: 
+      ignoreContract: true
+    tag: native trasfer
+
+  - name: NativeDelegate
+    contract: 
+    classifier:
+      shouldExistAttributes: [delegate]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: 
+        contractKey: 
+      ignoreContract: true
+    parserClass: NativeDelegate
+    tag: native delegate
+
+  - name: NativeReward
+    contract: 
+    classifier:
+      shouldExistAttributes: [delegate]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: 
+        contractKey: 
+      ignoreContract: true
+    parserClass: NativeReward
+    tag: native reward

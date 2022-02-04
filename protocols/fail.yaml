@@ -1,0 +1,15 @@
+name: Fail
+type: Fail
+priority: 99
+transactions:
+  - name: Fail
+    contract: 
+    classifier:
+      shouldExistAttributes: ['fail']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    parserClass: Fail
+    tag: Failed

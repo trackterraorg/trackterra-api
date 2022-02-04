@@ -1,0 +1,120 @@
+import { Logger } from '@nestjs/common';
+import {
+  CommandBus,
+  CommandHandler,
+  EventBus,
+  ICommandHandler,
+} from '@nestjs/cqrs';
+import { WalletEntity, WalletRepository } from '@trackterra/repository';
+import { ParseWalletCommand, UpdateWalletCommand } from '../../impl';
+import { RpcException } from '@nestjs/microservices';
+import { AccAddress } from '@terra-money/terra.js';
+import { ParserRpcClientService } from '@trackterra/core';
+import * as _ from 'lodash';
+import moment = require('moment');
+import {
+  CreateTxsResponse,
+  ParseWalletResponse,
+  ParsingStatus,
+} from '@trackterra/proto-schema/wallet';
+
+/**
+ * @class
+ * @implements {ICommandHandler<ParseWalletCommand>}
+ */
+@CommandHandler(ParseWalletCommand)
+export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
+  logger = new Logger(this.constructor.name);
+  /**
+   * @constructor
+   * @param walletRepository {WalletRepository}
+   * @param eventBus {EventBus}
+   */
+  public constructor(
+    private readonly walletRepository: WalletRepository,
+    private readonly parserRpcService: ParserRpcClientService,
+    private readonly commandBus: CommandBus,
+  ) {}
+
+  /**
+   * @param command {ParseWalletCommand}
+   */
+  async execute(command: ParseWalletCommand): Promise<ParseWalletResponse> {
+    this.logger.log(`Async ${command.constructor.name}...`);
+    const { address } = command.address;
+
+    try {
+      if (!AccAddress.validate(address)) {
+        throw new RpcException('Invalid terra account address');
+      }
+
+      let wallet: WalletEntity = await this.walletRepository.findOne(
+        {
+          address,
+        },
+        true,
+      );
+
+      if (!wallet) {
+        wallet = await this.walletRepository.create({
+          address,
+          status: ParsingStatus.PARSING,
+        });
+        this.logger.log('Create new wallet address');
+      } else if (wallet.status === ParsingStatus.PARSING) {
+        const msg = 'Wallet is already parsing!';
+        this.logger.log(msg);
+        return {
+          numberOfNewParsedTxs: 0,
+          status: ParsingStatus.PARSING,
+          msg,
+        };
+      } else if (moment(moment()).diff(wallet.updatedAt) < 60000) {
+        const tryAgain = 59 - moment().diff(wallet.updatedAt, 'seconds');
+        const msg = `Wallet already parsed. Please try again in ${tryAgain} seconds!`;
+        this.logger.log(msg);
+        return {
+          numberOfNewParsedTxs: 0,
+          status: ParsingStatus.DONE,
+          msg,
+        };
+      }
+
+      await this.commandBus.execute(
+        new UpdateWalletCommand({
+          highestParsedBlock: wallet.highestParsedBlock,
+          status: ParsingStatus.PARSING,
+          address: wallet.address,
+        }),
+      );
+
+      const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
+
+      let parsingResult;
+      try {
+        parsingResult = await this.parserRpcService.svc
+          .doParse({
+            address: wallet.address,
+            highestParsedBlockHeight,
+          })
+          .toPromise();
+      } catch (e) {
+        await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
+          updates: {
+            $set: {
+              status: ParsingStatus.FAILED,
+            },
+          },
+        });
+      }
+
+      return {
+        ...parsingResult,
+        status: parsingResult.status as unknown as ParsingStatus,
+      };
+    } catch (error) {
+      this.logger.log(error);
+      throw new RpcException(error);
+    }
+  }
+}

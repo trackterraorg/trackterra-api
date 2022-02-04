@@ -1,0 +1,52 @@
+name: Anchor
+type: Contract
+priority: 0
+transactions:
+  - name: PylonGoveranceStaking
+    contract: terra1xu8utj38xuw6mjwck4n97enmavlv852zkcvhgp
+    classifier:
+      shouldExistAttributes: ['staking']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: staking
+        contractKey: contract
+      ignoreContract: false
+    description: Pylon Goverance Staking
+    tag: pool_deposit
+
+  - name: PylonGoveranceUnstaking
+    contract: terra1xu8utj38xuw6mjwck4n97enmavlv852zkcvhgp
+    classifier:
+      shouldExistAttributes: ['withdraw']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Pylon Goverance Unstaking
+    tag: pool_withdraw
+
+  - name: PylonClaimRewards
+    contract: terra1xu8utj38xuw6mjwck4n97enmavlv852zkcvhgp
+    classifier:
+      shouldExistAttributes: ['airdrop_update', 'airdrop_claim']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: airdrop_update
+        contractKey: contract
+      ignoreContract: false
+    description: Pylon Claim Rewards
+    tag: staking_rewards
+
+  - name: PylonPoolDeposit
+    contract: terra13nhe672jgaezstzuvkqq9ytn3zek4s0cy2pn4m
+    classifier:
+      shouldExistAttributes: ['send', 'update']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Pylon pool deposit
+    tag: pool_deposit

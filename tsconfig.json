@@ -1,0 +1,72 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "declaration": true,
+    "declarationMap": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitReturns": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "pretty": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "target": "es2017",
+    "lib": ["es2017"],
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true, 
+    "allowJs": true,
+    "baseUrl": "./",
+    "rootDir": "./",
+    "outDir": "./dist",
+    "paths": {
+      "@trackterra/common": [
+        "libs/common/src"
+      ],
+      "@trackterra/common/*": [
+        "libs/common/src/*"
+      ],
+      "@trackterra/contracts": [
+        "libs/contracts/src"
+      ],
+      "@trackterra/contracts/*": [
+        "libs/contracts/src/*"
+      ],
+      "@trackterra/core": [
+        "libs/core/src"
+      ],
+      "@trackterra/core/*": [
+        "libs/core/src/*"
+      ],      
+      "@trackterra/parser": [
+        "libs/parser/src"
+      ],
+      "@trackterra/parser/*": [
+        "libs/parser/src/*"
+      ],      
+      "@trackterra/repository": [
+        "libs/repository/src"
+      ],
+      "@trackterra/repository/*": [
+        "libs/repository/src/*"
+      ],
+      "@juicycleff/repo-orm": [
+        "libs/repo-orm/src"
+      ],
+      "@juicycleff/repo-orm/*": [
+        "libs/repo-orm/src/*"
+      ],
+      "@trackterra/proto-schema": [
+        "libs/proto-schema/src"
+      ],
+      "@trackterra/proto-schema/*": [
+        "libs/proto-schema/src/*"
+      ]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

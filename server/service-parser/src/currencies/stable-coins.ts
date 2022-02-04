@@ -1,0 +1,142 @@
+const stableCoins = [
+    {
+        symbol: "uaud",
+        name: "AUT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ucad",
+        name: "CAT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uchf",
+        name: "CHT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ucny",
+        name: "CNT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "udkk",
+        name: "DKT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ueur",
+        name: "EUT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ugbp",
+        name: "GBT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uhkd",
+        name: "HKT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uidr",
+        name: "IDT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uinr",
+        name: "INT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ujpy",
+        name: "JPT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "ukrw",
+        name: "KRT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uluna",
+        name: "LUNA",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "umnt",
+        name: "MNT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "umyr",
+        name: "MYT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "unok",
+        name: "NOT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uphp",
+        name: "PHT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "usdr",
+        name: "SDT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "usek",
+        name: "SET",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "usgd",
+        name: "SGT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uthb",
+        name: "THT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "utwd",
+        name: "TWT",
+        icon: '',
+        decimal: 6,
+    },
+    {
+        symbol: "uusd",
+        name: "UST",
+        icon: '',
+        decimal: 6,
+    },
+];
+
+export default stableCoins;

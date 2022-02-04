@@ -1,0 +1,55 @@
+name: Nexus
+type: Contract
+priority: 0
+transactions:
+  - name: NexusVaultDeposit
+    contract: 
+      - terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp
+      - terra1dzhzukyezv0etz22ud940z7adyv7xgcjkahuun
+    classifier:
+      shouldExistAttributes: ['lock_collateral', 'mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: contract
+      ignoreContract: false
+    parserClass: NexusVaultDeposit
+    description: Nexus vault deposit
+    tag: Not defined yet
+
+  - name: Nexus burn Nluna for Bluna
+    contract: terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
+    classifier:
+      shouldExistAttributes: ['unlock_collateral', 'burn']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn
+        contractKey: contract
+      ignoreContract: false
+    parserClass: NexusVaultDeposit
+    description: Nexus burn Nluna for Bluna
+    tag: Not defined yet
+
+  - name: Nexus Pool Deposit
+    contract: terra1xrk6v2tfjrhjz2dsfecj40ps7ayanjx970gy0j
+    classifier:
+      shouldExistAttributes: ['send', 'staking']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: staking
+        contractKey: contract
+      ignoreContract: false
+    description: Nexus governance deposit
+    tag: Not defined yet
+
+  - name: Nexus Pool Deposit
+    contract: terra1xrk6v2tfjrhjz2dsfecj40ps7ayanjx970gy0j
+    classifier:
+      shouldExistAttributes: ['withdraw']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Nexus governance withdraw
+    tag: Not defined yet

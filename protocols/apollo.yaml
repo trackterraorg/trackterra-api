@@ -1,0 +1,52 @@
+name: Anchor
+type: Contract
+priority: 0
+transactions:
+  - name: ApolloDAOZapOut
+    contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
+    classifier:
+      shouldExistAttributes: ['zap_out_of_strategy', 'unstake']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: zap_out_of_strategy
+        contractKey: contract
+      ignoreContract: false
+    parserClass: ZapOut
+    description: Apollo DAO zap out
+    tag: Defined in class
+
+  - name: ApolloDAOPoolWithdraw
+    contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
+    classifier:
+      shouldExistAttributes: ['withdraw_from_strategy']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw_from_strategy
+        contractKey: contract
+      ignoreContract: false
+    description: ApolloDao Unstake LP
+    tag: pool_withdraw
+
+  - name: ApolloDAOPoolDeposit
+    contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
+    classifier:
+      shouldExistAttributes: ['deposit_to_strategy']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit_to_strategy
+        contractKey: contract
+      ignoreContract: false
+    description: ApolloDAO Stake LP
+    tag: pool_deposit
+
+  - name: ApolloDaoStakingRewards
+    contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
+    classifier:
+      shouldExistAttributes: ['transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: transfer
+        contractKey: from
+      ignoreContract: false
+    description: ApolloDao Staking Rewards
+    tag: staking_rewards

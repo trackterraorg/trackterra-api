@@ -1,0 +1,74 @@
+version: "3.2"
+
+services:
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: server/api-gateway/Dockerfile
+    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/api-gateway:${IMAGE_TAG:?err}"
+    restart: always
+    environment:
+      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
+      - NATS_HOST=nats-cluster.default.svc.cluster.local
+      - DISCOVERY_HOST=api-gateway.default.svc.cluster.local
+    ports:
+    - 50020:50020
+
+  service-parser:
+    build:
+      context: .
+      dockerfile: server/service-parser/Dockerfile
+    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-parser:${IMAGE_TAG:?err}"
+    restart: always
+    environment:
+      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
+      - NATS_HOST=nats-cluster.default.svc.cluster.local
+      - DISCOVERY_HOST=service-parser.default.svc.cluster.local
+    ports:
+    - 50050:50050
+    
+  service-wallet:
+    build:
+      context: .
+      dockerfile: server/service-wallet/Dockerfile
+    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-wallet:${IMAGE_TAG:?err}"
+    restart: always
+    environment:
+      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
+      - NATS_HOST=nats-cluster.default.svc.cluster.local
+      - DISCOVERY_HOST=service-wallet.default.svc.cluster.local
+    ports:
+    - 50075:50075
+  
+  consul:
+    container_name: consul
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+    image: consul
+    command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
+  eventstore:
+    container_name: eventstore-node
+    ports:
+      - '2113:2113'
+      - '1113:1113'
+    image: eventstore/eventstore:release-5.0.8
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: changeit
+    restart: always
+    expose:
+      - 27017
+  
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    expose:
+      - 6379

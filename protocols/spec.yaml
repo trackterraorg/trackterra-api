@@ -1,0 +1,40 @@
+name: Spec
+type: Contract
+priority: 0
+transactions:
+  - name: SpecGoveranceStaking
+    contract: terra1dpe4fmcz2jqk6t50plw0gqa2q3he2tj6wex5cl
+    classifier:
+      shouldExistAttributes: ['send', 'staking']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: staking
+        contractKey: contract
+      ignoreContract: false
+    description: Spec Goverance Staking
+    tag: pool_deposit
+
+  - name: SpecClaimGoveranceRewards
+    contract: terra1dpe4fmcz2jqk6t50plw0gqa2q3he2tj6wex5cl
+    classifier:
+      shouldExistAttributes: ['harvest', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: harvest
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Spec Claim Goverance Rewards
+    tag: staking_rewards
+  
+  - name: SpecGoveranceUnStaking
+    contract: terra1dpe4fmcz2jqk6t50plw0gqa2q3he2tj6wex5cl
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Spec Goverance UnStaking
+    tag: pool_withdraw

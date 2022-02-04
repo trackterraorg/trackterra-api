@@ -1,0 +1,50 @@
+import * as Joi from 'joi';
+import { parserClasses } from '../parser';
+import { ProtocolType } from './protocol.interface';
+
+export const classifierScheme = {
+  shouldExistAttributes: Joi.array().required(),
+  shouldNotExistAttributes: Joi.array().required(),
+  contractAddressExtractKeys: Joi.object()
+    .keys({
+      mainKey: Joi.string().allow(null, ''),
+      contractKey: Joi.string().allow(null, ''),
+    })
+    .required(),
+  ignoreContract: Joi.boolean().required(),
+  skipForContracts: Joi.array().items(Joi.string()),
+};
+
+export const parserScheme = {
+  class: Joi.string().valid(...parserClasses),
+  description: Joi.string().allow(null),
+};
+
+export const transactionScheme = Joi.object().keys({
+  name: Joi.string().required().description('Transaction name is required'),
+  contract: Joi.alternatives()
+    .try(Joi.array().items(Joi.string()), Joi.string())
+    .allow(null, ''),
+  classifier: Joi.object().keys(classifierScheme).required(),
+  isEliminator: Joi.boolean(), // eliminates other events in the tx
+  parserClass: Joi.string()
+    .valid(...parserClasses)
+    .allow(null),
+  tag: Joi.string().required(),
+  description: Joi.string().allow(null),
+});
+
+export const protocolSchema = Joi.object()
+  .keys({
+    name: Joi.string().required().description('Protocol name is required'),
+    type: Joi.string()
+      .required()
+      .valid(ProtocolType.Contract, ProtocolType.Native, ProtocolType.Fail),
+    priority: Joi.number()
+      .greater(-1)
+      .less(101)
+      .required()
+      .description('Priority is required'),
+    transactions: Joi.array().min(1).items(transactionScheme),
+  })
+  .unknown();

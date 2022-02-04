@@ -1,0 +1,16 @@
+name: Loterra
+type: Contract
+priority: 0
+transactions:
+  - name: Cost
+    contract: terra1q2k29wwcz055q4ftx4eucsq6tg9wtulprjg75w
+    classifier:
+      shouldExistAttributes: ['register']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: register
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Loterra registeration cost
+    tag: cost
