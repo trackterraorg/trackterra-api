@@ -19,7 +19,7 @@ service:
   retryInterval: 5000
   tags: ["v1.0.0", "api"]
   name: io.trackterra.api.gateway
-  port: 50020
+  port: 2052
 loadbalance:
   ruleCls: RandomRule
 logger:

@@ -17,7 +17,7 @@ services:
       - NATS_HOST=nats
       - DISCOVERY_HOST=localhost
     ports:
-    - 50020:50020
+    - 2052:2052
     - 4000:4000
 
   service-parser:

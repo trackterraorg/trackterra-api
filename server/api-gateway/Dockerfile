@@ -20,5 +20,5 @@ RUN nest build api-gateway
 # Bundle app source
 COPY . .
 
-EXPOSE 50020 4000
+EXPOSE 2052 4000
 CMD ["node", "dist/server/api-gateway/main.js"]

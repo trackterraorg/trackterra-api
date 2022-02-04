@@ -13,7 +13,7 @@ services:
       - NATS_HOST=nats-cluster.default.svc.cluster.local
       - DISCOVERY_HOST=api-gateway.default.svc.cluster.local
     ports:
-    - 50020:50020
+    - 2052:2052
 
   service-parser:
     build:
