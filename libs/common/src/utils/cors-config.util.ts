@@ -1,7 +1,7 @@
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 const whitelist = [
-  '/example.com$/',
+  '/trackterra.org$/',
   'http://localhost:3000',
   'http://localhost:4000',
   'http://localhost:80',
