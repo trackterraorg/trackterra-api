@@ -9,7 +9,7 @@ const whitelist = [
 ];
 
 export const corsOptions: CorsOptions = {
-  origin: true,
+  origin: '*',
   // preflightContinue: true,
   credentials: true,
   optionsSuccessStatus: 200,
