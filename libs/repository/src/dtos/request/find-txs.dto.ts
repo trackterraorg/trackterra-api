@@ -3,7 +3,7 @@ import {
   ApiModelProperty,
   ApiModelPropertyOptional,
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { TaxAppView } from '@trackterra/repository/enums/txviews.enum';
+import { TaxApp } from '@trackterra/repository/enums/taxapp.enum';
 import { PageOptionsDto } from '../page-options.dto';
 // import { Type } from 'class-transformer';
 import {
@@ -19,12 +19,12 @@ import {
 
 export class FindTxs {
   @ApiModelPropertyOptional({
-    enum: Object.values(TaxAppView),
-    default: TaxAppView.regular,
+    enum: Object.values(TaxApp),
+    default: TaxApp.regular,
   })
-  @IsEnum(TaxAppView)
+  @IsEnum(TaxApp)
   // @IsNotEmpty()
-  readonly taxappview: TaxAppView = TaxAppView.regular;
+  readonly taxapp: TaxApp = TaxApp.regular;
 
   // @ApiModelProperty()
   // @IsBoolean()

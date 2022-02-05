@@ -11,7 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { WalletsRpcClientService } from '@trackterra/core';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
 import { mapTxToTaxApp } from 'server/service-wallet/src/common';
-import { FindTaxAppViewTxsResponse } from 'server/service-wallet/src/common/txview.types';
+import { FindTaxAppTxsResponse } from 'server/service-wallet/src/common/taxapp.types';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
 import { v1 as uuid } from 'uuid';
@@ -21,6 +21,8 @@ import * as _ from 'lodash';
 import { queryMapper, walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { RpcException } from '@nestjs/microservices';
+import { TaxApp } from '@trackterra/repository/enums/taxapp.enum';
+import { taxAppTitles } from 'server/service-wallet/src/common/taxapp.labels';
 @Controller('/api/v1')
 @ApiTags('Txs')
 export class WalletTxsController {
@@ -29,8 +31,8 @@ export class WalletTxsController {
   @Get('/txs/:address')
   async getTxs(
     @Param('address') address: string,
-    @Query() { taxappview, q, skip, take, order, orderBy, csv }: FindTxsDto,
-  ): Promise<FindTaxAppViewTxsResponse> {
+    @Query() { taxapp, q, skip, take, order, orderBy, csv }: FindTxsDto,
+  ): Promise<FindTaxAppTxsResponse> {
     const filter = q ? JSON.stringify(queryMapper(q)) : q;
     const result = await this.wallet.svc
       .findTxs({
@@ -49,10 +51,10 @@ export class WalletTxsController {
     if (!result) {
       throw new RpcException('Could not fetch txs!');
     }
-    const txs = await mapTxToTaxApp(result.txs, taxappview);
+    const txs = await mapTxToTaxApp(result.txs, taxapp);
 
     if (csv) {
-      const csvFileName = await this.createCsvFile(address, txs);
+      const csvFileName = await this.createCsvFile(address, txs, taxapp);
       return { csvFileName };
     }
 
@@ -83,7 +85,7 @@ export class WalletTxsController {
     }
   }
 
-  private async createCsvFile(address: string, txNodes: any[]) {
+  private async createCsvFile(address: string, txNodes: any[], taxapp: TaxApp) {
     const dir = join(walletsDir(), address);
 
     if (!fs.existsSync(dir)) {
@@ -99,12 +101,7 @@ export class WalletTxsController {
         return tx;
       });
 
-    const header = Object.keys(txs[0]).map((k) => {
-      return {
-        id: k,
-        title: k,
-      };
-    });
+    const header = taxAppTitles[taxapp];
 
     const csvWriter = createObjectCsvWriter({
       path: filePath,

@@ -9,24 +9,23 @@ import {
   TxNode,
 } from '@trackterra/proto-schema/wallet';
 import { TxEntity } from '@trackterra/repository';
-import { TaxAppView } from '@trackterra/repository/enums/txviews.enum';
-import { CurrenciesService } from 'server/service-parser/src/currencies/currencies.service';
+import { TaxApp } from '@trackterra/repository/enums/taxapp.enum';
 import _ = require('lodash');
 import moment = require('moment');
-import { TaxAppViewTxNode } from './txview.types';
+import { TaxAppTxNode } from './taxapp.types';
 
 export async function mapTxToTaxApp(
   txs: TxNode[],
-  taxapp: TaxAppView,
-): Promise<TaxAppViewTxNode[]> {
+  taxapp: TaxApp,
+): Promise<TaxAppTxNode[]> {
   let obj;
 
   switch (taxapp) {
-    case TaxAppView.koinly:
+    case TaxApp.koinly:
       obj = TxKoinly;
       break;
 
-    case TaxAppView.cointracker:
+    case TaxApp.cointracker:
       obj = TxCointracker;
       break;
 

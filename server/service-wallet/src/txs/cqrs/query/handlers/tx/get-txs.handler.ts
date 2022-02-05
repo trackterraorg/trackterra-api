@@ -28,7 +28,6 @@ import {
   txViewToCointrackerTx,
 } from 'server/service-wallet/src/common';
 import { cleanEmptyProperties } from '@trackterra/common';
-import { TaxAppView } from '@trackterra/repository/enums/txviews.enum';
 
 @QueryHandler(GetTxsQuery)
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
