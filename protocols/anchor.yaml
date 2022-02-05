@@ -59,7 +59,7 @@ transactions:
       contractAddressExtractKeys:
         mainKey: deposit_collateral
         contractKey: contract
-      ignoreContract: false
+      ignoreContract: true
       skipForContracts:
         - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     description: Anchor Collateral Deposit

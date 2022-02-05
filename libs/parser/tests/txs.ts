@@ -328,14 +328,14 @@ export const txHashes = {
     {
       label: 'Anchor withdraw liquidity',
       txHash:
-        '195D4986A36DD150A4423DA02152BEC9D72B5DB1F2176A833895BDA5ECA0BDFD',
-      walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
+        '5DDC0447C63FB32341BF1204B40491AAB5A63B6688959341E700F09EA0D4297A',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'Anchor withdraw liquidity',
       txHash:
-        'F04D2F78CE9491C5447677C7AF991142449DC186F06A792E9EE57046FC9BB971',
-      walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
+        '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };
