@@ -62,29 +62,3 @@ export function txEntityToView(txEntity: TxEntity): TxNode {
 
   return { tx, extras };
 }
-
-const txHeaderLabel = {
-  txhash: 'Txhash',
-  blockHeight: 'Block height',
-  timestamp: 'Timestamp',
-  label: 'Label',
-  tag: 'Tag',
-  walletAddress: 'Wallet address',
-  contract: 'Contract',
-  sender: 'Sender',
-  recipient: 'Recipient',
-  receivedAmount: 'Received amount',
-  receivedToken: 'Received token',
-  sentAmount: 'Sent amount',
-  sentToken: 'Sent token',
-  feeAmount: 'Fee amount',
-  feeToken: 'Fee token',
-  taxAmount: 'Tax amount',
-  taxToken: 'Tax token',
-  netWorthAmount: 'Networth amount',
-  netWorthToken: 'Networth token',
-  memo: 'Memo',
-  friendlyDescription: 'Friendly description',
-  createdAt: 'Created at',
-  updatedAt: 'Updated at',
-};
