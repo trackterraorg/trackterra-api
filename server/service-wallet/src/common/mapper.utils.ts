@@ -1,4 +1,4 @@
-import { fShortenHash, timeToRegularDateTime } from '@trackterra/common';
+import { fShortenHash, timeToRegularDateTime, timeToUtc } from '@trackterra/common';
 import {
   CreateTxRequest,
   Tx,
@@ -51,6 +51,7 @@ export function txViewToCointrackerTx(tx: Tx): TxCointracker {
 
 export function txEntityToView(txEntity: TxEntity): TxNode {
   const tx: Tx = txEntity as unknown as Tx;
+  tx.timestamp = timeToUtc(tx.timestamp);
   const extras: TxExtra = {
     sTxHash: fShortenHash(tx.txhash),
     rTimestamp: tx.timestamp,

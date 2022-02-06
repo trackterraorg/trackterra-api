@@ -19,6 +19,16 @@ export function timeToRegularDateTime<T extends string | Date>(
   }
 }
 
+export function timeToUtc(time: string | Date) {
+
+  if(_.isEmpty(time)) {
+    return;
+  }
+    
+  const FORMAT = "YYYY-MM-DD HH:mm:ss";
+  return moment(time).utc().format(FORMAT);
+}
+
 export function fShortenHash(text: string): string {
   if (_.isEmpty(text)) {
     return '';
