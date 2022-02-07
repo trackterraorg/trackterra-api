@@ -1,5 +1,4 @@
 import { Controller, Get, Param, Put } from '@nestjs/common';
-import { RpcException } from '@nestjs/microservices';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { CurrencyRpcClientService } from '@trackterra/core';
 import {

@@ -9,6 +9,7 @@ import { RpcException } from '@nestjs/microservices';
 import _ = require('lodash');
 import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/currency';
 import { FCDApiService } from '@trackterra/core';
+import { ContractInfo } from '@terra-money/terra.js';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyCommand> {
@@ -23,7 +24,6 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     this.logger = new Logger(this.constructor.name);
     this.logger.log(`Async ${command.constructor.name}...`);
     const { input } = command;
-
     try {
       if (input === null || _.isEmpty(input?.identifier)) {
         throw new RpcException('Currency identifier is missing'); 
@@ -36,15 +36,19 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
         identifier,
       });
 
-      if(! currency) {
-        const currency = await this.fcd.api.getContractInfo(identifier);
-        console.log(currency);
-        
-        // const parsedTxs = input.txs;
-  
-        // const txs = parsedTxs.map((tx) => tx as unknown as CurrencyEntity);
-  
-        // await this.txRepository.createMany(txs);
+      if(_.isEmpty(currency)) {
+        const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(identifier);
+
+        if(contractInfo) {
+          const {name, symbol, decimals} = contractInfo.init_msg;
+          currency = await this.currencyRepository.create({
+            name,
+            symbol,
+            decimals: decimals ?? 6,
+            icon: '',
+            identifier,
+          })
+        }
       }
 
       return {

@@ -11,7 +11,7 @@ import {
   WalletParsingEvent,
   FCDApiService,
   WalletsRpcClientService,
-  TxsParsedEvent,
+  CurrencyRpcClientService,
 } from '@trackterra/core';
 import { ParserController } from './parser.controller';
 import { ParserCommandHandlers } from './cqrs';
@@ -21,8 +21,6 @@ import { TTParser } from '@trackterra/parser';
 import { BullModule } from '@nestjs/bull';
 import { BullConfigService } from './configs/bull-config.service';
 import { PARSING_QUEUE_NAME } from './parser.constants';
-import { CurrenciesService } from '../currencies/currencies.service';
-import { CurrenciesModule } from '../currencies/currencies.module';
 
 @Module({
   imports: [
@@ -48,8 +46,7 @@ import { CurrenciesModule } from '../currencies/currencies.module';
     BullModule.registerQueueAsync({
       name: PARSING_QUEUE_NAME,
       useClass: BullConfigService,
-    }),
-    CurrenciesModule,
+    })
   ],
   providers: [
     TTParser,
@@ -58,6 +55,7 @@ import { CurrenciesModule } from '../currencies/currencies.module';
     ...ParserCommandHandlers,
     ParsingProcessQueue,
     WalletsRpcClientService,
+    CurrencyRpcClientService,
   ],
   controllers: [ParserController],
 })

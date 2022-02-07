@@ -1,14 +1,14 @@
+import { CurrencyRpcClientService } from '@trackterra/core';
 import { TTOutput } from '@trackterra/parser';
-import { Currency } from '@trackterra/proto-schema/parser';
+import { Currency } from '@trackterra/proto-schema/currency';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
-import { TxEntity } from '@trackterra/repository';
-import { CurrenciesService } from '../../currencies/currencies.service';
+import { CurrencyEntity } from '@trackterra/repository';
 
-export function txToTxCreateRequest(
+export async function txToTxCreateRequest(
   tx: TTOutput,
   walletAddress: string,
-  currencyService: CurrenciesService,
-): CreateTxRequest {
+  currencyRpcClientService: CurrencyRpcClientService,
+): Promise<CreateTxRequest> {
   const { blockHeight, timestamp } = tx;
 
   const modifiers = {
@@ -29,9 +29,15 @@ export function txToTxCreateRequest(
     const token = tx[txKey.token];
     const amount = tx[txKey.amount];
     if (token && amount) {
-      const currency: Currency = currencyService.findCurrency(token);
-      modifiers[txKey.token] = currency.presenter;
-      modifiers[txKey.amount] = tokenValue(currency, amount);
+      try {
+        const { currency } = await currencyRpcClientService.svc.upsertCurrency({
+          identifier: token
+        }).toPromise();
+        modifiers[txKey.token] = currency.symbol;
+        modifiers[txKey.amount] = tokenValue(currency, amount);
+      } catch(e) {
+        console.error(e);
+      }
     }
   }
 

@@ -69,7 +69,7 @@ export class FCDApi {
 
   async getContractInfo(address: string): Promise<ContractInfo> {
 
-    const result = await this._api.get(`/wasm/contract//${address}`);
+    const result = await this._api.get(`/wasm/contract/${address}`);
 
     if (result.ok) {
       const contractInfo: ContractInfo = result.data as unknown as ContractInfo;

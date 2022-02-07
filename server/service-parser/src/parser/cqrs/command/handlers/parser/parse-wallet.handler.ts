@@ -13,12 +13,10 @@ import moment = require('moment');
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import {
   PARSING_QUEUE_NAME,
-  QUEUE_PROCESS_IDS,
 } from 'server/service-parser/src/parser/parser.constants';
-import { FCDApiService, WalletsRpcClientService } from '@trackterra/core';
+import { CurrencyRpcClientService, FCDApiService, WalletsRpcClientService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { txToTxCreateRequest } from 'server/service-parser/src/parser/common/parser-mapper.utils';
-import { CurrenciesService } from 'server/service-parser/src/currencies/currencies.service';
 
 /**
  * @class
@@ -36,7 +34,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     private readonly fcdApiService: FCDApiService,
     private readonly parserService: TTParserService,
     private readonly walletRpcService: WalletsRpcClientService,
-    private readonly currenciesService: CurrenciesService,
+    private readonly currencyRpcClientService: CurrencyRpcClientService,
   ) {}
 
   /**
@@ -89,10 +87,10 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
               this.logger.log(`Parsed tx: ${tx.txhash}`);
               numberOfNewParsedTxs++;
               for (const resultTx of result) {
-                const mappedResult = txToTxCreateRequest(
+                const mappedResult = await txToTxCreateRequest(
                   resultTx,
                   address,
-                  this.currenciesService,
+                  this.currencyRpcClientService,
                 );
                 parsedTxs = parsedTxs.concat(mappedResult);
               }

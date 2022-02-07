@@ -4,8 +4,9 @@ import { GrpcMethod } from '@nestjs/microservices';
 import {
   GetCurrencyQuery,
   GetCurrenciesQuery,
+  UpsertCurrencyCommand,
 } from './cqrs';
-import { CurrencyService, FindCurrenciesRequest, FindCurrenciesResponse, FindCurrencyRequest, FindCurrencyResponse } from '@trackterra/proto-schema/currency';
+import { CurrencyService, FindCurrenciesRequest, FindCurrenciesResponse, FindCurrencyRequest, FindCurrencyResponse, UpsertCurrencyRequest, UpsertCurrencyResponse } from '@trackterra/proto-schema/currency';
 
 @Controller('currencies')
 export class CurrenciesController implements CurrencyService<any> {
@@ -13,6 +14,16 @@ export class CurrenciesController implements CurrencyService<any> {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
+
+  @GrpcMethod('CurrencyService')
+  upsertCurrency(
+    request: UpsertCurrencyRequest,
+    ctx: any,
+  ): Promise<UpsertCurrencyResponse> {
+    return this.commandBus.execute(
+      new UpsertCurrencyCommand(request),
+    );
+  }
 
   @GrpcMethod('CurrencyService')
   listCurrencies(

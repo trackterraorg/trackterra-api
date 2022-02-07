@@ -3,10 +3,9 @@ import { BaseEntity } from './base-entity';
 
 @Entity({ name: 'currencies' })
 export class CurrencyEntity extends BaseEntity<any> {
-  identifier: string;
-  presenter: string;
-  decimals: number;
-  symbol: string;
   name: string;
+  symbol: string;
+  decimals: number;
   icon: string;
+  identifier: string;
 }
