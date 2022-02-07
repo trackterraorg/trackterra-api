@@ -1,6 +1,6 @@
 import { ConsulConfig, InjectConfig } from '@nestcloud/config';
 import { Injectable } from '@nestjs/common';
-import { TxInfo } from '@terra-money/terra.js';
+import { ContractInfo, TxInfo } from '@terra-money/terra.js';
 import { ConsulFcdConfig } from '@trackterra/common';
 import { ApisauceInstance, create } from 'apisauce';
 
@@ -8,6 +8,10 @@ const DEFAULT_FCD_URL = 'https://fcd.trackterra.org/v1';
 const DEFAULT_LIMIT = 100;
 export class FCDApi {
   private readonly _api: ApisauceInstance;
+
+  public get api() {
+    return this._api;
+  }
 
   constructor(fcdUrl = undefined) {
     this._api = create({
@@ -17,7 +21,7 @@ export class FCDApi {
   }
 
   async getByTxHash(txHash: string): Promise<TxInfo> {
-    const result = await this._api.get(`/tx/${txHash}`);
+    const result = await this.api.get(`/tx/${txHash}`);
 
     if (result.ok) {
       const txInfo: TxInfo = this.mapTx(result);
@@ -42,7 +46,7 @@ export class FCDApi {
   }> {
     args.limit = args.limit ?? DEFAULT_LIMIT;
 
-    const result: any = await this._api.get(`/txs`, args);
+    const result: any = await this.api.get(`/txs`, args);
 
     if (result.ok) {
       const { next, block } = result.data;
@@ -62,4 +66,21 @@ export class FCDApi {
   private mapTx(result: any) {
     return JSON.parse(JSON.stringify(result.data));
   }
+
+  async getContractInfo(address: string): Promise<ContractInfo> {
+
+    const result = await this._api.get(`/wasm/contract//${address}`);
+
+    if (result.ok) {
+      const contractInfo: ContractInfo = result.data as unknown as ContractInfo;
+      return contractInfo;
+    }
+
+    if (result.problem) {
+      console.error(result.problem);
+    }
+
+    throw 'Could not fetch contract info';
+  }
+  
 }

@@ -7,14 +7,19 @@ import {
 } from '@trackterra/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ParserModule } from './parser/parser.module';
+import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   imports: [
+    CoreModule,
     ServiceRegistryModule,
-    CoreModule,
-    CoreModule,
-    ParserModule,
+    MongoModule.registerAsync({
+      useClass: MongoConfigService,
+    }),
+    CurrenciesModule,
+  ],
+  exports: [
+    ServiceRegistryModule
   ],
   controllers: [AppController],
   providers: [AppService],

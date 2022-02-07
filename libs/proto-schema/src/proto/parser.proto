@@ -10,15 +10,6 @@ service ParserService {
     rpc SupportedProtocols(SupportedProtocolsRequest) returns (SupportedProtocolsResponse) {}
 }
 
-message Currency {
-    string name = 1;
-    string symbol = 2;
-    string icon = 3;
-    int32 decimals = 4;
-    string identifier = 5;
-    string presenter = 6;
-}
-
 message ParseWalletRequest {
     string address = 1;
     uint32 highestParsedBlockHeight = 2;

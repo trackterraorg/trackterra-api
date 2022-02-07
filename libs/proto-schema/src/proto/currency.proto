@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+// import "google/protobuf/timestamp.proto";
+
+package io.trackterra.srv.currency;
+
+service CurrencyService {
+    rpc UpsertCurrency(UpsertCurrencyRequest) returns (UpsertCurrencyResponse) {}
+    rpc ListCurrencies(FindCurrenciesRequest) returns (FindCurrenciesResponse) {}
+}
+
+message Currency {
+    string name = 1;
+    string symbol = 2;
+    int32 decimals = 3;
+    string identifier = 4;
+    string icon = 5;
+}
+
+message UpsertCurrencyRequest {
+    string identifier = 1;
+}
+
+message UpsertCurrencyResponse {
+    Currency currency = 1;
+}
+
+message FindCurrencyRequest {
+    string filter = 1;
+}
+
+message FindCurrencyResponse {
+    Currency currency = 1;
+}
+
+message FindCurrenciesRequest {}
+
+message FindCurrenciesResponse {
+    repeated Currency currencies = 1;
+}

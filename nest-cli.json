@@ -112,6 +112,15 @@
       "compilerOptions": {
         "tsConfigPath": "server/service-wallet/tsconfig.app.json"
       }
+    },
+    "service-currency": {
+      "type": "application",
+      "root": "server/service-currency",
+      "entryFile": "main",
+      "sourceRoot": "server/service-currency/src",
+      "compilerOptions": {
+        "tsConfigPath": "server/service-currency/tsconfig.app.json"
+      }
     }
   }
 }

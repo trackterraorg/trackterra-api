@@ -9,6 +9,7 @@ import { SeedModule } from './seed.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { WalletTxsModule } from './wallet-txs/wallet-txs.module';
 import { ParserModule } from './parser/parser.module';
+import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ParserModule } from './parser/parser.module';
     WalletsModule,
     WalletTxsModule,
     ParserModule,
+    CurrenciesModule,
   ],
   providers: [AppService, CookieSerializer],
 })
