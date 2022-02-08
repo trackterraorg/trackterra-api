@@ -43,7 +43,7 @@ export class WalletTxsController {
           limit: take,
         },
         orderBy,
-        order: ['asc', 'desc'].includes(order) ? order : 'desc',
+        order,
         csv,
       })
       .toPromise();

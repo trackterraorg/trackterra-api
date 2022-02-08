@@ -63,7 +63,9 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       }
 
       const sort = {};
-      sort[orderBy ?? '_id'] = Order[order.toUpperCase()];
+      const sortDir = Order[(['asc', 'desc'].includes(order) ? order : 'desc').toUpperCase()];
+      const sortAttr = orderBy ?? 'blockHeight';
+      sort[sortAttr] = sortDir;
 
       const queryParams = {
         conditions,
