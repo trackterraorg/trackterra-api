@@ -3,6 +3,7 @@ import { TTOutput } from '@trackterra/parser';
 import { Currency } from '@trackterra/proto-schema/currency';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
 import { CurrencyEntity } from '@trackterra/repository';
+import _ = require('lodash');
 
 export async function txToTxCreateRequest(
   tx: TTOutput,
@@ -26,13 +27,15 @@ export async function txToTxCreateRequest(
   ];
 
   for (const txKey of txKeys) {
-    const token = tx[txKey.token];
+    let token = tx[txKey.token];
     const amount = tx[txKey.amount];
     if (token && amount) {
+      // for creating custom tokens
       try {
         const { currency } = await currencyRpcClientService.svc.upsertCurrency({
           identifier: token
         }).toPromise();
+
         modifiers[txKey.token] = currency.symbol;
         modifiers[txKey.amount] = tokenValue(currency, amount);
       } catch(e) {

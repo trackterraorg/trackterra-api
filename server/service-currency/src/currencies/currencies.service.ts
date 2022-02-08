@@ -14,7 +14,6 @@ export class CurrenciesService implements OnModuleInit {
   logger = new Logger(this.constructor.name);
 
   constructor(
-    @Inject(CACHE_MANAGER) private readonly cacheStore: CacheStore,
     private readonly currencyRepository: CurrencyRepository
   ) {}
 
@@ -26,7 +25,7 @@ export class CurrenciesService implements OnModuleInit {
     if (hasStableCoins && hasStableCoins.length > 0) {
       return;
     }
-
+    
     for (const stableCoin of stableCoins) {
       
       try {

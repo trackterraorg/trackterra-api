@@ -49,13 +49,6 @@ export function queryMapper(q: string) {
 
   let conj = '';
 
-  console.dir(
-    {
-      query,
-    },
-    { depth: 'null' },
-  );
-
   const prepare = (where) => {
     const { field, operator, value } = where;
     if (operator) {

@@ -1,4 +1,4 @@
-import { separateAmountFromToken, splitTokens } from '@trackterra/parser/utils';
+import { lpTokenCombiner, separateAmountFromToken, splitTokens } from '@trackterra/parser/utils';
 import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, TxLabel } from '..';
 import { ParserProcessArgs } from '../args';
@@ -19,7 +19,7 @@ export class LiquidationEngine {
 
     const mint = _.first(contractActions.mint);
     const recievedToken: IAmount = {
-      token: mint.contract as unknown as string,
+      token: lpTokenCombiner(contract, assetTokens),
       amount: ((mint.amount as unknown as number) /
         assetTokens.length) as unknown as string,
     };
@@ -61,7 +61,7 @@ export class LiquidationEngine {
     const burn = _.first(contractActions.burn);
 
     const recievedToken: IAmount = {
-      token: burn.contract as unknown as string,
+      token: lpTokenCombiner(contract, assetTokens),
       amount: ((burn.amount as unknown as number) /
         assetTokens.length) as unknown as string,
     };

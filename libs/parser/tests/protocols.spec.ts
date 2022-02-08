@@ -34,7 +34,6 @@ describe('The parser should classify and parse ', () => {
         if (result === undefined || result.length == 0) {
           console.log(`Could not parse ${protocol} ${tx.label} tx`);
         }
-        console.dir(result, { depth: 'null' });
       });
     });
   });

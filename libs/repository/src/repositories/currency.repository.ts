@@ -11,15 +11,7 @@ import {
 import { CurrencyEntity } from '../entities';
 
 @Injectable()
-@MongoEntityRepository({
-  name: 'currencies',
-  indexes: [
-    {
-      fields: { identifier: 1 },
-      options: { unique: true },
-    },
-  ],
-})
+@MongoEntityRepository({name: 'currencies'})
 export class CurrencyRepository extends BaseMongoRepository<CurrencyEntity> {
   constructor(
     @InjectClient() private readonly dbc: MongoClient,

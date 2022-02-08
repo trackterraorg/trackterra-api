@@ -32,8 +32,8 @@ export const findAttributes = (
 };
 
 export const separateAmountFromToken = (term: string): IAmount => {
-  const token = term.match(/[a-zA-Z]/g)?.join('');
-  const amount = term.match(/[0-9]/g)?.join('');
+  const amount = (term).replace(/(^\d+)(.+$)/i,'$1');
+  const token = term.substring(amount.length);
 
   if (token === undefined || amount === undefined) {
     throw new SeperateAmountFromTokenException();
@@ -52,8 +52,35 @@ export const splitTokens = (tokens: string): IAmount[] => {
 
   const tokensWithoutSpace = _.replace(tokens, ' ', '');
   const assetsSep = _.split(tokensWithoutSpace, ',');
-
+  
   return assetsSep.map((asset) => {
     return separateAmountFromToken(asset);
   });
 };
+
+export const lpTokenCombiner = (identifier: string, tokens: IAmount[]): string => {
+  const cTokens = tokens.map(token => token.token).join(',');
+  return `${identifier},${cTokens}`
+}
+
+export const lpTokenSplitter = (token: string): {
+  identifier: string,
+  tokens: string[]
+} => {
+
+  const split = _.split(token, ",");
+
+  if(split.length > 1) {
+    const identifier = split.shift();
+    const tokens = split;
+    return {
+      identifier,
+      tokens
+    }
+  }
+
+  return {
+    identifier: token,
+    tokens: [token],
+  };
+}
