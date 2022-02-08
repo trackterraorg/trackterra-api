@@ -19,7 +19,7 @@ export class LiquidationEngine {
 
     const mint = _.first(contractActions.mint);
     const recievedToken: IAmount = {
-      token: lpTokenCombiner(contract, assetTokens),
+      token: lpTokenCombiner(contract, assetTokens.map((token) => token.token)),
       amount: ((mint.amount as unknown as number) /
         assetTokens.length) as unknown as string,
     };
@@ -61,7 +61,7 @@ export class LiquidationEngine {
     const burn = _.first(contractActions.burn);
 
     const recievedToken: IAmount = {
-      token: lpTokenCombiner(contract, assetTokens),
+      token: lpTokenCombiner(contract, assetTokens.map((token) => token.token)),
       amount: ((burn.amount as unknown as number) /
         assetTokens.length) as unknown as string,
     };

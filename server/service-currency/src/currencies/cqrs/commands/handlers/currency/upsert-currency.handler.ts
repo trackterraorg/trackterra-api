@@ -10,7 +10,7 @@ import _ = require('lodash');
 import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/currency';
 import { FCDApiService } from '@trackterra/core';
 import { ContractInfo } from '@terra-money/terra.js';
-import { lpTokenSplitter } from '@trackterra/parser/utils';
+import { lpTokenCombiner, lpTokenSplitter } from '@trackterra/parser/utils';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyCommand> {
@@ -42,29 +42,12 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
       }
 
       if(identifier.indexOf(',') === -1) {
-        return {
-          currency: await this.upsertCurrency(identifier)
-        };
+        currency = await this.upsertCurrency(identifier);
+        return { currency };
       }
 
-      const tokenSymbols = [];
-      const tokens = lpTokenSplitter(identifier)?.tokens;
-
-      for (const token of tokens) {
-        const result = await this.upsertCurrency(token);
-        tokenSymbols.push(result.symbol);
-      }
+      const lpToken = this.generateUlpToken(identifier);
       
-      const lpTokenName = tokenSymbols.join("-") + "_LP";
-
-      const lpToken = await this.currencyRepository.create({
-        name: lpTokenName,
-        symbol: lpTokenName,
-        identifier,
-        icon: '',
-        decimals: 6,
-      });
-
       return {
         currency: lpToken as unknown as Currency,
       };
@@ -87,7 +70,15 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     
     const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(identifier);
 
-    const currFromFcd: Partial<Currency> = contractInfo?.init_msg
+    const initMsg: any = contractInfo?.init_msg
+
+    if(initMsg?.symbol.toLowerCase() == 'ulp') {
+      const currency = await this.getTokenFromULPContract(initMsg.init_hook.contract_addr);
+      console.dir(currency, {depth: 'null'});
+      return currency;
+    }
+
+    const currFromFcd: Partial<Currency> = initMsg;
 
     currency = await this.currencyRepository.create({
       name: currFromFcd?.name,
@@ -98,6 +89,45 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     });
 
     return currency;
+  }
+
+  private async getTokenFromULPContract(contractAddress: string): Promise<CurrencyEntity> {
+    const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(contractAddress);
+
+    const assets = contractInfo.init_msg.asset_infos.map((asset): string => {
+      if(Object.keys(asset).includes("native_token")) {
+        return asset.native_token.denom;
+      }
+      if(Object.keys(asset).includes("token")) {
+        return asset.token.contract_addr;
+      }
+    }).filter(asset => asset != undefined);
+
+    const currency = await this.generateUlpToken(lpTokenCombiner(contractAddress, assets));
+    return currency;
+  }
+
+  private async generateUlpToken(identifier: string) : Promise<CurrencyEntity>{
+
+    const tokenSymbols = [];
+    const tokens = lpTokenSplitter(identifier)?.tokens;
+
+    for (const token of tokens) {
+      const result = await this.upsertCurrency(token);
+      tokenSymbols.push(result.symbol);
+    }
+    
+    const lpTokenName = tokenSymbols.join("-") + "_LP";
+
+    const lpToken = await this.currencyRepository.create({
+      name: lpTokenName,
+      symbol: lpTokenName,
+      identifier,
+      icon: '',
+      decimals: 6,
+    });
+
+    return lpToken;
   }
 
 }

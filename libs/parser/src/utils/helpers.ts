@@ -58,8 +58,8 @@ export const splitTokens = (tokens: string): IAmount[] => {
   });
 };
 
-export const lpTokenCombiner = (identifier: string, tokens: IAmount[]): string => {
-  const cTokens = tokens.map(token => token.token).join(',');
+export const lpTokenCombiner = (identifier: string, tokens: string[]): string => {
+  const cTokens = tokens.join(',');
   return `${identifier},${cTokens}`
 }
 
