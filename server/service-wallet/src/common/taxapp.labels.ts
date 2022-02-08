@@ -23,7 +23,7 @@ export const taxAppTitles = {
   ],
 
   koinly: [
-    { id: 'timestamp', title: 'Timestamp' },
+    { id: 'timestamp', title: 'Date' },
     { id: 'sentAmount', title: 'Sent Amount' },
     { id: 'sentToken', title: 'Sent Currency' },
     { id: 'receivedAmount', title: 'Received Amount' },
@@ -32,18 +32,17 @@ export const taxAppTitles = {
     { id: 'feeToken', title: 'Fee Currency' },
     { id: 'netWorthAmount', title: 'Networth Amount' },
     { id: 'netWorthToken', title: 'Networth Currency' },
-    { id: 'label', title: 'Label' },
-    { id: 'tag', title: 'Tag' },
+    { id: 'tag', title: 'Label' },
     { id: 'friendlyDescription', title: 'Description' },
     { id: 'txhash', title: 'Tx hash' },
   ],
 
   cointracker: [
-    { id: 'timestamp', title: 'Timestamp' },
-    { id: 'receivedAmount', title: 'Received amount' },
-    { id: 'receivedToken', title: 'Received token' },
-    { id: 'sentAmount', title: 'Sent amount' },
-    { id: 'sentToken', title: 'Sent token' },
+    { id: 'timestamp', title: 'Date' },
+    { id: 'receivedAmount', title: 'Received Quantity' },
+    { id: 'receivedToken', title: 'Received Currency' },
+    { id: 'sentAmount', title: 'Sent Quantity' },
+    { id: 'sentToken', title: 'Sent Currency' },
     { id: 'feeAmount', title: 'Fee amount' },
     { id: 'feeToken', title: 'Fee token' },
     { id: 'label', title: 'Label' },
