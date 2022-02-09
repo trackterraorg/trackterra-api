@@ -18,7 +18,7 @@ service:
   maxRetry: 5
   retryInterval: 5000
   tags: ["v1.0.0", "microservice"]
-  name: io.trackterra.srv.currency
+  name: io.trackterra.srv.contract
   port: 50060
 loadbalance:
   ruleCls: RandomRule

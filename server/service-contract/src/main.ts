@@ -14,7 +14,7 @@ async function bootstrap() {
       new FastifyAdapter(),
     ),
   );
-  await microserviceSetup(app, 'proto/currency.proto', {
+  await microserviceSetup(app, 'proto/contract.proto', {
     enableNats: false,
     enableMqtt: false,
   });

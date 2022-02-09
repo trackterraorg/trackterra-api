@@ -2,11 +2,11 @@ database:
   app:
     port: 9800
     database:
-      name: "srv-currency"
+      name: "srv-contract"
 
   mongodb:
     uri: mongodb://localhost:27017/
-    name: srv-currency
+    name: srv-contract
     options: ""
 
   eventstore:

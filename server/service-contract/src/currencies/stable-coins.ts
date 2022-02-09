@@ -1,4 +1,4 @@
-import { Currency } from "@trackterra/proto-schema/currency";
+import { Currency } from "@trackterra/proto-schema/contract";
 
 const stableCoins: Currency[] = [
     {

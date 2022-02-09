@@ -1,6 +1,6 @@
-import { CurrencyRpcClientService } from '@trackterra/core';
+import { ContractRpcClientService } from '@trackterra/core';
 import { TTOutput } from '@trackterra/parser';
-import { Currency } from '@trackterra/proto-schema/currency';
+import { Currency } from '@trackterra/proto-schema/contract';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
 import { CurrencyEntity } from '@trackterra/repository';
 import _ = require('lodash');
@@ -8,7 +8,7 @@ import _ = require('lodash');
 export async function txToTxCreateRequest(
   tx: TTOutput,
   walletAddress: string,
-  currencyRpcClientService: CurrencyRpcClientService,
+  currencyRpcClientService: ContractRpcClientService,
 ): Promise<CreateTxRequest> {
   const { blockHeight, timestamp } = tx;
 

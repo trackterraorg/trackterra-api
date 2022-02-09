@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "outDir": "../../dist/server/service-currency"
+    "outDir": "../../dist/server/service-contract"
   },
   "include": ["src/**/*", "definitions/type.d.ts"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]

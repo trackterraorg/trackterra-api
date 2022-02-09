@@ -11,7 +11,7 @@ import {
   WalletParsingEvent,
   FCDApiService,
   WalletsRpcClientService,
-  CurrencyRpcClientService,
+  ContractRpcClientService,
 } from '@trackterra/core';
 import { ParserController } from './parser.controller';
 import { ParserCommandHandlers } from './cqrs';
@@ -55,7 +55,7 @@ import { PARSING_QUEUE_NAME } from './parser.constants';
     ...ParserCommandHandlers,
     ParsingProcessQueue,
     WalletsRpcClientService,
-    CurrencyRpcClientService,
+    ContractRpcClientService,
   ],
   controllers: [ParserController],
 })

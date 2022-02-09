@@ -5,7 +5,7 @@ import { corsApollOptions } from '@trackterra/common';
 import { buildContext } from 'graphql-passport';
 import { ConsulConfig, InjectConfig } from '@nestcloud/config';
 import {
-  CurrencyRpcClientService,
+  ContractRpcClientService,
   GqlContext,
   ParserRpcClientService,
   WalletsRpcClientService,
@@ -18,7 +18,7 @@ export class GqlConfigService implements GqlOptionsFactory {
     @InjectConfig() private readonly config: ConsulConfig,
     private readonly parser: ParserRpcClientService,
     private readonly wallet: WalletsRpcClientService,
-    private readonly currency: CurrencyRpcClientService,
+    private readonly currency: ContractRpcClientService,
   ) {}
 
   createGqlOptions(): Promise<GqlModuleOptions> | GqlModuleOptions {

@@ -7,11 +7,11 @@ export const SERVICE_LIST = {
     service: 'WalletService',
     protoPath: baseUrl + 'proto/wallet.proto',
   },
-  currency: {
-    package: 'io.trackterra.srv.currency',
-    consulName: 'io.trackterra.srv.currency',
-    service: 'CurrencyService',
-    protoPath: baseUrl + 'proto/currency.proto',
+  contract: {
+    package: 'io.trackterra.srv.contract',
+    consulName: 'io.trackterra.srv.contract',
+    service: 'ContractService',
+    protoPath: baseUrl + 'proto/contract.proto',
   },
   parser: {
     package: 'io.trackterra.srv.parser',

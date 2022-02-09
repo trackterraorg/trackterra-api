@@ -6,16 +6,16 @@ import {
   GetCurrenciesQuery,
   UpsertCurrencyCommand,
 } from './cqrs';
-import { CurrencyService, FindCurrenciesRequest, FindCurrenciesResponse, FindCurrencyRequest, FindCurrencyResponse, UpsertCurrencyRequest, UpsertCurrencyResponse } from '@trackterra/proto-schema/currency';
+import { ContractService, FindCurrenciesRequest, FindCurrenciesResponse, FindCurrencyRequest, FindCurrencyResponse, UpsertCurrencyRequest, UpsertCurrencyResponse } from '@trackterra/proto-schema/contract';
 
 @Controller('currencies')
-export class CurrenciesController implements CurrencyService<any> {
+export class CurrenciesController {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
   ) {}
 
-  @GrpcMethod('CurrencyService')
+  @GrpcMethod('ContractService')
   upsertCurrency(
     request: UpsertCurrencyRequest,
     ctx: any,
@@ -25,7 +25,7 @@ export class CurrenciesController implements CurrencyService<any> {
     );
   }
 
-  @GrpcMethod('CurrencyService')
+  @GrpcMethod('ContractService')
   listCurrencies(
     request: FindCurrenciesRequest,
     ctx: any,
@@ -35,7 +35,7 @@ export class CurrenciesController implements CurrencyService<any> {
     );
   }
 
-  @GrpcMethod('CurrencyService')
+  @GrpcMethod('ContractService')
   findCurrency(
     request: FindCurrencyRequest,
     ctx: any,

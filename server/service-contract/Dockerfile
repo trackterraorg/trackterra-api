@@ -16,10 +16,10 @@ RUN yarn install --production=false
 
 # Build production files
 RUN nest build proto-schema
-RUN nest build service-currency
+RUN nest build service-contract
 
 # Bundle app source
 COPY . .
 
 EXPOSE 50050
-CMD ["node", "dist/server/service-currency/main.js"]
+CMD ["node", "dist/server/service-contract/main.js"]

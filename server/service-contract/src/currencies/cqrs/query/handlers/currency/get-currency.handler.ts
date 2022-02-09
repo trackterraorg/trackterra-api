@@ -4,7 +4,7 @@ import { CurrencyRepository, CurrencyEntity } from '@trackterra/repository';
 import { GetCurrencyQuery } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import _ = require('lodash');
-import { Currency, FindCurrencyRequest, FindCurrencyResponse } from '@trackterra/proto-schema/currency';
+import { Currency, FindCurrencyRequest, FindCurrencyResponse } from '@trackterra/proto-schema/contract';
 import { utils } from '@juicycleff/repo-orm';
 
 @QueryHandler(GetCurrencyQuery)

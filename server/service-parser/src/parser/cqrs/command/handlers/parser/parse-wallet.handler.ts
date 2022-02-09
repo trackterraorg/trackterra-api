@@ -14,7 +14,7 @@ import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import {
   PARSING_QUEUE_NAME,
 } from 'server/service-parser/src/parser/parser.constants';
-import { CurrencyRpcClientService, FCDApiService, WalletsRpcClientService } from '@trackterra/core';
+import { ContractRpcClientService, FCDApiService, WalletsRpcClientService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { txToTxCreateRequest } from 'server/service-parser/src/parser/common/parser-mapper.utils';
 
@@ -34,7 +34,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     private readonly fcdApiService: FCDApiService,
     private readonly parserService: TTParserService,
     private readonly walletRpcService: WalletsRpcClientService,
-    private readonly currencyRpcClientService: CurrencyRpcClientService,
+    private readonly currencyRpcClientService: ContractRpcClientService,
   ) {}
 
   /**

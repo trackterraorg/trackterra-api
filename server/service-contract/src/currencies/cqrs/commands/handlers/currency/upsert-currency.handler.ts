@@ -7,7 +7,7 @@ import {
 import { UpsertCurrencyCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import _ = require('lodash');
-import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/currency';
+import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/contract';
 import { FCDApiService } from '@trackterra/core';
 import { ContractInfo } from '@terra-money/terra.js';
 import { lpTokenCombiner, lpTokenSplitter } from '@trackterra/parser/utils';

@@ -3,7 +3,7 @@ import {
   GlobalClientService,
   ParserRpcClientService,
   WalletsRpcClientService,
-  CurrencyRpcClientService,
+  ContractRpcClientService,
 } from '@trackterra/core';
 
 @Global()
@@ -12,13 +12,13 @@ import {
     GlobalClientService,
     ParserRpcClientService,
     WalletsRpcClientService,
-    CurrencyRpcClientService,
+    ContractRpcClientService,
   ],
   exports: [
     GlobalClientService,
     ParserRpcClientService,
     WalletsRpcClientService,
-    CurrencyRpcClientService,
+    ContractRpcClientService,
   ],
 })
 export class GlobalClientModule {}

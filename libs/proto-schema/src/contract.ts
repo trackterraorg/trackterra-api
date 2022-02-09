@@ -65,7 +65,7 @@ const baseFindCurrenciesResponse: object = {
   currencies: undefined,
 };
 
-export interface CurrencyService<Context extends DataLoaders> {
+export interface ContractService<Context extends DataLoaders> {
 
   upsertCurrency(request: UpsertCurrencyRequest, ctx: Context): Promise<UpsertCurrencyResponse>;
 
@@ -73,7 +73,7 @@ export interface CurrencyService<Context extends DataLoaders> {
 
 }
 
-export interface CurrencyServiceClient<Context extends DataLoaders> {
+export interface ContractServiceClient<Context extends DataLoaders> {
 
   upsertCurrency(request: UpsertCurrencyRequest, ctx?: Context): Observable<UpsertCurrencyResponse>;
 

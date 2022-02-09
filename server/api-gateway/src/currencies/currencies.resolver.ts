@@ -13,7 +13,7 @@ import {
 import { GqlContext, setRpcContext } from '@trackterra/core';
 import {
   Currency as CurrencyRpc,
-} from '@trackterra/proto-schema/currency';
+} from '@trackterra/proto-schema/contract';
 
 @Resolver()
 export class CurrenciesResolver {

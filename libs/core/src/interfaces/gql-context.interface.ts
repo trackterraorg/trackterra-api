@@ -2,7 +2,7 @@ import { Request as ExpressRequest } from 'express';
 import {
   WalletsRpcClientService,
   ParserRpcClientService,
-  CurrencyRpcClientService,
+  ContractRpcClientService,
 } from '@trackterra/core/services';
 import { Context } from 'apollo-server-core/src/types';
 
@@ -12,6 +12,6 @@ export interface GqlContext extends Partial<Context> {
   rpc: {
     wallet: WalletsRpcClientService;
     parser: ParserRpcClientService;
-    currency: CurrencyRpcClientService;
+    currency: ContractRpcClientService;
   };
 }

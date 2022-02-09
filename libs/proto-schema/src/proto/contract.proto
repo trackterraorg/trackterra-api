@@ -2,9 +2,9 @@ syntax = "proto3";
 
 // import "google/protobuf/timestamp.proto";
 
-package io.trackterra.srv.currency;
+package io.trackterra.srv.contract;
 
-service CurrencyService {
+service ContractService {
     rpc UpsertCurrency(UpsertCurrencyRequest) returns (UpsertCurrencyResponse) {}
     rpc ListCurrencies(FindCurrenciesRequest) returns (FindCurrenciesResponse) {}
 }
