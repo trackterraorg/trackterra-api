@@ -1,7 +1,12 @@
 import { TxCointracker } from "@trackterra/proto-schema/wallet";
-import { ICsvHeaderCell, ITaxApp } from "../interfaces/base.taxapp";
+import { ITaxApp } from "../interfaces/base.taxapp.interface";
+import { ICsvHeaderCell } from "../interfaces/csv-header-cell.interface";
+import { ITagTransform } from "../interfaces/tag-transform.interface";
+import { BaseTaxApp } from "./base.taxapp";
 
-export class CoinTracker implements ITaxApp {
+export class CoinTracker extends BaseTaxApp implements ITaxApp {
+
+    specialTags = {};
     
     txObj() {
         return TxCointracker;
@@ -20,5 +25,4 @@ export class CoinTracker implements ITaxApp {
             { id: 'tag', title: 'Tag' },
         ]
     }
-
 }

@@ -21,8 +21,8 @@ import { queryMapper, walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { RpcException } from '@nestjs/microservices';
 import { TaxappSelector } from '@trackterra/tax-apps/apps';
-import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/base.taxapp';
 import { FindTaxAppTxsResponse } from 'server/service-wallet/src/common/taxapp.types';
+import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
 @Controller('/api/v1')
 @ApiTags('Txs')
 export class WalletTxsController {

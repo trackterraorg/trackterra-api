@@ -1,7 +1,15 @@
 import { TxKoinly } from "@trackterra/proto-schema/wallet";
-import { ICsvHeaderCell, ITaxApp } from "../interfaces/base.taxapp";
+import { ITaxApp } from "../interfaces/base.taxapp.interface";
+import { ICsvHeaderCell } from "../interfaces/csv-header-cell.interface";
+import { ITagTransform } from "../interfaces/tag-transform.interface";
+import { BaseTaxApp } from "./base.taxapp";
 
-export class Koinly implements ITaxApp {
+export class Koinly extends BaseTaxApp implements ITaxApp {
+
+    specialTags = {
+        Fee: 'cost',
+        StakingRewards: 'reward',
+    }
 
     txObj() {
         return TxKoinly;

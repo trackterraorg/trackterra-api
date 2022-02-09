@@ -1,7 +1,13 @@
 import { Tx } from "@trackterra/proto-schema/wallet";
-import { ICsvHeaderCell, ITaxApp } from "../interfaces/base.taxapp";
+import { ITaxApp } from "../interfaces/base.taxapp.interface";
+import { ICsvHeaderCell } from "../interfaces/csv-header-cell.interface";
+import { ITagTransform } from "../interfaces/tag-transform.interface";
+import { BaseTaxApp } from "./base.taxapp";
 
-export class Regular implements ITaxApp {
+export class Regular extends BaseTaxApp implements ITaxApp {
+
+    specialTags = {};
+
     txObj() {
         return Tx;
     };
@@ -30,5 +36,4 @@ export class Regular implements ITaxApp {
             { id: 'friendlyDescription', title: 'Friendly description' },
         ]
     }
-
 }

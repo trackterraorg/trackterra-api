@@ -1,12 +1,13 @@
 export enum TxTag {
-  Delegate = 'Delegate',
-  Fail = 'Fail',
-  Fee = 'Fee',
-  Mint = 'Mint',
-  PoolDeposit = 'Pool deposit',
-  PoolWithdrawal = 'Pool withdrawal',
-  RemoveLiquidity = 'Remove liquidity',
-  Swap = 'Swap',
+  Delegate = 'delegate',
+  Fail = 'fail',
+  Fee = 'fee',
+  Mint = 'mint',
+  PoolDeposit = 'pool_deposit',
+  PoolWithdrawal = 'pool_withdrawal',
+  RemoveLiquidity = 'remove_liquidity',
+  StakingRewards = 'staking_rewards',
+  Swap = 'swap',
 }
 
 export enum TxStatus {
