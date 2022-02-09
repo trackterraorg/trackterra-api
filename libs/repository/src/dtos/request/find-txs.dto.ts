@@ -3,7 +3,7 @@ import {
   ApiModelProperty,
   ApiModelPropertyOptional,
 } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
-import { TaxApp } from '@trackterra/repository/enums/taxapp.enum';
+import { TaxApp } from '@trackterra/tax-apps/enums/taxapp.enum';
 import { PageOptionsDto } from '../page-options.dto';
 // import { Type } from 'class-transformer';
 import {

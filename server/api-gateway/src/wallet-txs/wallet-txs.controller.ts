@@ -11,7 +11,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { WalletsRpcClientService } from '@trackterra/core';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
 import { mapTxToTaxApp } from 'server/service-wallet/src/common';
-import { FindTaxAppTxsResponse } from 'server/service-wallet/src/common/taxapp.types';
 import { mkdirSync } from 'fs';
 import { join } from 'path';
 import { v1 as uuid } from 'uuid';
@@ -21,8 +20,9 @@ import * as _ from 'lodash';
 import { queryMapper, walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { RpcException } from '@nestjs/microservices';
-import { TaxApp } from '@trackterra/repository/enums/taxapp.enum';
-import { taxAppTitles } from 'server/service-wallet/src/common/taxapp.labels';
+import { TaxappSelector } from '@trackterra/tax-apps/apps';
+import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/base.taxapp';
+import { FindTaxAppTxsResponse } from 'server/service-wallet/src/common/taxapp.types';
 @Controller('/api/v1')
 @ApiTags('Txs')
 export class WalletTxsController {
@@ -51,10 +51,13 @@ export class WalletTxsController {
     if (!result) {
       throw new RpcException('Could not fetch txs!');
     }
-    const txs = await mapTxToTaxApp(result.txs, taxapp);
+
+    const objTaxapp = TaxappSelector.select(taxapp);
+
+    const txs = await mapTxToTaxApp(result.txs, objTaxapp);
 
     if (csv) {
-      const csvFileName = await this.createCsvFile(address, txs, taxapp);
+      const csvFileName = await this.createCsvFile(address, txs, objTaxapp.csvCells());
       return { csvFileName };
     }
 
@@ -85,7 +88,7 @@ export class WalletTxsController {
     }
   }
 
-  private async createCsvFile(address: string, txNodes: any[], taxapp: TaxApp) {
+  private async createCsvFile(address: string, txNodes: any[], header: ICsvHeaderCell[]) {
     const dir = join(walletsDir(), address);
 
     if (!fs.existsSync(dir)) {
@@ -100,8 +103,6 @@ export class WalletTxsController {
         delete tx.id;
         return tx;
       });
-
-    const header = taxAppTitles[taxapp];
 
     const csvWriter = createObjectCsvWriter({
       path: filePath,

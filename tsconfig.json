@@ -65,6 +65,9 @@
       ],
       "@trackterra/proto-schema/*": [
         "libs/proto-schema/src/*"
+      ],
+      "@trackterra/tax-apps/*": [
+        "libs/tax-apps/src/*"
       ]
     }
   },
