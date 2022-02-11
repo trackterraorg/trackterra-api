@@ -1,5 +1,5 @@
 import _ = require('lodash');
-import { IAmount, IParsedTx, TxLabel } from '..';
+import { IAmount, IParsedTx, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 
 export class MintEngine {
@@ -19,7 +19,7 @@ export class MintEngine {
       walletAddress,
       contract,
       label: TxLabel.Deposit,
-      tag: txType.tag,
+      tag: txType.tag ?? TxTag.PoolDeposit,
       sender,
       recipient,
       receivedAmount,

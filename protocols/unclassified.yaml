@@ -12,7 +12,7 @@ transactions:
         contractKey: any
       ignoreContract: true
     parserClass: Swap
-    tag: Unclassified
+    tag: swap
 
   - name: Transfer
     contract: 
@@ -23,10 +23,8 @@ transactions:
         mainKey: any
         contractKey: any
       ignoreContract: true
-    tag: Unclassified
-      
 
-  - name: Send
+  - name: Transfer
     contract: 
     classifier:
       shouldExistAttributes: ['send']
@@ -35,5 +33,5 @@ transactions:
         mainKey: any
         contractKey: any
       ignoreContract: true
-    tag: Unclassified
+    tag: withdraw
       

@@ -1,4 +1,4 @@
-name: Anchor
+name: Pylon
 type: Contract
 priority: 0
 transactions:
@@ -24,7 +24,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Pylon Goverance Unstaking
-    tag: pool_withdraw
+    tag: pool_withdrawal
 
   - name: PylonClaimRewards
     contract: terra1xu8utj38xuw6mjwck4n97enmavlv852zkcvhgp

@@ -13,8 +13,8 @@ transactions:
       ignoreContract: true
     isEliminator: true
     description: withdraw liquidity
-    tag: remove_liquidity
     parserClass: WithdrawLiquidity
+    tag: swap
 
   - name: ProvideLiquidity
     contract: 
@@ -27,5 +27,5 @@ transactions:
       ignoreContract: true
     isEliminator: true
     description: Add liquidity
-    tag: add_liquidity
     parserClass: ProvideLiquidity
+    tag: swap

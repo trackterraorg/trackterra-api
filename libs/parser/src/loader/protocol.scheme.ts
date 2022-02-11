@@ -1,5 +1,5 @@
 import * as Joi from 'joi';
-import { parserClasses } from '../parser';
+import { parserClasses, TxLabel, TxTag } from '../parser';
 import { ProtocolType } from './protocol.interface';
 
 export const classifierScheme = {
@@ -30,7 +30,7 @@ export const transactionScheme = Joi.object().keys({
   parserClass: Joi.string()
     .valid(...parserClasses)
     .allow(null),
-  tag: Joi.string().required(),
+  tag: Joi.string().allow(null, '').valid(...Object.values(TxTag)),
   description: Joi.string().allow(null),
 });
 

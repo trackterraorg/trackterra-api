@@ -11,7 +11,6 @@ transactions:
         mainKey: 
         contractKey: 
       ignoreContract: true
-    tag: native trasfer
 
   - name: NativeDelegate
     contract: 
@@ -23,7 +22,7 @@ transactions:
         contractKey: 
       ignoreContract: true
     parserClass: NativeDelegate
-    tag: native delegate
+    tag: native_delegation
 
   - name: NativeReward
     contract: 
@@ -35,4 +34,4 @@ transactions:
         contractKey: 
       ignoreContract: true
     parserClass: NativeReward
-    tag: native reward
+    tag: native_claim_rewards

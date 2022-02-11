@@ -15,7 +15,7 @@ transactions:
       ignoreContract: false
     parserClass: NexusVaultDeposit
     description: Nexus vault deposit
-    tag: Not defined yet
+    tag: swap
 
   - name: Nexus burn Nluna for Bluna
     contract: terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
@@ -28,7 +28,7 @@ transactions:
       ignoreContract: false
     parserClass: NexusVaultDeposit
     description: Nexus burn Nluna for Bluna
-    tag: Not defined yet
+    tag: swap
 
   - name: Nexus Pool Deposit
     contract: terra1xrk6v2tfjrhjz2dsfecj40ps7ayanjx970gy0j
@@ -40,9 +40,9 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Nexus governance deposit
-    tag: Not defined yet
+    tag: pool_deposit
 
-  - name: Nexus Pool Deposit
+  - name: Nexus Pool Withdraw
     contract: terra1xrk6v2tfjrhjz2dsfecj40ps7ayanjx970gy0j
     classifier:
       shouldExistAttributes: ['withdraw']
@@ -52,4 +52,4 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Nexus governance withdraw
-    tag: Not defined yet
+    tag: pool_withdrawal

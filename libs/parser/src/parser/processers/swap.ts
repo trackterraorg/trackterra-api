@@ -2,7 +2,7 @@ import { TxLabel } from '../parser.enums';
 import { InvalidDataException } from '../../exceptions';
 import { ParserProcessArgs } from '../args';
 import { IParsedTx, IParser } from '../parser.interfaces';
-import { ISwapAction } from '..';
+import { ISwapAction, TxTag } from '..';
 import _ = require('lodash');
 
 export class SwapEngine {
@@ -23,7 +23,7 @@ export class SwapEngine {
         walletAddress,
         contract: firstSwapAction.contract,
         label: TxLabel.Swap,
-        tag: txType.tag,
+        tag: txType.tag ?? TxTag.Swap,
         sender: firstSwapAction.sender,
         sentAmount: firstSwapAction.offer_amount,
         sentToken: firstSwapAction.offer_asset,

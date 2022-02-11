@@ -1,4 +1,4 @@
-name: Anchor
+name: Apollo
 type: Contract
 priority: 0
 transactions:
@@ -13,7 +13,6 @@ transactions:
       ignoreContract: false
     parserClass: ZapOut
     description: Apollo DAO zap out
-    tag: Defined in class
 
   - name: ApolloDAOPoolWithdraw
     contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
@@ -25,7 +24,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: ApolloDao Unstake LP
-    tag: pool_withdraw
+    tag: pool_withdrawal
 
   - name: ApolloDAOPoolDeposit
     contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2

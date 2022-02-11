@@ -37,4 +37,4 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Spec Goverance UnStaking
-    tag: pool_withdraw
+    tag: pool_withdrawal

@@ -1,6 +1,7 @@
 import { TxLabel } from '../parser.enums';
 import { ParserProcessArgs } from '../args';
 import { IAmount, IParsedTx, IParser } from '../parser.interfaces';
+import { TxTag } from '..';
 
 export interface ITransferRecord {
   contract: string | undefined;
@@ -82,7 +83,7 @@ export abstract class Transfer {
           walletAddress,
           contract: transferAction.contract,
           label: TxLabel.Deposit,
-          tag: txType.tag,
+          tag: txType.tag ?? TxTag.Withdraw,
           sender: transferAction.sender,
           receivedAmount: transferAction.amount.amount,
           receivedToken: transferAction.amount.token,
@@ -93,7 +94,7 @@ export abstract class Transfer {
           walletAddress,
           contract: transferAction.contract,
           label: TxLabel.Withdraw,
-          tag: txType.tag,
+          tag: txType.tag ?? TxTag.Deposit,
           sentAmount: transferAction.amount.amount,
           sentToken: transferAction.amount.token,
           recipient: transferAction.recipient,

@@ -12,4 +12,4 @@ transactions:
         contractKey: any
       ignoreContract: true
     parserClass: Fail
-    tag: Failed
+    tag: fail

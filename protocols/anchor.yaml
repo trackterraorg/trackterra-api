@@ -12,7 +12,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor Bluna Burn
-    tag: Not defined yet
+    tag: pool_withdrawal
 
   - name: AnchorBlunaClaimRewards
     contract: terra17yap3mhph35pcwvhza38c2lkj7gzywzy05h7l0
@@ -24,7 +24,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor bluna claim rewards
-    tag: Not defined yet
+    tag: staking_rewards
 
   - name: AnchorBlunaMint
     contract: terra1mtwph2juhj0rvjz7dy92gvl6xvukaxu8rfv8ts
@@ -36,8 +36,8 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor bluna mint
-    tag: Not defined yet
     parserClass: AnchorBlunaMint
+    tag: pool_deposit
 
   - name: AnchorBorrow
     contract: terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
@@ -49,7 +49,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor borrow
-    tag: Not defined yet
+    tag: deposit
 
   - name: AnchorCollateralDeposit
     contract: terra1ptjp2vfjrwh0j0faj9r6katm640kgjxnwwq9kn
@@ -63,7 +63,7 @@ transactions:
       skipForContracts:
         - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     description: Anchor Collateral Deposit
-    tag: Not defined yet
+    tag: pool_deposit
 
   - name: AnchorColateralWithdrawal
     contract: terra1ptjp2vfjrwh0j0faj9r6katm640kgjxnwwq9kn
@@ -77,7 +77,7 @@ transactions:
       skipForContracts:
         - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     description: Anchor Collateral Withdrawal
-    tag: Not defined yet
+    tag: pool_withdrawal
 
   - name: AnchorLpClaimRewards
     contract: terra1897an2xux840p9lrh6py3ryankc6mspw49xse3
@@ -89,7 +89,7 @@ transactions:
         contractKey: contract
       ignoreContract: true
     description: Anchor lp claim rewards
-    tag: Not defined yet
+    tag: staking_rewards
 
   - name: AnchorLpWithdrawStaking
     contract: terra1897an2xux840p9lrh6py3ryankc6mspw49xse3
@@ -101,7 +101,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor lp withdraw staking
-    tag: Not defined yet
+    tag: pool_withdrawal
 
   - name: AnchorRepay
     contract: terra1sepfj7s0aeg5967uxnfk4thzlerrsktkpelm5s
@@ -113,7 +113,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor repay stable
-    tag: Not defined yet
+    tag: pool_deposit
 
   - name: AnchorGovernanceDeposit
     contract: terra1f32xyep306hhcxxxf7mlyh0ucggc00rm2s9da5
@@ -125,7 +125,7 @@ transactions:
         contractKey: to
       ignoreContract: false
     description: Anchor governance deposit
-    tag: Not defined yet
+    tag: pool_deposit
 
   - name: AnchorGovernanceWithdraw
     contract: terra1f32xyep306hhcxxxf7mlyh0ucggc00rm2s9da5
@@ -137,7 +137,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor governance withdraw
-    tag: Not defined yet
+    tag: pool_withdrawal
 
   - name: AnchorLiquidationRetractBid
     contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
@@ -149,7 +149,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor liquidation retract bid
-    tag: Not defined yet
+    tag: deposit
 
   - name: AnchorLiquidationPlaceBid
     contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
@@ -161,7 +161,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor liquidation place bid
-    tag: Not defined yet
+    tag: withdraw
 
   - name: AnchorClaimLiquidation
     contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
@@ -173,7 +173,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor claim liquidation
-    tag: Not defined yet
+    tag: deposit
 
   - name: AnchorLiquidateCollateral
     contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
@@ -185,7 +185,7 @@ transactions:
         contractKey: execute_bid
       ignoreContract: true
     description: Anchor liquidate collateral
-    tag: Not defined yet
+    tag: swap
     parserClass: AnchorLiquidateCollateral
 
   - name: AnchorBorrowClaimRewards
@@ -197,7 +197,7 @@ transactions:
         mainKey: claim_rewards
         contractKey: contract
       ignoreContract: false
-    tag: Not defined yet
+    tag: deposit
       
   - name: AnchorAustMint
     contract: terra1hzh9vpxhsk8253se0vv5jj6etdvxu3nv8z07zu
@@ -209,7 +209,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: AnchorAustMint
-    tag: Not defined yet
+    tag: pool_deposit
     parserClass: AnchorAustMint
 
   - name: AnchorAustRedeem
@@ -222,5 +222,5 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Anchor aUST redeem
-    tag: Not defined yet
+    tag: withdraw
     parserClass: AnchorAustRedeem
