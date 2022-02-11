@@ -29,7 +29,7 @@ describe('The exporter should', () => {
     for (let index = 0; index < transformedActions.length; index++) {
       const transformedAction = transformedActions[index];
 
-      const txType = await Classifier.classify(transformedAction);
+      const {txType} = await Classifier.classify(transformedAction);
 
       const records = Parser.process({
         txType,

@@ -5,7 +5,7 @@ import { Classifier } from '../classifier';
 import { Exporter } from '../exporter';
 import { TTOutput } from './ttparser.interfaces';
 import { InvalidDataException } from '../exceptions';
-import { TxType } from '../loader';
+import { Protocol, TxType } from '../loader';
 import _ = require('lodash');
 
 export class TTParser {
@@ -23,12 +23,13 @@ export class TTParser {
 
     let classifiedEvents: {
       transformedData: TransformedData;
+      protocol: Protocol;
       txType: TxType;
     }[] = [];
 
     for (let index = 0; index < transformedActions.length; index++) {
       const transformedData = transformedActions[index];
-      const txType = await Classifier.classify(transformedData);
+      const { protocol, txType } = await Classifier.classify(transformedData);
 
       // Ignore any event that can not be detected by the classifier
       if (txType === undefined) {
@@ -37,6 +38,7 @@ export class TTParser {
 
       classifiedEvents.push({
         transformedData,
+        protocol,
         txType,
       });
     }
@@ -60,11 +62,16 @@ export class TTParser {
     }
 
     for (let index = 0; index < classifiedEvents.length; index++) {
-      const { txType, transformedData } = classifiedEvents[index];
-      const records = Parser.process({
+      const { protocol, txType, transformedData } = classifiedEvents[index];
+      let records = Parser.process({
         txType,
         walletAddress,
         ...transformedData,
+      });
+
+      records = records.map((record) => {
+        record.protocol = protocol.name;
+        return record;
       });
 
       if (records.length > 0) {

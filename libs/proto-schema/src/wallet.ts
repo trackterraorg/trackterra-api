@@ -104,6 +104,7 @@ export interface Tx {
   txhash: string;
   blockHeight: string;
   timestamp: string;
+  protocol: string;
   label: string;
   tag: string;
   walletAddress: string;
@@ -188,6 +189,7 @@ export interface CreateTxRequest {
   txhash: string;
   blockHeight: string;
   timestamp: string;
+  protocol: string;
   label: string;
   tag: string;
   walletAddress: string;
@@ -375,6 +377,7 @@ const baseTx: object = {
   txhash: '',
   blockHeight: '',
   timestamp: '',
+  protocol: '',
   label: '',
   tag: '',
   walletAddress: '',
@@ -459,6 +462,7 @@ const baseCreateTxRequest: object = {
   txhash: '',
   blockHeight: '',
   timestamp: '',
+  protocol: '',
   label: '',
   tag: '',
   walletAddress: '',
@@ -1841,26 +1845,27 @@ export const Tx = {
     writer.uint32(18).string(message.txhash);
     writer.uint32(26).string(message.blockHeight);
     writer.uint32(34).string(message.timestamp);
-    writer.uint32(42).string(message.label);
-    writer.uint32(50).string(message.tag);
-    writer.uint32(58).string(message.walletAddress);
-    writer.uint32(66).string(message.contract);
-    writer.uint32(74).string(message.sender);
-    writer.uint32(82).string(message.recipient);
-    writer.uint32(90).string(message.receivedAmount);
-    writer.uint32(98).string(message.receivedToken);
-    writer.uint32(106).string(message.sentAmount);
-    writer.uint32(114).string(message.sentToken);
-    writer.uint32(122).string(message.feeAmount);
-    writer.uint32(130).string(message.feeToken);
-    writer.uint32(138).string(message.taxAmount);
-    writer.uint32(146).string(message.taxToken);
-    writer.uint32(154).string(message.netWorthAmount);
-    writer.uint32(162).string(message.netWorthToken);
-    writer.uint32(170).string(message.memo);
-    writer.uint32(178).string(message.friendlyDescription);
-    writer.uint32(186).string(message.createdAt);
-    writer.uint32(194).string(message.updatedAt);
+    writer.uint32(42).string(message.protocol);
+    writer.uint32(50).string(message.label);
+    writer.uint32(58).string(message.tag);
+    writer.uint32(66).string(message.walletAddress);
+    writer.uint32(74).string(message.contract);
+    writer.uint32(82).string(message.sender);
+    writer.uint32(90).string(message.recipient);
+    writer.uint32(98).string(message.receivedAmount);
+    writer.uint32(106).string(message.receivedToken);
+    writer.uint32(114).string(message.sentAmount);
+    writer.uint32(122).string(message.sentToken);
+    writer.uint32(130).string(message.feeAmount);
+    writer.uint32(138).string(message.feeToken);
+    writer.uint32(146).string(message.taxAmount);
+    writer.uint32(154).string(message.taxToken);
+    writer.uint32(162).string(message.netWorthAmount);
+    writer.uint32(170).string(message.netWorthToken);
+    writer.uint32(178).string(message.memo);
+    writer.uint32(186).string(message.friendlyDescription);
+    writer.uint32(194).string(message.createdAt);
+    writer.uint32(202).string(message.updatedAt);
     return writer;
   },
   decode(reader: Reader, length?: number): Tx {
@@ -1882,63 +1887,66 @@ export const Tx = {
           message.timestamp = reader.string();
           break;
         case 5:
-          message.label = reader.string();
+          message.protocol = reader.string();
           break;
         case 6:
-          message.tag = reader.string();
+          message.label = reader.string();
           break;
         case 7:
-          message.walletAddress = reader.string();
+          message.tag = reader.string();
           break;
         case 8:
-          message.contract = reader.string();
+          message.walletAddress = reader.string();
           break;
         case 9:
-          message.sender = reader.string();
+          message.contract = reader.string();
           break;
         case 10:
-          message.recipient = reader.string();
+          message.sender = reader.string();
           break;
         case 11:
-          message.receivedAmount = reader.string();
+          message.recipient = reader.string();
           break;
         case 12:
-          message.receivedToken = reader.string();
+          message.receivedAmount = reader.string();
           break;
         case 13:
-          message.sentAmount = reader.string();
+          message.receivedToken = reader.string();
           break;
         case 14:
-          message.sentToken = reader.string();
+          message.sentAmount = reader.string();
           break;
         case 15:
-          message.feeAmount = reader.string();
+          message.sentToken = reader.string();
           break;
         case 16:
-          message.feeToken = reader.string();
+          message.feeAmount = reader.string();
           break;
         case 17:
-          message.taxAmount = reader.string();
+          message.feeToken = reader.string();
           break;
         case 18:
-          message.taxToken = reader.string();
+          message.taxAmount = reader.string();
           break;
         case 19:
-          message.netWorthAmount = reader.string();
+          message.taxToken = reader.string();
           break;
         case 20:
-          message.netWorthToken = reader.string();
+          message.netWorthAmount = reader.string();
           break;
         case 21:
-          message.memo = reader.string();
+          message.netWorthToken = reader.string();
           break;
         case 22:
-          message.friendlyDescription = reader.string();
+          message.memo = reader.string();
           break;
         case 23:
-          message.createdAt = reader.string();
+          message.friendlyDescription = reader.string();
           break;
         case 24:
+          message.createdAt = reader.string();
+          break;
+        case 25:
           message.updatedAt = reader.string();
           break;
         default:
@@ -1969,6 +1977,11 @@ export const Tx = {
       message.timestamp = String(object.timestamp);
     } else {
       message.timestamp = '';
+    }
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = String(object.protocol);
+    } else {
+      message.protocol = '';
     }
     if (object.label !== undefined && object.label !== null) {
       message.label = String(object.label);
@@ -2094,6 +2107,11 @@ export const Tx = {
     } else {
       message.timestamp = '';
     }
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = object.protocol;
+    } else {
+      message.protocol = '';
+    }
     if (object.label !== undefined && object.label !== null) {
       message.label = object.label;
     } else {
@@ -2202,6 +2220,7 @@ export const Tx = {
     obj.txhash = message.txhash || '';
     obj.blockHeight = message.blockHeight || '';
     obj.timestamp = message.timestamp || '';
+    obj.protocol = message.protocol || '';
     obj.label = message.label || '';
     obj.tag = message.tag || '';
     obj.walletAddress = message.walletAddress || '';
@@ -3017,24 +3036,25 @@ export const CreateTxRequest = {
     writer.uint32(10).string(message.txhash);
     writer.uint32(18).string(message.blockHeight);
     writer.uint32(26).string(message.timestamp);
-    writer.uint32(34).string(message.label);
-    writer.uint32(42).string(message.tag);
-    writer.uint32(50).string(message.walletAddress);
-    writer.uint32(58).string(message.contract);
-    writer.uint32(66).string(message.sender);
-    writer.uint32(74).string(message.recipient);
-    writer.uint32(82).string(message.receivedAmount);
-    writer.uint32(90).string(message.receivedToken);
-    writer.uint32(98).string(message.sentAmount);
-    writer.uint32(106).string(message.sentToken);
-    writer.uint32(114).string(message.feeAmount);
-    writer.uint32(122).string(message.feeToken);
-    writer.uint32(130).string(message.taxAmount);
-    writer.uint32(138).string(message.taxToken);
-    writer.uint32(146).string(message.netWorthAmount);
-    writer.uint32(154).string(message.netWorthToken);
-    writer.uint32(162).string(message.memo);
-    writer.uint32(170).string(message.friendlyDescription);
+    writer.uint32(34).string(message.protocol);
+    writer.uint32(42).string(message.label);
+    writer.uint32(50).string(message.tag);
+    writer.uint32(58).string(message.walletAddress);
+    writer.uint32(66).string(message.contract);
+    writer.uint32(74).string(message.sender);
+    writer.uint32(82).string(message.recipient);
+    writer.uint32(90).string(message.receivedAmount);
+    writer.uint32(98).string(message.receivedToken);
+    writer.uint32(106).string(message.sentAmount);
+    writer.uint32(114).string(message.sentToken);
+    writer.uint32(122).string(message.feeAmount);
+    writer.uint32(130).string(message.feeToken);
+    writer.uint32(138).string(message.taxAmount);
+    writer.uint32(146).string(message.taxToken);
+    writer.uint32(154).string(message.netWorthAmount);
+    writer.uint32(162).string(message.netWorthToken);
+    writer.uint32(170).string(message.memo);
+    writer.uint32(178).string(message.friendlyDescription);
     return writer;
   },
   decode(reader: Reader, length?: number): CreateTxRequest {
@@ -3053,57 +3073,60 @@ export const CreateTxRequest = {
           message.timestamp = reader.string();
           break;
         case 4:
-          message.label = reader.string();
+          message.protocol = reader.string();
           break;
         case 5:
-          message.tag = reader.string();
+          message.label = reader.string();
           break;
         case 6:
-          message.walletAddress = reader.string();
+          message.tag = reader.string();
           break;
         case 7:
-          message.contract = reader.string();
+          message.walletAddress = reader.string();
           break;
         case 8:
-          message.sender = reader.string();
+          message.contract = reader.string();
           break;
         case 9:
-          message.recipient = reader.string();
+          message.sender = reader.string();
           break;
         case 10:
-          message.receivedAmount = reader.string();
+          message.recipient = reader.string();
           break;
         case 11:
-          message.receivedToken = reader.string();
+          message.receivedAmount = reader.string();
           break;
         case 12:
-          message.sentAmount = reader.string();
+          message.receivedToken = reader.string();
           break;
         case 13:
-          message.sentToken = reader.string();
+          message.sentAmount = reader.string();
           break;
         case 14:
-          message.feeAmount = reader.string();
+          message.sentToken = reader.string();
           break;
         case 15:
-          message.feeToken = reader.string();
+          message.feeAmount = reader.string();
           break;
         case 16:
-          message.taxAmount = reader.string();
+          message.feeToken = reader.string();
           break;
         case 17:
-          message.taxToken = reader.string();
+          message.taxAmount = reader.string();
           break;
         case 18:
-          message.netWorthAmount = reader.string();
+          message.taxToken = reader.string();
           break;
         case 19:
-          message.netWorthToken = reader.string();
+          message.netWorthAmount = reader.string();
           break;
         case 20:
-          message.memo = reader.string();
+          message.netWorthToken = reader.string();
           break;
         case 21:
+          message.memo = reader.string();
+          break;
+        case 22:
           message.friendlyDescription = reader.string();
           break;
         default:
@@ -3129,6 +3152,11 @@ export const CreateTxRequest = {
       message.timestamp = String(object.timestamp);
     } else {
       message.timestamp = '';
+    }
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = String(object.protocol);
+    } else {
+      message.protocol = '';
     }
     if (object.label !== undefined && object.label !== null) {
       message.label = String(object.label);
@@ -3239,6 +3267,11 @@ export const CreateTxRequest = {
     } else {
       message.timestamp = '';
     }
+    if (object.protocol !== undefined && object.protocol !== null) {
+      message.protocol = object.protocol;
+    } else {
+      message.protocol = '';
+    }
     if (object.label !== undefined && object.label !== null) {
       message.label = object.label;
     } else {
@@ -3336,6 +3369,7 @@ export const CreateTxRequest = {
     obj.txhash = message.txhash || '';
     obj.blockHeight = message.blockHeight || '';
     obj.timestamp = message.timestamp || '';
+    obj.protocol = message.protocol || '';
     obj.label = message.label || '';
     obj.tag = message.tag || '';
     obj.walletAddress = message.walletAddress || '';

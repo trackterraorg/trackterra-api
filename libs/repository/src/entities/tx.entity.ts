@@ -10,6 +10,7 @@ export class TxEntity extends BaseEntity<any> {
   walletAddress: string;
   blockHeight: number;
   timestamp: Date;
+  protocol: string;
   label: string;
   tag: string;
 

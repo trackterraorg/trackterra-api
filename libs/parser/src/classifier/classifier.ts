@@ -7,11 +7,12 @@ import {
 import { ProtocolLoader } from '../loader/protocol.loader';
 import * as _ from 'lodash';
 import { TransferAction, TransformedData } from '../transformers';
+import { ClassifyOutput } from './classifier.types';
 
 export class Classifier {
   static async classify(
     transformedData: TransformedData,
-  ): Promise<TxType | undefined> {
+  ): Promise<ClassifyOutput | undefined> {
     const protocolLoader = await ProtocolLoader.getInstance();
 
     const protocols: Protocol[] | undefined = protocolLoader?.protocols.filter(
@@ -31,6 +32,7 @@ export class Classifier {
         .value();
 
       for (const protocol of protocols) {
+        const selectedProtocol = protocol;
         const txType: TxType | undefined = protocol.transactions.find(
           (txType: TxType) => {
             return this.classifyUsingContractActions(
@@ -46,7 +48,10 @@ export class Classifier {
         if (txType) {
           console.log(actions);
           console.log(txType);
-          return txType;
+          return {
+            protocol: selectedProtocol,
+            txType
+          };
         }
       }
     }
@@ -56,7 +61,12 @@ export class Classifier {
     }
 
     if (transformedDataTxType === ProtocolType.Fail) {
-      return protocols[0].transactions[0];
+      const protocol = _.first(protocols);
+      const txType = _.first(protocol.transactions);
+      return {
+        protocol,
+        txType
+      };
     }
 
     return;
@@ -117,7 +127,7 @@ export class Classifier {
   private static nativeTxType(
     protocols: Protocol[],
     transferActions: TransferAction[],
-  ): TxType {
+  ): ClassifyOutput {
     const nativeProtocol = _.first(protocols);
     const transferAction = _.first(transferActions);
 
@@ -131,8 +141,13 @@ export class Classifier {
       txTypeName = otherNativeTxsName;
     }
 
-    return nativeProtocol.transactions.find((tx: TxType) => {
+    const txType = nativeProtocol.transactions.find((tx: TxType) => {
       return tx.name === txTypeName;
     });
+
+    return {
+      protocol: nativeProtocol,
+      txType
+    }
   }
 }

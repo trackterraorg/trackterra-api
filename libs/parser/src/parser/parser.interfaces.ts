@@ -5,6 +5,7 @@ export interface IParser {
 }
 
 export interface IParsedTx {
+  protocol?: string;
   label: string;
   tag: string;
   walletAddress: string;
@@ -20,6 +21,8 @@ export interface IParsedTx {
   taxAmount?: string;
   taxToken?: string;
   friendlyDescription?: string;
+  netWorthAmount?: string;
+  netWorthToken?: string;
 }
 
 export interface IAmount {

@@ -98,7 +98,7 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
     const collection = await this.collection;
     const c = await collection.count({
       walletAddress,
-      tag: 'Unclassified',
+      protocol: 'Unclassified',
     });
 
     return c;

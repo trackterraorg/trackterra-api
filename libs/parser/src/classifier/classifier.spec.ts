@@ -21,7 +21,7 @@ describe('The classifier ', () => {
     const actions: TransformedData[] | TxStatus.Failed =
       logTransformer.transform(txInfo);
 
-    const txType = await Classifier.classify(actions[0] as any);
+    const { txType } = await Classifier.classify(actions[0] as any);
     expect(txType).toHaveProperty('classifier');
   });
 
@@ -36,7 +36,7 @@ describe('The classifier ', () => {
 
     const actions: TransformedData[] = logTransformer.transform(txInfo);
 
-    const txType = await Classifier.classify(actions[0]);
+    const { txType } = await Classifier.classify(actions[0]);
     expect(txType).toHaveProperty('classifier');
   });
 });

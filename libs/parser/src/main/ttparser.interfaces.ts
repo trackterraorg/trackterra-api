@@ -5,7 +5,5 @@ export interface TTOutput extends IParsedTx {
   blockHeight: string;
   timestamp: string;
 
-  netWorthAmount?: string;
-  netWorthToken?: string;
   memo?: string;
 }
