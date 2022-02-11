@@ -11,21 +11,11 @@ import { GetTxsQuery } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import {
   FindTxsResponse,
-  FindTxsResponseCointracker,
-  GQLPaginate,
-  PageInfo,
-  Paginate,
-  RestPaginate,
-  Tx,
-  TxExtra,
-  TxNode,
 } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
-import { filter, upperCase } from 'lodash';
 import {
   txEntityToView,
-  txViewToCointrackerTx,
 } from 'server/service-wallet/src/common';
 import { cleanEmptyProperties } from '@trackterra/common';
 
@@ -33,6 +23,8 @@ import { cleanEmptyProperties } from '@trackterra/common';
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
   logger = new Logger(this.constructor.name);
   txRepository: TxRepository;
+
+  constructor(private readonly walletRepository: WalletRepository) {}
 
   async execute(query: GetTxsQuery): Promise<FindTxsResponse> {
     this.logger = new Logger(this.constructor.name);
@@ -50,9 +42,22 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       throw new RpcException('Please enter a valid address');
     }
 
+    const walletParsed = await this.walletRepository.exist({
+      address
+    });
+
+    console.dir({
+      walletParsed
+    }, {depth: 'null'});
+    
+    if (! walletParsed) {
+      throw new RpcException('Wallet has not been parsed. Please parse it first!');
+    }
+
     let conditions = {
       walletAddress: address,
     };
+
 
     try {
       if (input.filter) {
