@@ -5,7 +5,7 @@ import { Classifier } from '../classifier';
 import { Exporter } from '../exporter';
 import { TTOutput } from './ttparser.interfaces';
 import { InvalidDataException } from '../exceptions';
-import { Protocol, TxType } from '../loader';
+import { Protocol, ProtocolType, TxType } from '../loader';
 import _ = require('lodash');
 
 export class TTParser {
@@ -99,10 +99,26 @@ export class TTParser {
     });
 
     const tx: any = txInfo.tx;
-    const fees: IAmount[] | undefined = FeeParser.process(
+    let fees: IAmount[] | undefined = FeeParser.process(
       tx.value?.fee?.amount,
     );
 
+    // is it a fail tx?
+    const failedTxRecord = txs.find((tx) => {
+      return tx.records.find((rec) => {
+        return rec.protocol === 'Fail';
+      });
+    });
+
+    if (failedTxRecord) {
+      const failedTx = _.first(failedTxRecord.records);
+      const txAmount = _.first(fees);
+      failedTx.sentAmount = txAmount.amount;
+      failedTx.sentToken = txAmount.token;      
+      fees = undefined;
+      failedTxRecord.records = [failedTx];
+    }
+    
     const d = {
       txs,
       fees,

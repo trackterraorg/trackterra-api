@@ -13,3 +13,4 @@ transactions:
       ignoreContract: true
     parserClass: Fail
     tag: fail
+    description: failed tx

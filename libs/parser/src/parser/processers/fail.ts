@@ -1,6 +1,7 @@
 import { IParsedTx, IParser } from '../parser.interfaces';
 import { TxLabel } from '../parser.enums';
 import { ParserProcessArgs } from '../args';
+import { TxTag } from '..';
 
 export class Fail implements IParser {
   process({ walletAddress, txType }: ParserProcessArgs): IParsedTx[] {
@@ -8,7 +9,7 @@ export class Fail implements IParser {
       {
         walletAddress,
         label: TxLabel.Fail,
-        tag: txType.tag,
+        tag: TxTag.Cost,
         friendlyDescription: txType.description,
       },
     ];
