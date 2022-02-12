@@ -36,7 +36,11 @@ export async function txToTxCreateRequest(
           identifier: token
         }).toPromise();
 
-        modifiers[txKey.token] = currency.symbol;
+        const nullIndex = (currency?.nullIndex) ? `_${currency.nullIndex}` : '';
+        console.dir({
+          currency
+        }, {depth: 'null'});
+        modifiers[txKey.token] = currency.symbol + nullIndex;
         modifiers[txKey.amount] = tokenValue(currency, amount);
       } catch(e) {
         console.error(e);
@@ -53,6 +57,11 @@ export async function txToTxCreateRequest(
 }
 
 export function tokenValue(currency: Currency, amount: number): number {
+  
+  if(_.isEmpty(amount)) {
+    return undefined;
+  }
+
   if (typeof amount === 'string') {
     amount = amount as unknown as number;
   }
