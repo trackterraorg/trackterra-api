@@ -14,7 +14,7 @@ export async function mapTxToTaxApp(
   txs: TxNode[],
   taxApp: TaxAppType,
 ): Promise<TaxAppTxNode[]> {
-  let mappedTxs = txs.map((txNode: TxNode) => {
+  let mappedTxs = txs?.map((txNode: TxNode) => {
     return {
       tx: taxApp.txObj().fromJSON(txNode.tx),
       extras: txNode.extras,
@@ -22,7 +22,7 @@ export async function mapTxToTaxApp(
   });
 
   if (taxApp.hasSpecialTags()) {
-    mappedTxs = mappedTxs.map((mappedTx) => {
+    mappedTxs = mappedTxs?.map((mappedTx) => {
       let tag: string = mappedTx.tx.tag;
       tag = taxApp.transformTag(tag);
       mappedTx.tx.tag = tag;

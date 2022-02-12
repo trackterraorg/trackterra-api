@@ -36,10 +36,8 @@ export async function txToTxCreateRequest(
           identifier: token
         }).toPromise();
 
-        const nullIndex = (currency?.nullIndex) ? `_${currency.nullIndex}` : '';
-        console.dir({
-          currency
-        }, {depth: 'null'});
+        const nullIndex = (! isNaN(Number(currency?.nullIndex))) ? `_${currency.nullIndex}` : '';
+
         modifiers[txKey.token] = currency.symbol + nullIndex;
         modifiers[txKey.amount] = tokenValue(currency, amount);
       } catch(e) {
