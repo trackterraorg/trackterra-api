@@ -6,6 +6,7 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export interface Currency {
   name: string;
   symbol: string;
+  nullIndex: number;
   decimals: number;
   identifier: string;
   icon: string;
@@ -37,6 +38,7 @@ export interface FindCurrenciesResponse {
 const baseCurrency: object = {
   name: '',
   symbol: '',
+  nullIndex: 0,
   decimals: 0,
   identifier: '',
   icon: '',
@@ -91,9 +93,10 @@ export const Currency = {
   encode(message: Currency, writer: Writer = Writer.create()): Writer {
     writer.uint32(10).string(message.name);
     writer.uint32(18).string(message.symbol);
-    writer.uint32(24).int32(message.decimals);
-    writer.uint32(34).string(message.identifier);
-    writer.uint32(42).string(message.icon);
+    writer.uint32(24).int32(message.nullIndex);
+    writer.uint32(32).int32(message.decimals);
+    writer.uint32(42).string(message.identifier);
+    writer.uint32(50).string(message.icon);
     return writer;
   },
   decode(reader: Reader, length?: number): Currency {
@@ -109,12 +112,15 @@ export const Currency = {
           message.symbol = reader.string();
           break;
         case 3:
-          message.decimals = reader.int32();
+          message.nullIndex = reader.int32();
           break;
         case 4:
-          message.identifier = reader.string();
+          message.decimals = reader.int32();
           break;
         case 5:
+          message.identifier = reader.string();
+          break;
+        case 6:
           message.icon = reader.string();
           break;
         default:
@@ -135,6 +141,11 @@ export const Currency = {
       message.symbol = String(object.symbol);
     } else {
       message.symbol = '';
+    }
+    if (object.nullIndex !== undefined && object.nullIndex !== null) {
+      message.nullIndex = Number(object.nullIndex);
+    } else {
+      message.nullIndex = 0;
     }
     if (object.decimals !== undefined && object.decimals !== null) {
       message.decimals = Number(object.decimals);
@@ -165,6 +176,11 @@ export const Currency = {
     } else {
       message.symbol = '';
     }
+    if (object.nullIndex !== undefined && object.nullIndex !== null) {
+      message.nullIndex = object.nullIndex;
+    } else {
+      message.nullIndex = 0;
+    }
     if (object.decimals !== undefined && object.decimals !== null) {
       message.decimals = object.decimals;
     } else {
@@ -186,6 +202,7 @@ export const Currency = {
     const obj: any = {};
     obj.name = message.name || '';
     obj.symbol = message.symbol || '';
+    obj.nullIndex = message.nullIndex || 0;
     obj.decimals = message.decimals || 0;
     obj.identifier = message.identifier || '';
     obj.icon = message.icon || '';

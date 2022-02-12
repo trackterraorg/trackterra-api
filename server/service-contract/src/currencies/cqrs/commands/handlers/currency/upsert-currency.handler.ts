@@ -32,25 +32,25 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
 
       const { identifier } = input;
 
+      const tokenSplit = lpTokenSplitter(identifier);
+
       // leverage cache instead of mongos upsert op
       let currency: CurrencyEntity = await this.currencyRepository.findOne({
-        identifier,
+        identifier: tokenSplit.identifier,
       });
 
       if(! _.isEmpty(currency)) {
         return { currency };
       }
 
-      if(identifier.indexOf(',') === -1) {
-        currency = await this.upsertCurrency(identifier);
-        return { currency };
+      // identifier & contract & token are same 
+      if(_.size(tokenSplit.tokens) === 1) {
+        currency = await this.upsertCurrency(tokenSplit.identifier);
+      } else {
+        currency = await this.generateUlpToken(tokenSplit.identifier, tokenSplit.tokens);
       }
 
-      const lpToken = this.generateUlpToken(identifier);
-      
-      return {
-        currency: lpToken as unknown as Currency,
-      };
+      return {  currency: currency as unknown as Currency};
     } catch (error) {
       this.logger.error(error);
       throw new RpcException(error);
@@ -67,28 +67,24 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     if (currency) {
       return currency;
     }
-    
+
     const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(identifier);
 
     const initMsg: any = contractInfo?.init_msg
 
     if(initMsg?.symbol.toLowerCase() == 'ulp') {
-      const currency = await this.getTokenFromULPContract(initMsg.init_hook.contract_addr);
-      console.dir(currency, {depth: 'null'});
-      return currency;
+      return await this.getTokenFromULPContract(initMsg.init_hook.contract_addr);
     }
 
     const currFromFcd: Partial<Currency> = initMsg;
 
-    currency = await this.currencyRepository.create({
+    return await this.currencyRepository.create({
       name: currFromFcd?.name,
       symbol: currFromFcd?.symbol,
       decimals: currFromFcd?.decimals ?? 6,
       icon: '',
-      identifier,
+      identifier: identifier,
     });
-
-    return currency;
   }
 
   private async getTokenFromULPContract(contractAddress: string): Promise<CurrencyEntity> {
@@ -101,16 +97,22 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
       if(Object.keys(asset).includes("token")) {
         return asset.token.contract_addr;
       }
-    }).filter(asset => asset != undefined);
+    }).filter((asset: any) => asset != undefined);
 
-    const currency = await this.generateUlpToken(lpTokenCombiner(contractAddress, assets));
-    return currency;
+    return await this.generateUlpToken(contractAddress, assets);
   }
 
-  private async generateUlpToken(identifier: string) : Promise<CurrencyEntity>{
+  private async generateUlpToken(identifier: string, tokens: string[]) : Promise<CurrencyEntity>{
 
     const tokenSymbols = [];
-    const tokens = lpTokenSplitter(identifier)?.tokens;
+    
+    let currency: CurrencyEntity = await this.currencyRepository.findOne({
+      identifier,
+    }, true);
+
+    if (currency) {
+      return currency;
+    }
 
     for (const token of tokens) {
       const result = await this.upsertCurrency(token);
@@ -119,15 +121,19 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     
     const lpTokenName = tokenSymbols.join("-") + "_LP";
 
-    const lpToken = await this.currencyRepository.create({
-      name: lpTokenName,
-      symbol: lpTokenName,
-      identifier,
-      icon: '',
-      decimals: 6,
+    const lpTokenCount = await this.currencyRepository.countDocuments({symbol: {
+        "$regex": "_LP$"
+      } 
     });
 
-    return lpToken;
+    return await this.currencyRepository.create({
+      name: lpTokenName,
+      symbol: lpTokenName,
+      nullIndex: lpTokenCount,
+      decimals: 6,
+      icon: '',
+      identifier,
+    });
   }
 
 }

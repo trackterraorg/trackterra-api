@@ -4,6 +4,7 @@ const stableCoins: Currency[] = [
     {
         name: "AUT",
         symbol: "AUT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uaud",
         icon: "",
@@ -11,6 +12,7 @@ const stableCoins: Currency[] = [
     {
         name: "CAT",
         symbol: "CAT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ucad",
         icon: "",
@@ -18,6 +20,7 @@ const stableCoins: Currency[] = [
     {
         name: "CHT",
         symbol: "CHT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uchf",
         icon: "",
@@ -25,6 +28,7 @@ const stableCoins: Currency[] = [
     {
         name: "CNT",
         symbol: "CNT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ucny",
         icon: "",
@@ -32,6 +36,7 @@ const stableCoins: Currency[] = [
     {
         name: "DKT",
         symbol: "DKT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "udkk",
         icon: "",
@@ -39,6 +44,7 @@ const stableCoins: Currency[] = [
     {
         name: "EUT",
         symbol: "EUT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ueur",
         icon: "",
@@ -46,6 +52,7 @@ const stableCoins: Currency[] = [
     {
         name: "GBT",
         symbol: "GBT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ugbp",
         icon: "",
@@ -53,6 +60,7 @@ const stableCoins: Currency[] = [
     {
         name: "HKT",
         symbol: "HKT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uhkd",
         icon: "",
@@ -60,6 +68,7 @@ const stableCoins: Currency[] = [
     {
         name: "IDT",
         symbol: "IDT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uidr",
         icon: "",
@@ -67,6 +76,7 @@ const stableCoins: Currency[] = [
     {
         name: "INT",
         symbol: "INT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uinr",
         icon: "",
@@ -74,6 +84,7 @@ const stableCoins: Currency[] = [
     {
         name: "JPT",
         symbol: "JPT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ujpy",
         icon: "",
@@ -81,6 +92,7 @@ const stableCoins: Currency[] = [
     {
         name: "KRT",
         symbol: "KRT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "ukrw",
         icon: "",
@@ -88,6 +100,7 @@ const stableCoins: Currency[] = [
     {
         name: "LUNA",
         symbol: "LUNA",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uluna",
         icon: "",
@@ -95,6 +108,7 @@ const stableCoins: Currency[] = [
     {
         name: "MNT",
         symbol: "MNT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "umnt",
         icon: "",
@@ -102,6 +116,7 @@ const stableCoins: Currency[] = [
     {
         name: "MYT",
         symbol: "MYT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "umyr",
         icon: "",
@@ -109,6 +124,7 @@ const stableCoins: Currency[] = [
     {
         name: "NOT",
         symbol: "NOT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "unok",
         icon: "",
@@ -116,6 +132,7 @@ const stableCoins: Currency[] = [
     {
         name: "PHT",
         symbol: "PHT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uphp",
         icon: "",
@@ -123,6 +140,7 @@ const stableCoins: Currency[] = [
     {
         name: "SDT",
         symbol: "SDT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "usdr",
         icon: "",
@@ -130,6 +148,7 @@ const stableCoins: Currency[] = [
     {
         name: "SET",
         symbol: "SET",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "usek",
         icon: "",
@@ -137,6 +156,7 @@ const stableCoins: Currency[] = [
     {
         name: "SGT",
         symbol: "SGT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "usgd",
         icon: "",
@@ -144,6 +164,7 @@ const stableCoins: Currency[] = [
     {
         name: "THT",
         symbol: "THT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uthb",
         icon: "",
@@ -151,6 +172,7 @@ const stableCoins: Currency[] = [
     {
         name: "TWT",
         symbol: "TWT",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "utwd",
         icon: "",
@@ -158,6 +180,7 @@ const stableCoins: Currency[] = [
     {
         name: "UST",
         symbol: "UST",
+        nullIndex: undefined,
         decimals: 6,
         identifier: "uusd",
         icon: "",

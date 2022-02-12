@@ -663,6 +663,24 @@ export class BaseMongoRepository<DOC, DTO = DOC> {
   }
 
   /**
+   * Count records
+   *
+   * @param {*} conditions
+   * @returns {Promise<number>}
+   * @memberof BaseMongoRepository
+   */
+  public async countDocuments(conditions: any): Promise<number> {
+    const cleanConditions = cleanEmptyProperties({
+      ...conditions,
+    });
+    console.dir({
+      cleanConditions
+    }, {depth: 'null'});
+    const collection = await this.collection;
+    return await collection.find(cleanConditions).count();
+  }
+
+  /**
    * Strip off Mongo's ObjectID and replace with string representation or in reverse
    *
    * @private
