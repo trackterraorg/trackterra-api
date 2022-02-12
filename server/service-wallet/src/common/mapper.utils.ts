@@ -21,6 +21,21 @@ export async function mapTxToTaxApp(
     };
   });
 
+  // format cells
+  const attrsToFormat = taxApp.attributes.filter((attr) => {
+    return Object.keys(attr).includes('formatter');
+  });
+
+  if (_.size(attrsToFormat) > 0) {
+    mappedTxs = mappedTxs.map((tx) => {
+      _.forEach(attrsToFormat, (attr) => {
+        tx.tx[attr.id] = attr?.formatter(tx.tx[attr.id]);
+      });
+      return tx;
+    });
+  }
+
+
   if (taxApp.hasSpecialTags()) {
     mappedTxs = mappedTxs?.map((mappedTx) => {
       let tag: string = mappedTx.tx.tag;

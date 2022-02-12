@@ -77,3 +77,28 @@ export function queryMapper(q: string) {
   const result = prepare(query);
   return result;
 }
+
+
+export function seperateIndexFromToken(token: string): {
+  token: string,
+  index: number,
+} {
+  if(_.isEmpty(token)) {
+    return ;
+  }
+
+  // e.g: UST-LUNA_LP_1
+  const splitToken = _.split(token, "_LP_");
+
+  if (_.size(splitToken) !== 2) {
+    return {
+      token,
+      index: undefined,
+    };
+  }
+
+  return {
+    token: _.first(splitToken) + "_LP",
+    index: _.last(splitToken) as unknown as number,
+  }
+}
