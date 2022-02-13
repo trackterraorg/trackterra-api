@@ -12,7 +12,7 @@ export abstract class BaseTaxApp {
         return this.attributes.map((attr) => {
             return {
                 id: attr.id,
-                title: attr.id,
+                title: attr.title,
             }
         })
     }

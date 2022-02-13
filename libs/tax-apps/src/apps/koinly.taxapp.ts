@@ -8,17 +8,17 @@ export class Koinly extends BaseTaxApp implements ITaxApp {
 
     attributes: AppAttrType[] = [
         { id: 'timestamp', title: 'Date' },
-        { id: 'sentAmount', title: 'Sent Amount', formatter: this.generateTokenName},
-        { id: 'sentToken', title: 'Sent Currency' },
+        { id: 'sentAmount', title: 'Sent Amount'},
+        { id: 'sentToken', title: 'Sent Currency', formatter: this.generateTokenName},
         { id: 'receivedAmount', title: 'Received Amount' },
         { id: 'receivedToken', title: 'Received Currency', formatter: this.generateTokenName},
         { id: 'feeAmount', title: 'Fee Amount' },
         { id: 'feeToken', title: 'Fee Currency', formatter: this.generateTokenName},
-        { id: 'netWorthAmount', title: 'Networth Amount' },
-        { id: 'netWorthToken', title: 'Networth Currency', formatter: this.generateTokenName },
+        { id: 'netWorthAmount', title: 'Net Worth Amount' },
+        { id: 'netWorthToken', title: 'Net Worth Currency', formatter: this.generateTokenName },
         { id: 'tag', title: 'Label' },
         { id: 'friendlyDescription', title: 'Description' },
-        { id: 'txhash', title: 'Tx hash' },
+        { id: 'txhash', title: 'TxHash' },
     ];
 
     specialTags = {
