@@ -77,6 +77,24 @@
         "tsConfigPath": "libs/contracts/tsconfig.lib.json"
       }
     },
+    "parser": {
+      "type": "library",
+      "root": "libs/parser",
+      "entryFile": "index",
+      "sourceRoot": "libs/parser/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/parser/tsconfig.lib.json"
+      }
+    },
+    "tax-apps": {
+      "type": "library",
+      "root": "libs/tax-apps",
+      "entryFile": "index",
+      "sourceRoot": "libs/tax-apps/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tax-apps/tsconfig.lib.json"
+      }
+    },
     "proto-schema": {
       "type": "library",
       "root": "libs/proto-schema",
