@@ -2,7 +2,7 @@ import { separateAmountFromToken } from '@trackterra/parser/utils';
 import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
-import { LiquidationEngine } from './liquidation';
+import { LiquidityEngine } from './liquidity';
 import { SwapEngine } from './swap';
 
 export class ZapOut implements IParser {
@@ -27,7 +27,7 @@ export class ZapOut implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const unstakeTx = this.zapOutUnstake(args);
     const swapTx = SwapEngine.swap(args);
-    const withdrawLiquidityTx = LiquidationEngine.withdrawLiquidity(args);
+    const withdrawLiquidityTx = LiquidityEngine.withdrawLiquidity(args);
     return [unstakeTx].concat(swapTx).concat(withdrawLiquidityTx);
   }
 }

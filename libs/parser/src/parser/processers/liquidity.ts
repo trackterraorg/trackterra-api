@@ -3,7 +3,7 @@ import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, TxLabel } from '..';
 import { ParserProcessArgs } from '../args';
 
-export class LiquidationEngine {
+export class LiquidityEngine {
   static provideLiquidity({
     walletAddress,
     txType,
@@ -19,7 +19,7 @@ export class LiquidationEngine {
 
     const mint = _.first(contractActions.mint);
     const recievedToken: IAmount = {
-      token: lpTokenCombiner(contract, assetTokens.map((token) => token.token)),
+      token: mint.contract as unknown as string,
       amount: ((mint.amount as unknown as number) /
         assetTokens.length) as unknown as string,
     };
@@ -55,32 +55,32 @@ export class LiquidationEngine {
     });
 
     const contract = withdrawLiquidity.contract as unknown as string;
-    const assets = withdrawLiquidity.refund_assets as unknown as string;
-    const assetTokens = splitTokens(assets);
+    const refundAssets = withdrawLiquidity.refund_assets as unknown as string;
+    const refundAssetTokens = splitTokens(refundAssets);
 
     const burn = _.first(contractActions.burn);
 
-    const recievedToken: IAmount = {
-      token: lpTokenCombiner(contract, assetTokens.map((token) => token.token)),
+    const burnToken: IAmount = {
+      token: burn.contract as unknown as string,
       amount: ((burn.amount as unknown as number) /
-        assetTokens.length) as unknown as string,
+        refundAssets.length) as unknown as string,
     };
 
     const result = [];
 
-    for (let index = 0; index < assetTokens.length; index++) {
-      const sentToken = assetTokens[index];
+    for (let index = 0; index < refundAssetTokens.length; index++) {
+      const receivedToken = refundAssetTokens[index];
       result.push({
         walletAddress,
         contract: contract,
         label: TxLabel.Swap,
         tag: txType.tag,
         sender: walletAddress,
-        sentAmount: sentToken.amount,
-        sentToken: sentToken.token,
+        sentAmount: burnToken.amount,
+        sentToken: burnToken.token,
         recipient: walletAddress,
-        receivedAmount: recievedToken.amount,
-        receivedToken: recievedToken.token,
+        receivedAmount: receivedToken.amount,
+        receivedToken: receivedToken.token,
         friendlyDescription: txType.description,
       });
     }
@@ -89,16 +89,16 @@ export class LiquidationEngine {
 }
 export class ProvideLiquidity implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    return LiquidationEngine.provideLiquidity(args);
+    return LiquidityEngine.provideLiquidity(args);
   }
 }
 export class WithdrawLiquidity implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    return LiquidationEngine.withdrawLiquidity(args);
+    return LiquidityEngine.withdrawLiquidity(args);
   }
 }
 
-export const Liquidations = {
+export const Liquidates = {
   ProvideLiquidity,
   WithdrawLiquidity,
 };

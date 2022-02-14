@@ -7,7 +7,7 @@ import { Burners } from './burn';
 import { ToBeDefined } from './tobedefined';
 import { Farms } from './farm';
 import { Earners } from './earns';
-import { Liquidations } from './liquidation';
+import { Liquidates } from './liquidity';
 import { Zaps } from './zap';
 import { Staking } from './staking';
 import { Delegate } from './delegate';
@@ -22,7 +22,7 @@ export const ParseProcessors = {
   ...Burners,
   ...Farms,
   ...Earners,
-  ...Liquidations,
+  ...Liquidates,
   ...Zaps,
   ...Staking,
   ...Delegate,
