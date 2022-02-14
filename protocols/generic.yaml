@@ -26,6 +26,6 @@ transactions:
         contractKey: contract
       ignoreContract: true
     isEliminator: true
-    description: Add liquidity
+    description: Provide liquidity
     parserClass: ProvideLiquidity
     tag: swap
