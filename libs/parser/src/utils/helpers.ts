@@ -32,6 +32,18 @@ export const findAttributes = (
 };
 
 export const separateAmountFromToken = (term: string): IAmount => {
+  term = term.replace("cw20:", "");
+  term = term.replace("native:", "");
+
+  // token:amount in prism
+  if(term.includes(":")) {
+    const arrTerm = term.split(":");
+    return {
+      token: _.first(arrTerm),
+      amount: _.last(arrTerm),
+    }
+  }
+
   const amount = (term).replace(/(^\d+)(.+$)/i,'$1');
   const token = term.substring(amount.length);
 
@@ -52,6 +64,13 @@ export const splitTokens = (tokens: string): IAmount[] => {
 
   const tokensWithoutSpace = _.replace(tokens, ' ', '');
   const assetsSep = _.split(tokensWithoutSpace, ',');
+  
+  const tt = assetsSep.map((asset) => {
+    return separateAmountFromToken(asset);
+  });
+  console.dir({
+    "the tt is": tt
+  }, {depth: 'null'});
   
   return assetsSep.map((asset) => {
     return separateAmountFromToken(asset);
