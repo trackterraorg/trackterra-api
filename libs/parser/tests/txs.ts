@@ -324,17 +324,29 @@ export const txHashes = {
       walletAddress: 'terra1s2wcddd8jsa4nvse8hq3dffjd072znl9vzm20e',
     },
   ],
-  tests: [
-    // {
-    //   label: 'Anchor withdraw liquidity',
-    //   txHash:
-    //     '5DDC0447C63FB32341BF1204B40491AAB5A63B6688959341E700F09EA0D4297A',
-    //   walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
-    // },
+  prism: [
     {
-      label: 'Anchor withdraw liquidity',
-      txHash: 'AD2F3413ED14EDADC5AC88D15E347E97734304FE08F69DEC427060E52C59245C',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      label: 'swap',
+      txHash:
+        'EB569909BB534A5B7957AD29EDEF187C2081DBCC7235CFAB6ED5A1707B03A049',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: 'provide liquidity',
+      txHash: '1987D4114E7D0911A3C5E4BE4E1D9411A1E29915B78FA7B413961FDDE0E7BDB8',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: 'withdraw liquidity',
+      txHash: '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+  ],
+  tests: [
+    {
+      label: 'provide liquidity',
+      txHash: '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };

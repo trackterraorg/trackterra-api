@@ -1,0 +1,45 @@
+name: Prism
+type: Contract
+priority: 0
+transactions:
+  - name: PrismSwap
+    contract: terra19d2alknajcngdezrdhq40h6362k92kz23sz62u
+    classifier:
+      shouldExistAttributes: ['swap']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: swap
+        contractKey: contract
+      ignoreContract: false
+    parserClass: Swap
+    description: Prism swap
+    isEliminator: true
+    tag: swap
+
+  - name: PrismProvideLiquidity
+    contract: 'terra19d2alknajcngdezrdhq40h6362k92kz23sz62u'
+    classifier:
+      shouldExistAttributes: ['provide_liquidity', 'mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: true
+    isEliminator: true
+    description: Provide liquidity
+    parserClass: ProvideLiquidity
+    tag: swap
+
+  - name: PrismWithdrawLiquidity
+    contract: terra19d2alknajcngdezrdhq40h6362k92kz23sz62u
+    classifier:
+      shouldExistAttributes: ['withdraw_liquidity', 'burn']
+      shouldNotExistAttributes: ['zap_out_of_strategy']
+      contractAddressExtractKeys:
+        mainKey: withdraw_liquidity
+        contractKey: contract
+      ignoreContract: true
+    isEliminator: true
+    description: withdraw liquidity
+    parserClass: WithdrawLiquidity
+    tag: swap
