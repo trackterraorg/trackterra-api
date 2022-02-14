@@ -65,13 +65,6 @@ export const splitTokens = (tokens: string): IAmount[] => {
   const tokensWithoutSpace = _.replace(tokens, ' ', '');
   const assetsSep = _.split(tokensWithoutSpace, ',');
   
-  const tt = assetsSep.map((asset) => {
-    return separateAmountFromToken(asset);
-  });
-  console.dir({
-    "the tt is": tt
-  }, {depth: 'null'});
-  
   return assetsSep.map((asset) => {
     return separateAmountFromToken(asset);
   });
