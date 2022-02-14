@@ -333,9 +333,8 @@ export const txHashes = {
     // },
     {
       label: 'Anchor withdraw liquidity',
-      txHash:
-        'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: 'AD2F3413ED14EDADC5AC88D15E347E97734304FE08F69DEC427060E52C59245C',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
 };

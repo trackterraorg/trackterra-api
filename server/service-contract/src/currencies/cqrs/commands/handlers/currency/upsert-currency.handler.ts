@@ -73,7 +73,18 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
     const initMsg: any = contractInfo?.init_msg
 
     if(initMsg?.symbol.toLowerCase() == 'ulp') {
-      return await this.getTokenFromULPContract(initMsg.init_hook.contract_addr);
+      let contractAddress = '';
+      let contractKeys = Object.keys(initMsg);
+
+      if(contractKeys.includes("init_hook")) {
+        contractAddress = initMsg.init_hook.contract_addr;
+      }
+
+      if(contractKeys.includes("mint")) {
+        contractAddress = initMsg.mint.minter;
+      }
+
+      return await this.getTokenFromULPContract(contractAddress);
     }
 
     const currFromFcd: Partial<Currency> = initMsg;
@@ -123,13 +134,13 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
 
     const lpTokenCount = await this.currencyRepository.countDocuments({symbol: {
         "$regex": "_LP$"
-      } 
+      }
     });
 
     return await this.currencyRepository.create({
       name: lpTokenName,
       symbol: lpTokenName,
-      nullIndex: lpTokenCount,
+      nullIndex: lpTokenCount + 1,
       decimals: 6,
       icon: '',
       identifier,

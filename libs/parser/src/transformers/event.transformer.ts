@@ -157,21 +157,23 @@ export class EventTransformer {
       return attr.key == 'validator';
     });
 
-    const amount = attributes.find((attr) => {
+    const strAmount = attributes.find((attr) => {
       return attr.key == 'amount';
     });
 
-    const transfer: TransferAction = {
-      sender: undefined,
-      recipient: validator.value,
-      amount: {
-        token: 'uluna',
-        amount: amount.value,
-      },
-      extraParsingInfo: 'NativeDelegate',
-    };
+    const amounts: IAmount[] = splitTokens(strAmount.value);
 
-    this._transferActions = [transfer];
+
+    for (const amount of amounts) {
+      const transfer: TransferAction = {
+        sender: undefined,
+        recipient: validator.value,
+        amount,
+        extraParsingInfo: 'NativeDelegate',
+      };
+
+      this._transferActions = [transfer];
+    }
     return this;
   }
 
@@ -202,10 +204,7 @@ export class EventTransformer {
       const transfer: TransferAction = {
         recipient: undefined,
         sender: validator.value,
-        amount: {
-          token: amount.token,
-          amount: amount.amount,
-        },
+        amount,
         extraParsingInfo: 'NativeReward',
       };
 

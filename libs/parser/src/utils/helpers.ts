@@ -68,19 +68,33 @@ export const lpTokenSplitter = (token: string): {
   tokens: string[]
 } => {
 
-  const split = _.split(token, ",");
+  let identifier = token;
+  let tokens = [token];
 
-  if(split.length > 1) {
-    const identifier = split.shift();
-    const tokens = split;
-    return {
-      identifier,
-      tokens
-    }
+  if(token.includes(",")) {
+    const split = _.split(token, ",");
+    identifier = split.shift();
+    tokens = split;
   }
 
+  // remove native: cw20: prefixes
+  const identifierColIndex = identifier.indexOf(":");
+  if(identifierColIndex > -1) {
+    identifier = identifier.substring(identifierColIndex + 1);
+  }
+
+  // remove native: cw20: prefixes
+  tokens = tokens.map((tk) => {
+    const colIndex = tk.indexOf(":");
+
+    if(colIndex > -1) {
+      return tk.substring(colIndex + 1);
+    }
+    return tk;
+  });
+
   return {
-    identifier: token,
-    tokens: [token],
+    identifier,
+    tokens,
   };
 }

@@ -1,4 +1,4 @@
-import { IParsedTx, IAmount, TxLabel } from '../parser';
+import { IParsedTx, IAmount, TxLabel, TxTag } from '../parser';
 
 interface ExportableData {
   txs: {
@@ -47,8 +47,9 @@ export class Exporter {
       newTx.label = TxLabel.Fee;
       newTx.sender = sender;
       newTx.recipient = recipient;
-      newTx.feeAmount = fee.amount;
-      newTx.feeToken = fee.token;
+      newTx.sentAmount = fee.amount;
+      newTx.sentToken = fee.token;
+      newTx.tag = TxTag.Cost;
 
       records = records.concat(newTx);
     });

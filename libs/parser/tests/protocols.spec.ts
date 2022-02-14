@@ -30,7 +30,8 @@ describe('The parser should classify and parse ', () => {
           txHash: tx.txHash,
           walletAddress: tx.walletAddress,
         });
-
+        console.log(result);
+        
         if (result === undefined || result.length == 0) {
           console.log(`Could not parse ${protocol} ${tx.label} tx`);
         }
