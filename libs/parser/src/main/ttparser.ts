@@ -29,13 +29,15 @@ export class TTParser {
 
     for (let index = 0; index < transformedActions.length; index++) {
       const transformedData = transformedActions[index];
-      const { protocol, txType } = await Classifier.classify(transformedData);
+      const classificationResult = await Classifier.classify(transformedData);
 
       // Ignore any event that can not be detected by the classifier
-      if (txType === undefined) {
+      if (classificationResult?.txType === undefined) {
         continue;
       }
 
+      const { protocol, txType } = classificationResult;
+      
       classifiedEvents.push({
         transformedData,
         protocol,
