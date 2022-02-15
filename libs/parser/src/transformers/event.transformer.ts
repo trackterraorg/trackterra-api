@@ -131,9 +131,11 @@ export class EventTransformer {
 
     attributes.forEach((attr) => {
       if (attr.key === 'amount') {
-        tR.amount = separateAmountFromToken(attr.value);
-        transfers.push(tR as TransferAction);
-        tR = {};
+        const amounts: IAmount[] = splitTokens(attr.value);
+
+        for (const amount of amounts) {
+          transfers.push({...tR, amount} as TransferAction);
+        }
       }
       tR[attr.key] = attr.value;
     });
