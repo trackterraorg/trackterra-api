@@ -32,9 +32,7 @@ export const findAttributes = (
 };
 
 export const separateAmountFromToken = (term: string): IAmount => {
-  term = term.replace("cw20:", "");
-  term = term.replace("native:", "");
-
+  term = tokenCleanUp(term);
   // token:amount in prism
   if(term.includes(":")) {
     const arrTerm = term.split(":");
@@ -56,6 +54,18 @@ export const separateAmountFromToken = (term: string): IAmount => {
     amount,
   };
 };
+
+export const tokenCleanUp = (token: string): string => {
+
+  if (_.isEmpty(token)) {
+    return;
+  }
+
+  token = token.replace("cw20:", "");
+  token = token.replace("native:", "");
+
+  return token;
+}
 
 export const splitTokens = (tokens: string): IAmount[] => {
   if (_.isEmpty(tokens)) {
@@ -89,21 +99,10 @@ export const lpTokenSplitter = (token: string): {
     tokens = split;
   }
 
-  // remove native: cw20: prefixes
-  const identifierColIndex = identifier.indexOf(":");
-  if(identifierColIndex > -1) {
-    identifier = identifier.substring(identifierColIndex + 1);
-  }
-
-  // remove native: cw20: prefixes
-  tokens = tokens.map((tk) => {
-    const colIndex = tk.indexOf(":");
-
-    if(colIndex > -1) {
-      return tk.substring(colIndex + 1);
-    }
-    return tk;
-  });
+  identifier = tokenCleanUp(identifier);
+  tokens = tokens.map((token) => {
+    return tokenCleanUp(token);
+  })
 
   return {
     identifier,

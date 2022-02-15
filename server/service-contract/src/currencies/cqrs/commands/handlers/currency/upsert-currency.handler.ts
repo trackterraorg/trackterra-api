@@ -10,7 +10,7 @@ import _ = require('lodash');
 import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/contract';
 import { FCDApiService } from '@trackterra/core';
 import { ContractInfo } from '@terra-money/terra.js';
-import { lpTokenCombiner, lpTokenSplitter } from '@trackterra/parser/utils';
+import { lpTokenCombiner, lpTokenSplitter, tokenCleanUp } from '@trackterra/parser/utils';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyCommand> {
@@ -32,26 +32,11 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
 
       const { identifier } = input;
 
-      const tokenSplit = lpTokenSplitter(identifier);
-
-      // leverage cache instead of mongos upsert op
-      let currency: CurrencyEntity = await this.currencyRepository.findOne({
-        identifier: tokenSplit.identifier,
-      });
-
-      if(! _.isEmpty(currency)) {
-        return { currency };
-      }
-
-      // identifier & contract & token are same 
-      if(_.size(tokenSplit.tokens) === 1) {
-        currency = await this.upsertCurrency(tokenSplit.identifier);
-      } else {
-        currency = await this.generateUlpToken(tokenSplit.identifier, tokenSplit.tokens);
-      }
+      const currency = await this.upsertCurrency(tokenCleanUp(identifier));
 
       return {  currency: currency as unknown as Currency};
     } catch (error) {
+      console.dir({"The error": "erorroro"}, {depth: 'null'});
       this.logger.error(error);
       throw new RpcException(error);
     }
@@ -68,49 +53,59 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
       return currency;
     }
 
-    const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(identifier);
-
-    const initMsg: any = contractInfo?.init_msg
-
-    if(initMsg?.symbol.toLowerCase() == 'ulp') {
-      let contractAddress = '';
-      let contractKeys = Object.keys(initMsg);
-
-      if(contractKeys.includes("init_hook")) {
-        contractAddress = initMsg.init_hook.contract_addr;
+    try {
+      const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(identifier);
+  
+      const { init_msg: initMsg } = contractInfo;
+  
+      if(initMsg?.symbol.toLowerCase() == 'ulp') {
+        return await this.getTokenFromULPContract(initMsg.mint.minter);
       }
-
-      if(contractKeys.includes("mint")) {
-        contractAddress = initMsg.mint.minter;
-      }
-
-      return await this.getTokenFromULPContract(contractAddress);
+  
+      const currFromFcd: Partial<Currency> = initMsg;
+  
+      return await this.currencyRepository.create({
+        name: currFromFcd?.name,
+        symbol: currFromFcd?.symbol,
+        decimals: currFromFcd?.decimals ?? 6,
+        icon: '',
+        identifier: identifier,
+      });
+    } catch(e) {
+      this.logger.log(e);
     }
-
-    const currFromFcd: Partial<Currency> = initMsg;
-
-    return await this.currencyRepository.create({
-      name: currFromFcd?.name,
-      symbol: currFromFcd?.symbol,
-      decimals: currFromFcd?.decimals ?? 6,
-      icon: '',
-      identifier: identifier,
-    });
   }
 
   private async getTokenFromULPContract(contractAddress: string): Promise<CurrencyEntity> {
-    const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(contractAddress);
 
-    const assets = contractInfo.init_msg.asset_infos.map((asset): string => {
-      if(Object.keys(asset).includes("native_token")) {
-        return asset.native_token.denom;
-      }
-      if(Object.keys(asset).includes("token")) {
-        return asset.token.contract_addr;
-      }
-    }).filter((asset: any) => asset != undefined);
+    try {
+      
+      const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(contractAddress);
+      
+      const assets = contractInfo.init_msg.asset_infos.map((asset: any): string => {
+        const keys = Object.keys(asset);
 
-    return await this.generateUlpToken(contractAddress, assets);
+        if(keys.includes("native_token")) {
+          return asset.native_token.denom;
+        }
+
+        if(keys.includes("token")) {
+          return asset.token.contract_addr;
+        }
+
+        if(keys.includes("cw20")) {
+          return asset.cw20;
+        }
+
+        if(keys.includes("native")) {
+          return asset.native;
+        }
+      }).filter((asset: any) => asset != undefined);
+  
+      return await this.generateUlpToken(contractAddress, assets);
+    } catch(e) {
+      this.logger.log(e);
+    }
   }
 
   private async generateUlpToken(identifier: string, tokens: string[]) : Promise<CurrencyEntity>{

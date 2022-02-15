@@ -2,7 +2,6 @@ import { ContractRpcClientService } from '@trackterra/core';
 import { TTOutput } from '@trackterra/parser';
 import { Currency } from '@trackterra/proto-schema/contract';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
-import { CurrencyEntity } from '@trackterra/repository';
 import _ = require('lodash');
 
 export async function txToTxCreateRequest(

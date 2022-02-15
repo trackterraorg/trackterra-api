@@ -673,9 +673,6 @@ export class BaseMongoRepository<DOC, DTO = DOC> {
     const cleanConditions = cleanEmptyProperties({
       ...conditions,
     });
-    console.dir({
-      cleanConditions
-    }, {depth: 'null'});
     const collection = await this.collection;
     return await collection.find(cleanConditions).count();
   }

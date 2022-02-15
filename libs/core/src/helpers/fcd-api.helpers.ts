@@ -80,7 +80,7 @@ export class FCDApi {
       console.error(result.problem);
     }
 
-    throw 'Could not fetch contract info';
+    throw 'Could not fetch contract info for contract ' + address;
   }
   
 }
