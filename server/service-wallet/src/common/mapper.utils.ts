@@ -35,7 +35,6 @@ export async function mapTxToTaxApp(
     });
   }
 
-
   if (taxApp.hasSpecialTags()) {
     mappedTxs = mappedTxs?.map((mappedTx) => {
       let tag: string = mappedTx.tx.tag;

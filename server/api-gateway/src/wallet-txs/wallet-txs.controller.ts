@@ -10,19 +10,13 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { WalletsRpcClientService } from '@trackterra/core';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
-import { mapTxToTaxApp } from 'server/service-wallet/src/common';
-import { mkdirSync } from 'fs';
 import { join } from 'path';
-import { v1 as uuid } from 'uuid';
 import * as fs from 'fs';
-import { createObjectCsvWriter } from 'csv-writer';
 import * as _ from 'lodash';
 import { queryMapper, walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { RpcException } from '@nestjs/microservices';
-import { TaxappSelector } from '@trackterra/tax-apps/apps';
-import { FindTaxAppTxsResponse } from 'server/service-wallet/src/common/taxapp.types';
-import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
+import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
 @Controller('/api/v1')
 @ApiTags('Txs')
 export class WalletTxsController {
@@ -32,7 +26,7 @@ export class WalletTxsController {
   async getTxs(
     @Param('address') address: string,
     @Query() { taxapp, q, skip, take, order, orderBy, csv }: FindTxsDto,
-  ): Promise<FindTaxAppTxsResponse> {
+  ): Promise<FindTxsResponse> {
     const filter = q ? JSON.stringify(queryMapper(q)) : q;
     const result = await this.wallet.svc
       .findTxs({
@@ -44,6 +38,7 @@ export class WalletTxsController {
         },
         orderBy,
         order,
+        taxapp,
         csv,
       })
       .toPromise();
@@ -52,19 +47,7 @@ export class WalletTxsController {
       throw new RpcException('Could not fetch txs!');
     }
 
-    const objTaxapp = TaxappSelector.select(taxapp);
-
-    const txs = await mapTxToTaxApp(result.txs, objTaxapp);
-
-    if (csv) {
-      const csvFileName = await this.createCsvFile(address, txs, objTaxapp.csvCells());
-      return { csvFileName };
-    }
-
-    return {
-      txs,
-      totalCount: result.totalCount,
-    };
+    return result;
   }
 
   @Get('/csv/txs/:address/:filename')
@@ -86,36 +69,5 @@ export class WalletTxsController {
     } catch (err) {
       console.error(err);
     }
-  }
-
-  private async createCsvFile(address: string, txNodes: any[], header: ICsvHeaderCell[]) {
-    const dir = join(walletsDir(), address);
-
-    if (!fs.existsSync(dir)) {
-      mkdirSync(dir);
-    }
-    const fileName = _.replace(`${uuid()}.csv`, /-/g, '');
-    const filePath = join(dir, fileName);
-
-    const txs = txNodes
-      .map((txNode) => txNode.tx)
-      .map((tx) => {
-        delete tx.id;
-        return tx;
-      });
-
-    const csvWriter = createObjectCsvWriter({
-      path: filePath,
-      header,
-    });
-
-    await csvWriter
-      .writeRecords(txs) // returns a promise
-      .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
-
-    return fileName;
   }
 }

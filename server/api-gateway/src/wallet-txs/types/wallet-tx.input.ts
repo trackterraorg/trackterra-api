@@ -40,6 +40,9 @@ export class TxFilterArgs {
   @Field()
   csv: boolean;
 
+  @Field()
+  taxapp: string;
+
   @Field(() => TxFilterInput, { nullable: true })
   where?: TxFilterInput;
 

@@ -245,11 +245,13 @@ export interface FindTxsRequest {
   order: string;
   orderBy: string;
   csv: boolean;
+  taxapp: string;
 }
 
 export interface FindTxsResponse {
   txs: TxNode[];
   totalCount: number;
+  csvFileName: string;
 }
 
 export interface FindTxsResponseKoinly {
@@ -518,11 +520,13 @@ const baseFindTxsRequest: object = {
   order: '',
   orderBy: '',
   csv: false,
+  taxapp: '',
 };
 
 const baseFindTxsResponse: object = {
   txs: undefined,
   totalCount: 0,
+  csvFileName: '',
 };
 
 const baseFindTxsResponseKoinly: object = {
@@ -3739,6 +3743,7 @@ export const FindTxsRequest = {
     writer.uint32(34).string(message.order);
     writer.uint32(42).string(message.orderBy);
     writer.uint32(48).bool(message.csv);
+    writer.uint32(58).string(message.taxapp);
     return writer;
   },
   decode(reader: Reader, length?: number): FindTxsRequest {
@@ -3764,6 +3769,9 @@ export const FindTxsRequest = {
           break;
         case 6:
           message.csv = reader.bool();
+          break;
+        case 7:
+          message.taxapp = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3804,6 +3812,11 @@ export const FindTxsRequest = {
     } else {
       message.csv = false;
     }
+    if (object.taxapp !== undefined && object.taxapp !== null) {
+      message.taxapp = String(object.taxapp);
+    } else {
+      message.taxapp = '';
+    }
     return message;
   },
   fromPartial(object: DeepPartial<FindTxsRequest>): FindTxsRequest {
@@ -3838,6 +3851,11 @@ export const FindTxsRequest = {
     } else {
       message.csv = false;
     }
+    if (object.taxapp !== undefined && object.taxapp !== null) {
+      message.taxapp = object.taxapp;
+    } else {
+      message.taxapp = '';
+    }
     return message;
   },
   toJSON(message: FindTxsRequest): unknown {
@@ -3848,6 +3866,7 @@ export const FindTxsRequest = {
     obj.order = message.order || '';
     obj.orderBy = message.orderBy || '';
     obj.csv = message.csv || false;
+    obj.taxapp = message.taxapp || '';
     return obj;
   },
 };
@@ -3858,6 +3877,7 @@ export const FindTxsResponse = {
       TxNode.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     writer.uint32(16).int32(message.totalCount);
+    writer.uint32(26).string(message.csvFileName);
     return writer;
   },
   decode(reader: Reader, length?: number): FindTxsResponse {
@@ -3872,6 +3892,9 @@ export const FindTxsResponse = {
           break;
         case 2:
           message.totalCount = reader.int32();
+          break;
+        case 3:
+          message.csvFileName = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -3893,6 +3916,11 @@ export const FindTxsResponse = {
     } else {
       message.totalCount = 0;
     }
+    if (object.csvFileName !== undefined && object.csvFileName !== null) {
+      message.csvFileName = String(object.csvFileName);
+    } else {
+      message.csvFileName = '';
+    }
     return message;
   },
   fromPartial(object: DeepPartial<FindTxsResponse>): FindTxsResponse {
@@ -3908,6 +3936,11 @@ export const FindTxsResponse = {
     } else {
       message.totalCount = 0;
     }
+    if (object.csvFileName !== undefined && object.csvFileName !== null) {
+      message.csvFileName = object.csvFileName;
+    } else {
+      message.csvFileName = '';
+    }
     return message;
   },
   toJSON(message: FindTxsResponse): unknown {
@@ -3918,6 +3951,7 @@ export const FindTxsResponse = {
       obj.txs = [];
     }
     obj.totalCount = message.totalCount || 0;
+    obj.csvFileName = message.csvFileName || '';
     return obj;
   },
 };

@@ -266,11 +266,13 @@ message FindTxsRequest {
     string order = 4;
     string orderBy = 5;
     bool csv = 6;
+    string taxapp = 7;
 }
 
 message FindTxsResponse {
     repeated TxNode txs = 1;
     int32 totalCount = 2;
+    string csvFileName = 3;
 }
 
 message FindTxsResponseKoinly {

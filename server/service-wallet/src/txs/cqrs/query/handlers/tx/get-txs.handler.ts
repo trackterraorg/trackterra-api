@@ -3,7 +3,6 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { utils } from '@juicycleff/repo-orm';
 import {
   Order,
-  TxEntity,
   TxRepository,
   WalletRepository,
 } from '@trackterra/repository';
@@ -15,9 +14,17 @@ import {
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
 import {
+  mapTxToTaxApp,
   txEntityToView,
 } from 'server/service-wallet/src/common';
-import { cleanEmptyProperties } from '@trackterra/common';
+import { cleanEmptyProperties, walletsDir } from '@trackterra/common';
+import { join } from 'path';
+import * as fs from 'fs';
+import { v1 as uuid } from 'uuid';
+import { createObjectCsvWriter } from 'csv-writer';
+import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
+import { TaxApps, TaxappSelector } from '@trackterra/tax-apps/apps';
+import { FindTaxAppTxsResponse, TaxAppTxNode } from 'server/service-wallet/src/common/taxapp.types';
 
 @QueryHandler(GetTxsQuery)
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
@@ -45,10 +52,6 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
     const walletParsed = await this.walletRepository.exist({
       address
     });
-
-    console.dir({
-      walletParsed
-    }, {depth: 'null'});
     
     if (! walletParsed) {
       throw new RpcException('Wallet has not been parsed. Please parse it first!');
@@ -91,14 +94,61 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       const txs = await this.txRepository.find(queryParams);
 
       const mappedTxs = txs.map((tx) => txEntityToView(tx));
+      
+      if ( input.csv ) {
+
+        const objTaxapp = TaxappSelector.select(input?.taxapp ?? 'regular');
+  
+        const mappedBasedOnApp = await mapTxToTaxApp(mappedTxs, objTaxapp);
+
+        const csvFileName = await this.createCsvFile(address, mappedBasedOnApp, objTaxapp.csvCells());
+        return {
+          txs: null,
+          totalCount: null,
+          csvFileName,
+        }
+      }
 
       return {
         txs: mappedTxs,
         totalCount,
+        csvFileName: null,
       };
     } catch (e) {
       this.logger.error(e);
       throw new RpcException(e);
     }
+  }
+
+  private async createCsvFile(address: string, txNodes: any[], header: ICsvHeaderCell[]) {
+
+    const dir = join(walletsDir(), address);
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+    const fileName = _.replace(`${uuid()}.csv`, /-/g, '');
+    const filePath = join(dir, fileName);
+
+    const txs = txNodes
+      .map((txNode) => txNode.tx)
+      .map((tx) => {
+        delete tx.id;
+        return tx;
+      });
+
+    const csvWriter = createObjectCsvWriter({
+      path: filePath,
+      header,
+    });
+
+    await csvWriter
+      .writeRecords(txs) // returns a promise
+      .then(() => {})
+      .catch((e) => {
+        console.log(e);
+      });
+    
+    return fileName;
   }
 }
