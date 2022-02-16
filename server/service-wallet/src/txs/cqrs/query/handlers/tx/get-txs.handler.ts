@@ -9,7 +9,7 @@ import {
 import { GetTxsQuery } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import {
-  FindTxsResponse,
+  FindTxsResponse, Tx,
 } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
@@ -24,7 +24,7 @@ import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
 import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
 import { TaxApps, TaxappSelector } from '@trackterra/tax-apps/apps';
-import { FindTaxAppTxsResponse, TaxAppTxNode } from 'server/service-wallet/src/common/taxapp.types';
+import { FindTaxAppTxsResponse, TaxAppTxType } from 'server/service-wallet/src/common/taxapp.types';
 
 @QueryHandler(GetTxsQuery)
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
@@ -93,21 +93,22 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
 
       const txs = await this.txRepository.find(queryParams);
 
-      const mappedTxs = txs.map((tx) => txEntityToView(tx));
+      const objTaxapp = TaxappSelector.select(input?.taxapp ?? 'regular');
       
+      const mappedBasedOnApp = await mapTxToTaxApp(txs, objTaxapp);
+
       if ( input.csv ) {
-
-        const objTaxapp = TaxappSelector.select(input?.taxapp ?? 'regular');
-  
-        const mappedBasedOnApp = await mapTxToTaxApp(mappedTxs, objTaxapp);
-
+        
         const csvFileName = await this.createCsvFile(address, mappedBasedOnApp, objTaxapp.csvCells());
+
         return {
           txs: null,
           totalCount: null,
           csvFileName,
         }
       }
+      
+      const mappedTxs = mappedBasedOnApp.map((tx) => txEntityToView(Tx.fromJSON(tx)));
 
       return {
         txs: mappedTxs,
@@ -120,7 +121,7 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
     }
   }
 
-  private async createCsvFile(address: string, txNodes: any[], header: ICsvHeaderCell[]) {
+  private async createCsvFile(address: string, txs: TaxAppTxType[], header: ICsvHeaderCell[]) {
 
     const dir = join(walletsDir(), address);
 
@@ -129,13 +130,6 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
     }
     const fileName = _.replace(`${uuid()}.csv`, /-/g, '');
     const filePath = join(dir, fileName);
-
-    const txs = txNodes
-      .map((txNode) => txNode.tx)
-      .map((tx) => {
-        delete tx.id;
-        return tx;
-      });
 
     const csvWriter = createObjectCsvWriter({
       path: filePath,

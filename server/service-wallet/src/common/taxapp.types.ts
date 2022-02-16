@@ -2,12 +2,13 @@ import {
   FindTxsResponse,
   FindTxsResponseCointracker,
   FindTxsResponseKoinly,
-  TxCointrackerNode,
-  TxKoinlyNode,
-  TxNode,
+  Tx,
+  TxCointracker,
+  TxKoinly,
 } from '@trackterra/proto-schema/wallet';
 
-export type TaxAppTxNode = TxNode | TxCointrackerNode | TxKoinlyNode;
+export type TaxAppTxType = Tx | TxCointracker | TxKoinly;
+
 export type FindTaxAppTxsResponse =
   | FindTxsResponse
   | FindTxsResponseCointracker

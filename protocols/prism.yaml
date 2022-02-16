@@ -38,7 +38,7 @@ transactions:
       contractAddressExtractKeys:
         mainKey: mint
         contractKey: contract
-      ignoreContract: true
+      ignoreContract: false
     isEliminator: true
     description: Provide liquidity
     parserClass: ProvideLiquidity
@@ -52,7 +52,7 @@ transactions:
       contractAddressExtractKeys:
         mainKey: withdraw_liquidity
         contractKey: contract
-      ignoreContract: true
+      ignoreContract: false
     isEliminator: true
     description: withdraw liquidity
     parserClass: WithdrawLiquidity

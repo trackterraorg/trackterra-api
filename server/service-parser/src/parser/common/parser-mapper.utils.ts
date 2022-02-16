@@ -55,7 +55,7 @@ export async function txToTxCreateRequest(
 
 export function tokenValue(currency: Currency, amount: number): number {
   
-  if(_.isEmpty(amount)) {
+  if (isNaN(amount)) {
     return undefined;
   }
 
