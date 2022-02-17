@@ -10,7 +10,7 @@ export interface ITransferRecord {
   amount: IAmount;
 }
 
-export abstract class Transfer {
+export class TransferEngine {
   private _preferredKey: string | undefined;
 
   public get preferredKey(): string | undefined {
@@ -63,7 +63,7 @@ export abstract class Transfer {
     return mappedActions;
   }
 
-  doProcess(args: ParserProcessArgs): IParsedTx[] {
+  process(args: ParserProcessArgs): IParsedTx[] {
     const { txType, walletAddress } = args;
     let transferActions = args.transferActions;
 
@@ -110,17 +110,17 @@ export abstract class Transfer {
 /**
  * Extracted from transfer event
  */
-export class GenericTransfer extends Transfer implements IParser {
+export class GenericTransfer implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    return this.doProcess(args);
+    return (new TransferEngine()).process(args);
   }
 }
 
-export class PylonPoolDeposit extends Transfer implements IParser {
+export class PylonPoolDeposit implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     //FIXME
 
-    return this.doProcess(args);
+    return (new TransferEngine()).process(args);
   }
 }
 
