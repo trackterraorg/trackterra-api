@@ -11,36 +11,28 @@ export class AnchorClaimRewards implements IParser {
         return tA.to as unknown as string == args.walletAddress
     });
 
-    let unbondActionsFromContract = args.contractActions?.unbond;
+    const contractActions = {
+        transfer: allTransferActions,
+    };
 
-    const transferActions = [];
-    const unbondActions = [];
+    let actions = (new TransferEngine()).process({...args, contractActions});
 
-    allTransferActions.forEach((transferAction) => {
-        const unstakeTx = unbondActionsFromContract.find((uA) => {
-            return transferAction.from === uA.owner && transferAction.amount === uA.amount;
-        });
+    let unbondActions = args.contractActions?.unbond;
 
-        if(unstakeTx) {
-            unbondActions.push(transferAction);
-        } else {
-            transferActions.push(transferAction);
+    actions = actions.reverse();
+
+    unbondActions?.forEach((action) => {
+        for (let index = 0; index < actions.length; index++) {
+            const tA = actions[index];
+
+            if(tA.sender === action.owner as unknown as string && tA.receivedAmount == action.amount as unknown as string) {
+                tA.tag = TxTag.PoolWithdrawal;
+                actions[index] = tA;
+            }
         }
-    });
+    })
 
-    args.contractActions = {
-        transfer: unbondActions
-    };
-    args.txType.tag = TxTag.PoolWithdrawal;
-    const unstakeActions = ((new TransferEngine()).process(args));
-
-    args.contractActions = {
-        transfer: transferActions
-    };
-    args.txType.tag = TxTag.StakingRewards;
-    const rewards = (new TransferEngine()).process(args);
-
-    return unstakeActions.concat(rewards);
+    return actions;
   }
 }
 
