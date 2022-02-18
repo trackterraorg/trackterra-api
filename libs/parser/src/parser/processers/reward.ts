@@ -44,6 +44,19 @@ export class AnchorClaimRewards implements IParser {
   }
 }
 
+export class AnchorClaimBAssetRewards implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    
+    args.transferActions = args.transferActions.map((tA) => {
+        tA.recipient = args.walletAddress;
+        return tA;
+    });
+
+    return (new TransferEngine()).process(args);
+  }
+}
+
 export const Rewarders = {
   AnchorClaimRewards,
+  AnchorClaimBAssetRewards,
 };
