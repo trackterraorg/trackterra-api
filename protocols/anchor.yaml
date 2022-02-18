@@ -230,7 +230,7 @@ transactions:
   - name: AnchorClaimRewards
     contract: any
     classifier:
-      shouldExistAttributes: [withdraw, transfer, claim, unbond]
+      shouldExistAttributes: [withdraw, transfer, claim]
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
         mainKey: any

@@ -53,3 +53,16 @@ transactions:
       ignoreContract: false
     description: Nexus governance withdraw
     tag: pool_withdrawal
+
+  - name: Nexus Claim Rewards
+    contract: terra1992lljnteewpz0g398geufylawcmmvgh8l8v96
+    classifier:
+      shouldExistAttributes: ['claim', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim
+        contractKey: contract
+      ignoreContract: false
+    parserClass: NexusClaimRewards
+    description: Nexus staking rewards
+    tag: staking_rewards
