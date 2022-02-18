@@ -155,6 +155,11 @@ export const txHashes = {
       txHash: '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'pool deposit',
+      txHash: 'F9A843E9A44D9D3A19962D1DE86CEBCDE1A6A1BC0814D45ACC8FE991EC9C84A9',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   mirror: [
     {
@@ -350,7 +355,7 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
+      txHash: 'F9A843E9A44D9D3A19962D1DE86CEBCDE1A6A1BC0814D45ACC8FE991EC9C84A9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],

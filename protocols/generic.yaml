@@ -29,3 +29,19 @@ transactions:
     description: Provide liquidity
     parserClass: ProvideLiquidity
     tag: swap
+
+  - name: PoolDeposit
+    contract: any
+    classifier:
+      shouldExistAttributes: ['send', 'withdraw', 'transfer', 'deposit', 'bond']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    isEliminator: true
+    description: 
+    parserClass: GenericPoolTransfer
+    tag: pool_deposit
+
+  
