@@ -150,6 +150,11 @@ export const txHashes = {
         '2D145A7EB01B870FE22A54CE041695C522E634105383CBA02A02484B41C9F62A',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Anchor claim rewards',
+      txHash: '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   mirror: [
     {
@@ -344,8 +349,8 @@ export const txHashes = {
   ],
   tests: [
     {
-      label: 'provide liquidity',
-      txHash: '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
+      label: 'test',
+      txHash: '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],

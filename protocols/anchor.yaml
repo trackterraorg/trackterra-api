@@ -11,6 +11,7 @@ transactions:
         mainKey: burn
         contractKey: contract
       ignoreContract: false
+    parserClass: Swap
     description: Anchor Bluna Burn
     tag: pool_withdrawal
 
@@ -224,3 +225,16 @@ transactions:
     description: Anchor aUST redeem
     tag: withdraw
     parserClass: AnchorAustRedeem
+
+  - name: AnchorClaimRewards
+    contract: any
+    classifier:
+      shouldExistAttributes: [withdraw, transfer, claim, unbond]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: contract
+      ignoreContract: true
+    description: Anchor claim rewards
+    parserClass: AnchorClaimRewards
+    tag: staking_rewards
