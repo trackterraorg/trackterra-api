@@ -2,6 +2,7 @@ import { lpTokenCombiner, separateAmountFromToken, splitTokens } from '@trackter
 import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, TxLabel } from '..';
 import { ParserProcessArgs } from '../args';
+import { PoolTransferEngine } from './pool';
 
 export class LiquidityEngine {
   static provideLiquidity({
@@ -98,7 +99,18 @@ export class WithdrawLiquidity implements IParser {
   }
 }
 
+export class SpecProvideLiquidity implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    const txType = args.txType;
+    txType.description = 'Spec stake lp';
+    const deposit = PoolTransferEngine.deposit({...args, txType});
+    const provideLiquidity = LiquidityEngine.provideLiquidity(args);
+    return deposit.concat(provideLiquidity);
+  }
+}
+
 export const Liquidates = {
   ProvideLiquidity,
   WithdrawLiquidity,
+  SpecProvideLiquidity,
 };

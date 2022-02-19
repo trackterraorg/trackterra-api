@@ -25,7 +25,7 @@ export class PoolTransferEngine {
 
     static deposit(args: ParserProcessArgs): IParsedTx[] {
 
-        const { contractActions } = args;
+        let contractActions = args.contractActions
 
         const depositActions = contractActions?.send.filter((tA) => {
             return tA.from as unknown as string === args.walletAddress;
@@ -35,13 +35,15 @@ export class PoolTransferEngine {
             return [];
         }
 
-        args.contractActions = {
+        contractActions = {
             transfer: depositActions
         };
         
         args.txType.tag = TxTag.PoolDeposit;
     
-        return (new TransferEngine()).process(args);
+        return (new TransferEngine()).process({
+            ...args, contractActions
+        });
     }
 
     static withdraw(args: ParserProcessArgs): IParsedTx[] {
