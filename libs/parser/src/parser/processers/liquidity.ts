@@ -64,7 +64,7 @@ export class LiquidityEngine {
     const burnToken: IAmount = {
       token: burn.contract as unknown as string,
       amount: ((burn.amount as unknown as number) /
-        refundAssets.length) as unknown as string,
+        refundAssetTokens.length) as unknown as string,
     };
 
     const result = [];

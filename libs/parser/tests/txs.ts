@@ -218,6 +218,11 @@ export const txHashes = {
         'DF5C06229278C70BE3B771CD8D1363C0FA43A206C62A59ED83054E9101C40173',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Nexus staking reward',
+      txHash: 'C8040E3A0397F1CB07D7564723596B4AB17984A7530A06D58DECCAEBD26D8509',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   astroport: [
     {
@@ -333,6 +338,11 @@ export const txHashes = {
         'F112EFE32FF4CAD05EA54CBFAF945523AFC5484321D40434E1DB3411D070B6B8',
       walletAddress: 'terra1s2wcddd8jsa4nvse8hq3dffjd072znl9vzm20e',
     },
+    {
+      label: 'Withdraw liquidity',
+      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   prism: [
     {
@@ -355,7 +365,7 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: 'F9A843E9A44D9D3A19962D1DE86CEBCDE1A6A1BC0814D45ACC8FE991EC9C84A9',
+      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
