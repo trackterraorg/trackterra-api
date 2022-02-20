@@ -3,7 +3,38 @@ import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 import { LiquidityEngine } from './liquidity';
+import { PoolTransferEngine } from './pool';
 import { SwapEngine } from './swap';
+
+export class ZapIn implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const { walletAddress } = args;
+    const swapTx = SwapEngine.swap(args);
+    const provideLiquidtyTx = LiquidityEngine.provideLiquidity(args);
+
+    const txType = args.txType;
+    txType.tag = TxTag.PoolDeposit;
+
+    const contractActions = _.pick(args.contractActions, ['send', 'bond']);
+
+    contractActions.send = contractActions.send.map((cA: any) => {
+      cA.from = walletAddress;
+      return cA;
+    })
+
+    const transferActions = undefined;
+
+    const poolDepositTx = PoolTransferEngine.process({
+      ...args, 
+      contractActions,
+      txType,
+      transferActions,
+    });
+
+    return  swapTx.concat(provideLiquidtyTx).concat(poolDepositTx);
+  }
+}
 
 export class ZapOut implements IParser {
   zapOutUnstake(args: ParserProcessArgs): IParsedTx {
@@ -33,5 +64,6 @@ export class ZapOut implements IParser {
 }
 
 export const Zaps = {
+  ZapIn,
   ZapOut,
 };

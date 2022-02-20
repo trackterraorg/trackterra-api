@@ -14,6 +14,18 @@ transactions:
     parserClass: ZapOut
     description: Apollo DAO zap out
 
+  - name: ApolloDAOZapIn
+    contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
+    classifier:
+      shouldExistAttributes: ['zap_into_strategy', 'stake']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: zap_into_strategy
+        contractKey: contract
+      ignoreContract: false
+    parserClass: ZapIn
+    description: Apollo DAO zap in
+
   - name: ApolloDAOPoolWithdraw
     contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
     classifier:

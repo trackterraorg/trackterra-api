@@ -255,6 +255,11 @@ export const txHashes = {
 
   apollo: [
     {
+      label: 'Zap in',
+      txHash: '1F891E7C2E36E10AA13F72D6F09730AC9CD2A965D81814AA4D2D3BA7A6AA2D2E',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
       label: 'Zap out',
       txHash:
         '43212304C7B9C4DA1B800DC2EA958F968622F664CA86BA72055862243238D109',

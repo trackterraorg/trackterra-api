@@ -25,7 +25,9 @@ export class PoolTransferEngine {
             return [];
         }
 
-        const actions = contractActions['transfer' ?? 'send'].filter((tA) => {
+        const accessKey = contractKeys.includes('transfer') ? 'transfer' : 'send';
+
+        const actions = contractActions[accessKey].filter((tA) => {
             return tA[key] as unknown as string === args.walletAddress;
         });
 
