@@ -103,7 +103,7 @@ export class SpecProvideLiquidity implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const txType = args.txType;
     txType.description = 'Spec stake lp';
-    const deposit = PoolTransferEngine.deposit({...args, txType});
+    const deposit = PoolTransferEngine.process({...args, txType});
     const provideLiquidity = LiquidityEngine.provideLiquidity(args);
     return deposit.concat(provideLiquidity);
   }

@@ -8,46 +8,41 @@ import { TransferEngine } from './transfer';
 export class PoolTransferEngine {
 
     static process(args: ParserProcessArgs): IParsedTx[]{
-        const { contractActions } = args;
+
+        let contractActions = args.contractActions;
         const contractKeys = Object.keys(contractActions);
 
-        if (contractKeys.includes("bond")) {
-            return this.deposit(args);
-        }
+        let key: string;
+        let tag: TxTag;
 
         if (contractKeys.includes("bond")) {
-            return this.deposit(args);
+            key = 'from';
+            tag = TxTag.PoolDeposit;
+        } else if (contractKeys.includes("unbond")) {
+            key = 'to';
+            tag = TxTag.PoolWithdrawal;
+        } else {
+            return [];
         }
 
-        return [];
-        
-    }
-
-    static deposit(args: ParserProcessArgs): IParsedTx[] {
-
-        let contractActions = args.contractActions
-
-        const depositActions = contractActions?.send.filter((tA) => {
-            return tA.from as unknown as string === args.walletAddress;
+        const actions = contractActions['transfer' ?? 'send'].filter((tA) => {
+            return tA[key] as unknown as string === args.walletAddress;
         });
 
-        if(! depositActions) {
+        if(! actions) {
             return [];
         }
 
         contractActions = {
-            transfer: depositActions
+            transfer: actions
         };
         
-        args.txType.tag = TxTag.PoolDeposit;
+        const txType = args.txType;
+        txType.tag = tag;
     
         return (new TransferEngine()).process({
-            ...args, contractActions
+            ...args, txType, contractActions
         });
-    }
-
-    static withdraw(args: ParserProcessArgs): IParsedTx[] {
-        return;
     }
 }
 

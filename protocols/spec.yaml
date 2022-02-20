@@ -39,15 +39,15 @@ transactions:
     description: Spec Goverance UnStaking
     tag: pool_withdrawal
 
-  - name: SpecProvideLiquidity
-    contract: terra10u9342cdwwqpe4wz9mf2c00ytlcr847wpe0xh4
+  - name: SpecUnstakeLP
+    contract: terra1ukm33qyqx0qcz7rupv085rgpx0tp5wzkhmcj3f
     classifier:
-      shouldExistAttributes: ['bond', 'provide_liquidity']
+      shouldExistAttributes: ['unbond']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: bond
+        mainKey: unbond
         contractKey: contract
       ignoreContract: false
-    description: Spec provide liquidity
-    parserClass: SpecProvideLiquidity
-    tag: swap
+    description: Spec unstake LP
+    parserClass: GenericPoolTransfer
+    tag: pool_withdrawal

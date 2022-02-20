@@ -231,7 +231,7 @@ transactions:
     contract: any
     classifier:
       shouldExistAttributes: [withdraw, transfer, claim]
-      shouldNotExistAttributes: ['provide_liquidity']
+      shouldNotExistAttributes: ['provide_liquidity', 'unbond']
       contractAddressExtractKeys:
         mainKey: any
         contractKey: contract
