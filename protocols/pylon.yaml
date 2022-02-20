@@ -50,3 +50,16 @@ transactions:
     isEliminator: true
     description: Pylon pool deposit
     tag: pool_deposit
+
+  - name: PylonPoolWithdraw
+    contract: terra1kdfcxec8qu3qd3kt02h4ysr3a2ez8k6cj2093n
+    classifier:
+      shouldExistAttributes: ['send', 'redeem', 'burn']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Pylon pool withdraw
+    tag: pool_withdrawal

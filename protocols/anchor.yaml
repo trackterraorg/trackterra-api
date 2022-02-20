@@ -223,6 +223,8 @@ transactions:
         mainKey: burn
         contractKey: contract
       ignoreContract: false
+      skipForContracts:
+        - terra1kdfcxec8qu3qd3kt02h4ysr3a2ez8k6cj2093n
     description: Anchor aUST redeem
     tag: withdraw
     parserClass: AnchorAustRedeem

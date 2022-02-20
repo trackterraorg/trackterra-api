@@ -309,6 +309,11 @@ export const txHashes = {
         'EAECE7CDFF725111A5ED2FE6DEA9A40E73AB58EB6818A2BB8254E9FF21ACEAD8',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Pylon pool withdrawal',
+      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   loterra: [
     {
@@ -370,8 +375,8 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: 'C94C740E39B2F06D7301E1E6E0F6132F7A63AFF43A8FC41A0DFC59FDC58941A1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
 };
