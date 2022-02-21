@@ -22,7 +22,7 @@ transactions:
         contractKey: 
       ignoreContract: true
     parserClass: NativeDelegate
-    tag: native_delegation
+    tag: pool_deposit
 
   - name: NativeReward
     contract: 
