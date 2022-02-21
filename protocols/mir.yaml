@@ -30,13 +30,28 @@ transactions:
   - name: MirrorCloseShortFarm
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
     classifier:
-      shouldExistAttributes: [send, decrease_short_token]
+      shouldExistAttributes: [burn, decrease_short_token]
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: send
-        contractKey: to
+        mainKey: burn
+        contractKey: contract
       ignoreContract: false
-    parserClass: ToBeDefined
+    parserClass: MirCloseShortFarm
+    description: Mirror Close Short Farm
+    tag: pool_deposit
+
+  - name: MirrorCloseShortFarm
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [withdraw, release_shorting_funds]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    parserClass: MirCloseShortFarm
+    description: Mirror Close Short Farm
+    tag: pool_withdrawal
 
   - name: MirrorOpenCDP
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj

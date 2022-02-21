@@ -192,6 +192,11 @@ export const txHashes = {
         '7DACA72FC3D0CE1E50D2ADB62901C6EBCB80B315FF9205158338C3058297BD9C',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Mirror Close Short Farm',
+      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   nexus: [
     {
@@ -375,8 +380,8 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: 'C94C740E39B2F06D7301E1E6E0F6132F7A63AFF43A8FC41A0DFC59FDC58941A1',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };
