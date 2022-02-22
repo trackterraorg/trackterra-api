@@ -86,6 +86,7 @@ transactions:
       ignoreContract: false
     parserClass: GenericTransfer
     description: Mirror Gov Stake
+    tag: pool_deposit
 
   - name: MirrorGovUnStake
     contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
@@ -98,6 +99,7 @@ transactions:
       ignoreContract: false
     parserClass: GenericTransfer
     description: Mirror Gov Unstake
+    tag: pool_withdrawal
 
   - name: MirrorClaimRewards
     contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
