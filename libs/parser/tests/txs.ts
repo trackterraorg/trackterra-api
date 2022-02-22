@@ -197,6 +197,11 @@ export const txHashes = {
       txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Mirror borrow',
+      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   nexus: [
     {
@@ -380,7 +385,7 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      txHash: 'C25653FBD7B3F0CCBE9C5C0C2CD080F18472CC35E47CCC70B8CF6AAA8FD82B56',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],

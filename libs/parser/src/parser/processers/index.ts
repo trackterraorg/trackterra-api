@@ -12,6 +12,7 @@ import { Zaps } from './zap';
 import { Staking } from './staking';
 import { Delegate } from './delegate';
 import { PoolTransfers } from './pool';
+import { MirProtocol } from './mir';
 
 export const ParseProcessors = {
   Fail,
@@ -28,4 +29,5 @@ export const ParseProcessors = {
   ...Staking,
   ...Delegate,
   ...PoolTransfers,
+  ...MirProtocol,
 };

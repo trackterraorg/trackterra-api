@@ -53,6 +53,17 @@ transactions:
     description: Mirror Close Short Farm
     tag: pool_withdrawal
 
+  - name: MirrorBorrow
+    contract: any
+    classifier:
+      shouldExistAttributes: [open_position, mint]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true 
+    parserClass: MirBorrow
+
   - name: MirrorOpenCDP
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
     classifier:
