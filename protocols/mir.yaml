@@ -27,6 +27,19 @@ transactions:
     description: Mirror auto stake
     tag: add_liquidity
 
+  - name: MirrorUnstakeLp
+    contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
+    classifier:
+      shouldExistAttributes: [unbond]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: unbond
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Mirror unstake lp
+    tag: pool_withdrawal
+
   - name: MirrorCloseShortFarm
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
     classifier:

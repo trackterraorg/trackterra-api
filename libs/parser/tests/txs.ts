@@ -164,14 +164,12 @@ export const txHashes = {
   mirror: [
     {
       label: 'gov stake',
-      txHash:
-        '4CA40E937579AE3387634665F138BEB99CD7671CE40C363ECC46D8ABA35C6381',
-      walletAddress: 'terra1t2xvu6zpkwq03uswwwgwnh3njrfs488tfj9j4u',
+      txHash: '7B98A26C056DBD27425E4865A433C4DCBFBC07471995995C134D7A98A1D44563',
+      walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
     },
     {
       label: 'gov unstake',
-      txHash:
-        'CA902E9E46E4429981947A0C45EC0EF4AB71B8DDAAD67EF105E8C9CB5E518FF5',
+      txHash: '42400778F027830473C4C556B26B7D749A93D36ACA96BBFA3198AAB0949D8A83',
       walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
     },
     {
@@ -390,9 +388,8 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: 'E520F492EF45C1C12CDA7A8A6347703986D284FBE8D8FF6F09E1B79FB87ABA18',
+      txHash: '3F8BF2E8C4066CFF2B7C435C47E8E2B32FE73DA9BA76B16DE33BE91318B21BF3',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
-
   ],
 };
