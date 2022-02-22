@@ -191,6 +191,12 @@ export const txHashes = {
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
+      label: 'mirro stake lp',
+      txHash:
+        '7DACA72FC3D0CE1E50D2ADB62901C6EBCB80B315FF9205158338C3058297BD9C',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
       label: 'Mirror Close Short Farm',
       txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
@@ -388,8 +394,8 @@ export const txHashes = {
   tests: [
     {
       label: 'test',
-      txHash: '3F8BF2E8C4066CFF2B7C435C47E8E2B32FE73DA9BA76B16DE33BE91318B21BF3',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: 'EFF1CE34B7A629C06BBDA3BE62AE701A2DE6F5387122F7AB1B851F29E2B7260E',
+      walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
     },
   ],
 };
