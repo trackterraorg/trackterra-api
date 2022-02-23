@@ -400,11 +400,16 @@ export const txHashes = {
       txHash: '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'merge',
+      txHash: '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   tests: [
     {
       label: 'test',
-      txHash: '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
+      txHash: '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],

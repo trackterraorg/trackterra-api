@@ -84,3 +84,16 @@ transactions:
     description: Prism bond
     parserClass: PrismBond
     tag: swap
+
+  - name: PrismMerge
+    contract: terra1xw3h7jsmxvh6zse74e4099c6gl03fnmxpep76h
+    classifier:
+      shouldExistAttributes: [burn_from]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn_from
+        contractKey: by
+      ignoreContract: false
+    description: Prism merge
+    parserClass: PrismMerge
+    tag: swap
