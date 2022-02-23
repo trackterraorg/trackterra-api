@@ -188,3 +188,17 @@ transactions:
     parserClass: MirPoolDeposit
     description: Mirror Pool Deposit
     tag: pool_deposit
+
+  - name: MirrorLiquidation
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [auction, burn]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: auction
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    parserClass: MirLiquidation
+    description: Mirror Liquidation
+    tag: swap

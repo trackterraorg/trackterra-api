@@ -216,6 +216,11 @@ export const txHashes = {
       txHash: '77DF2F92ED5132384FAB8C95B27D030CA10BECF626A9E0E26A2DDE26496F41B2',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'liquidation',
+      txHash: '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
+      walletAddress: 'terra1azsvasnfgq605f754hu7qtkpp8ue6k2pray8sq',
+    },
   ],
   nexus: [
     {
@@ -451,8 +456,8 @@ export const txHashes = {
   tests: [
     {
       label: 'Withdraw',
-      txHash: '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
+      walletAddress: 'terra1azsvasnfgq605f754hu7qtkpp8ue6k2pray8sq',
     },
   ],
 };

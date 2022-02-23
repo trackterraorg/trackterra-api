@@ -1,6 +1,6 @@
 import { separateAmountFromToken } from '@trackterra/parser/utils';
 import _ = require('lodash');
-import { IAmount, IParsedTx, IParser, TxLabel, TxTag } from '..';
+import { IAmount, IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 import { MintEngine } from './mint';
 import { SwapEngine } from './swap';
@@ -145,9 +145,64 @@ export class MirOpenShortFarm implements IParser {
   }
 }
 
+export class MirLiquidation implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    
+    const { walletAddress, contractActions } = args;
+    
+    let txs: IParsedTx[] = [];
+
+    contractActions.auction.forEach((auction: any) => {
+
+      const offerAsset = separateAmountFromToken(auction.return_collateral_amount);
+      const askAsset = separateAmountFromToken(auction.liquidated_amount);
+  
+      const swapAction: any = {
+        contract: auction.contract,
+        sender: walletAddress,
+        receiver: auction.contract,
+        offer_asset: offerAsset.token,
+        ask_asset: askAsset.token,
+        offer_amount: offerAsset.amount,
+        return_amount: askAsset.amount,
+      } 
+  
+      const swapTx = SwapEngine.swap({
+        ...args,
+        contractActions: {
+          swap: [swapAction],
+        },
+        transferActions: undefined,
+      });
+
+      txs = txs.concat(swapTx);
+    });
+
+    const burnActions = contractActions.burn.map((cA: any) => {
+      cA.to = cA.from;
+      cA.from = walletAddress;
+      return cA;
+    });
+
+    const withdrawTxs = (new TransferEngine()).process(
+      {
+        ...args,
+        contractActions: {
+          send: burnActions,
+        },
+        txType: {...args.txType, tag: TxTag.Withdraw},
+        transferActions: undefined,
+      }
+    )
+
+    return txs.concat(withdrawTxs);
+  }
+}
+
 export const MirProtocol = {
   MirPoolDeposit,
   MirPoolWithdraw,
   MirBorrow,
   MirOpenShortFarm,
+  MirLiquidation,
 };
