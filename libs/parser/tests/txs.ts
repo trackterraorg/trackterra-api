@@ -24,10 +24,15 @@ export const txHashes = {
 
   anchor: [
     {
-      label: 'bluna burn',
+      label: 'bond luna',
       txHash:
         '27553BBAB5E0D8CFEE2507078696D8C7B8E7ADA40EABCBEA666ADD3FF676EE61',
       walletAddress: 'terra1xxnv7w7jlzy6uk6w9fukdsalktwpmhtcl6vaua',
+    },
+    {
+      label: 'unbond luna',
+      txHash: 'F3E74C4518506A566DEC992820E77871897FAACC922012B6DF2B2181DEB7EC64',
+      walletAddress: 'terra1gwchttht43u26578j7uerunynr5u443626zf4z',
     },
     {
       label: 'bluna mint',
@@ -270,6 +275,11 @@ export const txHashes = {
         '44D93D5D97EE6E2EA9E9E108422EEA5B7A601AED1125FC3E85F5CE2C47FD88A3',
       walletAddress: 'terra1rf47x5vw6ndapxalu02ua0ewycqefl8l3sr73d',
     },
+    {
+      label: 'Withdraw',
+      txHash: '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
 
   apollo: [
@@ -441,8 +451,8 @@ export const txHashes = {
   tests: [
     {
       label: 'Withdraw',
-      txHash: '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
-      walletAddress: 'terra1wtjfazdwh7d6n5k844dxv4gaz8qlk80ep2qqn3',
+      txHash: '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };

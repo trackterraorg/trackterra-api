@@ -2,6 +2,18 @@ name: Glow
 type: Contract
 priority: 0
 transactions:
+  - name: GlowPoolDeposit
+    contract: terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
+    classifier:
+      shouldExistAttributes: ['deposit', 'deposit_stable']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    description: Glow pool deposit
+    tag: pool_deposit
+
   - name: GlowPoolWithdrawal
     contract: terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
     classifier:
@@ -11,6 +23,7 @@ transactions:
         mainKey: withdraw_ticket
         contractKey: contract
       ignoreContract: false
+    parserClass: PoolWithdrawal
     description: Glow pool withdrawal
     tag: pool_withdrawal
 
