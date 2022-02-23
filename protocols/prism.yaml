@@ -57,3 +57,17 @@ transactions:
     description: withdraw liquidity
     parserClass: WithdrawLiquidity
     tag: swap
+
+  - name: PrismRefract
+    contract: any
+    classifier:
+      shouldExistAttributes: ['bond_split']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw_liquidity
+        contractKey: any
+      ignoreContract: true
+    isEliminator: true
+    description: Prism refract
+    parserClass: PrismRefract
+    tag: swap

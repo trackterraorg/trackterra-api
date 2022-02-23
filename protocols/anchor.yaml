@@ -210,6 +210,8 @@ transactions:
         mainKey: mint
         contractKey: contract
       ignoreContract: false
+      skipForContracts:
+        - terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
     description: AnchorAustMint
     tag: pool_deposit
     parserClass: AnchorAustMint

@@ -13,6 +13,7 @@ import { Staking } from './staking';
 import { Delegate } from './delegate';
 import { PoolTransfers } from './pool';
 import { MirProtocol } from './mir';
+import { PrismProtocol } from './prism';
 
 export const ParseProcessors = {
   Fail,
@@ -30,4 +31,5 @@ export const ParseProcessors = {
   ...Delegate,
   ...PoolTransfers,
   ...MirProtocol,
+  ...PrismProtocol,
 };

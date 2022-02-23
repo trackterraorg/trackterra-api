@@ -390,12 +390,17 @@ export const txHashes = {
       txHash: '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'prism refract',
+      txHash: 'B63EEE39465F455F81CCDBBE39D1B76FFE37775B0DE7B137CE2FB0034F192BC3',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   tests: [
-    {
-      label: 'test',
-      txHash: 'EFF1CE34B7A629C06BBDA3BE62AE701A2DE6F5387122F7AB1B851F29E2B7260E',
-      walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
-    },
+    // {
+    //   label: 'test',
+    //   txHash: '1C531B82D475D69470AC1C650165737AD57B5B3CAA76B3CA5CBBE54530561BED',
+    //   walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    // },
   ],
 };
