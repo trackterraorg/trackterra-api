@@ -14,6 +14,7 @@ import { Delegate } from './delegate';
 import { PoolTransfers } from './pool';
 import { MirProtocol } from './mir';
 import { PrismProtocol } from './prism';
+import { NFTParsers } from './nft';
 
 export const ParseProcessors = {
   Fail,
@@ -32,4 +33,5 @@ export const ParseProcessors = {
   ...PoolTransfers,
   ...MirProtocol,
   ...PrismProtocol,
+  ...NFTParsers,
 };

@@ -6,7 +6,7 @@ import { MintEngine } from './mint';
 import { SwapEngine } from './swap';
 import { TransferEngine } from './transfer';
 
-class MirPoolDeposit implements IParser {
+export class MirPoolDeposit implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 
@@ -37,7 +37,7 @@ class MirPoolDeposit implements IParser {
   
 }
 
-class MirPoolWithdraw implements IParser {
+export class MirPoolWithdraw implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 

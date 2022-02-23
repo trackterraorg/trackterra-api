@@ -1,4 +1,5 @@
 import { Event as TxEvent, EventKV } from '@terra-money/terra.js';
+import { info } from 'console';
 import _ = require('lodash');
 import { SeperateAmountFromTokenException } from '../exceptions';
 import { IAmount } from '../parser';
@@ -108,4 +109,27 @@ export const lpTokenSplitter = (token: string): {
     identifier,
     tokens,
   };
+}
+
+export const parseNftAmount = (input: {
+  info: any,
+  amount: number,
+}): IAmount => {
+
+  const { info, amount } = input;
+
+  let token = '';
+
+  const infoKeys = Object.keys(info);
+
+  if (infoKeys.includes('nft')) {
+    token = info.nft.contract_addr;
+  } else if (infoKeys.includes('native_token')) {
+    token = info.native_token.denom;
+  }
+
+  return {
+    token,
+    amount: amount as unknown as string,
+  }
 }

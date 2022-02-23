@@ -417,12 +417,17 @@ export const txHashes = {
       txHash: '20A96BE9F86EFBE187C32A6E5D2D3147BDF6A895A8B4F42ACAEBBF335E474143',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: 'Purchase nft',
+      txHash: 'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   tests: [
-    // {
-    //   label: 'test',
-    //   txHash: '1403B58E47B1C91F9E89F8EB2EF1A5BCB046BD1DECF1D385D1D2DBBC99101BF1',
-    //   walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
-    // },
+    {
+      label: 'test',
+      txHash: 'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
 };

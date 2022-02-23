@@ -24,4 +24,17 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Random earth withdraw
-    tag: pool_withdraw
+    tag: pool_withdrawal
+
+  - name: PurchaseNFT
+    contract: any
+    classifier:
+      shouldExistAttributes: ['execute_orders']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: execute_orders
+        contractKey: contract
+      ignoreContract: true
+    parserClass: PurchaseNFT
+    description: Purchase NFT
+    tag: withdraw
