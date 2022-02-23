@@ -87,3 +87,15 @@ transactions:
       ignoreContract: true
     parserClass: GenericTransfer
     description: Place bid
+
+  - name: CancelOrder
+    contract: any
+    classifier:
+      shouldExistAttributes: ['cancel_order']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: cancel_order
+        contractKey: contract
+      ignoreContract: true
+    parserClass: NotTaxed
+    description: Place bid

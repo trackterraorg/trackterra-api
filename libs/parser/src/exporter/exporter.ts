@@ -1,3 +1,4 @@
+import _ = require('lodash');
 import { IParsedTx, IAmount, TxLabel, TxTag } from '../parser';
 
 interface ExportableData {
@@ -34,8 +35,19 @@ export class Exporter {
     // Add fees to first tx/event
     if (records.length > 0) {
       const fee = fees?.shift();
-      records[0].feeAmount = fee?.amount;
-      records[0].feeToken = fee?.token;
+
+      /**
+       * Sometimes the tx is untaxed. Therefore we only need to 
+       * report the tx fee. This is the only way supported by
+       * koinly
+       */
+      if (! (_.first(records).sentAmount || _.first(records).receivedAmount)) {
+        _.first(records).sentAmount = fee?.amount;
+        _.first(records).sentToken = fee?.token;
+      } else {
+        _.first(records).feeAmount = fee?.amount;
+        _.first(records).feeToken = fee?.token;
+      }
     }
 
     // For other fees add new tx

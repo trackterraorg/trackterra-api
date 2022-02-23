@@ -452,12 +452,22 @@ export const txHashes = {
       txHash: '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
       walletAddress: 'terra1wtjfazdwh7d6n5k844dxv4gaz8qlk80ep2qqn3',
     },
+    {
+      label: 'List nft',
+      txHash: '495BF9BC4BFF5FFE28C6CAA3FD1802925D0FAECF554C725A3B5CF4F2A29BF1F1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+    {
+      label: 'Cancel order',
+      txHash: '0020823EB288412C9EA73EEAD8670E3CAA1F6716DC9AF9F4346FD657D95E9141',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   tests: [
-    {
-      label: 'Withdraw',
-      txHash: '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
-      walletAddress: 'terra1azsvasnfgq605f754hu7qtkpp8ue6k2pray8sq',
-    },
+    // {
+    //   label: 'Withdraw',
+    //   txHash: '495BF9BC4BFF5FFE28C6CAA3FD1802925D0FAECF554C725A3B5CF4F2A29BF1F1',
+    //   walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    // },
   ],
 };
