@@ -2,7 +2,7 @@ name: Anchor
 type: Contract
 priority: 0
 transactions:
-  - name: AnchorBlunaBurn
+  - name: AnchorBondLuna
     contract: terra1mtwph2juhj0rvjz7dy92gvl6xvukaxu8rfv8ts
     classifier:
       shouldExistAttributes: ['burn']
@@ -11,9 +11,20 @@ transactions:
         mainKey: burn
         contractKey: contract
       ignoreContract: false
-    parserClass: Swap
-    description: Anchor Bluna Burn
-    tag: pool_withdrawal
+    description: Anchor bond bluna
+    tag: withdraw
+
+  - name: AnchorUnbondLuna
+    contract: terra1mtwph2juhj0rvjz7dy92gvl6xvukaxu8rfv8ts
+    classifier:
+      shouldExistAttributes: ['finish_burn']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: finish_burn
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor unbond bluna
+    tag: deposit
 
   - name: AnchorBlunaClaimRewards
     contract: terra17yap3mhph35pcwvhza38c2lkj7gzywzy05h7l0
