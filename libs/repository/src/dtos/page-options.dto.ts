@@ -31,7 +31,7 @@ export class PageOptionsDto {
 
   @ApiModelPropertyOptional({
     minimum: 1,
-    maximum: 50,
+    maximum: 100,
     default: 10,
   })
   // @Type(() => Number)

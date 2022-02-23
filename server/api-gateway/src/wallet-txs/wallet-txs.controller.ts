@@ -25,7 +25,7 @@ export class WalletTxsController {
   @Get('/txs/:address')
   async getTxs(
     @Param('address') address: string,
-    @Query() { taxapp, q, skip, take, order, orderBy, csv }: FindTxsDto,
+    @Query() { taxapp, q, page, take, order, orderBy, csv }: FindTxsDto,
   ): Promise<FindTxsResponse> {
     const filter = q ? JSON.stringify(queryMapper(q)) : q;
     const result = await this.wallet.svc
@@ -33,7 +33,7 @@ export class WalletTxsController {
         address,
         filter,
         paginate: {
-          skip,
+          skip: page * take,
           limit: take,
         },
         orderBy,
