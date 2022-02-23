@@ -406,11 +406,23 @@ export const txHashes = {
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
-  tests: [
+  nft: [
     {
-      label: 'test',
-      txHash: '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      label: 'random earth pool deposit',
+      txHash: '1403B58E47B1C91F9E89F8EB2EF1A5BCB046BD1DECF1D385D1D2DBBC99101BF1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: 'random earth pool withdraw',
+      txHash: '20A96BE9F86EFBE187C32A6E5D2D3147BDF6A895A8B4F42ACAEBBF335E474143',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+  ],
+  tests: [
+    // {
+    //   label: 'test',
+    //   txHash: '1403B58E47B1C91F9E89F8EB2EF1A5BCB046BD1DECF1D385D1D2DBBC99101BF1',
+    //   walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    // },
   ],
 };

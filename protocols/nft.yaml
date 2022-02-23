@@ -1,0 +1,27 @@
+name: NFT
+type: Contract
+priority: 0
+transactions:
+  - name: RandomEarthDeposit
+    contract: terra1eek0ymmhyzja60830xhzm7k7jkrk99a60q2z2t
+    classifier:
+      shouldExistAttributes: ['deposit']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    description: Random earth deposit
+    tag: pool_deposit
+
+  - name: RandomEarthWithdraw
+    contract: terra1eek0ymmhyzja60830xhzm7k7jkrk99a60q2z2t
+    classifier:
+      shouldExistAttributes: ['withdraw']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Random earth withdraw
+    tag: pool_withdraw
