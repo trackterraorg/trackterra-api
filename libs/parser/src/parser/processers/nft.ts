@@ -38,6 +38,34 @@ export class PurchaseNFT implements IParser {
   
 }
 
+export class TransferNFT implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const { walletAddress, txType, contractActions } = args;
+
+    const key = _(['transfer_nft', 'send_nft']).intersection(Object.keys(contractActions)).first();
+
+    const transferActions = contractActions[key].map((cA: any) => {
+      const amount: IAmount = {
+        amount: '1',
+        token: cA.contract,
+      }
+
+      cA.amount = amount;
+      return cA;
+    });
+
+    return (new TransferEngine()).process({
+      ...args, 
+      contractActions: undefined,
+      transferActions, 
+    });
+  }
+  
+}
+
 export const NFTParsers = {
   PurchaseNFT,
+  TransferNFT,
 };

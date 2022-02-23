@@ -5,6 +5,7 @@ import { Minters } from './mint';
 import { Rewarders } from './reward';
 import { Burners } from './burn';
 import { ToBeDefined } from './tobedefined';
+import { NotTaxed } from './not-taxed';
 import { Farms } from './farm';
 import { Earners } from './earns';
 import { Liquidates } from './liquidity';
@@ -19,6 +20,7 @@ import { NFTParsers } from './nft';
 export const ParseProcessors = {
   Fail,
   ToBeDefined,
+  NotTaxed,
   ...Swaps,
   ...Transfers,
   ...Minters,

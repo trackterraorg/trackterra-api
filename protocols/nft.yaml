@@ -38,3 +38,52 @@ transactions:
     parserClass: PurchaseNFT
     description: Purchase NFT
     tag: withdraw
+
+  - name: ListNFT
+    contract: any
+    classifier:
+      shouldExistAttributes: ['post_order']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: post_order
+        contractKey: contract
+      ignoreContract: true
+    parserClass: NotTaxed
+    description: List NFT
+    tag: pool_deposit
+
+  - name: TransferNFT
+    contract: any
+    classifier:
+      shouldExistAttributes: ['transfer_nft']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: post_order
+        contractKey: contract
+      ignoreContract: true
+    parserClass: TransferNFT
+    description: Transfer NFT
+
+  - name: TransferNFT
+    contract: any
+    classifier:
+      shouldExistAttributes: ['send_nft']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: post_order
+        contractKey: contract
+      ignoreContract: true
+    parserClass: TransferNFT
+    description: Transfer NFT
+
+  - name: PlacebidNFT
+    contract: any
+    classifier:
+      shouldExistAttributes: ['place_bid']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: place_bid
+        contractKey: contract
+      ignoreContract: true
+    parserClass: GenericTransfer
+    description: Place bid

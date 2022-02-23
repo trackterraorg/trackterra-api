@@ -71,12 +71,12 @@ export class TTParser {
         ...transformedData,
       });
 
-      records = records.map((record) => {
+      records = records?.map((record) => {
         record.protocol = protocol.name;
         return record;
       });
 
-      if (records.length > 0) {
+      if (records?.length > 0) {
         txs = txs.concat({
           txIndex: index,
           records,

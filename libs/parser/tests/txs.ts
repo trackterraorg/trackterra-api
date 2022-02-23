@@ -422,12 +422,27 @@ export const txHashes = {
       txHash: 'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: 'Withdraw',
+      txHash: 'AFB64256F6E6106DC92058B13FBD68E8505B59B32B07685237A2251D9177CAE7',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+    {
+      label: 'Deposit',
+      txHash: '49986E583C33AFD66E089ADC62B4E1E3D9A104851098A52C9519B484F7D4F9E1',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+    {
+      label: 'Place bid',
+      txHash: '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
+      walletAddress: 'terra1wtjfazdwh7d6n5k844dxv4gaz8qlk80ep2qqn3',
+    },
   ],
   tests: [
     {
-      label: 'test',
-      txHash: 'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      label: 'Withdraw',
+      txHash: '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
+      walletAddress: 'terra1wtjfazdwh7d6n5k844dxv4gaz8qlk80ep2qqn3',
     },
   ],
 };
