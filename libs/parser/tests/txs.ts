@@ -395,12 +395,17 @@ export const txHashes = {
       txHash: 'B63EEE39465F455F81CCDBBE39D1B76FFE37775B0DE7B137CE2FB0034F192BC3',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'bond',
+      txHash: '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   tests: [
-    // {
-    //   label: 'test',
-    //   txHash: '1C531B82D475D69470AC1C650165737AD57B5B3CAA76B3CA5CBBE54530561BED',
-    //   walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
-    // },
+    {
+      label: 'test',
+      txHash: '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
 };

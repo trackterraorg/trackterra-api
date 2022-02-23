@@ -71,3 +71,16 @@ transactions:
     description: Prism refract
     parserClass: PrismRefract
     tag: swap
+
+  - name: PrismBond
+    contract: terra1xw3h7jsmxvh6zse74e4099c6gl03fnmxpep76h
+    classifier:
+      shouldExistAttributes: ['bond']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: bond
+        contractKey: contract
+      ignoreContract: false
+    description: Prism bond
+    parserClass: PrismBond
+    tag: swap
