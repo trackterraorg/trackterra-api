@@ -8,6 +8,7 @@ export class Fail implements IParser {
     return [
       {
         walletAddress,
+        sender: walletAddress,
         label: TxLabel.Fail,
         tag: TxTag.Cost,
         friendlyDescription: txType.description,

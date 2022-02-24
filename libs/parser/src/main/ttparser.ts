@@ -122,6 +122,8 @@ export class TTParser {
     }
     
     const d = {
+      txInfo,
+      walletAddress,
       txs,
       fees,
       taxes,

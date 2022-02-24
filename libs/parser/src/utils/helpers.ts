@@ -1,4 +1,4 @@
-import { Event as TxEvent, EventKV } from '@terra-money/terra.js';
+import { Event as TxEvent, EventKV, TxInfo } from '@terra-money/terra.js';
 import { info } from 'console';
 import _ = require('lodash');
 import { SeperateAmountFromTokenException } from '../exceptions';
@@ -132,4 +132,14 @@ export const parseNftAmount = (input: {
     token,
     amount: amount as unknown as string,
   }
+}
+
+export const isTxInitiator = (walletAddress: string, txInfo: TxInfo) => {
+  const msg: any[] = JSON.parse(JSON.stringify(txInfo.tx)).value.msg;
+
+  const senderRec = msg.find(({ value }) => {
+    return value.sender === walletAddress;
+  });
+
+  return senderRec !== undefined;
 }
