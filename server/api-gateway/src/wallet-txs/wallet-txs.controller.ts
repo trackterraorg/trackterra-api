@@ -17,37 +17,22 @@ import { queryMapper, walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { RpcException } from '@nestjs/microservices';
 import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
+import { WalletTxsService } from './wallet-txs.service';
 @Controller('/api/v1')
 @ApiTags('Txs')
 export class WalletTxsController {
-  constructor(private readonly wallet: WalletsRpcClientService) {}
+  constructor(private readonly txsService: WalletTxsService) {}
 
   @Get('/txs/:address')
   async getTxs(
     @Param('address') address: string,
-    @Query() { taxapp, q, page, take, order, orderBy, csv }: FindTxsDto,
+    @Query() args: FindTxsDto,
   ): Promise<FindTxsResponse> {
-    const filter = q ? JSON.stringify(queryMapper(q)) : q;
-    const result = await this.wallet.svc
-      .findTxs({
-        address,
-        filter,
-        paginate: {
-          skip: page * take,
-          limit: take,
-        },
-        orderBy,
-        order,
-        taxapp,
-        csv,
-      })
-      .toPromise();
-
-    if (!result) {
+    try {
+      return await this.txsService.getTxs(address,args);
+    } catch(e) {
       throw new RpcException('Could not fetch txs!');
     }
-
-    return result;
   }
 
   @Get('/csv/txs/:address/:filename')
