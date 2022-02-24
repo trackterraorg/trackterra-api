@@ -66,6 +66,27 @@ export class Exporter {
       records = records.concat(newTx);
     });
 
+    // calculate networth
+    let netWorthAmount: number;
+    records = records.map((record: any) => {
+      if(record.label === TxLabel.Swap) {
+        if (! netWorthAmount) {
+          if (record.sentToken === 'uusd') {
+            netWorthAmount = record.sentAmount;
+          } else if (record.receivedToken === 'uusd') {
+            netWorthAmount = record.receivedAmount;
+          }
+        }
+
+        if (netWorthAmount) {
+          record.netWorthAmount = netWorthAmount;
+          record.netWorthToken = 'UST';
+        }
+      }
+
+      return record;
+    });
+
     return records;
   }
 }
