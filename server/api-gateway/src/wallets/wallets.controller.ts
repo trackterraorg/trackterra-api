@@ -7,28 +7,19 @@ import {
   ReadWalletDetailResponse,
   ReadWalletResponse,
 } from '@trackterra/proto-schema/wallet';
+import { WalletsService } from './wallets.service';
 
 @Controller('/api/v1/wallets')
 @ApiTags('Wallet')
 export class WalletsController {
-  constructor(private readonly wallet: WalletsRpcClientService) {}
+  constructor(private readonly walletsService: WalletsService) {}
 
   @Get('/:address')
   @ApiOkResponse({ description: 'Done checking wallet' })
   async readWallet(
     @Param('address') address: string,
   ): Promise<ReadWalletResponse> {
-    const result = await this.wallet.svc
-      .readWallet({
-        address,
-      })
-      .toPromise();
-
-    if (!result) {
-      throw new RpcException('Could not read wallet!');
-    }
-
-    return result;
+    return this.walletsService.readWallet(address);
   }
 
   @Get('/detail/:address')
@@ -36,16 +27,7 @@ export class WalletsController {
   async getWalletDetail(
     @Param('address') address: string,
   ): Promise<ReadWalletDetailResponse> {
-    const result = await this.wallet.svc
-      .readWalletDetail({
-        address,
-      })
-      .toPromise();
-
-    if (!result) {
-      throw new RpcException('Could not fetch txs!');
-    }
-    return result;
+    return this.walletsService.getWalletDetail(address);
   }
 
   @Put('/parse/:address')
@@ -53,11 +35,6 @@ export class WalletsController {
   async parseWallet(
     @Param('address') address: string,
   ): Promise<ParseWalletResponse> {
-    const result = await this.wallet.svc
-      .parseWallet({
-        address,
-      })
-      .toPromise();
-    return result;
+    return this.walletsService.parseWallet(address);
   }
 }

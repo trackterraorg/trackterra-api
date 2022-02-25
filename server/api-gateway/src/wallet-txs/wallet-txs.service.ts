@@ -1,13 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { WalletsRpcClientService } from '@trackterra/core';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
 import * as _ from 'lodash';
 import { queryMapper } from '@trackterra/common';
-import { RpcException } from '@nestjs/microservices';
 import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
-@Controller('/api/v1')
-@ApiTags('Txs')
+@Controller()
 export class WalletTxsService {
   constructor(private readonly wallet: WalletsRpcClientService) {}
 
@@ -30,10 +27,6 @@ export class WalletTxsService {
         csv,
       })
       .toPromise();
-
-    if (!result) {
-      throw new RpcException('Could not fetch txs!');
-    }
     
     return result;
   }
