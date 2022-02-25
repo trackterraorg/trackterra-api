@@ -1,20 +1,9 @@
-import {
-  Controller,
-  Get,
-  Header,
-  Param,
-  Put,
-  Query,
-  Res,
-} from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { WalletsRpcClientService } from '@trackterra/core';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
-import { join } from 'path';
-import * as fs from 'fs';
 import * as _ from 'lodash';
-import { queryMapper, walletsDir } from '@trackterra/common';
-import moment = require('moment');
+import { queryMapper } from '@trackterra/common';
 import { RpcException } from '@nestjs/microservices';
 import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
 @Controller('/api/v1')
@@ -32,7 +21,7 @@ export class WalletTxsService {
         address,
         filter,
         paginate: {
-          skip: page * take,
+          skip: ((page ?? 1) - 1) * take,
           limit: take,
         },
         orderBy,
