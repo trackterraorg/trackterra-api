@@ -44,7 +44,6 @@ export async function mapTxToTaxApp(
 }
 
 export function txEntityToView(tx: Tx): TxNode {
-  tx.timestamp = timeToUtc(tx.timestamp);
   const extras: TxExtra = {
     sTxHash: fShortenHash(tx.txhash),
     rTimestamp: tx.timestamp,

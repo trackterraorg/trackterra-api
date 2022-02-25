@@ -1,4 +1,4 @@
-import { seperateIndexFromToken } from "@trackterra/common";
+import { seperateIndexFromToken, timeToUtc } from "@trackterra/common";
 import { Tx } from "@trackterra/proto-schema/wallet";
 import { ITaxApp } from "../interfaces/base.taxapp.interface";
 import { AppAttrType } from "./app.types";
@@ -7,9 +7,9 @@ import { BaseTaxApp } from "./base.taxapp";
 export class Regular extends BaseTaxApp implements ITaxApp {
 
     attributes: AppAttrType[] = [
-        { id: 'txhash', title: 'Tx hash' },
+        { id: 'txhash', title: 'Tx hash'},
         { id: 'blockHeight', title: 'Block height' },
-        { id: 'timestamp', title: 'Timestamp' },
+        { id: 'timestamp', title: 'Timestamp', formatter: (val) => timeToUtc(val)},
         { id: 'label', title: 'Label' },
         { id: 'tag', title: 'Tag' },
         { id: 'contract', title: 'Contract' },

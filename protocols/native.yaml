@@ -35,3 +35,16 @@ transactions:
       ignoreContract: true
     parserClass: NativeReward
     tag: native_claim_rewards
+
+  - name: NativeGovVote
+    contract: 
+    classifier:
+      shouldExistAttributes: [proposal_vote]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: 
+        contractKey: 
+      ignoreContract: true
+    parserClass: NativeGovVote
+    tag: governance_vote
+    description: Governance vote
