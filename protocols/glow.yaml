@@ -38,3 +38,29 @@ transactions:
       ignoreContract: false
     description: Glow claim stake rewards
     tag: staking_rewards
+
+  - name: GlowUnstake
+    contract: terra1le3a67j4khkjhyytkllxre60dvywm43ztq2s8t
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Glow unstake
+    tag: pool_withdrawal
+
+  - name: GlowUnstake
+    contract: terra1le3a67j4khkjhyytkllxre60dvywm43ztq2s8t
+    classifier:
+      shouldExistAttributes: ['unbond', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: unbond
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Glow unstake
+    tag: pool_withdrawal

@@ -285,6 +285,11 @@ export const txHashes = {
       txHash: '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'unstake',
+      txHash: 'AF11BEB11CFE5F47D51519FFDFD74503DCD7096A514F29A52DE436914516B24F',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
 
   apollo: [
@@ -488,7 +493,7 @@ export const txHashes = {
   tests: [
     {
       label: 'Withdraw',
-      txHash: '0ECC825CEA50F2F699B009D4E88C2655BF3E7C730770E8AF06B515223C91439B',
+      txHash: '4DAFB9B26426D89669155FECB752E339A612521E884985CCD3E5FCE5AA44AC37',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
