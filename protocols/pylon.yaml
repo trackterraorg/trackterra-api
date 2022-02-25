@@ -64,7 +64,7 @@ transactions:
     description: Pylon pool withdraw
     tag: pool_withdrawal
 
-  - name: PylonUnstaking
+  - name: PylonUnstake
     contract: terra19nek85kaqrvzlxygw20jhy08h3ryjf5kg4ep3l
     classifier:
       shouldExistAttributes: ['withdraw', 'transfer']
@@ -75,4 +75,17 @@ transactions:
       ignoreContract: false
     isEliminator: true
     description: Pylon unstake
+    tag: pool_withdrawal
+
+  - name: PylonUnstakeLp
+    contract: terra19nek85kaqrvzlxygw20jhy08h3ryjf5kg4ep3l
+    classifier:
+      shouldExistAttributes: ['unbond', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: unbond
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Pylon unstake lp
     tag: pool_withdrawal
