@@ -478,11 +478,18 @@ export const txHashes = {
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
+  loop: [
+    {
+      label: 'claim airdrop',
+      txHash: '0ECC825CEA50F2F699B009D4E88C2655BF3E7C730770E8AF06B515223C91439B',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+  ],
   tests: [
     {
       label: 'Withdraw',
-      txHash: 'EC82DB91F3C9EDAA58831C3DFC6CC98DA4B0F8A6066DC98D5D2FAD5D8111ABDA',
-      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+      txHash: '0ECC825CEA50F2F699B009D4E88C2655BF3E7C730770E8AF06B515223C91439B',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
 };

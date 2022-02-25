@@ -1,0 +1,15 @@
+name: Loop
+type: Contract
+priority: 0
+transactions:
+  - name: LoopClaimReward
+    contract: terra1nef5jf6c7js9x6gkntlehgywvjlpytm7pcgkn4
+    classifier:
+      shouldExistAttributes: ['claim', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: transfer
+        contractKey: contract
+      ignoreContract: false
+    description: Loop claim airdrop
+    tag: airdrop

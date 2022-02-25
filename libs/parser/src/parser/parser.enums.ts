@@ -1,4 +1,5 @@
 export enum TxTag {
+  Airdrop = 'airdrop',
   AddLiquidity = 'add_liquidity',
   Cost = 'cost',
   Deposit = 'deposit',
