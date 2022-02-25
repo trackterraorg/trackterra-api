@@ -56,4 +56,16 @@ transactions:
     parserClass: GenericPoolTransfer
     tag: pool_deposit
 
+  - name: Staking
+    contract: 
+    classifier:
+      shouldExistAttributes: ['send', 'bond']
+      shouldNotExistAttributes: ['swap', 'provide_liquidity', 'transfer']
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    description: Stake
+    tag: swap
+
   
