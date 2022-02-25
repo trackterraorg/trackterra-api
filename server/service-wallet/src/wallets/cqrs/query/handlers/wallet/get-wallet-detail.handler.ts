@@ -26,7 +26,7 @@ export class GetWalletDetailHandler
   async execute(
     query: GetWalletDetailQuery,
   ): Promise<ReadWalletDetailResponse> {
-    this.logger.log(query);
+
     const { address } = query?.input;
 
     if (_.isEmpty(address)) {

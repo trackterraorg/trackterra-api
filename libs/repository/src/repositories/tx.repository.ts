@@ -43,7 +43,7 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
 
   public async countWalletTxs(walletAddress: string): Promise<number | 0> {
     const collection = await this.collection;
-    const c = await collection.count({
+    const c = await collection.countDocuments({
       walletAddress,
     });
 
@@ -96,7 +96,7 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
 
   public async countUnclassified(walletAddress: string): Promise<number | 0> {
     const collection = await this.collection;
-    const c = await collection.count({
+    const c = await collection.countDocuments({
       walletAddress,
       protocol: 'Unclassified',
     });
