@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import {
   CurrencyEntity,
   CurrencyRepository,
@@ -10,7 +10,7 @@ import _ = require('lodash');
 import { Currency, UpsertCurrencyResponse } from '@trackterra/proto-schema/contract';
 import { FCDApiService } from '@trackterra/core';
 import { ContractInfo } from '@terra-money/terra.js';
-import { lpTokenCombiner, lpTokenSplitter, tokenCleanUp } from '@trackterra/parser/utils';
+import { tokenCleanUp } from '@trackterra/parser/utils';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyCommand> {
@@ -70,6 +70,7 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
         decimals: currFromFcd?.decimals ?? 6,
         icon: '',
         identifier: identifier,
+        isStable: false,
       });
     } catch(e) {
       this.logger.log(e);
@@ -139,6 +140,7 @@ export class UpsertCurrencyHandler implements ICommandHandler<UpsertCurrencyComm
       decimals: 6,
       icon: '',
       identifier,
+      isStable: false,
     });
   }
 

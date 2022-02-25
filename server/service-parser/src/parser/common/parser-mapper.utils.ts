@@ -18,8 +18,8 @@ export async function txToTxCreateRequest(
   };
 
   const txKeys = [
-    { token: 'sentToken', amount: 'sentAmount' },
-    { token: 'receivedToken', amount: 'receivedAmount' },
+    { token: 'sentToken', contract: 'sentTokenContract', amount: 'sentAmount'},
+    { token: 'receivedToken', contract: 'receivedTokenContract', amount: 'receivedAmount' },
     { token: 'taxToken', amount: 'taxAmount' },
     { token: 'feeToken', amount: 'feeAmount' },
     { token: 'networthAmount', amount: 'networthToken' },
@@ -39,6 +39,12 @@ export async function txToTxCreateRequest(
 
         modifiers[txKey.token] = currency.symbol + nullIndex;
         modifiers[txKey.amount] = tokenValue(currency, amount);
+
+        if (! currency.isStable) {
+          if (Object.keys(txKey).includes('contract')) {
+            modifiers[txKey.contract] = currency.identifier;
+          }
+        }
       } catch(e) {
         console.error(e);
       }

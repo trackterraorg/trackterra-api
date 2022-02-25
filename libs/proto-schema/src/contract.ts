@@ -10,6 +10,7 @@ export interface Currency {
   decimals: number;
   identifier: string;
   icon: string;
+  isStable: boolean;
 }
 
 export interface UpsertCurrencyRequest {
@@ -42,6 +43,7 @@ const baseCurrency: object = {
   decimals: 0,
   identifier: '',
   icon: '',
+  isStable: false,
 };
 
 const baseUpsertCurrencyRequest: object = {
@@ -97,6 +99,7 @@ export const Currency = {
     writer.uint32(32).int32(message.decimals);
     writer.uint32(42).string(message.identifier);
     writer.uint32(50).string(message.icon);
+    writer.uint32(56).bool(message.isStable);
     return writer;
   },
   decode(reader: Reader, length?: number): Currency {
@@ -122,6 +125,9 @@ export const Currency = {
           break;
         case 6:
           message.icon = reader.string();
+          break;
+        case 7:
+          message.isStable = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
@@ -162,6 +168,11 @@ export const Currency = {
     } else {
       message.icon = '';
     }
+    if (object.isStable !== undefined && object.isStable !== null) {
+      message.isStable = Boolean(object.isStable);
+    } else {
+      message.isStable = false;
+    }
     return message;
   },
   fromPartial(object: DeepPartial<Currency>): Currency {
@@ -196,6 +207,11 @@ export const Currency = {
     } else {
       message.icon = '';
     }
+    if (object.isStable !== undefined && object.isStable !== null) {
+      message.isStable = object.isStable;
+    } else {
+      message.isStable = false;
+    }
     return message;
   },
   toJSON(message: Currency): unknown {
@@ -206,6 +222,7 @@ export const Currency = {
     obj.decimals = message.decimals || 0;
     obj.identifier = message.identifier || '';
     obj.icon = message.icon || '';
+    obj.isStable = message.isStable || false;
     return obj;
   },
 };

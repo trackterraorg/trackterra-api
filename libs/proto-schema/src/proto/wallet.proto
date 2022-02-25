@@ -134,18 +134,20 @@ message Tx {
     string recipient = 11;
     string received_amount = 12;
     string received_token = 13;
-    string sent_amount = 14;
-    string sent_token = 15;
-    string fee_amount = 16;
-    string fee_token = 17;
-    string tax_amount = 18;
-    string tax_token = 19;
-    string net_worth_amount = 20;
-    string net_worth_token = 21;
-    string memo = 22;
-    string friendly_description = 23;
-    string createdAt = 24;
-    string updatedAt = 25;
+    string received_token_contract = 14;
+    string sent_amount = 15;
+    string sent_token = 16;
+    string sent_token_contract = 17;
+    string fee_amount = 18;
+    string fee_token = 19;
+    string tax_amount = 20;
+    string tax_token = 21;
+    string net_worth_amount = 22;
+    string net_worth_token = 23;
+    string memo = 24;
+    string friendly_description = 25;
+    string createdAt = 26;
+    string updatedAt = 27;
 }
 
 message TxCointracker {
@@ -219,16 +221,18 @@ message CreateTxRequest {
     string recipient = 10;
     string received_amount = 11;
     string received_token = 12;
-    string sent_amount = 13;
-    string sent_token = 14;
-    string fee_amount = 15;
-    string fee_token = 16;
-    string tax_amount = 17;
-    string tax_token = 18;
-    string net_worth_amount = 19;
-    string net_worth_token = 20;
-    string memo = 21;
-    string friendly_description = 22;
+    string received_token_contract = 13;
+    string sent_amount = 14;
+    string sent_token = 15;
+    string sent_token_contract = 16;
+    string fee_amount = 17;
+    string fee_token = 18;
+    string tax_amount = 19;
+    string tax_token = 20;
+    string net_worth_amount = 21;
+    string net_worth_token = 22;
+    string memo = 23;
+    string friendly_description = 24;
 }
 
 message CreateTxResponse {

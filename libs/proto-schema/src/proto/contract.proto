@@ -16,6 +16,7 @@ message Currency {
     int32 decimals = 4;
     string identifier = 5;
     string icon = 6;
+    bool isStable = 7;
 }
 
 message UpsertCurrencyRequest {

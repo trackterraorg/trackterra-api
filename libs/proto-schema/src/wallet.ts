@@ -113,8 +113,10 @@ export interface Tx {
   recipient: string;
   receivedAmount: string;
   receivedToken: string;
+  receivedTokenContract: string;
   sentAmount: string;
   sentToken: string;
+  sentTokenContract: string;
   feeAmount: string;
   feeToken: string;
   taxAmount: string;
@@ -198,8 +200,10 @@ export interface CreateTxRequest {
   recipient: string;
   receivedAmount: string;
   receivedToken: string;
+  receivedTokenContract: string;
   sentAmount: string;
   sentToken: string;
+  sentTokenContract: string;
   feeAmount: string;
   feeToken: string;
   taxAmount: string;
@@ -388,8 +392,10 @@ const baseTx: object = {
   recipient: '',
   receivedAmount: '',
   receivedToken: '',
+  receivedTokenContract: '',
   sentAmount: '',
   sentToken: '',
+  sentTokenContract: '',
   feeAmount: '',
   feeToken: '',
   taxAmount: '',
@@ -473,8 +479,10 @@ const baseCreateTxRequest: object = {
   recipient: '',
   receivedAmount: '',
   receivedToken: '',
+  receivedTokenContract: '',
   sentAmount: '',
   sentToken: '',
+  sentTokenContract: '',
   feeAmount: '',
   feeToken: '',
   taxAmount: '',
@@ -1858,18 +1866,20 @@ export const Tx = {
     writer.uint32(90).string(message.recipient);
     writer.uint32(98).string(message.receivedAmount);
     writer.uint32(106).string(message.receivedToken);
-    writer.uint32(114).string(message.sentAmount);
-    writer.uint32(122).string(message.sentToken);
-    writer.uint32(130).string(message.feeAmount);
-    writer.uint32(138).string(message.feeToken);
-    writer.uint32(146).string(message.taxAmount);
-    writer.uint32(154).string(message.taxToken);
-    writer.uint32(162).string(message.netWorthAmount);
-    writer.uint32(170).string(message.netWorthToken);
-    writer.uint32(178).string(message.memo);
-    writer.uint32(186).string(message.friendlyDescription);
-    writer.uint32(194).string(message.createdAt);
-    writer.uint32(202).string(message.updatedAt);
+    writer.uint32(114).string(message.receivedTokenContract);
+    writer.uint32(122).string(message.sentAmount);
+    writer.uint32(130).string(message.sentToken);
+    writer.uint32(138).string(message.sentTokenContract);
+    writer.uint32(146).string(message.feeAmount);
+    writer.uint32(154).string(message.feeToken);
+    writer.uint32(162).string(message.taxAmount);
+    writer.uint32(170).string(message.taxToken);
+    writer.uint32(178).string(message.netWorthAmount);
+    writer.uint32(186).string(message.netWorthToken);
+    writer.uint32(194).string(message.memo);
+    writer.uint32(202).string(message.friendlyDescription);
+    writer.uint32(210).string(message.createdAt);
+    writer.uint32(218).string(message.updatedAt);
     return writer;
   },
   decode(reader: Reader, length?: number): Tx {
@@ -1918,39 +1928,45 @@ export const Tx = {
           message.receivedToken = reader.string();
           break;
         case 14:
-          message.sentAmount = reader.string();
+          message.receivedTokenContract = reader.string();
           break;
         case 15:
-          message.sentToken = reader.string();
+          message.sentAmount = reader.string();
           break;
         case 16:
-          message.feeAmount = reader.string();
+          message.sentToken = reader.string();
           break;
         case 17:
-          message.feeToken = reader.string();
+          message.sentTokenContract = reader.string();
           break;
         case 18:
-          message.taxAmount = reader.string();
+          message.feeAmount = reader.string();
           break;
         case 19:
-          message.taxToken = reader.string();
+          message.feeToken = reader.string();
           break;
         case 20:
-          message.netWorthAmount = reader.string();
+          message.taxAmount = reader.string();
           break;
         case 21:
-          message.netWorthToken = reader.string();
+          message.taxToken = reader.string();
           break;
         case 22:
-          message.memo = reader.string();
+          message.netWorthAmount = reader.string();
           break;
         case 23:
-          message.friendlyDescription = reader.string();
+          message.netWorthToken = reader.string();
           break;
         case 24:
-          message.createdAt = reader.string();
+          message.memo = reader.string();
           break;
         case 25:
+          message.friendlyDescription = reader.string();
+          break;
+        case 26:
+          message.createdAt = reader.string();
+          break;
+        case 27:
           message.updatedAt = reader.string();
           break;
         default:
@@ -2027,6 +2043,11 @@ export const Tx = {
     } else {
       message.receivedToken = '';
     }
+    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+      message.receivedTokenContract = String(object.receivedTokenContract);
+    } else {
+      message.receivedTokenContract = '';
+    }
     if (object.sentAmount !== undefined && object.sentAmount !== null) {
       message.sentAmount = String(object.sentAmount);
     } else {
@@ -2036,6 +2057,11 @@ export const Tx = {
       message.sentToken = String(object.sentToken);
     } else {
       message.sentToken = '';
+    }
+    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+      message.sentTokenContract = String(object.sentTokenContract);
+    } else {
+      message.sentTokenContract = '';
     }
     if (object.feeAmount !== undefined && object.feeAmount !== null) {
       message.feeAmount = String(object.feeAmount);
@@ -2156,6 +2182,11 @@ export const Tx = {
     } else {
       message.receivedToken = '';
     }
+    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+      message.receivedTokenContract = object.receivedTokenContract;
+    } else {
+      message.receivedTokenContract = '';
+    }
     if (object.sentAmount !== undefined && object.sentAmount !== null) {
       message.sentAmount = object.sentAmount;
     } else {
@@ -2165,6 +2196,11 @@ export const Tx = {
       message.sentToken = object.sentToken;
     } else {
       message.sentToken = '';
+    }
+    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+      message.sentTokenContract = object.sentTokenContract;
+    } else {
+      message.sentTokenContract = '';
     }
     if (object.feeAmount !== undefined && object.feeAmount !== null) {
       message.feeAmount = object.feeAmount;
@@ -2233,8 +2269,10 @@ export const Tx = {
     obj.recipient = message.recipient || '';
     obj.receivedAmount = message.receivedAmount || '';
     obj.receivedToken = message.receivedToken || '';
+    obj.receivedTokenContract = message.receivedTokenContract || '';
     obj.sentAmount = message.sentAmount || '';
     obj.sentToken = message.sentToken || '';
+    obj.sentTokenContract = message.sentTokenContract || '';
     obj.feeAmount = message.feeAmount || '';
     obj.feeToken = message.feeToken || '';
     obj.taxAmount = message.taxAmount || '';
@@ -3049,16 +3087,18 @@ export const CreateTxRequest = {
     writer.uint32(82).string(message.recipient);
     writer.uint32(90).string(message.receivedAmount);
     writer.uint32(98).string(message.receivedToken);
-    writer.uint32(106).string(message.sentAmount);
-    writer.uint32(114).string(message.sentToken);
-    writer.uint32(122).string(message.feeAmount);
-    writer.uint32(130).string(message.feeToken);
-    writer.uint32(138).string(message.taxAmount);
-    writer.uint32(146).string(message.taxToken);
-    writer.uint32(154).string(message.netWorthAmount);
-    writer.uint32(162).string(message.netWorthToken);
-    writer.uint32(170).string(message.memo);
-    writer.uint32(178).string(message.friendlyDescription);
+    writer.uint32(106).string(message.receivedTokenContract);
+    writer.uint32(114).string(message.sentAmount);
+    writer.uint32(122).string(message.sentToken);
+    writer.uint32(130).string(message.sentTokenContract);
+    writer.uint32(138).string(message.feeAmount);
+    writer.uint32(146).string(message.feeToken);
+    writer.uint32(154).string(message.taxAmount);
+    writer.uint32(162).string(message.taxToken);
+    writer.uint32(170).string(message.netWorthAmount);
+    writer.uint32(178).string(message.netWorthToken);
+    writer.uint32(186).string(message.memo);
+    writer.uint32(194).string(message.friendlyDescription);
     return writer;
   },
   decode(reader: Reader, length?: number): CreateTxRequest {
@@ -3104,33 +3144,39 @@ export const CreateTxRequest = {
           message.receivedToken = reader.string();
           break;
         case 13:
-          message.sentAmount = reader.string();
+          message.receivedTokenContract = reader.string();
           break;
         case 14:
-          message.sentToken = reader.string();
+          message.sentAmount = reader.string();
           break;
         case 15:
-          message.feeAmount = reader.string();
+          message.sentToken = reader.string();
           break;
         case 16:
-          message.feeToken = reader.string();
+          message.sentTokenContract = reader.string();
           break;
         case 17:
-          message.taxAmount = reader.string();
+          message.feeAmount = reader.string();
           break;
         case 18:
-          message.taxToken = reader.string();
+          message.feeToken = reader.string();
           break;
         case 19:
-          message.netWorthAmount = reader.string();
+          message.taxAmount = reader.string();
           break;
         case 20:
-          message.netWorthToken = reader.string();
+          message.taxToken = reader.string();
           break;
         case 21:
-          message.memo = reader.string();
+          message.netWorthAmount = reader.string();
           break;
         case 22:
+          message.netWorthToken = reader.string();
+          break;
+        case 23:
+          message.memo = reader.string();
+          break;
+        case 24:
           message.friendlyDescription = reader.string();
           break;
         default:
@@ -3202,6 +3248,11 @@ export const CreateTxRequest = {
     } else {
       message.receivedToken = '';
     }
+    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+      message.receivedTokenContract = String(object.receivedTokenContract);
+    } else {
+      message.receivedTokenContract = '';
+    }
     if (object.sentAmount !== undefined && object.sentAmount !== null) {
       message.sentAmount = String(object.sentAmount);
     } else {
@@ -3211,6 +3262,11 @@ export const CreateTxRequest = {
       message.sentToken = String(object.sentToken);
     } else {
       message.sentToken = '';
+    }
+    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+      message.sentTokenContract = String(object.sentTokenContract);
+    } else {
+      message.sentTokenContract = '';
     }
     if (object.feeAmount !== undefined && object.feeAmount !== null) {
       message.feeAmount = String(object.feeAmount);
@@ -3316,6 +3372,11 @@ export const CreateTxRequest = {
     } else {
       message.receivedToken = '';
     }
+    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+      message.receivedTokenContract = object.receivedTokenContract;
+    } else {
+      message.receivedTokenContract = '';
+    }
     if (object.sentAmount !== undefined && object.sentAmount !== null) {
       message.sentAmount = object.sentAmount;
     } else {
@@ -3325,6 +3386,11 @@ export const CreateTxRequest = {
       message.sentToken = object.sentToken;
     } else {
       message.sentToken = '';
+    }
+    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+      message.sentTokenContract = object.sentTokenContract;
+    } else {
+      message.sentTokenContract = '';
     }
     if (object.feeAmount !== undefined && object.feeAmount !== null) {
       message.feeAmount = object.feeAmount;
@@ -3382,8 +3448,10 @@ export const CreateTxRequest = {
     obj.recipient = message.recipient || '';
     obj.receivedAmount = message.receivedAmount || '';
     obj.receivedToken = message.receivedToken || '';
+    obj.receivedTokenContract = message.receivedTokenContract || '';
     obj.sentAmount = message.sentAmount || '';
     obj.sentToken = message.sentToken || '';
+    obj.sentTokenContract = message.sentTokenContract || '';
     obj.feeAmount = message.feeAmount || '';
     obj.feeToken = message.feeToken || '';
     obj.taxAmount = message.taxAmount || '';

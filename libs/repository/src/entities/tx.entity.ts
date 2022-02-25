@@ -18,9 +18,11 @@ export class TxEntity extends BaseEntity<any> {
   sender: string;
   sentAmount: number;
   sentToken: string;
+  sentTokenContract: string;
   recipient: string;
   receivedAmount: number;
   receivedToken: string;
+  receivedTokenContract: string;
   feeAmount: number;
   feeToken: string;
   taxAmount: number;

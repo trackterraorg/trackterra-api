@@ -9,4 +9,5 @@ export class CurrencyEntity extends BaseEntity<any> {
   decimals: number;
   icon: string;
   identifier: string;
+  isStable: boolean;
 }
