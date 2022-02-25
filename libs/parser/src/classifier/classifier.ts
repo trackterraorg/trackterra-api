@@ -46,8 +46,6 @@ export class Classifier {
         );
 
         if (txType) {
-          console.log(actions);
-          console.log(txType);
           return {
             protocol: selectedProtocol,
             txType

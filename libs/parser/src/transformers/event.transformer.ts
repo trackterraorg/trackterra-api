@@ -167,8 +167,12 @@ export class EventTransformer {
 
     const amounts: IAmount[] = splitTokens(strAmount.value);
 
-
     for (const amount of amounts) {
+
+      if(_.isEmpty(amount.token)) {
+        amount.token = 'uluna';
+      }
+
       const transfer: TransferAction = {
         sender: undefined,
         recipient: validator.value,
