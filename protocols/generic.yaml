@@ -79,5 +79,17 @@ transactions:
       ignoreContract: true
     description: Unstake
     tag: pool_withdrawal
+  
+  - name: GenericContractTransfer
+    contract: any
+    classifier:
+      shouldExistAttributes: ['transfer']
+      shouldNotExistAttributes: ['swap', 'withdraw', 'deposit', 'bond', 'unbond', 'provide_liquidity', 'withdraw_liquidity']
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    isEliminator: true
+    description: transfer
 
   

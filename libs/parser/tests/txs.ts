@@ -490,10 +490,17 @@ export const txHashes = {
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
+  generic: [
+    {
+      label: 'transfer deposit',
+      txHash: '5F0D7AA3CE09B13867CF2B5985A32E22CFFFF6451F6FC573A81BD3E857F333F2',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+  ],
   tests: [
     {
       label: 'Withdraw',
-      txHash: '4DAFB9B26426D89669155FECB752E339A612521E884985CCD3E5FCE5AA44AC37',
+      txHash: '5F0D7AA3CE09B13867CF2B5985A32E22CFFFF6451F6FC573A81BD3E857F333F2',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
