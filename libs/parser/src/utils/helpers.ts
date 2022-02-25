@@ -43,6 +43,14 @@ export const separateAmountFromToken = (term: string): IAmount => {
     }
   }
 
+  // sometimes only the amount is provided without token
+  if(/^\d+$/.test(term)) {
+    return {
+      token: '',
+      amount: term,
+    }
+  }
+
   const amount = (term).replace(/(^\d+)(.+$)/i,'$1');
   const token = term.substring(amount.length);
 
