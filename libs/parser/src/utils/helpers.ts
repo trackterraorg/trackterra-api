@@ -138,7 +138,7 @@ export const isTxInitiator = (walletAddress: string, txInfo: TxInfo) => {
   const msg: any[] = JSON.parse(JSON.stringify(txInfo.tx)).value.msg;
 
   const senderRec = msg.find(({ value }) => {
-    return value.sender === walletAddress;
+    return value.sender === walletAddress || value.voter === walletAddress;
   });
 
   return senderRec !== undefined;

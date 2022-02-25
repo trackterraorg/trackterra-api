@@ -17,6 +17,7 @@ import { MirProtocol } from './mir';
 import { PrismProtocol } from './prism';
 import { GlowProtocol } from './glow';
 import { NFTParsers } from './nft';
+import { Native } from './native';
 
 export const ParseProcessors = {
   Fail,
@@ -38,4 +39,5 @@ export const ParseProcessors = {
   ...PrismProtocol,
   ...GlowProtocol,
   ...NFTParsers,
+  ...Native
 };

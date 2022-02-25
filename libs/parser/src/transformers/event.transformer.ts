@@ -45,6 +45,7 @@ export class EventTransformer {
         'transfer',
         'delegate',
         'withdraw_rewards',
+        'proposal_vote',
       ]).length > 0;
     if (isNative) {
       this._txProtocol = ProtocolType.Native;
@@ -64,6 +65,7 @@ export class EventTransformer {
     if (this._txProtocol === ProtocolType.Native) {
       this.transformNativeDelegate();
       this.transformNativeReward();
+      this.transformProposalVote();
     }
 
     return this;
@@ -212,6 +214,28 @@ export class EventTransformer {
 
       this._transferActions.push(transfer);
     }
+
+    return this;
+  }
+
+  private transformProposalVote(): this {
+
+    if (!this._actionKeys?.includes('proposal_vote')) {
+      return this;
+    }
+
+    // const attributes = findAttributes(this._txLog?.events, 'message');
+
+    // const sender= attributes.find((attr: any) => {
+    //   return attr.key === 'sender';
+    // });
+
+    this._transferActions.push({
+      recipient: undefined,
+      sender: undefined,
+      amount: undefined,
+      extraParsingInfo: 'NativeGovVote',
+    });
 
     return this;
   }

@@ -60,7 +60,6 @@ export class NexusClaimRewards implements IParser {
         return cA;
     })
 
-    console.dir({transfer}, {depth: 'null'});
     args.contractActions = { transfer }
 
     return (new TransferEngine()).process(args);
