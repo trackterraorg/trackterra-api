@@ -348,6 +348,11 @@ export const txHashes = {
       txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Pylon unstake',
+      txHash: 'B129BC36D828361FEFA1008110575A5FA9602EA062C1E0FE1124717AEC33ADDB',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+    },
   ],
   loterra: [
     {
@@ -464,10 +469,10 @@ export const txHashes = {
     },
   ],
   tests: [
-    // {
-    //   label: 'Withdraw',
-    //   txHash: '495BF9BC4BFF5FFE28C6CAA3FD1802925D0FAECF554C725A3B5CF4F2A29BF1F1',
-    //   walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
-    // },
+    {
+      label: 'Withdraw',
+      txHash: 'B129BC36D828361FEFA1008110575A5FA9602EA062C1E0FE1124717AEC33ADDB',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+    },
   ],
 };
