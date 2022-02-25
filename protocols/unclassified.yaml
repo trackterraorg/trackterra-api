@@ -2,18 +2,6 @@ name: Unclassified
 type: Contract
 priority: 100
 transactions:
-  - name: Swap
-    contract: 
-    classifier:
-      shouldExistAttributes: ['swap']
-      shouldNotExistAttributes: []
-      contractAddressExtractKeys:
-        mainKey: any
-        contractKey: any
-      ignoreContract: true
-    parserClass: Swap
-    tag: swap
-
   - name: Transfer
     contract: 
     classifier:

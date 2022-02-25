@@ -2,6 +2,18 @@ name: Generic
 type: Contract
 priority: 99
 transactions:
+  - name: Swap
+    contract: 
+    classifier:
+      shouldExistAttributes: ['swap']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    parserClass: Swap
+    tag: swap
+
   - name: WithdrawLiquidity
     contract: 
     classifier:
