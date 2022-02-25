@@ -66,6 +66,18 @@ transactions:
         contractKey: any
       ignoreContract: true
     description: Stake
-    tag: swap
+    tag: pool_deposit
+
+  - name: Unstake
+    contract: 
+    classifier:
+      shouldExistAttributes: ['transfer', 'unbond']
+      shouldNotExistAttributes: ['swap', 'withdraw_liquidity']
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    description: Unstake
+    tag: pool_withdrawal
 
   
