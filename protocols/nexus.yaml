@@ -66,3 +66,22 @@ transactions:
     parserClass: NexusClaimRewards
     description: Nexus staking rewards
     tag: staking_rewards
+
+  - name: Nexus Staking Rewards
+    contract: 
+      - terra1hs4ev0ghwn4wr888jwm56eztfpau6rjcd8mczc
+      - terra12kzewegufqprmzl20nhsuwjjq6xu8t8ppzt30a
+      - terra1lws09x0slx892ux526d6atwwgdxnjg58uan8ph
+      - terra1fmu29xhg5nk8jr0p603y5qugpk2r0ywcyxyv7k
+      - terra13n2sqaj25ugkt79k3evhvua30ut9qt8q0268zc
+      - terra1sxzggeujnxrd7hsx7uf2l6axh2uuv4zz5jadyg
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    parserClass: NexusStakingRewards
+    description: Nexus staking rewards
+    tag: staking_rewards

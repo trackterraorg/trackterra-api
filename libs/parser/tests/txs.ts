@@ -252,6 +252,11 @@ export const txHashes = {
       txHash: 'C8040E3A0397F1CB07D7564723596B4AB17984A7530A06D58DECCAEBD26D8509',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: 'staking reward',
+      txHash: 'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   astroport: [
     {
@@ -529,8 +534,8 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: '6B1C441452C3C057CB8B284ABE340BBDBB800DD0EA28FB30DBEC2419A02C8B76',
-      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+      txHash: 'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
 };
