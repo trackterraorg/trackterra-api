@@ -1,0 +1,15 @@
+name: Kujira
+type: Contract
+priority: 0
+transactions:
+  - name: UST-KUJIUnStaking
+    contract: terra1cf9q9lq7tdfju95sdw78y9e34a6qrq3rrc6dre
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: UST-KUJI unstake
+    tag: pool_withdrawal
