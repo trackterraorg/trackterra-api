@@ -265,6 +265,11 @@ export const txHashes = {
         '9588FD94444483F5FBCDDEB2956BEA057E18ACD522306F48901A719D36F0B15D',
       walletAddress: 'terra1qr2k6yjjd5p2kaewqvg93ag74k6gyjr7re37fs',
     },
+    {
+      label: 'stake lp',
+      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   glow: [
     {
@@ -534,7 +539,7 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: 'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
+      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],

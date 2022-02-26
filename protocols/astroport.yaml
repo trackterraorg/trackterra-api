@@ -1,0 +1,15 @@
+name: Astroport
+type: Contract
+priority: 0
+transactions:
+  - name: AstroportStakeLp
+    contract: terra1627ldjvxatt54ydd3ns6xaxtd68a2vtyu7kakj
+    classifier:
+      shouldExistAttributes: ['increase_lockup_position']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: increase_lockup_position
+        contractKey: contract
+      ignoreContract: false
+    description: Astroport stake lp
+    tag: pool_deposit
