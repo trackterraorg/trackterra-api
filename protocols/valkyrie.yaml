@@ -1,0 +1,15 @@
+name: Valkyrie
+type: Contract
+priority: 0
+transactions:
+  - name: Unstake
+    contract: terra1ude6ggsvwrhefw2dqjh4j6r7fdmu9nk6nf2z32
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Vakyrie unstake VKR
+    tag: pool_withdrawal

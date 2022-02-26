@@ -495,6 +495,13 @@ export const txHashes = {
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
+  valkyrie: [
+    {
+      label: 'unstake',
+      txHash: '3F0ADEF5B19F0CABF826195C633D4512B799435628AF4CFEDCFBE9734B0D05EC',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
+  ],
   generic: [
     {
       label: 'transfer deposit',
@@ -505,8 +512,8 @@ export const txHashes = {
   tests: [
     {
       label: 'Prism stake',
-      txHash: 'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
-      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+      txHash: '3F0ADEF5B19F0CABF826195C633D4512B799435628AF4CFEDCFBE9734B0D05EC',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
 };
