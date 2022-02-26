@@ -450,6 +450,11 @@ export const txHashes = {
       txHash: 'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
+    {
+      label: ' Swap prism for xprism',
+      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   nft: [
     {
@@ -524,8 +529,8 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: '6B1C441452C3C057CB8B284ABE340BBDBB800DD0EA28FB30DBEC2419A02C8B76',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
   ],
 };

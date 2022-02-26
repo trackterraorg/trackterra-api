@@ -1,6 +1,7 @@
 import _ = require('lodash');
-import { IParsedTx, IParser, TxLabel, TxTag } from '..';
+import { IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
+import { SwapEngine } from './swap';
 
 export class PrismRefract implements IParser {
 
@@ -90,8 +91,38 @@ export class PrismMerge implements IParser {
   
 }
 
+export class SwapPrismXPrism implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const { contractActions, walletAddress } = args;
+
+    const sendAction: any = _.first(contractActions.send);
+    const mintAction: any = _.first(contractActions.mint);
+
+    const swapAction: any = {
+      contract: sendAction.contract,
+      sender: walletAddress,
+      receiver: walletAddress,
+      offer_asset: sendAction.contract,
+      ask_asset: mintAction.contract,
+      offer_amount: sendAction.amount,
+      return_amount: mintAction.amount,
+    }
+
+    return SwapEngine.swap({
+      ...args, 
+      contractActions: {
+        swap: [swapAction]
+      },
+    })
+  };
+  
+}
+
 export const PrismProtocol = {
   PrismRefract,
   PrismBond,
   PrismMerge,
+  SwapPrismXPrism,
 };

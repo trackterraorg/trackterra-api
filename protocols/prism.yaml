@@ -109,3 +109,16 @@ transactions:
       ignoreContract: false
     description: Prism stake
     tag: pool_deposit
+
+  - name: SwapPrismXPrism
+    contract: terra1042wzrwg2uk6jqxjm34ysqquyr9esdgm5qyswz
+    classifier:
+      shouldExistAttributes: [mint_xprism, mint]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    description: Swap prism for xPrism
+    parserClass: SwapPrismXPrism
+    tag: swap
