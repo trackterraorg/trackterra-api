@@ -368,6 +368,11 @@ export const txHashes = {
       txHash: 'EC82DB91F3C9EDAA58831C3DFC6CC98DA4B0F8A6066DC98D5D2FAD5D8111ABDA',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
+    {
+      label: ' unstake',
+      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   loterra: [
     {
@@ -519,8 +524,8 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: '7C5CCB45FF447F86581A114B8A8DCA2015A0780E1F2DA1EFB42F1E374E224D0C',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };
