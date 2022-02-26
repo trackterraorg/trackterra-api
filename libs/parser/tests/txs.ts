@@ -440,6 +440,11 @@ export const txHashes = {
       txHash: '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Prism stake',
+      txHash: 'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+    },
   ],
   nft: [
     {
@@ -499,9 +504,9 @@ export const txHashes = {
   ],
   tests: [
     {
-      label: 'Withdraw',
-      txHash: '5F0D7AA3CE09B13867CF2B5985A32E22CFFFF6451F6FC573A81BD3E857F333F2',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      label: 'Prism stake',
+      txHash: 'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
   ],
 };

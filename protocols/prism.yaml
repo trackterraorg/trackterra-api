@@ -97,3 +97,15 @@ transactions:
     description: Prism merge
     parserClass: PrismMerge
     tag: swap
+
+  - name: PrismStake
+    contract: terra1pa4amk66q8punljptzmmftf6ylq3ezyzx6kl9m
+    classifier:
+      shouldExistAttributes: [send]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: to
+      ignoreContract: false
+    description: Prism stake
+    tag: pool_deposit
