@@ -202,3 +202,15 @@ transactions:
     parserClass: MirLiquidation
     description: Mirror Liquidation
     tag: swap
+
+  - name: MirrorGoveranceProposalCollateralDeposit
+    contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
+    classifier:
+      shouldExistAttributes: [send, create_poll]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: create_poll
+        contractKey: contract
+      ignoreContract: false
+    description: Mirror goverance proposal collateral deposit
+    tag: deposit

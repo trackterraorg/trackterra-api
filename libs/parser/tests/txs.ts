@@ -221,6 +221,11 @@ export const txHashes = {
       txHash: '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
       walletAddress: 'terra1azsvasnfgq605f754hu7qtkpp8ue6k2pray8sq',
     },
+    {
+      label: 'goverance proposal collateral deposit',
+      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
+      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+    },
   ],
   nexus: [
     {
@@ -539,7 +544,7 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
+      txHash: '808b54a4480e6d9334048453d57d7fb72236a402c73704664696fd4c89b4d20f',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
