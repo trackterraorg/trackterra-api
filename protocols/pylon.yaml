@@ -39,14 +39,14 @@ transactions:
     tag: staking_rewards
 
   - name: PylonPoolDeposit
-    contract: terra13nhe672jgaezstzuvkqq9ytn3zek4s0cy2pn4m
+    contract: any
     classifier:
-      shouldExistAttributes: ['send', 'update']
+      shouldExistAttributes: ['send', 'update', 'deposit']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: send
-        contractKey: contract
-      ignoreContract: false
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
     isEliminator: true
     description: Pylon pool deposit
     tag: pool_deposit

@@ -544,7 +544,7 @@ export const txHashes = {
   tests: [
     {
       label: ' unstake',
-      txHash: '808b54a4480e6d9334048453d57d7fb72236a402c73704664696fd4c89b4d20f',
+      txHash: '579ED428E299EE4B4371D16C3120EEC60286A2AF28A38AA2532946B06E5CE81A',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
