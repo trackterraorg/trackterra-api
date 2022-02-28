@@ -51,3 +51,16 @@ transactions:
     description: Spec unstake LP
     parserClass: GenericPoolTransfer
     tag: pool_withdrawal
+
+  - name: SpecZapIn
+    contract: terra1fxwelge6mf5l6z0rjpylzcfq9w9tw2q7tewaf5
+    classifier:
+      shouldExistAttributes: ['bond']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: bond
+        contractKey: contract
+      ignoreContract: false
+    description: Spec zap in
+    parserClass: ZapIn
+    tag: pool_withdrawal
