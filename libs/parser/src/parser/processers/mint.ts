@@ -18,7 +18,7 @@ export class MintEngine {
     return {
       walletAddress,
       contract,
-      label: TxLabel.Deposit,
+      label: TxLabel.Withdraw,
       tag: txType.tag ?? TxTag.PoolDeposit,
       sender,
       recipient,
