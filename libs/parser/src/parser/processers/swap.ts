@@ -117,7 +117,7 @@ export class AnchorLiquidateCollateral implements IParser {
         walletAddress,
         contract: contract,
         label: TxLabel.Swap,
-        tag: txType.tag,
+        tag: TxTag.Swap,
         sender: sent ? walletAddress : undefined,
         sentAmount: sent?.amount,
         sentToken: sent?.contract,
@@ -130,39 +130,9 @@ export class AnchorLiquidateCollateral implements IParser {
   }
 }
 
-export class NexusVaultDeposit implements IParser {
-  process({
-    walletAddress,
-    txType,
-    contractActions,
-  }: ParserProcessArgs): IParsedTx[] {
-    const contract = contractActions.send[0].contract as unknown as string;
-
-    const sent: any | undefined = contractActions?.send[0];
-    const recieved: any | undefined = contractActions?.mint[0];
-
-    return [
-      {
-        walletAddress,
-        contract: contract,
-        label: TxLabel.Swap,
-        tag: txType.tag,
-        sender: walletAddress,
-        sentAmount: sent?.amount,
-        sentToken: sent?.contract,
-        recipient: sent ? walletAddress : undefined,
-        receivedAmount: recieved?.amount,
-        receivedToken: recieved?.contract,
-        friendlyDescription: txType.description,
-      },
-    ];
-  }
-}
-
 export const Swaps = {
   Swap,
   AnchorBlunaMint,
   AnchorBlunaUnbond,
-  NexusVaultDeposit,
   AnchorLiquidateCollateral,
 };
