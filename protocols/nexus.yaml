@@ -4,21 +4,23 @@ priority: 0
 transactions:
   - name: NexusVaultDeposit
     contract: 
-      - terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp
-      - terra1dzhzukyezv0etz22ud940z7adyv7xgcjkahuun
+      - terra178v546c407pdnx5rer3hu8s2c0fc924k74ymnn
+      - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     classifier:
       shouldExistAttributes: ['lock_collateral', 'mint']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: send
+        mainKey: mint
         contractKey: contract
       ignoreContract: false
     parserClass: NexusVaultDeposit
-    description: Nexus vault deposit
+    description: swap basset for nasset
     tag: swap
 
-  - name: Nexus burn Nluna for Bluna
-    contract: terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
+  - name: NexusVaultDeposit
+    contract: 
+      - terra178v546c407pdnx5rer3hu8s2c0fc924k74ymnn
+      - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     classifier:
       shouldExistAttributes: ['unlock_collateral', 'burn']
       shouldNotExistAttributes: []
@@ -27,7 +29,7 @@ transactions:
         contractKey: contract
       ignoreContract: false
     parserClass: NexusVaultDeposit
-    description: Nexus burn Nluna for Bluna
+    description: swap basset for nasset
     tag: swap
 
   - name: Nexus Pool Deposit

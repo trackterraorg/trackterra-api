@@ -23,7 +23,7 @@ transactions:
         mainKey: auto_stake
         contractKey: contract
       ignoreContract: false
-    parserClass: MirAutoStake
+    parserClass: GenericAutoStake
     description: Mirror auto stake
     tag: add_liquidity
 
@@ -31,7 +31,7 @@ transactions:
     contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
     classifier:
       shouldExistAttributes: [bond]
-      shouldNotExistAttributes: []
+      shouldNotExistAttributes: [provide_liquidity]
       contractAddressExtractKeys:
         mainKey: bond
         contractKey: contract

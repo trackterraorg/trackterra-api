@@ -2,6 +2,19 @@ name: Kujira
 type: Contract
 priority: 0
 transactions:
+  - name: UST-KUJIStaking
+    contract: terra1cf9q9lq7tdfju95sdw78y9e34a6qrq3rrc6dre
+    classifier:
+      shouldExistAttributes: ['auto_stake']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: auto_stake
+        contractKey: contract
+      ignoreContract: false
+    description: UST-KUJI auto stake
+    parserClass: GenericAutoStake
+    tag: pool_deposit
+
   - name: UST-KUJIUnStaking
     contract: terra1cf9q9lq7tdfju95sdw78y9e34a6qrq3rrc6dre
     classifier:

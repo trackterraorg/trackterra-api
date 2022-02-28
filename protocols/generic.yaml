@@ -2,6 +2,19 @@ name: Generic
 type: Contract
 priority: 99
 transactions:
+  - name: AutoStake
+    contract: any
+    classifier:
+      shouldExistAttributes: ['auto_stake']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: false
+    description: Auto stake
+    parserClass: GenericAutoStake
+    tag: pool_deposit
+
   - name: Swap
     contract: 
     classifier:

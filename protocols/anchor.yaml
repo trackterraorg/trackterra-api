@@ -67,14 +67,12 @@ transactions:
   - name: AnchorCollateralDeposit
     contract: terra1ptjp2vfjrwh0j0faj9r6katm640kgjxnwwq9kn
     classifier:
-      shouldExistAttributes: ['deposit_collateral']
-      shouldNotExistAttributes: []
+      shouldExistAttributes: ['send', 'deposit_collateral']
+      shouldNotExistAttributes: ['mint']
       contractAddressExtractKeys:
         mainKey: deposit_collateral
         contractKey: contract
       ignoreContract: true
-      skipForContracts:
-        - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
     description: Anchor Collateral Deposit
     tag: pool_deposit
 
@@ -89,6 +87,7 @@ transactions:
       ignoreContract: true
       skipForContracts:
         - terra10f2mt82kjnkxqj2gepgwl637u2w4ue2z5nhz5j
+        - terra178v546c407pdnx5rer3hu8s2c0fc924k74ymnn
     description: Anchor Collateral Withdrawal
     tag: pool_withdrawal
 

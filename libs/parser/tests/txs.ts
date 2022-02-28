@@ -262,6 +262,11 @@ export const txHashes = {
       txHash: 'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: 'basset nasset swap',
+      txHash: '2E3B29A6C7018FEA87CA21D9DEB8EC4AEB1FC3616F01B8DAB1AB284BE5694319',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   astroport: [
     {
@@ -543,8 +548,8 @@ export const txHashes = {
   ],
   tests: [
     {
-      label: ' unstake',
-      txHash: '579ED428E299EE4B4371D16C3120EEC60286A2AF28A38AA2532946B06E5CE81A',
+      label: 'basset nasset swap',
+      txHash: '4975E2F154DA59D3E9BF283C31DE904AF855A33D37173B66950430160B00F6AB',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],

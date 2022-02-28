@@ -62,5 +62,5 @@ transactions:
         contractKey: contract
       ignoreContract: false
     description: Spec zap in
-    parserClass: ZapIn
+    parserClass: GenericAutoStake
     tag: pool_withdrawal
