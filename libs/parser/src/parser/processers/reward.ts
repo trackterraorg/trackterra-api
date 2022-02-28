@@ -48,26 +48,7 @@ export class AnchorClaimBAssetRewards implements IParser {
   }
 }
 
-export class NexusClaimRewards implements IParser {
-  process(args: ParserProcessArgs): IParsedTx[] {
-    
-    let contractActions = args.contractActions;
-
-    const transfer = contractActions.transfer.map((cA) => {
-        cA.sender = cA.from;
-        cA.recipient = cA.to;
-
-        return cA;
-    })
-
-    args.contractActions = { transfer }
-
-    return (new TransferEngine()).process(args);
-  }
-}
-
 export const Rewarders = {
   AnchorClaimRewards,
   AnchorClaimBAssetRewards,
-  NexusClaimRewards,
 };
