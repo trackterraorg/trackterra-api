@@ -5,9 +5,14 @@ import { ParserProcessArgs } from '../args';
 import { LiquidityEngine } from './liquidity';
 import { MintEngine } from './mint';
 
-export class MirAutoStake implements IParser {
+export class GenericAutoStake implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    const provideLiquidityTxs = LiquidityEngine.provideLiquidity(args);
+    const provideLiquidityTxs = LiquidityEngine.provideLiquidity({
+      ...args, txType: {
+        ...args.txType,
+        tag: TxLabel.Swap
+      }
+    });
     const mintTxs = MintEngine.mint(args);
 
     return provideLiquidityTxs.concat(mintTxs);
@@ -15,5 +20,5 @@ export class MirAutoStake implements IParser {
 }
 
 export const Staking = {
-  MirAutoStake,
+  GenericAutoStake,
 };
