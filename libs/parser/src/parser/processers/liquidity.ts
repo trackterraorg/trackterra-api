@@ -1,6 +1,6 @@
 import { lpTokenCombiner, separateAmountFromToken, splitTokens } from '@trackterra/parser/utils';
 import _ = require('lodash');
-import { IAmount, IParsedTx, IParser, TxLabel } from '..';
+import { IAmount, IParsedTx, IParser, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 import { PoolTransferEngine } from './pool';
 
@@ -75,7 +75,7 @@ export class LiquidityEngine {
         walletAddress,
         contract: contract,
         label: TxLabel.Swap,
-        tag: txType.tag,
+        tag: TxTag.Swap,
         sender: walletAddress,
         sentAmount: burnToken.amount,
         sentToken: burnToken.token,

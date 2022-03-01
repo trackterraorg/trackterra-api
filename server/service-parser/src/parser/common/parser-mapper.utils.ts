@@ -22,7 +22,6 @@ export async function txToTxCreateRequest(
     { token: 'receivedToken', contract: 'receivedTokenContract', amount: 'receivedAmount' },
     { token: 'taxToken', amount: 'taxAmount' },
     { token: 'feeToken', amount: 'feeAmount' },
-    { token: 'networthAmount', amount: 'networthToken' },
   ];
 
   for (const txKey of txKeys) {

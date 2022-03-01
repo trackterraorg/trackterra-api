@@ -3,47 +3,70 @@ import { ParserProcessArgs } from '../args';
 import { IAmount, IParsedTx, IParser } from '../parser.interfaces';
 import { TxTag } from '..';
 import { TransferEngine } from './transfer';
+import _ = require('lodash');
 
 
 export class PoolTransferEngine {
+
+    static findTxs(args: ParserProcessArgs, key: string) {
+        const transferActions = args.contractActions.transfer.filter((tA: any) => {
+            return tA[key] === args.walletAddress;
+        });
+
+        if (_.size(transferActions) > 0) {
+            return transferActions;
+        }
+
+        const sendActions = args.contractActions.send.filter((tA: any) => {
+            console.dir({
+                key: tA[key],
+                walletAddress: args.walletAddress,
+            }, {depth: 'null'});
+            return tA[key] === args.walletAddress;
+        });
+
+        if (_.size(sendActions) > 0) {
+            return sendActions;
+        }
+    }
+
+    static poolDeposit(args: ParserProcessArgs) {
+        return this.findTxs(args, 'from');
+    }
+
+    static poolWithdraw(args: ParserProcessArgs) {
+        return this.findTxs(args, 'to');
+    }
 
     static process(args: ParserProcessArgs): IParsedTx[]{
 
         let contractActions = args.contractActions;
         const contractKeys = Object.keys(contractActions);
 
-        let key: string;
-        let tag: TxTag;
+        let actions: any;
 
         if (contractKeys.includes("bond")) {
-            key = 'from';
-            tag = TxTag.PoolDeposit;
+            actions = this.poolDeposit(args);
         } else if (contractKeys.includes("unbond")) {
-            key = 'to';
-            tag = TxTag.PoolWithdrawal;
+            actions = this.poolWithdraw(args);
         } else {
             return [];
         }
 
-        const accessKey = contractKeys.includes('transfer') ? 'transfer' : 'send';
-
-        const actions = contractActions[accessKey].filter((tA) => {
-            return tA[key] as unknown as string === args.walletAddress;
-        });
-
-        if(! actions) {
+        if(! actions || _.size(actions) === 0) {
             return [];
         }
-
+        console.dir({
+            actions
+        }, {depth: 'null'});
         contractActions = {
             transfer: actions
         };
-        
-        const txType = args.txType;
-        txType.tag = tag;
     
         return (new TransferEngine()).process({
-            ...args, txType, contractActions
+            ...args, 
+            contractActions,
+            transferActions: undefined, 
         });
     }
 }

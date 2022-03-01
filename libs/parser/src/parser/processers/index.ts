@@ -20,6 +20,7 @@ import { NFTParsers } from './nft';
 import { Native } from './native';
 import { NexusProtocol } from './nexus';
 import { SpecProtocol } from './spec';
+import { PylonProtocol } from './pylon';
 
 export const ParseProcessors = {
   Fail,
@@ -42,6 +43,7 @@ export const ParseProcessors = {
   ...PrismProtocol,
   ...GlowProtocol,
   ...SpecProtocol,
+  ...PylonProtocol,
   ...NFTParsers,
   ...Native
 };

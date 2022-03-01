@@ -10,8 +10,9 @@ transactions:
       contractAddressExtractKeys:
         mainKey: any
         contractKey: any
-      ignoreContract: false
+      ignoreContract: true
     description: Auto stake
+    isEliminator: true
     parserClass: GenericAutoStake
     tag: pool_deposit
 
@@ -31,7 +32,7 @@ transactions:
     contract: 
     classifier:
       shouldExistAttributes: ['withdraw_liquidity', 'burn']
-      shouldNotExistAttributes: ['zap_out_of_strategy']
+      shouldNotExistAttributes: ['zap_out_of_strategy', 'auto_stake']
       contractAddressExtractKeys:
         mainKey: withdraw_liquidity
         contractKey: contract
@@ -45,7 +46,7 @@ transactions:
     contract: 
     classifier:
       shouldExistAttributes: ['provide_liquidity', 'mint']
-      shouldNotExistAttributes: ['zap_into_strategy']
+      shouldNotExistAttributes: ['zap_into_strategy', 'auto_stake']
       contractAddressExtractKeys:
         mainKey: provide_liquidity
         contractKey: contract

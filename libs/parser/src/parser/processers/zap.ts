@@ -5,12 +5,19 @@ import { ParserProcessArgs } from '../args';
 import { LiquidityEngine } from './liquidity';
 import { PoolTransferEngine } from './pool';
 import { SwapEngine } from './swap';
+import { TransferEngine } from './transfer';
 
 export class ZapIn implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
 
     const { walletAddress } = args;
-    const swapTx = SwapEngine.swap(args);
+    const swapTx = SwapEngine.swap({
+      ...args,
+      txType: {
+        ...args.txType,
+        tag: TxTag.Swap,
+      }
+    });
     const provideLiquidtyTx = LiquidityEngine.provideLiquidity(args);
 
     const txType = args.txType;
@@ -37,29 +44,30 @@ export class ZapIn implements IParser {
 }
 
 export class ZapOut implements IParser {
-  zapOutUnstake(args: ParserProcessArgs): IParsedTx {
+  removeLiquidity(args: ParserProcessArgs): IParsedTx[] {
     const { walletAddress, txType } = args;
-    const action = _.first(args.contractActions.unstake);
-    const contract = action.contract as unknown as string;
-    const sentToken = action.asset_token as unknown as string;
-    const sentAmount = action.amount as unknown as string;
-    return {
-      walletAddress,
-      contract,
-      label: TxLabel.Withdraw,
-      tag: TxTag.PoolDeposit,
-      sender: walletAddress,
-      sentAmount,
-      sentToken,
-      friendlyDescription: txType.description,
-    };
+    const removeLiquidity: any = _.first(args.contractActions.send);
+    removeLiquidity.to = args.walletAddress;
+
+    return (new TransferEngine()).process({
+      ...args,
+      contractActions: {
+        send: [removeLiquidity],
+      },
+      transferActions: undefined,
+      txType: {
+        ...args.txType,
+        description: 'Remove liquidity',
+        tag: TxTag.PoolWithdrawal,
+      }
+    });
   }
 
   process(args: ParserProcessArgs): IParsedTx[] {
-    const unstakeTx = this.zapOutUnstake(args);
-    const swapTx = SwapEngine.swap(args);
+    const removeLiquidityTx = this.removeLiquidity(args);
     const withdrawLiquidityTx = LiquidityEngine.withdrawLiquidity(args);
-    return [unstakeTx].concat(swapTx).concat(withdrawLiquidityTx);
+    const swapTx = SwapEngine.swap(args);
+    return removeLiquidityTx.concat(withdrawLiquidityTx).concat(swapTx);
   }
 }
 

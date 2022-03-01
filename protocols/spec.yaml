@@ -40,22 +40,23 @@ transactions:
     tag: pool_withdrawal
 
   - name: SpecUnstakeLP
-    contract: terra1ukm33qyqx0qcz7rupv085rgpx0tp5wzkhmcj3f
+    contract: terra1wmaty65yt7mjw6fjfymkd9zsm6atsq82d9arcd
     classifier:
-      shouldExistAttributes: ['unbond']
+      shouldExistAttributes: ['send', 'withdraw_liquidity']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: unbond
+        mainKey: send
         contractKey: contract
       ignoreContract: false
+    isEliminator: true
     description: Spec unstake LP
-    parserClass: GenericPoolTransfer
+    parserClass: SpecUnstakeLp
     tag: pool_withdrawal
 
   - name: SpecZapIn
-    contract: terra1fxwelge6mf5l6z0rjpylzcfq9w9tw2q7tewaf5
+    contract: terra10u9342cdwwqpe4wz9mf2c00ytlcr847wpe0xh4
     classifier:
-      shouldExistAttributes: ['bond']
+      shouldExistAttributes: ['bond', 'provide_liquidity']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
         mainKey: bond
@@ -63,4 +64,4 @@ transactions:
       ignoreContract: false
     description: Spec zap in
     parserClass: GenericAutoStake
-    tag: pool_withdrawal
+    tag: pool_deposit

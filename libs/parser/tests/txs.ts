@@ -549,8 +549,8 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: '4975E2F154DA59D3E9BF283C31DE904AF855A33D37173B66950430160B00F6AB',
-      walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
+      txHash: '43212304C7B9C4DA1B800DC2EA958F968622F664CA86BA72055862243238D109',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
 };

@@ -91,8 +91,8 @@ export class Exporter {
         }
 
         if (netWorthAmount) {
-          record.netWorthAmount = netWorthAmount;
-          record.netWorthToken = 'UST';
+          record.netWorthAmount = netWorthAmount / 1000000;
+          record.netWorthToken = 'USD';
         }
       }
 

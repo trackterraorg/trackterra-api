@@ -23,7 +23,7 @@ export class SwapEngine {
         walletAddress,
         contract: firstSwapAction.contract,
         label: TxLabel.Swap,
-        tag: txType.tag ?? TxTag.Swap,
+        tag: TxTag.Swap,
         sender: firstSwapAction.sender,
         sentAmount: firstSwapAction.offer_amount,
         sentToken: firstSwapAction.offer_asset,
