@@ -3,14 +3,17 @@ import { IAmount, IParsedTx, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 
 export class MintEngine {
-  static mint(args: ParserProcessArgs): IParsedTx {
+  static process(args: ParserProcessArgs, dir: {
+    label: TxLabel;
+    tag: TxTag;
+  }): IParsedTx {
     const { walletAddress, txType, contractActions } = args;
 
-    const mintAction = _.first(contractActions.mint);
-
-    const contract = mintAction.contract as unknown as string;
-    const to = mintAction.to as unknown as string;
-    const receivedAmount = mintAction.amount as unknown as string;
+    const mintAction: any = _.first(contractActions.mint);
+    
+    const contract = mintAction.contract;
+    const to = mintAction.to;
+    const receivedAmount = mintAction.amount;
     const receivedToken = contract;
     const sender = contract;
     const recipient = to;
@@ -18,8 +21,8 @@ export class MintEngine {
     return {
       walletAddress,
       contract,
-      label: TxLabel.Withdraw,
-      tag: txType.tag ?? TxTag.PoolDeposit,
+      label: dir.label,
+      tag: dir.tag,
       sender,
       recipient,
       receivedAmount,
