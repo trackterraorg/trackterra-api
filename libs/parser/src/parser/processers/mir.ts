@@ -137,7 +137,10 @@ export class MirOpenShortFarm implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     this.args = args;
     const openPositionTx = this.openPosition();
-    const mintTx = MintEngine.mint(args);
+    const mintTx = MintEngine.process(args, {
+      label: TxLabel.Withdraw,
+      tag: TxTag.PoolDeposit
+    });
     const swapTx = SwapEngine.swap(args);
     const lockPositionFundsHookTx = this.lockPositionFundsHook();
 

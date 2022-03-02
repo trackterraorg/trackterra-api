@@ -20,24 +20,38 @@ export class SpecProvideLiquidity implements IParser {
 
 export class SpecUnstakeLp implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    const txType = args.txType;
+    const { walletAddress, txType } = args;
+
     txType.description = 'Spec unstake lp';
+
+    const poolWithdrawalActions = args.contractActions.send.filter((cA: any) => {
+      return cA.from === walletAddress;
+    }).map((cA: any) => {
+      cA.contract = cA.contract;
+      cA.sender = cA.contract;
+      cA.recipient = walletAddress;
+      cA.amount = {
+        amount: cA.amount,
+        token: cA.contract,
+      }
+      return _.pick(cA, ['contract', 'sender', 'recipient', 'amount']) as any;
+    });
+
+
     const poolWithdrawalTx = (new TransferEngine()).process({
       ...args, 
-      contractActions: {
-        send: [_.first(args.contractActions.send)],
-      },
+      contractActions: undefined,
       txType: {
         ...args.txType,
-        tag: TxTag.PoolDeposit,
+        tag: TxTag.PoolWithdrawal,
       },
-      transferActions: undefined
+      transferActions: poolWithdrawalActions
     });
-    const poolDepositTx = PoolTransferEngine.process({...args, txType});
+
     const withdrawLiquidityTx = LiquidityEngine.withdrawLiquidity(args);
     const swapTx = SwapEngine.swap(args);
 
-    return poolWithdrawalTx.concat(poolDepositTx).concat(withdrawLiquidityTx).concat(swapTx);
+    return poolWithdrawalTx.concat(withdrawLiquidityTx).concat(swapTx);
   }
 }
 
