@@ -147,6 +147,37 @@ export class MirOpenShortFarm implements IParser {
     return [openPositionTx].concat([mintTx], swapTx, [lockPositionFundsHookTx]);
   }
 }
+export class MirCloseShortFarm implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const poolDepositTx = (new MirPoolDeposit()).process({
+      ...args,
+      contractActions: _.first(args.allEvents).contractActions,
+      transferActions: undefined,
+      allEvents: undefined,
+    });
+
+    let poolWithdrawalTx = (new MirPoolWithdraw()).process(args);
+
+    const feeTx = poolDepositTx.find((tx) => {
+      return tx.label === TxLabel.Fee;
+    });
+
+    poolWithdrawalTx = poolWithdrawalTx.map((tx) => {
+      if(tx.tag === TxTag.PoolWithdrawal) {
+        const receivedAmount: number = +tx.receivedAmount;
+        const fee: number = +feeTx.sentAmount;
+        const amt = receivedAmount + fee;
+        tx.receivedAmount = `${amt}`;
+      }
+
+      return tx;
+    });
+
+    return poolDepositTx.concat(poolWithdrawalTx);
+  }
+}
 
 export class MirLiquidation implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
@@ -207,5 +238,6 @@ export const MirProtocol = {
   MirPoolWithdraw,
   MirBorrow,
   MirOpenShortFarm,
+  MirCloseShortFarm,
   MirLiquidation,
 };

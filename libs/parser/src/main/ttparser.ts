@@ -65,10 +65,14 @@ export class TTParser {
 
     for (let index = 0; index < classifiedEvents.length; index++) {
       const { protocol, txType, transformedData } = classifiedEvents[index];
+
+      const allEvents = txType.requiresOtherEvents ? transformedActions : undefined;
+
       let records = Parser.process({
         txType,
         walletAddress,
         ...transformedData,
+        allEvents,
       });
 
       records = records?.map((record) => {

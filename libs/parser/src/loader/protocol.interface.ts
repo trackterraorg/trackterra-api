@@ -15,6 +15,7 @@ export interface TxType {
   contract: string;
   classifier: TxClassifier;
   isEliminator?: false;
+  requiresOtherEvents?: false;
   tag: string;
   parserClass?: string;
   description?: string;

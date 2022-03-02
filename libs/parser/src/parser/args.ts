@@ -6,4 +6,6 @@ export interface ParserProcessArgs extends TransformedData {
   txType: TxType;
   walletAddress: string;
   txInfo?: TxInfo;
+  /** some events use data from other events */
+  allEvents?: TransformedData[];
 }

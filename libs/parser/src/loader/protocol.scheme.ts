@@ -27,6 +27,7 @@ export const transactionScheme = Joi.object().keys({
     .allow(null, ''),
   classifier: Joi.object().keys(classifierScheme).required(),
   isEliminator: Joi.boolean(), // eliminates other events in the tx
+  requiresOtherEvents: Joi.boolean(),
   parserClass: Joi.string()
     .valid(...parserClasses)
     .allow(null),

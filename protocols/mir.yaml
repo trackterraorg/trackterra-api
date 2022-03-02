@@ -53,18 +53,18 @@ transactions:
     description: Mirror unstake lp
     tag: pool_withdrawal
 
-  - name: MirrorCloseShortFarm
-    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
-    classifier:
-      shouldExistAttributes: [burn, decrease_short_token]
-      shouldNotExistAttributes: []
-      contractAddressExtractKeys:
-        mainKey: burn
-        contractKey: contract
-      ignoreContract: false
-    parserClass: MirPoolDeposit
-    description: Mirror Close Short Farm
-    tag: pool_deposit
+  # - name: MirrorCloseShortFarm
+  #   contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+  #   classifier:
+  #     shouldExistAttributes: [burn, decrease_short_token]
+  #     shouldNotExistAttributes: []
+  #     contractAddressExtractKeys:
+  #       mainKey: burn
+  #       contractKey: contract
+  #     ignoreContract: false
+  #   parserClass: MirPoolDeposit
+  #   description: Mirror Close Short Farm
+  #   tag: pool_deposit
 
   - name: MirrorCloseShortFarm
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
@@ -75,9 +75,11 @@ transactions:
         mainKey: withdraw
         contractKey: contract
       ignoreContract: false
-    parserClass: MirPoolWithdraw
+    isEliminator: true
+    requiresOtherEvents: true
+    parserClass: MirCloseShortFarm
     description: Mirror Close Short Farm
-    tag: pool_withdrawal
+    tag: pool_deposit
 
   - name: MirrorBorrow
     contract: any
