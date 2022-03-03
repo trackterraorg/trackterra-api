@@ -144,51 +144,16 @@ transactions:
   - name: MirrorAdjustBorrow
     contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
     classifier:
-      shouldExistAttributes: [send, burn]
-      shouldNotExistAttributes: []
-      contractAddressExtractKeys:
-        mainKey: send
-        contractKey: contract
-      ignoreContract: false
-    description: Mirror repay
-    tag: pool_deposit
-    
-  - name: MirrorAdjustBorrow
-    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
-    classifier:
-      shouldExistAttributes: [deposit]
-      shouldNotExistAttributes: []
-      contractAddressExtractKeys:
-        mainKey: deposit
-        contractKey: contract
-      ignoreContract: false
-    parserClass: GenericTransfer
-    description: Mirror repay
-    tag: pool_deposit
-
-  - name: MirrorAdjustBorrow
-    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
-    classifier:
-      shouldExistAttributes: [withdraw]
-      shouldNotExistAttributes: []
-      contractAddressExtractKeys:
-        mainKey: withdraw
-        contractKey: contract
-      ignoreContract: false
-    parserClass: GenericTransfer
-    tag: pool_withdrawal
-
-  - name: MirrorPoolDeposit
-    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
-    classifier:
       shouldExistAttributes: [burn, send]
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
         mainKey: burn
         contractKey: contract
       ignoreContract: false
-    parserClass: MirPoolDeposit
-    description: Mirror Pool Deposit
+    isEliminator: true
+    requiresOtherEvents: true
+    parserClass: MirCloseShortFarm
+    description: Mirror Adjust Borrow with CW20
     tag: pool_deposit
 
   - name: MirrorLiquidation

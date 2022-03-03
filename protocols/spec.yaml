@@ -40,13 +40,13 @@ transactions:
     tag: pool_withdrawal
 
   - name: SpecUnstakeLP
-    contract: terra1wmaty65yt7mjw6fjfymkd9zsm6atsq82d9arcd
+    contract: terra10u9342cdwwqpe4wz9mf2c00ytlcr847wpe0xh4
     classifier:
-      shouldExistAttributes: ['send', 'withdraw_liquidity']
+      shouldExistAttributes: ['swap', 'withdraw_liquidity']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: send
-        contractKey: contract
+        mainKey: swap
+        contractKey: sender
       ignoreContract: false
     isEliminator: true
     description: Spec unstake LP

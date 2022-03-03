@@ -151,6 +151,54 @@ export class MirCloseShortFarm implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 
+    const poolDepositActions = args.allEvents.find((aE) => {
+      return Object.keys(aE.contractActions).includes('send');
+    });
+
+    const poolDepositTx = (new MirPoolDeposit()).process({
+      ...args,
+      contractActions: poolDepositActions.contractActions,
+      transferActions: undefined,
+      allEvents: undefined,
+    });
+
+
+    const poolWithdrawalActions = args.allEvents.find((aE) => {
+      return Object.keys(aE.contractActions).includes('withdraw');
+    });
+    
+    let poolWithdrawalTx = (new MirPoolWithdraw()).process({
+      ...args,
+      contractActions: poolWithdrawalActions.contractActions,
+    });
+
+    const feeTx = poolDepositTx.find((tx) => {
+      return tx.label === TxLabel.Fee;
+    });
+
+    poolWithdrawalTx = poolWithdrawalTx.map((tx) => {
+      if(tx.tag === TxTag.PoolWithdrawal) {
+        const receivedAmount: number = +tx.receivedAmount;
+        const fee: number = +feeTx.sentAmount;
+        const amt = receivedAmount + fee;
+        console.dir({
+          receivedAmount,
+          fee,
+        }, {depth: 'null'});
+        tx.receivedAmount = `${amt}`;
+      }
+
+      return tx;
+    });
+
+    return poolDepositTx.concat(poolWithdrawalTx);
+  }
+}
+
+export class MirAdjustBorrow implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
     const poolDepositTx = (new MirPoolDeposit()).process({
       ...args,
       contractActions: _.first(args.allEvents).contractActions,
@@ -169,6 +217,10 @@ export class MirCloseShortFarm implements IParser {
         const receivedAmount: number = +tx.receivedAmount;
         const fee: number = +feeTx.sentAmount;
         const amt = receivedAmount + fee;
+        console.dir({
+          receivedAmount,
+          fee,
+        }, {depth: 'null'});
         tx.receivedAmount = `${amt}`;
       }
 
@@ -178,6 +230,7 @@ export class MirCloseShortFarm implements IParser {
     return poolDepositTx.concat(poolWithdrawalTx);
   }
 }
+
 
 export class MirLiquidation implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
@@ -240,4 +293,5 @@ export const MirProtocol = {
   MirOpenShortFarm,
   MirCloseShortFarm,
   MirLiquidation,
+  MirAdjustBorrow,
 };
