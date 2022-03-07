@@ -39,6 +39,45 @@ transactions:
     parserClass: GenericTransfer
     description: Mirror stake lp
     tag: pool_deposit
+
+  - name: MirrorPoolDeposit
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [send, deposit]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    parserClass: GenericTransfer
+    description: Mirror Adjust Borrow
+    tag: pool_deposit
+  
+  - name: MirrorPoolDeposit2
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [deposit]
+      shouldNotExistAttributes: [send, transfer]
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    parserClass: MirPoolDeposit
+    description: Mirror pool deposit
+    tag: pool_deposit
+
+  - name: MirrorPoolWithdrawal
+    contract: terra1wfz7h3aqf4cjmjcvc6s8lxdhh7k30nkczyf0mj
+    classifier:
+      shouldExistAttributes: [mint]
+      shouldNotExistAttributes: [send, deposit, open_position]
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    parserClass: MirPoolWithdraw
+    description: Mirror Adjust Borrow
+    tag: pool_withdrawal
     
   - name: MirrorUnstakeLp
     contract: terra17f7zu97865jmknk7p2glqvxzhduk78772ezac5
@@ -170,6 +209,18 @@ transactions:
     description: Mirror Liquidation
     tag: swap
 
+  - name: MirrorGoveranceProposalCollateralDeposit
+    contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
+    classifier:
+      shouldExistAttributes: [send, create_poll]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: create_poll
+        contractKey: contract
+      ignoreContract: false
+    description: Mirror goverance proposal collateral deposit
+    tag: deposit
+    
   - name: MirrorGoveranceProposalCollateralDeposit
     contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
     classifier:

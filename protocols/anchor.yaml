@@ -253,3 +253,18 @@ transactions:
     description: Anchor claim rewards
     parserClass: AnchorClaimRewards
     tag: staking_rewards
+
+  - name: BEthBridgeDeposit
+    contract: terra1dzhzukyezv0etz22ud940z7adyv7xgcjkahuun
+    classifier:
+      shouldExistAttributes: [mint, increase_balance]
+      shouldNotExistAttributes: [deposit_stable]
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    requiresOtherEvents: true
+    description: bEth bridge deposit
+    parserClass: BETHBridgeDeposit
+    tag: 'pool_deposit'

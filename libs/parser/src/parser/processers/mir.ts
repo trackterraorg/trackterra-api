@@ -4,9 +4,26 @@ import { IAmount, IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 import { MintEngine } from './mint';
 import { SwapEngine } from './swap';
-import { TransferEngine } from './transfer';
+import { ITransferRecord, TransferEngine } from './transfer';
 
 export class MirPoolDeposit implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const keys = Object.keys(args.contractActions);
+
+    if (keys.includes('send')) {
+      return (new MirPoolDeposit1()).process(args);
+    }
+
+    if (keys.includes('deposit')) {
+      return (new MirPoolDeposit2()).process(args);
+    }
+  };
+  
+}
+
+export class MirPoolDeposit1 implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 
@@ -37,26 +54,19 @@ export class MirPoolDeposit implements IParser {
   
 }
 
-export class MirPoolWithdraw implements IParser {
-
+export class MirPoolDeposit2 implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-
-    const withdrawAction = _.first(args.contractActions.withdraw);
-    const amt = separateAmountFromToken(withdrawAction.withdraw_amount as unknown as string);
-
-    const poolWithdrawal: IParsedTx[] = [{
-        walletAddress: args.walletAddress,
-        label: TxLabel.Deposit,
-        receivedAmount: amt.amount,
-        receivedToken: amt.token,
-        tag: TxTag.PoolWithdrawal,
-        friendlyDescription: args.txType.description,
-      }];
     
-    return poolWithdrawal;
-  };
-  
+    const { transferActions} = args;
+    
+    return (new TransferEngine()).process({
+      ...args,
+      contractActions: undefined,
+      transferActions
+    });
+  }
 }
+
 export class MirBorrow implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const openPosition = _.first(args.contractActions.open_position);
@@ -283,6 +293,68 @@ export class MirLiquidation implements IParser {
     )
 
     return txs.concat(withdrawTxs);
+  }
+}
+
+export class MirPoolWithdraw implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const keys = Object.keys(args.contractActions);
+
+    if(keys.includes('withdraw')) {
+      return (new MirPoolWithdraw1).process(args);
+    }
+
+    if(keys.includes('mint')) {
+      return (new MirPoolWithdraw2).process(args);
+    }    
+  };
+  
+}
+
+export class MirPoolWithdraw1 implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    const withdrawAction = _.first(args.contractActions.withdraw);
+    const amt = separateAmountFromToken(withdrawAction.withdraw_amount as unknown as string);
+
+    const poolWithdrawal: IParsedTx[] = [{
+        walletAddress: args.walletAddress,
+        label: TxLabel.Deposit,
+        receivedAmount: amt.amount,
+        receivedToken: amt.token,
+        tag: TxTag.PoolWithdrawal,
+        friendlyDescription: args.txType.description,
+      }];
+    
+    return poolWithdrawal;
+  };
+  
+}
+export class MirPoolWithdraw2 implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    
+    const { walletAddress, contractActions } = args;
+    
+    const mintActions = contractActions.mint.filter((cA: any) => {
+      return cA.to === walletAddress
+    }).map((cA: any) => {
+      cA.sender = cA.contract;
+      cA.recipient = walletAddress;
+      cA.amount = {
+        amount: cA.amount,
+        token: cA.contract,
+      }
+      return cA;
+    });
+
+    return (new TransferEngine()).process({
+      ...args,
+      contractActions: undefined,
+      transferActions: mintActions
+    });
   }
 }
 

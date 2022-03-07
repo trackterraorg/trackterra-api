@@ -11,32 +11,38 @@ export class ZapIn implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
 
     const { walletAddress } = args;
-    const swapTx = SwapEngine.swap({
-      ...args,
-      txType: {
-        ...args.txType,
-        tag: TxTag.Swap,
-      }
-    });
+    
+    let swapTx = [];
+    if (Object.keys(args.contractActions).includes('swap')) {
+      swapTx = SwapEngine.swap({
+        ...args,
+        txType: {
+          ...args.txType,
+          tag: TxTag.Swap,
+        }
+      });
+    }
     const provideLiquidtyTx = LiquidityEngine.provideLiquidity(args);
 
     const txType = args.txType;
     txType.tag = TxTag.PoolDeposit;
 
-    const contractActions = _.pick(args.contractActions, ['send', 'bond']);
 
-    contractActions.send = contractActions.send.map((cA: any) => {
-      cA.from = walletAddress;
-      return cA;
-    })
+    const mintActions = args.contractActions.mint.map((cA: any) => {
+      return {
+        sender: cA.contract,
+        recipient: walletAddress,
+        amount: {
+          amount: cA.amount,
+          token: cA.contract,
+        }
+      }
+    });
 
-    const transferActions = undefined;
-
-    const poolDepositTx = PoolTransferEngine.process({
-      ...args, 
-      contractActions,
-      txType,
-      transferActions,
+    const poolDepositTx = (new TransferEngine()).process({
+      ...args,
+      contractActions: undefined,
+      transferActions: mintActions
     });
 
     return  swapTx.concat(provideLiquidtyTx).concat(poolDepositTx);
