@@ -21,6 +21,7 @@ import { Native } from './native';
 import { NexusProtocol } from './nexus';
 import { SpecProtocol } from './spec';
 import { PylonProtocol } from './pylon';
+import { AnchorProtocol } from './anchor';
 
 export const ParseProcessors = {
   Fail,
@@ -44,6 +45,7 @@ export const ParseProcessors = {
   ...GlowProtocol,
   ...SpecProtocol,
   ...PylonProtocol,
+  ...AnchorProtocol,
   ...NFTParsers,
   ...Native
 };

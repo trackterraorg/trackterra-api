@@ -54,7 +54,9 @@ transactions:
     tag: pool_withdrawal
 
   - name: SpecZapIn
-    contract: terra10u9342cdwwqpe4wz9mf2c00ytlcr847wpe0xh4
+    contract: 
+      - terra10u9342cdwwqpe4wz9mf2c00ytlcr847wpe0xh4
+      - terra1fxwelge6mf5l6z0rjpylzcfq9w9tw2q7tewaf5
     classifier:
       shouldExistAttributes: ['bond', 'provide_liquidity']
       shouldNotExistAttributes: []
