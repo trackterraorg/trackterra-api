@@ -1,0 +1,15 @@
+name: Stader
+type: Contract
+priority: 0
+transactions:
+  - name: PoolDeposit
+    contract: terra1t9ree3ftvgr70fvm6y67zsqxjms8jju8kwcsdu
+    classifier:
+      shouldExistAttributes: ['deposit_amount']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit_amount
+        contractKey: contract
+      ignoreContract: false
+    description: Stader pool deposit
+    tag: pool_deposit

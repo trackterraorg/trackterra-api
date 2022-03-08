@@ -17,7 +17,7 @@ transactions:
     tag: pool_deposit
 
   - name: Swap
-    contract: 
+    contract: any
     classifier:
       shouldExistAttributes: ['swap']
       shouldNotExistAttributes: []
@@ -103,7 +103,7 @@ transactions:
         mainKey: any
         contractKey: any
       ignoreContract: true
-    isEliminator: true
+    isEliminator: false
     description: transfer
 
   

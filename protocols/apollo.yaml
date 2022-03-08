@@ -5,7 +5,7 @@ transactions:
   - name: ApolloDAOZapOut
     contract: terra1g7jjjkt5uvkjeyhp8ecdz4e4hvtn83sud3tmh2
     classifier:
-      shouldExistAttributes: ['zap_out_of_strategy', 'unstake']
+      shouldExistAttributes: ['zap_out_of_strategy']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
         mainKey: zap_out_of_strategy

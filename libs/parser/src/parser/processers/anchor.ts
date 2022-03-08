@@ -3,7 +3,7 @@ import { IParser, IParsedTx } from '..';
 import { ParserProcessArgs } from '../args';
 import { TransferEngine } from './transfer';
 
-export class BETHBridgeDeposit implements IParser {
+export class BETHDeposit implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 
@@ -13,8 +13,8 @@ export class BETHBridgeDeposit implements IParser {
       return actions.type === 'Native';
     })
 
-    if(! nativeTransfer) {
-      throw 'It is not a bEth bridge deposit tx';
+    if(nativeTransfer) {
+      args.txType.description = 'bEth bridge deposit';
     }
 
     const transferActions = args.contractActions.mint.filter((cA: any) => {
@@ -38,6 +38,8 @@ export class BETHBridgeDeposit implements IParser {
   };  
 }
 
+
+
 export const AnchorProtocol = {
-  BETHBridgeDeposit,
+  BETHDeposit,
 };

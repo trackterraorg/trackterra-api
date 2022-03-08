@@ -26,3 +26,16 @@ transactions:
       ignoreContract: false
     description: UST-KUJI unstake
     tag: pool_withdrawal
+
+  - name: KujiraLiquidationClaim
+    contract: terra1cf9q9lq7tdfju95sdw78y9e34a6qrq3rrc6dre
+    classifier:
+      shouldExistAttributes: ['transfer']
+      shouldNotExistAttributes: ['withdraw']
+      contractAddressExtractKeys:
+        mainKey: transfer
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    requiresOtherEvents: true
+    description: Kujira Liquidation Claim

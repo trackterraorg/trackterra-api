@@ -30,8 +30,8 @@ export class ZapIn implements IParser {
 
     const mintActions = args.contractActions.mint.map((cA: any) => {
       return {
-        sender: cA.contract,
-        recipient: walletAddress,
+        sender: walletAddress,
+        recipient: cA.contract,
         amount: {
           amount: cA.amount,
           token: cA.contract,
@@ -42,7 +42,11 @@ export class ZapIn implements IParser {
     const poolDepositTx = (new TransferEngine()).process({
       ...args,
       contractActions: undefined,
-      transferActions: mintActions
+      transferActions: mintActions,
+      txType: {
+        ...args.txType,
+        tag: TxTag.PoolDeposit,
+      }
     });
 
     return  swapTx.concat(provideLiquidtyTx).concat(poolDepositTx);

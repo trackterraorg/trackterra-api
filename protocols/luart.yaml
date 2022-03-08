@@ -1,0 +1,15 @@
+name: Luart
+type: Contract
+priority: 0
+transactions:
+  - name: LuartStakingRewards
+    contract: terra1zg32rp9lc3k0zzscdr93xxn0w5kll62l9x3a4u
+    classifier:
+      shouldExistAttributes: ['withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: withdraw
+        contractKey: contract
+      ignoreContract: false
+    description: Luart staking reward
+    parserClass: LuartStakingReward
