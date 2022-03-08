@@ -23,8 +23,8 @@ import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
 import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
-import { TaxApps, TaxappSelector } from '@trackterra/tax-apps/apps';
-import { FindTaxAppTxsResponse, TaxAppTxType } from 'server/service-wallet/src/common/taxapp.types';
+import { TaxappSelector } from '@trackterra/tax-apps/apps';
+import { TaxAppTxType } from 'server/service-wallet/src/common/taxapp.types';
 
 @QueryHandler(GetTxsQuery)
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
@@ -59,6 +59,9 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
 
     let conditions = {
       walletAddress: address,
+      protocol: {
+        "$ne": "Unparsed"
+      }
     };
 
 

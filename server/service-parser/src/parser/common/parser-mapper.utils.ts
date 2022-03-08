@@ -1,5 +1,7 @@
+import { TxInfo } from '@terra-money/terra.js';
 import { ContractRpcClientService } from '@trackterra/core';
 import { TTOutput } from '@trackterra/parser';
+import { TxLabel } from '@trackterra/parser/parser';
 import { Currency } from '@trackterra/proto-schema/contract';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
@@ -56,6 +58,23 @@ export async function txToTxCreateRequest(
   };
 
   return transformedTx as unknown as CreateTxRequest;
+}
+
+export async function txToUnparsedTxCreateRequest(
+  tx: TxInfo,
+  walletAddress: string,
+): Promise<CreateTxRequest> {
+  const { timestamp, height } = tx;
+
+  const transformedTx = {
+    walletAddress,
+    txhash: tx.txhash,
+    blockHeight: height as unknown as number,
+    timestamp: new Date(timestamp),
+    protocol: 'Unparsed',
+  };
+  console.dir("heree", {depth: 'null'});
+  return CreateTxRequest.fromJSON(transformedTx);
 }
 
 export function tokenValue(currency: Currency, amount: number): number {

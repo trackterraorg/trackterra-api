@@ -16,7 +16,7 @@ import {
 } from 'server/service-parser/src/parser/parser.constants';
 import { ContractRpcClientService, FCDApiService, WalletsRpcClientService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
-import { txToTxCreateRequest } from 'server/service-parser/src/parser/common/parser-mapper.utils';
+import { txToTxCreateRequest, txToUnparsedTxCreateRequest } from 'server/service-parser/src/parser/common/parser-mapper.utils';
 
 /**
  * @class
@@ -56,6 +56,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
       let newHighestBlockHeight = prevHighestParsedBlockHeight;
 
       let parsedTxs = [];
+      let unparsedTxs = [];
       let numberOfNewParsedTxs = 0;
 
       while (true) {
@@ -79,24 +80,26 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
           try {
             const result = await this.parserService.parseTx(address, tx);
 
-            if (result === undefined) {
+            if (_.isEmpty(result)) {
+              const unparsedTx = await txToUnparsedTxCreateRequest(tx, address);
+              unparsedTxs = unparsedTxs.concat(unparsedTx);
               continue;
             }
 
-            if (result.length) {
-              this.logger.log(`Parsed tx: ${tx.txhash}`);
-              numberOfNewParsedTxs++;
-              for (const resultTx of result) {
-                const mappedResult = await txToTxCreateRequest(
-                  resultTx,
-                  address,
-                  this.currencyRpcClientService,
-                );
-                parsedTxs = parsedTxs.concat(mappedResult);
-              }
+            this.logger.log(`Parsed tx: ${tx.txhash}`);
+            numberOfNewParsedTxs++;
+            for (const resultTx of result) {
+              const mappedResult = await txToTxCreateRequest(
+                resultTx,
+                address,
+                this.currencyRpcClientService,
+              );
+              parsedTxs = parsedTxs.concat(mappedResult);
             }
           } catch (e) {
-            // this.logger.error(e);
+            const unparsedTx = await txToUnparsedTxCreateRequest(tx, address);
+            unparsedTxs = unparsedTxs.concat(unparsedTx);
+            this.logger.error(e);
           } finally {
             if (tx.height > newHighestBlockHeight) {
               newHighestBlockHeight = tx.height;
@@ -104,7 +107,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
           }
         }
 
-        _(parsedTxs)
+        _(parsedTxs.concat(unparsedTxs))
           .chunk(10)
           .forEach((parsedTxsChunk) => {
             this.walletRpcService.svc
@@ -115,6 +118,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
           });
 
         parsedTxs = [];
+        unparsedTxs = [];
 
         next = result.next ?? 0;
 
@@ -146,3 +150,4 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     }
   }
 }
+
