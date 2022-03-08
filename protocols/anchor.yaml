@@ -268,3 +268,17 @@ transactions:
     description: bEth bridge deposit
     parserClass: BETHBridgeDeposit
     tag: 'pool_deposit'
+
+  - name: AnchorLiquidationQueue
+    contract: terra1e25zllgag7j9xsun3me4stnye2pcg66234je3u
+    classifier:
+      shouldExistAttributes: [activate_bids]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: activate_bids
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    requiresOtherEvents: true
+    description: Anchor liquidation queue
+    parserClass: FeeOnly
