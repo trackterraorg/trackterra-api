@@ -1,6 +1,7 @@
 import { Swaps } from './swap';
 import { Transfers } from './transfer';
 import { Fail } from './fail';
+import { FeeOnly } from './fee';
 import { Minters } from './mint';
 import { Rewarders } from './reward';
 import { Burners } from './burn';
@@ -25,6 +26,7 @@ import { AnchorProtocol } from './anchor';
 
 export const ParseProcessors = {
   Fail,
+  FeeOnly,
   ToBeDefined,
   NotTaxed,
   ...Swaps,
