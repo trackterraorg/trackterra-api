@@ -576,6 +576,33 @@ export const txHashes = {
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
+  edge: [
+    {
+      label: ' deposit collateral',
+      txHash: 'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' adjust options',
+      txHash: 'c666023c7259bdbb8fdc7c2d05ea46c5cf985b2b83e39ffe57461467bac5cbbe',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: 'edge borrow native token',
+      txHash: 'BAD55C99EC86F9252E9C0F8158198927FB5508089CBBDC2D25072E4AFB7AB536',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' repay',
+      txHash: 'ce79709537a35c4803a5518e6a0a3728d516a9355ee01388c791e0ee6c360628',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' repay native',
+      txHash: '2c70838c859b08d4dcc6b742d242134ad104a6d0c1fef01f37032bfa1669bff8',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+  ],
   generic: [
     {
       label: 'transfer deposit',
@@ -586,7 +613,7 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: '7832D36C070AC573B93C7111E0A17A9B90744CD59184F0724DE3A5360680683B',
+      txHash: 'afabf33b147c14afc80c08b9d2f4950ac76f9893fe3fb6f9408c0e75c5b306c6',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],

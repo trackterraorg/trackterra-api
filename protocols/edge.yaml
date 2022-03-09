@@ -1,0 +1,95 @@
+name: Edge
+type: Contract
+priority: 0
+transactions:
+  - name: EdgeRemoveCollateral
+    contract: terra1xm7qdmupnqxlqpgmtk0fcwe39tdx8jhntk8cdw
+    classifier:
+      shouldExistAttributes: ['burn_from', 'withdraw', 'transfer']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn_from
+        contractKey: contract
+      ignoreContract: false
+    description: Edge remove collateral
+    tag: pool_withdrawal
+
+  - name: EdgeAdjustOptions
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['unlock_collateral']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: unlock_collateral
+        contractKey: contract
+      ignoreContract: false
+    description: Edge adjust options
+    parserClass: FeeOnly
+    tag: cost
+
+  - name: EdgeDepositCollateral
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['deposit', 'transfer_from', 'mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Edge deposit collateral
+    parserClass: EdgeDepositCollateral
+    tag: pool_deposit
+
+  - name: EdgeDepositCollateral2
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['deposit', 'mint']
+      shouldNotExistAttributes: ['transfer_from']
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    isEliminator: true
+    description: Edge Protocol Add Collateral
+    parserClass: GenericTransfer
+    tag: pool_deposit
+  
+  - name: EdgeAdjustOptions
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['lock_collateral']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: lock_collateral
+        contractKey: contract
+      ignoreContract: false
+    description: Edge adjust options
+    parserClass: FeeOnly
+    tag: cost
+
+  - name: EdgeBorrowNative
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['borrow']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: borrow
+        contractKey: contract
+      ignoreContract: false
+    description: Edge borrow native token
+    parserClass: GenericTransfer
+    tag: deposit
+
+  - name: EdgeRepay
+    contract: terra1pcxwtrxppj9xj7pq3k95wm2zztfr9kwfkcgq0w
+    classifier:
+      shouldExistAttributes: ['repay']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: repay
+        contractKey: contract
+      ignoreContract: false
+    description: Edge repay
+    parserClass: EdgeRepay
+    tag: withdraw

@@ -25,6 +25,7 @@ import { PylonProtocol } from './pylon';
 import { AnchorProtocol } from './anchor';
 import { LuartProtocol } from './luart';
 import { MarsProtocol } from './mars';
+import { EdgeProtocol } from './edge';
 
 export const ParseProcessors = {
   Fail,
@@ -52,6 +53,7 @@ export const ParseProcessors = {
   ...AnchorProtocol,
   ...LuartProtocol,
   ...MarsProtocol,
+  ...EdgeProtocol,
   ...NFTParsers,
   ...Native
 };
