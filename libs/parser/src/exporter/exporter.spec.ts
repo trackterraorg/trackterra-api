@@ -26,6 +26,8 @@ describe('The exporter should', () => {
       tax?: IAmount;
     }[] = [];
 
+    const walletAddress = 'terra1rk665gs04w7spmej846rsxfg0gssg2m9k3ymnd';
+    
     for (let index = 0; index < transformedActions.length; index++) {
       const transformedAction = transformedActions[index];
 
@@ -33,7 +35,7 @@ describe('The exporter should', () => {
 
       const records = Parser.process({
         txType,
-        walletAddress: 'terra1rk665gs04w7spmej846rsxfg0gssg2m9k3ymnd',
+        walletAddress,
         ...transformedAction,
       });
 
@@ -61,6 +63,8 @@ describe('The exporter should', () => {
     );
 
     const d = {
+      txInfo,
+      walletAddress,
       txs,
       fees,
       taxes,
