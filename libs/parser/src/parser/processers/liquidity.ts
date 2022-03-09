@@ -18,7 +18,10 @@ export class LiquidityEngine {
 
     const assetTokens = splitTokens(assets);
 
-    const mint = _.first(contractActions.mint);
+    const mint = contractActions.mint.find((cA: any) => {
+      return cA.amount == provideLiquidity.share;
+    });
+
     const recievedToken: IAmount = {
       token: mint.contract as unknown as string,
       amount: ((mint.amount as unknown as number) /
@@ -59,7 +62,9 @@ export class LiquidityEngine {
     const refundAssets = withdrawLiquidity.refund_assets as unknown as string;
     const refundAssetTokens = splitTokens(refundAssets);
 
-    const burn = _.first(contractActions.burn);
+    const burn = contractActions.burn.find((cA: any) => {
+      return cA.amount == withdrawLiquidity.withdrawn_share;
+    });
 
     const burnToken: IAmount = {
       token: burn.contract as unknown as string,
