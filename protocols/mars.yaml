@@ -1,0 +1,89 @@
+name: Mars
+type: Contract
+priority: 0
+transactions:
+  - name: MarsDepositCollateral
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['deposit', 'mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: deposit
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Deposit Collateral
+    parserClass: GenericTransfer
+    tag: pool_deposit
+
+  - name: MarsBorrow
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['borrow', 'mint']
+      shouldNotExistAttributes: ['provide_liquidity']
+      contractAddressExtractKeys:
+        mainKey: borrow
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Borrow
+    parserClass: GenericTransfer
+    tag: deposit
+
+  - name: MarsRepay
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['repay', 'mint']
+      shouldNotExistAttributes: ['withdraw_liquidity', 'martian_field/execute/update_position']
+      contractAddressExtractKeys:
+        mainKey: repay
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Repay
+    parserClass: GenericTransfer
+
+  - name: MarsLeveragedYeildFarmingOpenPosition
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['borrow', 'mint', 'provide_liquidity']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: borrow
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Leveraged Yeild Farming Open Postion
+    parserClass: MarsLeveragedYeildFarmingOpenPosition
+
+  - name: MarsLeveragedYeildFarmingAdjustPosition
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['repay', 'mint', 'withdraw_liquidity']
+      shouldNotExistAttributes: ['swap']
+      contractAddressExtractKeys:
+        mainKey: repay
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Leveraged Yeild Farming Adjust Position
+    parserClass: MarsLeveragedYeildFarmingAdjustPosition
+
+  - name: MarsLeveragedYeildFarmingClosePosition
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['repay', 'mint', 'withdraw_liquidity', 'swap']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: repay
+        contractKey: contract
+      ignoreContract: false
+    description: Mars Leveraged Yeild Farming Close Position
+    parserClass: MarsLeveragedYeildFarmingClosePosition
+
+  - name: MarsAddCollateral
+    contract: terra19dtgj9j5j7kyf3pmejqv8vzfpxtejaypgzkz5u
+    classifier:
+      shouldExistAttributes: ['repay', 'mint', 'martian_field/execute/update_position']
+      shouldNotExistAttributes: ['withdraw_liquidity']
+      contractAddressExtractKeys:
+        mainKey: repay
+        contractKey: contract
+      ignoreContract: false
+    description: Mars add collateral
+    parserClass: GenericTransfer

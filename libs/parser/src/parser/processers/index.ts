@@ -23,6 +23,8 @@ import { NexusProtocol } from './nexus';
 import { SpecProtocol } from './spec';
 import { PylonProtocol } from './pylon';
 import { AnchorProtocol } from './anchor';
+import { LuartProtocol } from './luart';
+import { MarsProtocol } from './mars';
 
 export const ParseProcessors = {
   Fail,
@@ -48,6 +50,8 @@ export const ParseProcessors = {
   ...SpecProtocol,
   ...PylonProtocol,
   ...AnchorProtocol,
+  ...LuartProtocol,
+  ...MarsProtocol,
   ...NFTParsers,
   ...Native
 };

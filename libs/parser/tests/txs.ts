@@ -539,6 +539,43 @@ export const txHashes = {
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
+  mars: [
+    {
+      label: ' collateral deposit',
+      txHash: '04854526D1CB8AF7FCC1F351C5170937C6DF39CE12935EA76BA2EC2E958BE315',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' borrow',
+      txHash: '76F6E0882C7D4C7C084D28C1B79CBE5E8FF4F570D90AD73F918BF2A5A5F2AC58',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' repay',
+      txHash: '53D2F8267039D281642642D25F22F4C42365DF1666594CF8BC2CB31817454D8C',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: 'leveraged yeild farming open position',
+      txHash: '3FCFE4CE431B557EA9D76238B99872B802CEFFC3165CE47966A26873BA271A11',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' leveraged yeild farming adjust position',
+      txHash: '36FBACF52AF464527A56E578FE6FEFAE310ED91B8268E93C3F56267C69AA9352',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' leveraged yeild farming close position',
+      txHash: '91764414343B34D66592B0A534C5C403D54F76DCEF97DFB1C16914386AEBAD62',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+    {
+      label: ' add collateral',
+      txHash: 'CB244A4EC6A706F1962B8C1588DE49F4798C7DAA6EF06D5CA6EC9E63DAF55C75',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+  ],
   generic: [
     {
       label: 'transfer deposit',
@@ -549,7 +586,7 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: '43212304C7B9C4DA1B800DC2EA958F968622F664CA86BA72055862243238D109',
+      txHash: '7832D36C070AC573B93C7111E0A17A9B90744CD59184F0724DE3A5360680683B',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
