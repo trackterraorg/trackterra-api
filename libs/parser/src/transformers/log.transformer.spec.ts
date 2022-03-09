@@ -12,7 +12,7 @@ describe('The log transformer ', () => {
       '234933B4943849D380656AF73824ABCA7401A5532AC2D3757AE63AD6AE560217',
     );
 
-    const transformedTx: any = logTransformer.transform(txInfo);
+    const transformedTx: any = logTransformer.transform(txInfo).events;
     expect(transformedTx[0]).toHaveProperty('type');
     expect(transformedTx[0]).toHaveProperty('contractActions');
 

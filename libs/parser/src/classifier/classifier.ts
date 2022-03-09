@@ -6,15 +6,14 @@ import {
 } from '../loader/protocol.interface';
 import { ProtocolLoader } from '../loader/protocol.loader';
 import * as _ from 'lodash';
-import { TransferAction, TransformedData } from '../transformers';
+import { TransferAction, TransformedEvents } from '../transformers';
 import { ClassifyOutput } from './classifier.types';
 
 export class Classifier {
   static async classify(
-    transformedData: TransformedData,
+    transformedData: TransformedEvents,
   ): Promise<ClassifyOutput | undefined> {
     const protocolLoader = await ProtocolLoader.getInstance();
-
     const protocols: Protocol[] | undefined = protocolLoader?.protocols.filter(
       (p) => p.type == transformedData.type,
     );
@@ -45,8 +44,7 @@ export class Classifier {
           },
         );
 
-        if (txType) {
-          console.log(actions);
+        if (! _.isEmpty(txType)) {
           console.log(txType);
           return {
             protocol: selectedProtocol,

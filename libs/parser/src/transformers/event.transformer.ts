@@ -6,8 +6,8 @@ import {
 } from '../exceptions';
 import { ProtocolType } from '../loader/protocol.interface';
 import { IAmount } from '../parser';
-import { findAttributes, separateAmountFromToken } from '../utils/helpers';
-import { TransferAction, TransformedData } from './transformer.interfaces';
+import { findAttributes } from '../utils/helpers';
+import { TransferAction, TransformedEvents } from './transformer.interfaces';
 import { splitTokens } from '../utils';
 export class EventTransformer {
   private _txLog: TxLog | undefined;
@@ -270,7 +270,7 @@ export class EventTransformer {
   /**
    * Return the actions regardless it is native or contract actions
    */
-  public getActions(): TransformedData {
+  public getActions(): TransformedEvents {
     return {
       type: this.getTxType(),
       contractActions: this._contractActions,

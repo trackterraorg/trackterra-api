@@ -2,7 +2,7 @@ import { TxInfo } from '@terra-money/terra.js';
 import { FCDApi } from '@trackterra/core';
 import { UnableToFetchTxInfoException } from '../exceptions';
 import { TxStatus } from '../parser/parser.enums';
-import { LogTransformer, TransformedData } from '../transformers';
+import { LogTransformer, TransformedEvents } from '../transformers';
 import { Classifier } from './classifier';
 
 const api = new FCDApi();
@@ -18,8 +18,8 @@ describe('The classifier ', () => {
       throw new UnableToFetchTxInfoException();
     }
 
-    const actions: TransformedData[] | TxStatus.Failed =
-      logTransformer.transform(txInfo);
+    const actions: TransformedEvents[] | TxStatus.Failed =
+      logTransformer.transform(txInfo).events;
 
     const { txType } = await Classifier.classify(actions[0] as any);
     expect(txType).toHaveProperty('classifier');
@@ -34,7 +34,7 @@ describe('The classifier ', () => {
       throw new UnableToFetchTxInfoException();
     }
 
-    const actions: TransformedData[] = logTransformer.transform(txInfo);
+    const actions: TransformedEvents[] = logTransformer.transform(txInfo).events;
 
     const { txType } = await Classifier.classify(actions[0]);
     expect(txType).toHaveProperty('classifier');

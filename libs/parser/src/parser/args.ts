@@ -1,11 +1,11 @@
 import { TxInfo } from '@terra-money/terra.js';
 import { TxType } from '../loader';
-import { TransformedData } from '../transformers/transformer.interfaces';
+import { TransformedEvents } from '../transformers/transformer.interfaces';
 
-export interface ParserProcessArgs extends TransformedData {
+export interface ParserProcessArgs extends TransformedEvents {
   txType: TxType;
   walletAddress: string;
   txInfo?: TxInfo;
   /** some events use data from other events */
-  allEvents?: TransformedData[];
+  allEvents?: TransformedEvents[];
 }

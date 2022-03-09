@@ -1,5 +1,5 @@
 import { TxInfo, TxLog, AccAddress } from '@terra-money/terra.js';
-import { LogTransformer, TransformedData } from '../transformers/';
+import { LogTransformer, TransformedEvents } from '../transformers/';
 import { Parser, TaxParser, FeeParser, IParsedTx, IAmount } from '../parser';
 import { Classifier } from '../classifier';
 import { Exporter } from '../exporter';
@@ -18,11 +18,11 @@ export class TTParser {
     }
 
     const logTransformer = new LogTransformer();
-    const transformedActions: TransformedData[] =
-      logTransformer.transform(txInfo);
+    const transformedActions: TransformedEvents[] =
+      logTransformer.transform(txInfo).events;
 
     let classifiedEvents: {
-      transformedData: TransformedData;
+      transformedData: TransformedEvents;
       protocol: Protocol;
       txType: TxType;
     }[] = [];

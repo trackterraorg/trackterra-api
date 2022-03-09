@@ -2,7 +2,7 @@ import { TxInfo, TxLog } from '@terra-money/terra.js';
 import { IAmount, IParsedTx, Parser, TxLabel } from '../parser';
 import { FCDApi } from '@trackterra/core';
 import { Classifier } from '../classifier/classifier';
-import { LogTransformer, TransformedData } from '../transformers';
+import { LogTransformer, TransformedEvents } from '../transformers';
 import { TaxParser } from '../parser/tax.parser';
 import { FeeParser } from '../parser/fee.parser';
 import { Exporter } from '../exporter/exporter';
@@ -17,8 +17,8 @@ describe('The exporter should', () => {
       '47AF52C4EF5229796F4BCD315EAF6A36C9E4830C1339C63B68C076BC87634D00',
     );
 
-    const transformedActions: TransformedData[] =
-      logTransformer.transform(txInfo);
+    const transformedActions: TransformedEvents[] =
+      logTransformer.transform(txInfo).events;
 
     let txs: {
       txIndex: number;

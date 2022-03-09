@@ -16,8 +16,17 @@ export type TransferAction = {
   extraParsingInfo?: string;
 };
 
-export type TransformedData = {
+export type TransformedEvents = {
   type: ProtocolType;
   contractActions: EventActions | undefined;
   transferActions: TransferAction[] | undefined;
 };
+
+export type TransformedMessages = {
+  [key: string]: any;
+};
+
+export type TransformedOutput = {
+  events: TransformedEvents[],
+  messages: TransformedMessages,
+}
