@@ -143,17 +143,18 @@ export const parseNftAmount = (input: {
 }
 
 export const isTxInitiator = (walletAddress: string, txInfo: TxInfo) => {
-  const msg: any[] = JSON.parse(JSON.stringify(txInfo.tx)).value.msg;
+  const tx: any = txInfo.tx;
+  const msg = tx.value.msg;
   
   const initiateMarkerKeys = ['sender', 'voter', 'from_address', 'delegator_address'];
 
-  const senderRec = msg.find(({ value }) => {
+  const initiatorAddress = msg.find(({ value }) => {
     const key = _.first(_.intersection(Object.keys(value), initiateMarkerKeys));
     if(_.isEmpty(key)) {
       throw `Unable to identify fee key for the tx ${txInfo.txhash}`;
     }
-    return value[key];
+    return value[key] === walletAddress;
   });
 
-  return senderRec !== undefined;
+  return ! _.isEmpty(initiatorAddress);
 }
