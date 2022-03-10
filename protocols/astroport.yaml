@@ -13,3 +13,17 @@ transactions:
       ignoreContract: false
     description: Astroport stake lp
     tag: pool_deposit
+
+  - name: AstroportAutoStake
+    contract: terra1zgrx9jjqrfye8swykfgmd6hpde60j0nszzupp9
+    classifier:
+      shouldExistAttributes: ['provide_liquidity', 'send']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: send
+        contractKey: to
+      ignoreContract: false
+    description: Astroport auto stake
+    isEliminator: true
+    parserClass: GenericAutoStake
+    tag: pool_deposit

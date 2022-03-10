@@ -280,6 +280,11 @@ export const txHashes = {
       txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: ' autostake lp',
+      txHash: 'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   glow: [
     {
@@ -613,7 +618,7 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: 'afabf33b147c14afc80c08b9d2f4950ac76f9893fe3fb6f9408c0e75c5b306c6',
+      txHash: 'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
