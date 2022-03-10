@@ -76,6 +76,15 @@ export class Exporter {
   
         records = records.concat(newTx);
       });
+    } else {
+
+      /**
+       * The wallet is not the tx initiator and 
+       * the tx is only fee, so we need to discard the tx
+       */
+      if (_.size(records) === 1 && _.first(records).label === TxLabel.Fee) {
+        records = [];
+      }
     }
 
     // calculate networth
