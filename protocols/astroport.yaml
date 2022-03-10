@@ -18,7 +18,7 @@ transactions:
     contract: terra1zgrx9jjqrfye8swykfgmd6hpde60j0nszzupp9
     classifier:
       shouldExistAttributes: ['provide_liquidity', 'send']
-      shouldNotExistAttributes: []
+      shouldNotExistAttributes: ['martian_field/execute/update_position']
       contractAddressExtractKeys:
         mainKey: send
         contractKey: to
