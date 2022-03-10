@@ -608,6 +608,13 @@ export const txHashes = {
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
+  stader: [
+    {
+      label: ' lunax delegate',
+      txHash: 'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
+  ],
   generic: [
     {
       label: 'transfer deposit',
@@ -618,8 +625,8 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: 'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
-      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+      txHash: '5EBA2E07416E170662C259452C5056960A508B76CEE7F9848657156FA8558166',
+      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
   ],
 };

@@ -13,3 +13,15 @@ transactions:
       ignoreContract: false
     description: Stader pool deposit
     tag: pool_deposit
+    
+  - name: LunaxDelegate
+    contract: terra17y9qkl8dfkeg4py7n0g5407emqnemc3yqk5rup
+    classifier:
+      shouldExistAttributes: ['mint']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: mint
+        contractKey: contract
+      ignoreContract: false
+    description: Stader delegate lunax
+    parserClass: GenericTransfer
