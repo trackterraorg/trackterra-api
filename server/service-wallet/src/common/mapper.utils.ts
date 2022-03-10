@@ -31,15 +31,7 @@ export async function mapTxToTaxApp(
       return tx;
     });
   }
-
-  if (taxApp.hasSpecialTags()) {
-    mappedTxs = mappedTxs?.map((mappedTx) => {
-      let tag: string = mappedTx.tag;
-      tag = taxApp.transformTag(tag);
-      mappedTx.tag = tag;
-      return mappedTx;
-    })
-  }
+  
   return mappedTxs;
 }
 

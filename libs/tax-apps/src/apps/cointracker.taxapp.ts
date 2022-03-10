@@ -17,8 +17,6 @@ export class CoinTracker extends BaseTaxApp implements ITaxApp {
         { id: 'tag', title: 'Tag', formatter: (val) => this.mapTags(val) },
     ];
     
-    specialTags = {};
-    
     tagMappings = {
         add_liquidity: '',
         cost: '',

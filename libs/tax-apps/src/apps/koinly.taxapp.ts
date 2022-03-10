@@ -16,20 +16,32 @@ export class Koinly extends BaseTaxApp implements ITaxApp {
         { id: 'feeToken', title: 'Fee Currency', formatter: this.generateTokenName},
         { id: 'netWorthAmount', title: 'Net Worth Amount' },
         { id: 'netWorthToken', title: 'Net Worth Currency', formatter: this.generateTokenName },
-        { id: 'tag', title: 'Label' },
+        { id: 'tag', title: 'Label', formatter: this.transformTags },
         { id: 'friendlyDescription', title: 'Description' },
         { id: 'txhash', title: 'TxHash' },
     ];
 
-    specialTags = {
-        Fee: 'cost',
-        StakingRewards: 'reward',
+    private transformTags(val: string) {
+        if(! val) {
+            return '';
+        }
+
+        const tagMapper = {
+            cost: 'cost',
+            fee: 'cost',
+            staking_rewards: 'reward',
+        }
+
+        if(Object.keys(tagMapper).includes(val)) {
+            return tagMapper[val];
+        }
+
+        return '';
     }
 
     txObj() {
         return TxKoinly;
     };
-
 
     private generateTokenName(val: string) {
 

@@ -29,8 +29,6 @@ export class Regular extends BaseTaxApp implements ITaxApp {
         { id: 'friendlyDescription', title: 'Friendly description' }
     ];
 
-    specialTags = {};
-
     txObj() {
         return Tx;
     };
