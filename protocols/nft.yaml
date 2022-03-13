@@ -11,7 +11,10 @@ transactions:
         mainKey: deposit
         contractKey: contract
       ignoreContract: false
+    isEliminator: true
+    requiresOtherEvents: true
     description: Random earth deposit
+    parserClass: RandomEarthDeposit
     tag: pool_deposit
 
   - name: RandomEarthWithdraw
