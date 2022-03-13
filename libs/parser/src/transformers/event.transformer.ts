@@ -46,6 +46,7 @@ export class EventTransformer {
         'delegate',
         'withdraw_rewards',
         'proposal_vote',
+        'unbond',
       ]).length > 0;
     if (isNative) {
       this._txProtocol = ProtocolType.Native;
@@ -64,6 +65,7 @@ export class EventTransformer {
 
     if (this._txProtocol === ProtocolType.Native) {
       this.transformNativeDelegate();
+      this.transformNativeUnDelegate();
       this.transformNativeReward();
       this.transformProposalVote();
     }
@@ -181,6 +183,49 @@ export class EventTransformer {
       };
 
       this._transferActions = [transfer];
+    }
+    return this;
+  }
+
+  private transformNativeUnDelegate(): this {
+    if (!this._actionKeys?.includes('transfer')) {
+      return this;
+    }
+
+    if (!this._actionKeys?.includes('unbond')) {
+      return this;
+    }
+
+    const attributes = findAttributes(this._txLog?.events, 'unbond');
+
+    if (!attributes) {
+      throw new UnableToExtractActionException('unbond');
+    }
+
+    const validator = attributes.find((attr) => {
+      return attr.key == 'validator';
+    });
+
+    const strAmount = attributes.find((attr) => {
+      return attr.key == 'amount';
+    });
+
+    const amounts: IAmount[] = splitTokens(strAmount.value);
+
+    for (const amount of amounts) {
+
+      if(_.isEmpty(amount.token)) {
+        amount.token = 'uluna';
+      }
+
+      const transfer: TransferAction = {
+        sender: validator.value,
+        recipient: 'wallet_address',
+        amount,
+        extraParsingInfo: 'NativeUnDelegate',
+      };
+      
+      this._transferActions.push(transfer);
     }
     return this;
   }
