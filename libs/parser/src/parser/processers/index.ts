@@ -12,7 +12,6 @@ import { Earners } from './earns';
 import { Liquidates } from './liquidity';
 import { Zaps } from './zap';
 import { Staking } from './staking';
-import { Delegate } from './delegate';
 import { PoolTransfers } from './pool';
 import { MirProtocol } from './mir';
 import { PrismProtocol } from './prism';
@@ -26,6 +25,8 @@ import { AnchorProtocol } from './anchor';
 import { LuartProtocol } from './luart';
 import { MarsProtocol } from './mars';
 import { EdgeProtocol } from './edge';
+import { TerraswapProtocol } from './terraswap';
+import { StaderProtocol } from './stader';
 
 export const ParseProcessors = {
   Fail,
@@ -42,7 +43,6 @@ export const ParseProcessors = {
   ...Liquidates,
   ...Zaps,
   ...Staking,
-  ...Delegate,
   ...PoolTransfers,
   ...MirProtocol,
   ...NexusProtocol,
@@ -54,6 +54,8 @@ export const ParseProcessors = {
   ...LuartProtocol,
   ...MarsProtocol,
   ...EdgeProtocol,
+  ...TerraswapProtocol,
+  ...StaderProtocol,
   ...NFTParsers,
   ...Native
 };
