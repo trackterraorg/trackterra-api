@@ -17,7 +17,7 @@ export class Classifier {
     const protocols: Protocol[] | undefined = protocolLoader?.protocols.filter(
       (p) => p.type == transformedData.type,
     );
-
+    
     const transformedDataTxType = transformedData.type;
 
     if (transformedDataTxType === ProtocolType.Contract) {
@@ -51,6 +51,16 @@ export class Classifier {
             txType
           };
         }
+      }
+
+      // if tx type not found, try generic transfer instead
+      const protocol: Protocol | undefined = protocolLoader?.protocols.find(
+        (p) => p.name == 'Unclassified',
+      );
+
+      return {
+        protocol,
+        txType: _.first(protocol.transactions),
       }
     }
 
@@ -133,7 +143,10 @@ export class Classifier {
     let txTypeName = 'NativeSendReceive';
 
     // the info is retrieved from extraParsingInfo when transforming the event
-    const otherNativeTxsName = _.first(transferActions)?.extraParsingInfo;
+    
+    const otherNativeTxsName = transferActions.find((tA:any) => {
+      return Object.keys(tA).includes('extraParsingInfo');
+    })?.extraParsingInfo;
 
     if (otherNativeTxsName) {
       txTypeName = otherNativeTxsName;
