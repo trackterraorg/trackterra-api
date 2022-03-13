@@ -294,3 +294,29 @@ transactions:
       ignoreContract: false
     description: Bluna staking reward
     tag: staking_rewards
+
+  - name: AnchorCastVote
+    contract: terra1f32xyep306hhcxxxf7mlyh0ucggc00rm2s9da5
+    classifier:
+      shouldExistAttributes: [cast_vote]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: cast_vote
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor cast vote
+    parserClass: FeeOnly
+
+  - name: AnchorBAssetBurn
+    contract:
+      - terra1kc87mu460fwkqte29rquh4hc20m54fxwtsx7gp
+      - terra1dzhzukyezv0etz22ud940z7adyv7xgcjkahuun
+    classifier:
+      shouldExistAttributes: [burn, decrease_balance]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: burn
+        contractKey: contract
+      ignoreContract: false
+    description: Anchor basset burn
+    parserClass: AnchorBAssetBurn

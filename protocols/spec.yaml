@@ -67,3 +67,15 @@ transactions:
     description: Spec zap in
     parserClass: GenericAutoStake
     tag: pool_deposit
+
+  - name: SpecUpdateStake
+    contract: terra1dpe4fmcz2jqk6t50plw0gqa2q3he2tj6wex5cl
+    classifier:
+      shouldExistAttributes: ['update_stake']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: update_stake
+        contractKey: contract
+      ignoreContract: false
+    description: Spec update stake
+    parserClass: FeeOnly

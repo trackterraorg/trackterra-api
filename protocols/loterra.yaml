@@ -14,3 +14,16 @@ transactions:
     parserClass: GenericTransfer
     description: Loterra registeration cost
     tag: cost
+
+  - name: FeeOnly
+    contract: terra1tu9yjssxslh3fd6fe908ntkquf3nd3xt8kp2u2
+    classifier:
+      shouldExistAttributes: ['claim_unbonded']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: claim_unbonded
+        contractKey: contract
+      ignoreContract: false
+    parserClass: FeeOnly
+    description: Lotto Claim unbonded
+    tag: cost

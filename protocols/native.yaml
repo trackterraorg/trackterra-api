@@ -24,6 +24,18 @@ transactions:
     parserClass: NativeDelegate
     tag: pool_deposit
 
+  - name: NativeUnDelegate
+    contract: any
+    classifier:
+      shouldExistAttributes: [transfer, unbond]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: 
+        contractKey: 
+      ignoreContract: true
+    parserClass: NativeUnDelegate
+    tag: deposit
+
   - name: NativeReward
     contract: 
     classifier:

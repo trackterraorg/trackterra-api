@@ -106,4 +106,16 @@ transactions:
     isEliminator: false
     description: transfer
 
+  - name: GenericSubmitOrder
+    contract: any
+    classifier:
+      shouldExistAttributes: [submit_order]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: any
+        contractKey: any
+      ignoreContract: true
+    description: Mirror submit order
+    parserClass: FeeOnly
+
   
