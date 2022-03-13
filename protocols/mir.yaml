@@ -232,3 +232,15 @@ transactions:
       ignoreContract: false
     description: Mirror goverance proposal collateral deposit
     tag: deposit
+
+  - name: MirrorCastVote
+    contract: terra1wh39swv7nq36pnefnupttm2nr96kz7jjddyt2x
+    classifier:
+      shouldExistAttributes: [cast_vote]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: cast_vote
+        contractKey: contract
+      ignoreContract: false
+    description: Cast vote
+    parserClass: FeeOnly

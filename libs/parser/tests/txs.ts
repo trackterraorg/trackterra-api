@@ -226,6 +226,11 @@ export const txHashes = {
       txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
+    {
+      label: ' cast vote',
+      txHash: '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
+      walletAddress: 'terra1u9vatqv6t9w6fmrylspnlmqg45h4jgy70kr52r',
+    },
   ],
   nexus: [
     {
@@ -625,8 +630,9 @@ export const txHashes = {
   tests: [
     {
       label: 'basset nasset swap',
-      txHash: '5EBA2E07416E170662C259452C5056960A508B76CEE7F9848657156FA8558166',
-      walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
+
+      txHash: '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
+      walletAddress: 'terra1u9vatqv6t9w6fmrylspnlmqg45h4jgy70kr52r',
     },
   ],
 };
