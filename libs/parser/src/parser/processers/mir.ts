@@ -290,10 +290,6 @@ export class MirAdjustBorrow implements IParser {
         const receivedAmount: number = +tx.receivedAmount;
         const fee: number = +feeTx.sentAmount;
         const amt = receivedAmount + fee;
-        console.dir({
-          receivedAmount,
-          fee,
-        }, {depth: 'null'});
         tx.receivedAmount = `${amt}`;
       }
 
