@@ -1,4 +1,4 @@
-import { separateAmountFromToken } from '@trackterra/parser/utils';
+import { separateAmountFromToken, splitTokens } from '@trackterra/parser/utils';
 import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, ISwapAction, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
@@ -147,14 +147,28 @@ export class MirOpenShortFarm implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     this.args = args;
     const openPositionTx = this.openPosition();
-    const mintTx = MintEngine.process(args, {
-      label: TxLabel.Withdraw,
-      tag: TxTag.PoolDeposit
+
+    const mintAction: any = _.first(args.contractActions.mint);
+    const mintTx = (new TransferEngine()).process({
+      ...args,
+      contractActions: undefined,
+      transferActions: [{
+        sender: mintAction.contract,
+        recipient: args.walletAddress,
+        amount: {
+          amount: mintAction.amount,
+          token: mintAction.contract,
+        }
+      }],
+      txType: {
+        ...args.txType,
+        tag: TxTag.PoolWithdrawal,
+      }
     });
     const swapTx = SwapEngine.swap(args);
     const lockPositionFundsHookTx = this.lockPositionFundsHook();
 
-    return [openPositionTx].concat([mintTx], swapTx, [lockPositionFundsHookTx]);
+    return [openPositionTx].concat(mintTx, swapTx, [lockPositionFundsHookTx]);
   }
 }
 export class MirCloseShortFarm implements IParser {
@@ -191,17 +205,66 @@ export class MirCloseShortFarm implements IParser {
         const receivedAmount: number = +tx.receivedAmount;
         const fee: number = +feeTx.sentAmount;
         const amt = receivedAmount + fee;
-        console.dir({
-          receivedAmount,
-          fee,
-        }, {depth: 'null'});
         tx.receivedAmount = `${amt}`;
       }
 
       return tx;
     });
 
-    return poolDepositTx.concat(poolWithdrawalTx);
+    let releaseShortingFundsAction: any = args.allEvents.find((aE) => {
+      return Object.keys(aE.contractActions).includes('release_shorting_funds');
+    })?.contractActions.release_shorting_funds;
+
+    let taxTx = [];
+    let taxAmount: any = {};
+    let unlockTx = [];
+    if(releaseShortingFundsAction) {
+      releaseShortingFundsAction = _.first(releaseShortingFundsAction);
+      if(!_.isEmpty(releaseShortingFundsAction.tax_amount)) {
+        const taxAmount: IAmount = separateAmountFromToken(releaseShortingFundsAction.tax_amount);
+        const taxAction = {
+          sender: args.walletAddress,
+          recipient: releaseShortingFundsAction.contract,
+          amount: taxAmount,
+        };
+
+        taxTx = (new TransferEngine()).process({
+          ...args,
+          contractActions: undefined,
+          transferActions: [taxAction],
+          txType: {
+            ...args.txType,
+            tag: TxTag.Cost,
+          }
+        })
+      }
+
+      if(!_.isEmpty(releaseShortingFundsAction.unlocked_amount)) {
+        const unlockAmount: IAmount = separateAmountFromToken(releaseShortingFundsAction.unlocked_amount);
+
+        if (!_.isEmpty(taxAmount)) {
+          unlockAmount.amount += taxAmount.amount;
+        }
+
+        const unlockAction = {
+          sender: releaseShortingFundsAction.contract,
+          recipient: args.walletAddress,
+          amount: unlockAmount,
+        };
+
+        unlockTx = (new TransferEngine()).process({
+          ...args,
+          contractActions: undefined,
+          transferActions: [unlockAction],
+          txType: {
+            ...args.txType,
+            tag: TxTag.PoolWithdrawal,
+          }
+        });
+      }
+    }
+
+    return poolDepositTx.concat(poolWithdrawalTx).concat(unlockTx).concat(taxTx);
   }
 }
 
