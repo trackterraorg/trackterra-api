@@ -22,7 +22,7 @@ transactions:
         contractKey: 
       ignoreContract: true
     parserClass: NativeDelegate
-    tag: pool_deposit
+    description: Native delegate
 
   - name: NativeUnDelegate
     contract: any

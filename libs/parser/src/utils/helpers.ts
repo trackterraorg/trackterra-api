@@ -146,7 +146,7 @@ export const isTxInitiator = (walletAddress: string, txInfo: TxInfo) => {
   const tx: any = txInfo.tx;
   const msg = tx.value.msg;
   
-  const initiateMarkerKeys = ['sender', 'voter', 'from_address', 'delegator_address'];
+  const initiateMarkerKeys = ['sender', 'voter', 'from_address', 'delegator_address', 'trader'];
 
   const initiatorAddress = msg.find(({ value }) => {
     const key = _.first(_.intersection(Object.keys(value), initiateMarkerKeys));

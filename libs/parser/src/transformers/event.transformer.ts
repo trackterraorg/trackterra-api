@@ -176,13 +176,13 @@ export class EventTransformer {
       }
 
       const transfer: TransferAction = {
-        sender: undefined,
+        sender: 'wallet_address',
         recipient: validator.value,
         amount,
         extraParsingInfo: 'NativeDelegate',
       };
 
-      this._transferActions = [transfer];
+      this._transferActions.push(transfer);
     }
     return this;
   }
