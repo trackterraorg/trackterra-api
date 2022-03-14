@@ -17,6 +17,7 @@ import {
   ParseWalletResponse,
   ParsingStatus,
 } from '@trackterra/proto-schema/wallet';
+import { BlacklistLoader } from '@trackterra/parser/blacklist';
 
 /**
  * @class
@@ -34,8 +35,8 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     private readonly walletRepository: WalletRepository,
     private readonly parserRpcService: ParserRpcClientService,
     private readonly commandBus: CommandBus,
-  ) {}
 
+  ) {}
   /**
    * @param command {ParseWalletCommand}
    */
@@ -46,6 +47,16 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     try {
       if (!AccAddress.validate(address)) {
         throw new RpcException('Invalid terra account address');
+      }
+
+      const blacklistLoader: BlacklistLoader = await BlacklistLoader.getInstance();
+
+      if (blacklistLoader.isInBlackList(address)) {
+        return {
+          numberOfNewParsedTxs: 0,
+          status: ParsingStatus.FAILED,
+          msg: blacklistLoader.addressBlockMessage(address),
+        };
       }
 
       let wallet: WalletEntity = await this.walletRepository.findOne(
