@@ -37,3 +37,15 @@ transactions:
       ignoreContract: false
     parserClass: TerraswapSwap
     tag: swap
+
+  - name: Swap
+    contract: terra19qx5xe6q9ll4w0890ux7lv2p4mf3csd4qvt3ex
+    classifier:
+      shouldExistAttributes: ['swap']
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: swap
+        contractKey: sender
+      ignoreContract: false
+    parserClass: TerraswapSwap2
+    tag: swap

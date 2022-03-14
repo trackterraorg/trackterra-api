@@ -58,7 +58,42 @@ export class TerraswapSwap implements IParser {
   }
 }
 
+export class TerraswapSwap2 implements IParser {
+
+  process(args: ParserProcessArgs): IParsedTx[] {
+
+    // get first tx that belongs to wallet address
+    const sendAction = args.transferActions.find((tA: any) => {
+      return tA.sender === args.walletAddress;
+    });
+
+    // get last deposit action
+    const depositAction = args.transferActions.find((tA: any) => {
+      return tA.recipient === args.walletAddress;
+    });
+
+    const swapAction: any = {
+      contract: '',
+      sender: args.walletAddress,
+      receiver: args.walletAddress,
+      offer_asset: sendAction.amount.token,
+      ask_asset: depositAction.amount.token,
+      offer_amount: sendAction.amount.amount,
+      return_amount: depositAction.amount.amount,
+    }
+
+    return SwapEngine.swap({
+      ...args,
+      contractActions: {
+        swap: [swapAction]
+      },
+      transferActions: undefined,
+    });
+  }
+}
+
 
 export const TerraswapProtocol = {
   TerraswapSwap,
+  TerraswapSwap2,
 };
