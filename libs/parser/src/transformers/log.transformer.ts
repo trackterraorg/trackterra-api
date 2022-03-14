@@ -46,8 +46,6 @@ export class LogTransformer {
           const etf: EventTransformer = new EventTransformer();
           return etf.transform(log).getActions();
         } catch (e) {
-          console.log(e);
-          
           this.logger.error(`Could not transform tx ${txInfo.txhash} data`);
         }
       })

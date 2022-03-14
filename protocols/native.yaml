@@ -11,6 +11,8 @@ transactions:
         mainKey: 
         contractKey: 
       ignoreContract: true
+    description: Native send/recieve
+    parserClass: NativeSendRecieveSwap
 
   - name: NativeDelegate
     contract: 

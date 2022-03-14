@@ -17,7 +17,10 @@ export class EventTransformer {
   private _transferActions: TransferAction[] | undefined = [];
 
   public transform(txLog: TxLog): this {
-    this.setTxLog(txLog).setActionKeys().determineTxProtocol().doTransform();
+    try {
+      this.setTxLog(txLog).setActionKeys().determineTxProtocol().doTransform();
+    } catch(e) {
+    }
     return this;
   }
 
@@ -47,6 +50,7 @@ export class EventTransformer {
         'withdraw_rewards',
         'proposal_vote',
         'unbond',
+        'swap',
       ]).length > 0;
     if (isNative) {
       this._txProtocol = ProtocolType.Native;
@@ -61,6 +65,7 @@ export class EventTransformer {
       this.transformContractActions();
     }
 
+    this.transformSwapActions();
     this.transformTransferActions();
 
     if (this._txProtocol === ProtocolType.Native) {
@@ -118,7 +123,37 @@ export class EventTransformer {
     return this;
   }
 
+  private transformSwapActions(): this {
+    if (!this._actionKeys?.includes('swap')) {
+      return this;
+    }
+
+    const attributes = findAttributes(this._txLog?.events, 'swap');
+
+    if (!attributes) {
+      throw new UnableToExtractActionException('swap');
+    }
+
+    const nativeSwaps: any = [];
+    let tR: any;
+
+    for (let i = 0; i < attributes.length; i += 5) {
+      tR = {};
+      for (let j = i; j < i + 5; j++) {
+        const attr = attributes[j];
+        tR[attr.key] = attr.value;
+      }
+
+      nativeSwaps.push(tR);
+    }
+
+    this._contractActions['native_swap'] = nativeSwaps
+
+    return this;
+  }
+
   private transformTransferActions(): this {
+
     if (!this._actionKeys?.includes('transfer')) {
       return this;
     }
