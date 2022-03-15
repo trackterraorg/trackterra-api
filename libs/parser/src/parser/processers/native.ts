@@ -128,25 +128,13 @@ export class NativeSendRecieveSwap implements IParser {
 
   process(args: ParserProcessArgs): IParsedTx[] {
 
-    const { walletAddress, txType, transferActions, contractActions } = args;
+    const { contractActions } = args;
 
     if (Object.keys(contractActions).includes('native_swap')) {
       return this.parseNativeSwap(args);
     }
 
-    return transferActions.map((transferAction) => {
-      const { sender, amount } = transferAction;
-      return {
-        walletAddress,
-        label: TxLabel.Deposit,
-        tag: txType.tag,
-        sender,
-        recipient: walletAddress,
-        receivedAmount: amount.amount,
-        receivedToken: amount.token,
-        friendlyDescription: txType.description,
-      };
-    });
+    return (new TransferEngine()).process(args);
   }
 }
 
