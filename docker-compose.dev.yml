@@ -17,8 +17,8 @@ services:
       - NATS_HOST=nats
       - DISCOVERY_HOST=localhost
     ports:
-    - 2052:2052
-    - 4000:4000
+      - 2052:2052
+      - 4000:4000
 
   service-parser:
     build:
@@ -36,7 +36,25 @@ services:
       - NATS_HOST=nats
       - DISCOVERY_HOST=localhost
     ports:
-    - 50050:50050
+      - 50050:50050
+
+  service-contract:
+    build:
+      context: .
+      dockerfile: server/service-contract/Dockerfile
+      args:
+        NODE_ENV: development
+    image: "service-contract:latest"
+    restart: always
+    depends_on:
+      - consul
+      - redis
+    environment:
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=localhost
+    ports:
+      - 50085:50085
 
   service-wallet:
     build:
@@ -55,17 +73,27 @@ services:
       - DISCOVERY_HOST=localhost
     ports:
     - 50075:50075
-
+  
+  consul:
+    container_name: consul
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:53/udp"
+    image: consul
+    command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
   eventstore:
     container_name: eventstore
     ports:
       - "2113:2113"
       - "1113:1113"
-    image: eventstore/eventstore:release-5.0.8
-    labels:
-      kompose.service.type: nodeport
-      kompose.service.expose: "true"
-      kompose.image-pull-policy: "Always"
+    environment:
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_EXTERNAL_TCP=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    # image: eventstore/eventstore:release-5.0.8
+    image: ghcr.io/eventstore/eventstore:21.10.0-alpha-arm64v8
 
   nats:
     container_name: nats
@@ -74,10 +102,6 @@ services:
       - "6222:6222"
       - "8222:8222"
     image: nats
-    labels:
-      kompose.service.type: nodeport
-      kompose.service.expose: "true"
-      kompose.image-pull-policy: "Always"
 
   mongo:
     container_name: mongo

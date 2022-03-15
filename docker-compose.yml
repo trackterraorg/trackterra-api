@@ -13,7 +13,7 @@ services:
       - NATS_HOST=nats-cluster.default.svc.cluster.local
       - DISCOVERY_HOST=api-gateway.default.svc.cluster.local
     ports:
-    - 2052:2052
+      - 2052:2052
 
   service-parser:
     build:
@@ -26,8 +26,21 @@ services:
       - NATS_HOST=nats-cluster.default.svc.cluster.local
       - DISCOVERY_HOST=service-parser.default.svc.cluster.local
     ports:
-    - 50050:50050
-    
+      - 50050:50050
+  
+  service-contract:
+    build:
+      context: .
+      dockerfile: server/service-contract/Dockerfile
+    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-contract:${IMAGE_TAG:?err}"
+    restart: always
+    environment:
+      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
+      - NATS_HOST=nats-cluster.default.svc.cluster.local
+      - DISCOVERY_HOST=service-contract.default.svc.cluster.local
+    ports:
+      - 50085:50085
+      
   service-wallet:
     build:
       context: .
@@ -39,7 +52,7 @@ services:
       - NATS_HOST=nats-cluster.default.svc.cluster.local
       - DISCOVERY_HOST=service-wallet.default.svc.cluster.local
     ports:
-    - 50075:50075
+      - 50075:50075
   
   consul:
     container_name: consul
@@ -49,6 +62,7 @@ services:
       - "8600:53/udp"
     image: consul
     command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
+
   eventstore:
     container_name: eventstore-node
     ports:

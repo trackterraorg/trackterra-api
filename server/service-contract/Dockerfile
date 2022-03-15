@@ -21,5 +21,5 @@ RUN nest build service-contract
 # Bundle app source
 COPY . .
 
-EXPOSE 50050
+EXPOSE 50085
 CMD ["node", "dist/server/service-contract/main.js"]
