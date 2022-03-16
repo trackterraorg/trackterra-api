@@ -9,9 +9,9 @@ services:
     image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/api-gateway:${IMAGE_TAG:?err}"
     restart: always
     environment:
-      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
-      - NATS_HOST=nats-cluster.default.svc.cluster.local
-      - DISCOVERY_HOST=api-gateway.default.svc.cluster.local
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=api-gateway
     ports:
       - 2052:2052
 
@@ -22,9 +22,9 @@ services:
     image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-parser:${IMAGE_TAG:?err}"
     restart: always
     environment:
-      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
-      - NATS_HOST=nats-cluster.default.svc.cluster.local
-      - DISCOVERY_HOST=service-parser.default.svc.cluster.local
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=service-parser
     ports:
       - 50050:50050
   
@@ -35,9 +35,9 @@ services:
     image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-contract:${IMAGE_TAG:?err}"
     restart: always
     environment:
-      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
-      - NATS_HOST=nats-cluster.default.svc.cluster.local
-      - DISCOVERY_HOST=service-contract.default.svc.cluster.local
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=service-contract
     ports:
       - 50085:50085
       
@@ -48,9 +48,9 @@ services:
     image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-wallet:${IMAGE_TAG:?err}"
     restart: always
     environment:
-      - CONSUL_HOST=consul-cluster.default.svc.cluster.local
-      - NATS_HOST=nats-cluster.default.svc.cluster.local
-      - DISCOVERY_HOST=service-wallet.default.svc.cluster.local
+      - CONSUL_HOST=consul
+      - NATS_HOST=nats
+      - DISCOVERY_HOST=service-wallet
     ports:
       - 50075:50075
   
