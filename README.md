@@ -51,16 +51,51 @@ The parser component is used to parse the transformed data using the parserClass
 ### Exporter
 
 The final step is preparing the parsed data to be exported and used by other parts of the app. The exporter is useful to clean up the parsed data and add fees and taxes.
+## Prerequists
+ - node 14
+ - consul
+ - redis
+ - mongo 5
+ - eventstore 5
+ - jq
+ - yq 4.18.1
+ 
+ These can be installed locally or using docker containers
 ## Installation  
-  
+
+yq
+```bash
+sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.18.1/yq_linux_amd64
+sudo chmod a+x /usr/local/bin/yq
+```
+
+open a new terminal and test it
+```bash
+yq --version
+```
+
+install packages
 ```bash  
 $ yarn install
 ```  
   
 ## Configuration  
   
-All services fetch configuration from consul. The consul should be started and configs should be added for each service. Each service contains a file 'config.app.yaml' which contains sample configuration for the service. The configuration can be added to consul using register.sh in scripts directory. 
-  
+All services fetch configuration from consul. The consul should be started and configs should be added for each service. Each service contains a file 'config.app.yaml' which contains sample configuration for the service. The configuration can be added to consul using register.sh in scripts directory. You would have to install [jq](https://github.com/stedolan/jq) and [yq](https://github.com/mikefarah/yq) to run the registeration script.
+
+```bash  
+sh scripts/register.sh 
+```
+
+Once this process is finished. Navigate to localhost:8500 then key/value to check if the configurations has been added to consul. Make necessary changes to the configuration and then restart the services to make sure new configs have been loaded in the service.
+
+To learn more about consul click [here](https://learn.hashicorp.com/consul). It is recommended that you follow the guidelines and best practices outlined [here](https://learn.hashicorp.com/tutorials/consul/get-started-service-discovery?in=consul/getting-started)
+
+It is not recomended to expose the consul client to the public web interface , however for setup it can be done using the -client flag , consul agent --dev -client x.x.x.x.
+
+The registeration script has to be run every time consul starts if consul is started using --dev flag because it does not persis the key/value pairs.
+
+
 ## Usage  
   
 Consul, Mongodb, redis, and eventstore all need to be started first as our microservices need to connect to them.  
@@ -85,7 +120,22 @@ Otherwise, you can install and run redis and eventstore locally if you choose.
   
 ## Running the microservices  
 You can start the microservices in any order. Example  
-  
+
+Build the app
+```bash
+sh scripts/setup.sh
+```
+
+Run the services
+```bash
+node dist/server/api-gateway/main.js  
+node dist/server/service-parser/main.js  
+node dist/server/service-contract/main.js  
+node dist/server/service-wallet/main.js
+```
+
+or 
+
 ```bash
   
 $ yarn setup:local
@@ -107,7 +157,7 @@ $ npx nest start api-gateway
 ## REST and GRAPHQL  
 
  - REST: http://localhost:2052//docs
- - GraphQL: http://localhost:2052//grpahql  
+ - GraphQL: http://localhost:2052//graphql  
     
   
 ## Quick Tips  
