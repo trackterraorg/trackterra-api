@@ -5,7 +5,7 @@ app:
 
 database:
   mongodb:
-    uri: mongodb://localhost:27017/
+    uri: mongodb://mongo:27017/
     name: srv-wallet
     options: ""
 
@@ -13,7 +13,7 @@ database:
     poolMax:
     poolMin:
     streamProtocol: "http"
-    hostname: "localhost"
+    hostname: "eventstore"
     httpPort: 2113
     httpPotocol: "http"
     tcpPassword: "changeit"
@@ -22,6 +22,6 @@ database:
     tcpProtocol: tcp
 
   redis:
-    host: "localhost"
+    host: "redis"
     port: "6379"
     password: ""

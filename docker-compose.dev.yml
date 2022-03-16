@@ -15,7 +15,7 @@ services:
     environment:
       - CONSUL_HOST=consul
       - NATS_HOST=nats
-      - DISCOVERY_HOST=localhost
+      - DISCOVERY_HOST=api-gateway
     ports:
       - 2052:2052
       - 4000:4000
@@ -34,7 +34,7 @@ services:
     environment:
       - CONSUL_HOST=consul
       - NATS_HOST=nats
-      - DISCOVERY_HOST=localhost
+      - DISCOVERY_HOST=service-parser
     ports:
       - 50050:50050
 
@@ -52,7 +52,7 @@ services:
     environment:
       - CONSUL_HOST=consul
       - NATS_HOST=nats
-      - DISCOVERY_HOST=localhost
+      - DISCOVERY_HOST=service-contract
     ports:
       - 50085:50085
 
@@ -70,7 +70,7 @@ services:
     environment:
       - CONSUL_HOST=consul
       - NATS_HOST=nats
-      - DISCOVERY_HOST=localhost
+      - DISCOVERY_HOST=service-wallet
     ports:
     - 50075:50075
   
@@ -106,9 +106,6 @@ services:
   mongo:
     container_name: mongo
     image: mongo
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: changeit
     restart: always
     expose:
       - 27017
