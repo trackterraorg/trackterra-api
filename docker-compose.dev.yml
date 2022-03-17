@@ -7,7 +7,7 @@ services:
       dockerfile: server/api-gateway/Dockerfile
       args:
         NODE_ENV: development
-    image: "api-gateway:latest"
+    image: "trackterra/api-gateway:latest"
     restart: always
     depends_on:
       - consul
@@ -26,7 +26,7 @@ services:
       dockerfile: server/service-parser/Dockerfile
       args:
         NODE_ENV: development
-    image: "service-parser:latest"
+    image: "trackterra/service-parser:latest"
     restart: always
     depends_on:
       - consul
@@ -44,7 +44,7 @@ services:
       dockerfile: server/service-contract/Dockerfile
       args:
         NODE_ENV: development
-    image: "service-contract:latest"
+    image: "trackterra/service-contract:latest"
     restart: always
     depends_on:
       - consul
@@ -62,7 +62,7 @@ services:
       dockerfile: server/service-wallet/Dockerfile
       args:
         NODE_ENV: development
-    image: "service-wallet:latest"
+    image: "trackterra/service-wallet:latest"
     restart: always
     depends_on:
       - consul
