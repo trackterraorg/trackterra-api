@@ -10,9 +10,10 @@ import { hash } from './hash.utils';
  */
 export class CachingUtils {
   private static validator = new Validator();
-
+  // FIX ME 
+  // The validaton  
   public static makeCacheKeyFromId(entityId: string): string {
-    this.validator.isMongoId(entityId);
+    // this.validator.isMongoId(entityId);
     return this.makeCacheKeyFromProperty(entityId, 'id');
   }
 
@@ -20,8 +21,8 @@ export class CachingUtils {
     propertyName: string,
     propertyValue: string,
   ): string {
-    this.validator.isNotEmpty(propertyValue);
-    this.validator.isNotEmpty(propertyName);
+    // this.validator.isNotEmpty(propertyValue);
+    // this.validator.isNotEmpty(propertyName);
     return `CacheKey-${propertyName}-${propertyValue}`;
   }
 
