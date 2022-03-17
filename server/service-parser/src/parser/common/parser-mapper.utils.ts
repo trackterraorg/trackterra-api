@@ -73,7 +73,7 @@ export async function txToUnparsedTxCreateRequest(
     timestamp: new Date(timestamp),
     protocol: 'Unparsed',
   };
-  console.dir("heree", {depth: 'null'});
+  
   return CreateTxRequest.fromJSON(transformedTx);
 }
 

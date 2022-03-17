@@ -1,14 +1,17 @@
 import { ConsulConfig, InjectConfig } from '@nestcloud/config';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConsulFcdConfig } from '@trackterra/common';
-import { FCDApi } from '@trackterra/core/helpers';
+import { DEFAULT_FCD_URL, FCDApi } from '@trackterra/core/helpers';
 
 @Injectable()
 export class FCDApiService {
-  private readonly _api: FCDApi;
+  
+  private logger = new Logger(this.constructor.name);
 
+  private readonly _api: FCDApi;
   constructor(@InjectConfig() private readonly config: ConsulConfig) {
-    const fcdUrl = this.config.get<ConsulFcdConfig>('fcd');
+    const fcdUrl = this.config.get<ConsulFcdConfig>('fcd')?.url ?? DEFAULT_FCD_URL;
+    this.logger.log(`Fcd: ${fcdUrl}`);
     this._api = new FCDApi(fcdUrl);
   }
 

@@ -4,8 +4,8 @@ import { ContractInfo, TxInfo } from '@terra-money/terra.js';
 import { ConsulFcdConfig } from '@trackterra/common';
 import { ApisauceInstance, create } from 'apisauce';
 
-const DEFAULT_FCD_URL = 'https://fcd.trackterra.org/v1';
-const DEFAULT_LIMIT = 100;
+export const DEFAULT_FCD_URL = 'https://fcd.terra.dev/v1';
+export const DEFAULT_LIMIT = 100;
 export class FCDApi {
   private readonly _api: ApisauceInstance;
 
