@@ -1,3 +1,6 @@
+fcd: 
+  url: https://fcd.terra.dev/v1
+  
 app:
   port: 9750
   database:
