@@ -1,4 +1,5 @@
-import { Logger } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
+import {Cache} from 'cache-manager';
 import {
   CommandBus,
   CommandHandler,
@@ -35,7 +36,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     private readonly walletRepository: WalletRepository,
     private readonly parserRpcService: ParserRpcClientService,
     private readonly commandBus: CommandBus,
-
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
   /**
    * @param command {ParseWalletCommand}
@@ -118,6 +119,8 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
           },
         });
       }
+
+      this.cacheManager.reset();
 
       return {
         ...parsingResult,

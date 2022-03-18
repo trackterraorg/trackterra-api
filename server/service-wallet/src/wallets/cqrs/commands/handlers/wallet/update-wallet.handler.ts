@@ -1,4 +1,5 @@
-import { Logger } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
+import {Cache} from 'cache-manager';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { WalletRepository } from '@trackterra/repository';
 import { UpdateWalletCommand } from '../../impl';
@@ -26,7 +27,10 @@ export class UpdateWalletHandler
    * @param walletRepository {WalletRepository}
    * @param eventBus {EventBus}
    */
-  public constructor(private readonly walletRepository: WalletRepository) {}
+  public constructor(
+    private readonly walletRepository: WalletRepository,
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+  ) {}
 
   /**
    * @param command {UpdateWalletCommand}
@@ -51,6 +55,8 @@ export class UpdateWalletHandler
           },
         },
       });
+
+      this.cacheManager.reset();
 
       return {
         wallet: wallet as unknown as Wallet,
