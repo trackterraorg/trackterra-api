@@ -1,21 +1,12 @@
 <h2>  
-Deploy
+Deployment
 </h2>
 <p> 
   The app can be deployed with/out docker. But it is highly recommend that docker is used due to complexity of the deployment process
 </p>  
 <p align="center"></p> 
 
-## Using Docker
-
-- Install docker
-```bash
-sudo apt install docker.io
-```
-
-- Install docker compose
-Refer to [this](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) tutorial to install docker compose 
-
+## Prerequisits
 - Install jq
 ```bash
 apt install jq
@@ -26,6 +17,24 @@ apt install jq
 sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.18.1/yq_linux_amd64
 sudo chmod a+x /usr/local/bin/yq
 ```
+
+- Install docker
+```bash
+sudo apt install docker.io
+```
+
+- Install consul
+```bash
+apt install consul
+```
+Make sure you see v 1.5 or newer after running 
+```bash
+consul -v
+```
+## Using Docker
+
+- Install docker compose
+Refer to [this](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) tutorial to install docker compose 
 
 - Clone the repository
 ```bash
@@ -43,19 +52,13 @@ DOCKER_REPO=trackterra
 IMAGE_TAG=latest
 
 - Pull the images
+This step usually takes several minutes the first time. 
 ```bash
 docker-compose --env .env up
 ```
+Once it is finished you will see the services keep restarting because they can not connect to mongo, redis. At this moment, go to the follwing the step once pulling the images finished.
 
-This step usually takes several minutes the first time.
-
-- Install consul to use it's cli. Example: adding and remove keys
-```bash
-apt install consul
-```
-Note: do not run the consul on the host machine.
-
-- Instead of manually entering the configs, we run this script to populate configs.
+- Instead of manually entering the configurations, we run this script to populate configs.
 ```bash
 sh scripts/register.sh
 ```
@@ -91,7 +94,80 @@ docker restart $(docker ps -q)
     - docker container ls (To view list of containers)
     - locate container id associated with wallet-service
     - docker restart <wallet-service-id>
+## Without Docker
 
+- Run consul, mongo, redis, eventstore using docker
+    ```bash
+    consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -bind=67.205.178.222 -data-dir=/var/lib/consul
+
+    docker run -d -p 27017:27017 mongo
+    
+    docker run -d -p 6379:6379 redis
+
+    docker run --name eventstore -it -d -p 2113:2113 -p 1113:1113 \
+    eventstore/eventstore:release-5.0.8 --insecure --run-projections=All \
+    --enable-external-tcp
+    ```
+
+- (optional) Refer to [this](https://learn.hashicorp.com/tutorials/consul/deployment-guide#configure-systemd) tutorial to setup service for consul
+
+- Install node
+    - Follow the option 2 section of  [this](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) tutorial.
+    - Make sure you see v14 or newer after running 
+    ```bash
+        node -v
+    ```
+
+- Install yarn
+    ```bash
+    npm install --global yarn
+    ```
+    Make sure you see v 1.22.17 or newer after running 
+    ```bash
+        yarn -v
+    ```
+
+- Clone the repository
+```bash
+git clone https://github.com/trackterraorg/trackterra-api.git
+```
+
+- Navigate to trackterra-api directory after clone or your custom directory
+```bash
+cd trackterra-api
+```
+
+- Install modules 
+```bash
+apt-get install g++
+sudo apt-get install -y build-essential python
+yarn install
+```
+
+- Instead of manually entering the configurations, we run this script to populate configs.
+```bash
+sh scripts/register.sh
+```
+
+- Build the application
+```bash
+sh scripts/setup.sh
+```
+
+- Install pm2 or any process management tool
+```bash
+npm install pm2@latest -g
+```
+
+- Start the services
+```bash
+pm2 start dist/server/api-gateway/main.js
+pm2 start dist/server/service-parser/main.js
+pm2 start dist/server/service-contract/main.js
+pm2 start dist/server/service-wallet/main.js
+```
+
+## Test API
 - Navigate to cosul ui to view services
     - <IP/Domain>:8500
     - If all services are checked then continue from here otherwise revise the previous steps and make sure that you have not missed any of the above instructions
@@ -111,3 +187,4 @@ docker restart $(docker ps -q)
     - disable ui flag when running the container
     - protect it by setting u ACL which can be found here 
     https://www.consul.io/docs/security/acl
+
