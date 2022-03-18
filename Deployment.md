@@ -188,3 +188,5 @@ pm2 start dist/server/service-wallet/main.js
     - protect it by setting u ACL which can be found here 
     https://www.consul.io/docs/security/acl
 
+## UI
+Refer to the instruction [here](https://github.com/trackterraorg/trackterra-ui/blob/main/README.md) to deploy UI
