@@ -34,7 +34,8 @@ consul -v
 ## Using Docker
 
 - Install docker compose
-Refer to [this](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) tutorial to install docker compose 
+Refer to [this](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04) tutorial to install docker compose.
+Make sure the version is 2.2.3
 
 - Clone the repository
 ```bash
