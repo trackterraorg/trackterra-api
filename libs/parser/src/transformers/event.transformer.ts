@@ -220,10 +220,6 @@ export class EventTransformer {
   }
 
   private transformNativeUnDelegate(): this {
-    if (!this._actionKeys?.includes('transfer')) {
-      return this;
-    }
-
     if (!this._actionKeys?.includes('unbond')) {
       return this;
     }
