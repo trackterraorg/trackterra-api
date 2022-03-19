@@ -19,6 +19,8 @@ services:
     ports:
       - 2052:2052
       - 4000:4000
+    volumes:
+      - storage-static:/nest/storage
 
   service-parser:
     build:
@@ -37,6 +39,8 @@ services:
       - DISCOVERY_HOST=service-parser
     ports:
       - 50050:50050
+    volumes:
+      - storage-static:/nest/storage
 
   service-contract:
     build:
@@ -55,6 +59,8 @@ services:
       - DISCOVERY_HOST=service-contract
     ports:
       - 50085:50085
+    volumes:
+      - storage-static:/nest/storage
 
   service-wallet:
     build:
@@ -72,7 +78,9 @@ services:
       - NATS_HOST=nats
       - DISCOVERY_HOST=service-wallet
     ports:
-    - 50075:50075
+      - 50075:50075
+    volumes:
+      - storage-static:/nest/storage
   
   consul:
     container_name: consul
@@ -116,3 +124,6 @@ services:
     restart: always
     expose:
       - 6379
+
+volumes:
+  storage-static:
