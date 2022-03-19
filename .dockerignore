@@ -3,6 +3,7 @@
 *Dockerfile*
 *docker-compose*
 node_modules
+storage
 
 kubernetes
 iac
