@@ -1,10 +1,6 @@
-
-import {
-  Protocol,
-  TxType,
-} from '../loader/protocol.interface';
+import { Protocol, TxType } from '../loader/protocol.interface';
 
 export type ClassifyOutput = {
-    protocol: Protocol,
-    txType: TxType,
-}
+  protocol: Protocol;
+  txType: TxType;
+};

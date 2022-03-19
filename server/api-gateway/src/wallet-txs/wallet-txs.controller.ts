@@ -29,8 +29,8 @@ export class WalletTxsController {
     @Query() args: FindTxsDto,
   ): Promise<FindTxsResponse> {
     try {
-      return await this.txsService.getTxs(address,args);
-    } catch(e) {
+      return await this.txsService.getTxs(address, args);
+    } catch (e) {
       throw new RpcException('Could not fetch txs!');
     }
   }

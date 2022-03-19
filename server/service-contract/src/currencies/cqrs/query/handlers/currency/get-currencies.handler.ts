@@ -3,7 +3,10 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetCurrenciesQuery } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { CurrencyRepository } from '@trackterra/repository';
-import { Currency, FindCurrenciesResponse } from '@trackterra/proto-schema/contract';
+import {
+  Currency,
+  FindCurrenciesResponse,
+} from '@trackterra/proto-schema/contract';
 
 @QueryHandler(GetCurrenciesQuery)
 export class GetCurrenciesHandler implements IQueryHandler<GetCurrenciesQuery> {
@@ -18,7 +21,7 @@ export class GetCurrenciesHandler implements IQueryHandler<GetCurrenciesQuery> {
     try {
       const currencies = await this.currencyRepository.find();
       return {
-        currencies: (currencies as unknown) as Currency[],
+        currencies: currencies as unknown as Currency[],
       };
     } catch (e) {
       this.logger.error(e);

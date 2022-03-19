@@ -1,3 +1,3 @@
 export interface ITagTransform {
-    [key: string]: string;
+  [key: string]: string;
 }

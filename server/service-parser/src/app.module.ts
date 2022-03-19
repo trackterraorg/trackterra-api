@@ -10,12 +10,7 @@ import { AppService } from './app.service';
 import { ParserModule } from './parser/parser.module';
 
 @Module({
-  imports: [
-    ServiceRegistryModule,
-    CoreModule,
-    CoreModule,
-    ParserModule,
-  ],
+  imports: [ServiceRegistryModule, CoreModule, CoreModule, ParserModule],
   controllers: [AppController],
   providers: [AppService],
 })

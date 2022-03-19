@@ -1,16 +1,10 @@
 import { Logger } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { utils } from '@juicycleff/repo-orm';
-import {
-  Order,
-  TxRepository,
-  WalletRepository,
-} from '@trackterra/repository';
+import { Order, TxRepository, WalletRepository } from '@trackterra/repository';
 import { GetTxsQuery } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
-import {
-  FindTxsResponse, Tx,
-} from '@trackterra/proto-schema/wallet';
+import { FindTxsResponse, Tx } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
 import {
@@ -50,20 +44,21 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
     }
 
     const walletParsed = await this.walletRepository.exist({
-      address
+      address,
     });
-    
-    if (! walletParsed) {
-      throw new RpcException('Wallet has not been parsed. Please parse it first!');
+
+    if (!walletParsed) {
+      throw new RpcException(
+        'Wallet has not been parsed. Please parse it first!',
+      );
     }
 
     let conditions = {
       walletAddress: address,
       protocol: {
-        "$ne": "Unparsed"
-      }
+        $ne: 'Unparsed',
+      },
     };
-
 
     try {
       if (input.filter) {
@@ -74,7 +69,8 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       }
 
       const sort = {};
-      const sortDir = Order[(['asc', 'desc'].includes(order) ? order : 'desc').toUpperCase()];
+      const sortDir =
+        Order[(['asc', 'desc'].includes(order) ? order : 'desc').toUpperCase()];
       const sortAttr = orderBy ?? 'blockHeight';
       sort[sortAttr] = sortDir;
 
@@ -97,21 +93,26 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       const txs = await this.txRepository.find(queryParams);
 
       const objTaxapp = TaxappSelector.select(input?.taxapp ?? 'regular');
-      
+
       const mappedBasedOnApp = await mapTxToTaxApp(txs, objTaxapp);
 
-      if ( input.csv ) {
-        
-        const csvFileName = await this.createCsvFile(address, mappedBasedOnApp, objTaxapp.csvCells());
+      if (input.csv) {
+        const csvFileName = await this.createCsvFile(
+          address,
+          mappedBasedOnApp,
+          objTaxapp.csvCells(),
+        );
 
         return {
           txs: null,
           totalCount: null,
           csvFileName,
-        }
+        };
       }
-      
-      const mappedTxs = mappedBasedOnApp.map((tx) => txEntityToView(Tx.fromJSON(tx)));
+
+      const mappedTxs = mappedBasedOnApp.map((tx) =>
+        txEntityToView(Tx.fromJSON(tx)),
+      );
 
       return {
         txs: mappedTxs,
@@ -124,8 +125,11 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
     }
   }
 
-  private async createCsvFile(address: string, txs: TaxAppTxType[], header: ICsvHeaderCell[]) {
-
+  private async createCsvFile(
+    address: string,
+    txs: TaxAppTxType[],
+    header: ICsvHeaderCell[],
+  ) {
     const dir = join(walletsDir(), address);
 
     if (!fs.existsSync(dir)) {
@@ -145,7 +149,7 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
       .catch((e) => {
         console.log(e);
       });
-    
+
     return fileName;
   }
 }

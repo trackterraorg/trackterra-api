@@ -27,4 +27,3 @@ export class Currency extends Node {
   @Field()
   identifier: string;
 }
-

@@ -7,12 +7,11 @@ import { PoolTransferEngine } from './pool';
 import { SwapEngine } from './swap';
 import { TransferEngine } from './transfer';
 
-
 export class SpecProvideLiquidity implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const txType = args.txType;
     txType.description = 'Spec stake lp';
-    const deposit = PoolTransferEngine.process({...args, txType});
+    const deposit = PoolTransferEngine.process({ ...args, txType });
     const provideLiquidity = LiquidityEngine.provideLiquidity(args);
     return deposit.concat(provideLiquidity);
   }
@@ -24,28 +23,29 @@ export class SpecUnstakeLp implements IParser {
 
     txType.description = 'Spec unstake lp';
 
-    const poolWithdrawalActions = args.contractActions.send.filter((cA: any) => {
-      return cA.from === walletAddress;
-    }).map((cA: any) => {
-      cA.contract = cA.contract;
-      cA.sender = cA.contract;
-      cA.recipient = walletAddress;
-      cA.amount = {
-        amount: cA.amount,
-        token: cA.contract,
-      }
-      return _.pick(cA, ['contract', 'sender', 'recipient', 'amount']) as any;
-    });
+    const poolWithdrawalActions = args.contractActions.send
+      .filter((cA: any) => {
+        return cA.from === walletAddress;
+      })
+      .map((cA: any) => {
+        cA.contract = cA.contract;
+        cA.sender = cA.contract;
+        cA.recipient = walletAddress;
+        cA.amount = {
+          amount: cA.amount,
+          token: cA.contract,
+        };
+        return _.pick(cA, ['contract', 'sender', 'recipient', 'amount']) as any;
+      });
 
-
-    const poolWithdrawalTx = (new TransferEngine()).process({
-      ...args, 
+    const poolWithdrawalTx = new TransferEngine().process({
+      ...args,
       contractActions: undefined,
       txType: {
         ...args.txType,
         tag: TxTag.PoolWithdrawal,
       },
-      transferActions: poolWithdrawalActions
+      transferActions: poolWithdrawalActions,
     });
 
     const withdrawLiquidityTx = LiquidityEngine.withdrawLiquidity(args);

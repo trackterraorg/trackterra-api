@@ -2,12 +2,11 @@ import { Regular } from './regular.taxapp';
 import { Koinly } from './koinly.taxapp';
 import { CoinTracker } from './cointracker.taxapp';
 
-
 export const TaxApps = {
   Regular,
   Koinly,
   CoinTracker,
-}
+};
 
 const taxappTypeMap = {
   ...TaxApps,
@@ -27,14 +26,12 @@ class TaxappFactory {
 
 export class TaxappSelector {
   static select(name: string) {
-    
-    const taxappName = (name) ? name.toLowerCase() : 'regular'
+    const taxappName = name ? name.toLowerCase() : 'regular';
 
     const taxapp = taxappClasses.find((app) => {
       return app.toLowerCase() === taxappName;
-    })
-     
+    });
 
-    return TaxappFactory.getTaxApp(taxapp as unknown as Keys ?? 'Regular');
+    return TaxappFactory.getTaxApp((taxapp as unknown as Keys) ?? 'Regular');
   }
 }

@@ -5,7 +5,7 @@ import { IParsedTx, IAmount, TxLabel, TxTag } from '../parser';
 import { isTxInitiator } from '../utils';
 
 interface ExportableData {
-  txInfo: TxInfo,
+  txInfo: TxInfo;
   walletAddress: string;
   txs: {
     txIndex: number;
@@ -37,35 +37,34 @@ export class Exporter {
       });
     });
 
-    if(isTxInitiator(walletAddress, txInfo)) {
+    if (isTxInitiator(walletAddress, txInfo)) {
       // Add fees to first tx/event
       if (records.length > 0) {
-      
         const fee = fees?.shift();
-  
+
         const firstTx = _.first(records);
-  
+
         /**
-         * Sometimes the tx is untaxed. Therefore we only need to 
+         * Sometimes the tx is untaxed. Therefore we only need to
          * report the tx fee. This is the only way supported by
          * koinly
          */
-        if (! (firstTx.sentAmount || firstTx.receivedAmount)) {
+        if (!(firstTx.sentAmount || firstTx.receivedAmount)) {
           firstTx.sentAmount = fee?.amount;
           firstTx.sentToken = fee?.token;
         } else {
           firstTx.feeAmount = fee?.amount;
           firstTx.feeToken = fee?.token;
         }
-  
+
         records[0] = firstTx;
       }
-  
+
       // For other fees add new tx
       fees?.forEach((fee) => {
         const lastRecord = records[records.length - 1];
         const { sender, recipient } = lastRecord;
-  
+
         const newTx: IParsedTx = {} as IParsedTx;
         newTx.label = TxLabel.Fee;
         newTx.sender = sender;
@@ -73,13 +72,12 @@ export class Exporter {
         newTx.sentAmount = fee.amount;
         newTx.sentToken = fee.token;
         newTx.tag = TxTag.Cost;
-  
+
         records = records.concat(newTx);
       });
     } else {
-
       /**
-       * The wallet is not the tx initiator and 
+       * The wallet is not the tx initiator and
        * the tx is only fee, so we need to discard the tx
        */
       if (_.size(records) === 1 && _.first(records).label === TxLabel.Fee) {
@@ -90,8 +88,8 @@ export class Exporter {
     // calculate networth
     let netWorthAmount: number;
     records = records.map((record: any) => {
-      if(record.label === TxLabel.Swap) {
-        if (! netWorthAmount) {
+      if (record.label === TxLabel.Swap) {
+        if (!netWorthAmount) {
           if (record.sentToken === 'uusd') {
             netWorthAmount = record.sentAmount;
           } else if (record.receivedToken === 'uusd') {

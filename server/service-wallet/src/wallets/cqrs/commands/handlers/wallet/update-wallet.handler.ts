@@ -1,5 +1,5 @@
 import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
-import {Cache} from 'cache-manager';
+import { Cache } from 'cache-manager';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { WalletRepository } from '@trackterra/repository';
 import { UpdateWalletCommand } from '../../impl';

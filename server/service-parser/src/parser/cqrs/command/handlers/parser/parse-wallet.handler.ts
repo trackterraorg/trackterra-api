@@ -11,12 +11,17 @@ import * as _ from 'lodash';
 import moment = require('moment');
 
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
+import { PARSING_QUEUE_NAME } from 'server/service-parser/src/parser/parser.constants';
 import {
-  PARSING_QUEUE_NAME,
-} from 'server/service-parser/src/parser/parser.constants';
-import { ContractRpcClientService, FCDApiService, WalletsRpcClientService } from '@trackterra/core';
+  ContractRpcClientService,
+  FCDApiService,
+  WalletsRpcClientService,
+} from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
-import { txToTxCreateRequest, txToUnparsedTxCreateRequest } from 'server/service-parser/src/parser/common/parser-mapper.utils';
+import {
+  txToTxCreateRequest,
+  txToUnparsedTxCreateRequest,
+} from 'server/service-parser/src/parser/common/parser-mapper.utils';
 
 /**
  * @class
@@ -150,4 +155,3 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     }
   }
 }
-

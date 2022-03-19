@@ -8,13 +8,13 @@ import { PoolTransferEngine } from './pool';
 import { ITransferRecord, TransferEngine } from './transfer';
 
 export class GenericAutoStake implements IParser {
-
   poolDeposit(args: ParserProcessArgs) {
     const provideLiquidityTxs = LiquidityEngine.provideLiquidity({
-      ...args, txType: {
+      ...args,
+      txType: {
         ...args.txType,
-        tag: TxLabel.Swap
-      }
+        tag: TxLabel.Swap,
+      },
     });
 
     const mintAction: any = _.first(args.contractActions.mint);
@@ -25,14 +25,14 @@ export class GenericAutoStake implements IParser {
       amount: {
         amount: mintAction.amount,
         token: mintAction.contract,
-      }
-    }
+      },
+    };
 
-    const poolDepositTx = (new TransferEngine()).process({
+    const poolDepositTx = new TransferEngine().process({
       ...args,
       txType: {
         ...args.txType,
-        tag: TxTag.PoolDeposit
+        tag: TxTag.PoolDeposit,
       },
       contractActions: undefined,
       transferActions: [transferAction],
@@ -43,10 +43,11 @@ export class GenericAutoStake implements IParser {
 
   poolWithdraw(args: ParserProcessArgs) {
     const withdrawLiquidityTxs = LiquidityEngine.withdrawLiquidity({
-      ...args, txType: {
+      ...args,
+      txType: {
         ...args.txType,
-        tag: TxLabel.Swap
-      }
+        tag: TxLabel.Swap,
+      },
     });
 
     const burnAction: any = _.first(args.contractActions.mint);
@@ -57,14 +58,14 @@ export class GenericAutoStake implements IParser {
       amount: {
         amount: burnAction.amount,
         token: burnAction.contract,
-      }
-    }
+      },
+    };
 
-    const poolWithdrawTx = (new TransferEngine()).process({
+    const poolWithdrawTx = new TransferEngine().process({
       ...args,
       txType: {
         ...args.txType,
-        tag: TxTag.PoolWithdrawal
+        tag: TxTag.PoolWithdrawal,
       },
       contractActions: undefined,
       transferActions: [transferAction],
@@ -74,7 +75,6 @@ export class GenericAutoStake implements IParser {
   }
 
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const keys = Object.keys(args.contractActions);
 
     if (keys.includes('provide_liquidity')) {

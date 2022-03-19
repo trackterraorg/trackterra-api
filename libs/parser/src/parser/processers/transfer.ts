@@ -114,7 +114,7 @@ export class TransferEngine {
  */
 export class GenericTransfer implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    return (new TransferEngine()).process(args);
+    return new TransferEngine().process(args);
   }
 }
 
@@ -122,7 +122,7 @@ export class PylonPoolDeposit implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     //FIXME
 
-    return (new TransferEngine()).process(args);
+    return new TransferEngine().process(args);
   }
 }
 

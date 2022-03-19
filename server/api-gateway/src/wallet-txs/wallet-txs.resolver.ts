@@ -29,7 +29,8 @@ export class TxsResolver {
 
   @Query(() => FindTxsResponseResultType, { nullable: true })
   async txs(
-    @Args() { address, csv, taxapp, order, orderBy, where, paginate }: TxFilterArgs,
+    @Args()
+    { address, csv, taxapp, order, orderBy, where, paginate }: TxFilterArgs,
     @Context() ctx: GqlContext,
   ): Promise<FindTxsResponse> {
     const params = {

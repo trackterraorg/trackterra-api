@@ -12,7 +12,7 @@ import { CurrencyEntity } from '../entities';
 
 @Injectable()
 @MongoEntityRepository({
-  name: 'currencies', 
+  name: 'currencies',
   indexes: [
     {
       fields: { symbol: 1 },

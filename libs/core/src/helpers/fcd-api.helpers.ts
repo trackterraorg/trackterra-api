@@ -68,7 +68,6 @@ export class FCDApi {
   }
 
   async getContractInfo(address: string): Promise<ContractInfo> {
-
     const result = await this._api.get(`/wasm/contract/${address}`);
 
     if (result.ok) {
@@ -82,5 +81,4 @@ export class FCDApi {
 
     throw 'Could not fetch contract info for contract ' + address;
   }
-  
 }

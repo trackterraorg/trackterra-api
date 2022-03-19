@@ -13,7 +13,9 @@ describe('The blacklist loader should ', () => {
   });
 
   it('determine blacklisted address', () => {
-    const existInblacklist = blacklistLoader.isInBlackList('terra100yeqvww74h4yaejj6h733thgcafdaukjtw397');
+    const existInblacklist = blacklistLoader.isInBlackList(
+      'terra100yeqvww74h4yaejj6h733thgcafdaukjtw397',
+    );
     expect(existInblacklist).toBeTruthy();
   });
 });

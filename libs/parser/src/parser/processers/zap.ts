@@ -9,9 +9,8 @@ import { TransferEngine } from './transfer';
 
 export class ZapIn implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { walletAddress } = args;
-    
+
     let swapTx = [];
     if (Object.keys(args.contractActions).includes('swap')) {
       swapTx = SwapEngine.swap({
@@ -19,14 +18,13 @@ export class ZapIn implements IParser {
         txType: {
           ...args.txType,
           tag: TxTag.Swap,
-        }
+        },
       });
     }
     const provideLiquidtyTx = LiquidityEngine.provideLiquidity(args);
 
     const txType = args.txType;
     txType.tag = TxTag.PoolDeposit;
-
 
     const mintActions = args.contractActions.mint.map((cA: any) => {
       return {
@@ -35,21 +33,21 @@ export class ZapIn implements IParser {
         amount: {
           amount: cA.amount,
           token: cA.contract,
-        }
-      }
+        },
+      };
     });
 
-    const poolDepositTx = (new TransferEngine()).process({
+    const poolDepositTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
       transferActions: mintActions,
       txType: {
         ...args.txType,
         tag: TxTag.PoolDeposit,
-      }
+      },
     });
 
-    return  swapTx.concat(provideLiquidtyTx).concat(poolDepositTx);
+    return swapTx.concat(provideLiquidtyTx).concat(poolDepositTx);
   }
 }
 
@@ -59,7 +57,7 @@ export class ZapOut implements IParser {
     const removeLiquidity: any = _.first(args.contractActions.send);
     removeLiquidity.to = args.walletAddress;
 
-    return (new TransferEngine()).process({
+    return new TransferEngine().process({
       ...args,
       contractActions: {
         send: [removeLiquidity],
@@ -69,7 +67,7 @@ export class ZapOut implements IParser {
         ...args.txType,
         description: 'Remove liquidity',
         tag: TxTag.PoolWithdrawal,
-      }
+      },
     });
   }
 

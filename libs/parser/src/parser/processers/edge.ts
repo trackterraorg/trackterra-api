@@ -3,7 +3,6 @@ import { IParsedTx, IParser, TxTag } from '..';
 import { ParserProcessArgs } from '../args';
 import { TransferEngine } from './transfer';
 
-
 export class EdgeDepositCollateral implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const { walletAddress, contractActions } = args;
@@ -16,18 +15,18 @@ export class EdgeDepositCollateral implements IParser {
         amount: {
           amount: cA.amount,
           token: cA.contract,
-        }
-      }
+        },
+      };
     });
 
-    const poolDepositTx = (new TransferEngine()).process({
+    const poolDepositTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
       transferActions: [_.first(poolDepositActions)],
       txType: {
         ...args.txType,
-        tag: TxTag.PoolDeposit
-      }
+        tag: TxTag.PoolDeposit,
+      },
     });
 
     return poolDepositTx;
@@ -38,8 +37,8 @@ export class EdgeRepay implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
     const { walletAddress, contractActions, transferActions } = args;
 
-    if (! _.isEmpty(transferActions)) {
-      return (new TransferEngine()).process(args);
+    if (!_.isEmpty(transferActions)) {
+      return new TransferEngine().process(args);
     }
 
     const repayActions = contractActions.repay.map((cA: any) => {
@@ -50,11 +49,11 @@ export class EdgeRepay implements IParser {
         amount: {
           amount: cA.amount,
           token: cA.underlying,
-        }
-      }
+        },
+      };
     });
 
-    const repayTx = (new TransferEngine()).process({
+    const repayTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
       transferActions: repayActions,
@@ -63,7 +62,6 @@ export class EdgeRepay implements IParser {
     return repayTx;
   }
 }
-
 
 export const EdgeProtocol = {
   EdgeDepositCollateral,

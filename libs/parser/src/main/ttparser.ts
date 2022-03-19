@@ -37,7 +37,7 @@ export class TTParser {
       }
 
       const { protocol, txType } = classificationResult;
-      
+
       classifiedEvents.push({
         transformedData,
         protocol,
@@ -66,7 +66,9 @@ export class TTParser {
     for (let index = 0; index < classifiedEvents.length; index++) {
       const { protocol, txType, transformedData } = classifiedEvents[index];
 
-      const allEvents = txType.requiresOtherEvents ? transformedActions : undefined;
+      const allEvents = txType.requiresOtherEvents
+        ? transformedActions
+        : undefined;
 
       let records = Parser.process({
         txType,
@@ -105,9 +107,7 @@ export class TTParser {
     });
 
     const tx: any = txInfo.tx;
-    let fees: IAmount[] | undefined = FeeParser.process(
-      tx.value?.fee?.amount,
-    );
+    let fees: IAmount[] | undefined = FeeParser.process(tx.value?.fee?.amount);
 
     // is it a fail tx?
     const failedTxRecord = txs.find((tx) => {
@@ -120,11 +120,11 @@ export class TTParser {
       const failedTx = _.first(failedTxRecord.records);
       const txAmount = _.first(fees);
       failedTx.sentAmount = txAmount.amount;
-      failedTx.sentToken = txAmount.token;      
+      failedTx.sentToken = txAmount.token;
       fees = undefined;
       failedTxRecord.records = [failedTx];
     }
-    
+
     const d = {
       txInfo,
       walletAddress,

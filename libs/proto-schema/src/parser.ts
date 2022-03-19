@@ -2,7 +2,6 @@
 import { Observable } from 'rxjs';
 import { Writer, Reader } from 'protobufjs/minimal';
 
-
 export interface ParseWalletRequest {
   address: string;
   highestParsedBlockHeight: number;
@@ -14,8 +13,7 @@ export interface ParseWalletResponse {
   msg: string;
 }
 
-export interface SupportedProtocolsRequest {
-}
+export interface SupportedProtocolsRequest {}
 
 export interface SupportedProtocol {
   protocolName: string;
@@ -37,8 +35,7 @@ const baseParseWalletResponse: object = {
   msg: '',
 };
 
-const baseSupportedProtocolsRequest: object = {
-};
+const baseSupportedProtocolsRequest: object = {};
 
 const baseSupportedProtocol: object = {
   protocolName: '',
@@ -50,29 +47,38 @@ const baseSupportedProtocolsResponse: object = {
 };
 
 export interface ParserService<Context extends DataLoaders> {
+  doParse(
+    request: ParseWalletRequest,
+    ctx: Context,
+  ): Promise<ParseWalletResponse>;
 
-  doParse(request: ParseWalletRequest, ctx: Context): Promise<ParseWalletResponse>;
-
-  supportedProtocols(request: SupportedProtocolsRequest, ctx: Context): Promise<SupportedProtocolsResponse>;
-
+  supportedProtocols(
+    request: SupportedProtocolsRequest,
+    ctx: Context,
+  ): Promise<SupportedProtocolsResponse>;
 }
 
 export interface ParserServiceClient<Context extends DataLoaders> {
+  doParse(
+    request: ParseWalletRequest,
+    ctx?: Context,
+  ): Observable<ParseWalletResponse>;
 
-  doParse(request: ParseWalletRequest, ctx?: Context): Observable<ParseWalletResponse>;
-
-  supportedProtocols(request: SupportedProtocolsRequest, ctx?: Context): Observable<SupportedProtocolsResponse>;
-
+  supportedProtocols(
+    request: SupportedProtocolsRequest,
+    ctx?: Context,
+  ): Observable<SupportedProtocolsResponse>;
 }
 
 interface DataLoaders {
-
   getDataLoader<T>(identifier: string, constructorFn: () => T): T;
-
 }
 
 export const ParseWalletRequest = {
-  encode(message: ParseWalletRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ParseWalletRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.address);
     writer.uint32(16).uint32(message.highestParsedBlockHeight);
     return writer;
@@ -103,8 +109,13 @@ export const ParseWalletRequest = {
     } else {
       message.address = '';
     }
-    if (object.highestParsedBlockHeight !== undefined && object.highestParsedBlockHeight !== null) {
-      message.highestParsedBlockHeight = Number(object.highestParsedBlockHeight);
+    if (
+      object.highestParsedBlockHeight !== undefined &&
+      object.highestParsedBlockHeight !== null
+    ) {
+      message.highestParsedBlockHeight = Number(
+        object.highestParsedBlockHeight,
+      );
     } else {
       message.highestParsedBlockHeight = 0;
     }
@@ -117,7 +128,10 @@ export const ParseWalletRequest = {
     } else {
       message.address = '';
     }
-    if (object.highestParsedBlockHeight !== undefined && object.highestParsedBlockHeight !== null) {
+    if (
+      object.highestParsedBlockHeight !== undefined &&
+      object.highestParsedBlockHeight !== null
+    ) {
       message.highestParsedBlockHeight = object.highestParsedBlockHeight;
     } else {
       message.highestParsedBlockHeight = 0;
@@ -133,7 +147,10 @@ export const ParseWalletRequest = {
 };
 
 export const ParseWalletResponse = {
-  encode(message: ParseWalletResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ParseWalletResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(8).int32(message.numberOfNewParsedTxs);
     writer.uint32(16).int32(message.status);
     writer.uint32(26).string(message.msg);
@@ -141,7 +158,9 @@ export const ParseWalletResponse = {
   },
   decode(reader: Reader, length?: number): ParseWalletResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -162,8 +181,13 @@ export const ParseWalletResponse = {
     return message;
   },
   fromJSON(object: any): ParseWalletResponse {
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
-    if (object.numberOfNewParsedTxs !== undefined && object.numberOfNewParsedTxs !== null) {
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
+    if (
+      object.numberOfNewParsedTxs !== undefined &&
+      object.numberOfNewParsedTxs !== null
+    ) {
       message.numberOfNewParsedTxs = Number(object.numberOfNewParsedTxs);
     } else {
       message.numberOfNewParsedTxs = 0;
@@ -181,8 +205,13 @@ export const ParseWalletResponse = {
     return message;
   },
   fromPartial(object: DeepPartial<ParseWalletResponse>): ParseWalletResponse {
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
-    if (object.numberOfNewParsedTxs !== undefined && object.numberOfNewParsedTxs !== null) {
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
+    if (
+      object.numberOfNewParsedTxs !== undefined &&
+      object.numberOfNewParsedTxs !== null
+    ) {
       message.numberOfNewParsedTxs = object.numberOfNewParsedTxs;
     } else {
       message.numberOfNewParsedTxs = 0;
@@ -209,12 +238,17 @@ export const ParseWalletResponse = {
 };
 
 export const SupportedProtocolsRequest = {
-  encode(message: SupportedProtocolsRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: SupportedProtocolsRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     return writer;
   },
   decode(reader: Reader, length?: number): SupportedProtocolsRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseSupportedProtocolsRequest) as SupportedProtocolsRequest;
+    const message = Object.create(
+      baseSupportedProtocolsRequest,
+    ) as SupportedProtocolsRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -226,11 +260,17 @@ export const SupportedProtocolsRequest = {
     return message;
   },
   fromJSON(object: any): SupportedProtocolsRequest {
-    const message = Object.create(baseSupportedProtocolsRequest) as SupportedProtocolsRequest;
+    const message = Object.create(
+      baseSupportedProtocolsRequest,
+    ) as SupportedProtocolsRequest;
     return message;
   },
-  fromPartial(object: DeepPartial<SupportedProtocolsRequest>): SupportedProtocolsRequest {
-    const message = Object.create(baseSupportedProtocolsRequest) as SupportedProtocolsRequest;
+  fromPartial(
+    object: DeepPartial<SupportedProtocolsRequest>,
+  ): SupportedProtocolsRequest {
+    const message = Object.create(
+      baseSupportedProtocolsRequest,
+    ) as SupportedProtocolsRequest;
     return message;
   },
   toJSON(message: SupportedProtocolsRequest): unknown {
@@ -301,7 +341,10 @@ export const SupportedProtocol = {
 };
 
 export const SupportedProtocolsResponse = {
-  encode(message: SupportedProtocolsResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: SupportedProtocolsResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.protocols) {
       SupportedProtocol.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -309,13 +352,17 @@ export const SupportedProtocolsResponse = {
   },
   decode(reader: Reader, length?: number): SupportedProtocolsResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseSupportedProtocolsResponse) as SupportedProtocolsResponse;
+    const message = Object.create(
+      baseSupportedProtocolsResponse,
+    ) as SupportedProtocolsResponse;
     message.protocols = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.protocols.push(SupportedProtocol.decode(reader, reader.uint32()));
+          message.protocols.push(
+            SupportedProtocol.decode(reader, reader.uint32()),
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -325,7 +372,9 @@ export const SupportedProtocolsResponse = {
     return message;
   },
   fromJSON(object: any): SupportedProtocolsResponse {
-    const message = Object.create(baseSupportedProtocolsResponse) as SupportedProtocolsResponse;
+    const message = Object.create(
+      baseSupportedProtocolsResponse,
+    ) as SupportedProtocolsResponse;
     message.protocols = [];
     if (object.protocols !== undefined && object.protocols !== null) {
       for (const e of object.protocols) {
@@ -334,8 +383,12 @@ export const SupportedProtocolsResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<SupportedProtocolsResponse>): SupportedProtocolsResponse {
-    const message = Object.create(baseSupportedProtocolsResponse) as SupportedProtocolsResponse;
+  fromPartial(
+    object: DeepPartial<SupportedProtocolsResponse>,
+  ): SupportedProtocolsResponse {
+    const message = Object.create(
+      baseSupportedProtocolsResponse,
+    ) as SupportedProtocolsResponse;
     message.protocols = [];
     if (object.protocols !== undefined && object.protocols !== null) {
       for (const e of object.protocols) {
@@ -347,7 +400,9 @@ export const SupportedProtocolsResponse = {
   toJSON(message: SupportedProtocolsResponse): unknown {
     const obj: any = {};
     if (message.protocols) {
-      obj.protocols = message.protocols.map(e => e ? SupportedProtocol.toJSON(e) : undefined);
+      obj.protocols = message.protocols.map((e) =>
+        e ? SupportedProtocol.toJSON(e) : undefined,
+      );
     } else {
       obj.protocols = [];
     }
@@ -357,14 +412,14 @@ export const SupportedProtocolsResponse = {
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T[P] extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T[P] extends Date | Function | Uint8Array | undefined
-  ? T[P]
-  : T[P] extends infer U | undefined
-  ? DeepPartial<U>
-  : T[P] extends object
-  ? DeepPartial<T[P]>
-  : T[P]
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : T[P] extends Date | Function | Uint8Array | undefined
+    ? T[P]
+    : T[P] extends infer U | undefined
+    ? DeepPartial<U>
+    : T[P] extends object
+    ? DeepPartial<T[P]>
+    : T[P];
 };

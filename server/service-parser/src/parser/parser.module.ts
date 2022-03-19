@@ -46,7 +46,7 @@ import { PARSING_QUEUE_NAME } from './parser.constants';
     BullModule.registerQueueAsync({
       name: PARSING_QUEUE_NAME,
       useClass: BullConfigService,
-    })
+    }),
   ],
   providers: [
     TTParser,

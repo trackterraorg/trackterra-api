@@ -17,7 +17,7 @@ export class Classifier {
     const protocols: Protocol[] | undefined = protocolLoader?.protocols.filter(
       (p) => p.type == transformedData.type,
     );
-    
+
     const transformedDataTxType = transformedData.type;
 
     if (transformedDataTxType === ProtocolType.Contract) {
@@ -44,11 +44,11 @@ export class Classifier {
           },
         );
 
-        if (! _.isEmpty(txType)) {
+        if (!_.isEmpty(txType)) {
           console.log(txType);
           return {
             protocol: selectedProtocol,
-            txType
+            txType,
           };
         }
       }
@@ -61,7 +61,7 @@ export class Classifier {
       return {
         protocol,
         txType: _.first(protocol.transactions),
-      }
+      };
     }
 
     if (transformedDataTxType === ProtocolType.Native) {
@@ -73,7 +73,7 @@ export class Classifier {
       const txType = _.first(protocol.transactions);
       return {
         protocol,
-        txType
+        txType,
       };
     }
 
@@ -143,8 +143,8 @@ export class Classifier {
     let txTypeName = 'NativeSendReceive';
 
     // the info is retrieved from extraParsingInfo when transforming the event
-    
-    const otherNativeTxsName = transferActions.find((tA:any) => {
+
+    const otherNativeTxsName = transferActions.find((tA: any) => {
       return Object.keys(tA).includes('extraParsingInfo');
     })?.extraParsingInfo;
 
@@ -158,7 +158,7 @@ export class Classifier {
 
     return {
       protocol: nativeProtocol,
-      txType
-    }
+      txType,
+    };
   }
 }

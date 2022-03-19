@@ -27,6 +27,6 @@ export type TransformedMessages = {
 };
 
 export type TransformedOutput = {
-  events: TransformedEvents[],
-  messages: TransformedMessages,
-}
+  events: TransformedEvents[];
+  messages: TransformedMessages;
+};

@@ -7,6 +7,11 @@ import { WalletsService } from './wallets.service';
 
 @Module({
   controllers: [WalletsController],
-  providers: [WalletsService, WalletsResolver, WalletsMutationResolver, ParseStatusScalar],
+  providers: [
+    WalletsService,
+    WalletsResolver,
+    WalletsMutationResolver,
+    ParseStatusScalar,
+  ],
 })
 export class WalletsModule {}

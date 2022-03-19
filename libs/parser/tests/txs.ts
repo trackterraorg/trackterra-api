@@ -31,7 +31,8 @@ export const txHashes = {
     },
     {
       label: 'unbond luna',
-      txHash: 'F3E74C4518506A566DEC992820E77871897FAACC922012B6DF2B2181DEB7EC64',
+      txHash:
+        'F3E74C4518506A566DEC992820E77871897FAACC922012B6DF2B2181DEB7EC64',
       walletAddress: 'terra1gwchttht43u26578j7uerunynr5u443626zf4z',
     },
     {
@@ -157,24 +158,28 @@ export const txHashes = {
     },
     {
       label: 'Anchor claim rewards',
-      txHash: '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
+      txHash:
+        '81CAEC2FC8032302286DDC96C09AF9411E9D9996610B98A118A24565B86BC444',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'pool deposit',
-      txHash: 'F9A843E9A44D9D3A19962D1DE86CEBCDE1A6A1BC0814D45ACC8FE991EC9C84A9',
+      txHash:
+        'F9A843E9A44D9D3A19962D1DE86CEBCDE1A6A1BC0814D45ACC8FE991EC9C84A9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
   mirror: [
     {
       label: 'gov stake',
-      txHash: '7B98A26C056DBD27425E4865A433C4DCBFBC07471995995C134D7A98A1D44563',
+      txHash:
+        '7B98A26C056DBD27425E4865A433C4DCBFBC07471995995C134D7A98A1D44563',
       walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
     },
     {
       label: 'gov unstake',
-      txHash: '42400778F027830473C4C556B26B7D749A93D36ACA96BBFA3198AAB0949D8A83',
+      txHash:
+        '42400778F027830473C4C556B26B7D749A93D36ACA96BBFA3198AAB0949D8A83',
       walletAddress: 'terra1m3jg6rdylqnpwtuv6hs034n662w57qyzen6t6s',
     },
     {
@@ -203,32 +208,38 @@ export const txHashes = {
     },
     {
       label: 'Mirror Close Short Farm',
-      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      txHash:
+        '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'Mirror borrow',
-      txHash: '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
+      txHash:
+        '857784C5B0191F003F5A70C5719212F203C5F4CAE35D196A3F385A12029EE8E1',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'Mirror adjust borrow',
-      txHash: '77DF2F92ED5132384FAB8C95B27D030CA10BECF626A9E0E26A2DDE26496F41B2',
+      txHash:
+        '77DF2F92ED5132384FAB8C95B27D030CA10BECF626A9E0E26A2DDE26496F41B2',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'liquidation',
-      txHash: '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
+      txHash:
+        '6C91E8433CB0349960D7BE6FAEE0952BF030AB6EBCE34A14DD7E667F192CFA93',
       walletAddress: 'terra1azsvasnfgq605f754hu7qtkpp8ue6k2pray8sq',
     },
     {
       label: 'goverance proposal collateral deposit',
-      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
+      txHash:
+        '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: ' cast vote',
-      txHash: '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
+      txHash:
+        '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
       walletAddress: 'terra1u9vatqv6t9w6fmrylspnlmqg45h4jgy70kr52r',
     },
   ],
@@ -259,17 +270,20 @@ export const txHashes = {
     },
     {
       label: 'Nexus staking reward',
-      txHash: 'C8040E3A0397F1CB07D7564723596B4AB17984A7530A06D58DECCAEBD26D8509',
+      txHash:
+        'C8040E3A0397F1CB07D7564723596B4AB17984A7530A06D58DECCAEBD26D8509',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'staking reward',
-      txHash: 'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
+      txHash:
+        'CDA4B73A39B721DD97D79D3133B232E7E7DA3561AA93D6DF55D5A4AE4959F784',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'basset nasset swap',
-      txHash: '2E3B29A6C7018FEA87CA21D9DEB8EC4AEB1FC3616F01B8DAB1AB284BE5694319',
+      txHash:
+        '2E3B29A6C7018FEA87CA21D9DEB8EC4AEB1FC3616F01B8DAB1AB284BE5694319',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
@@ -282,12 +296,14 @@ export const txHashes = {
     },
     {
       label: 'stake lp',
-      txHash: '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
+      txHash:
+        '32E069E6E4B5187194B9F1A8E6890381087FBADC48357969450F9B0259508828',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: ' autostake lp',
-      txHash: 'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
+      txHash:
+        'E61E06551A9FBABC4FE72321C2559427598959741892C4D43ACC643EB6707C5A',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
@@ -312,12 +328,14 @@ export const txHashes = {
     },
     {
       label: 'Withdraw',
-      txHash: '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
+      txHash:
+        '717353568BE723BB9BCC8248A37C2BDACE08E67F0B4C4B578C2B1CFAE5684C77',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'unstake',
-      txHash: 'AF11BEB11CFE5F47D51519FFDFD74503DCD7096A514F29A52DE436914516B24F',
+      txHash:
+        'AF11BEB11CFE5F47D51519FFDFD74503DCD7096A514F29A52DE436914516B24F',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
@@ -325,7 +343,8 @@ export const txHashes = {
   apollo: [
     {
       label: 'Zap in',
-      txHash: '1F891E7C2E36E10AA13F72D6F09730AC9CD2A965D81814AA4D2D3BA7A6AA2D2E',
+      txHash:
+        '1F891E7C2E36E10AA13F72D6F09730AC9CD2A965D81814AA4D2D3BA7A6AA2D2E',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
@@ -380,27 +399,32 @@ export const txHashes = {
     },
     {
       label: 'Pylon pool withdrawal',
-      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
+      txHash:
+        '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'Pylon unstake',
-      txHash: 'B129BC36D828361FEFA1008110575A5FA9602EA062C1E0FE1124717AEC33ADDB',
+      txHash:
+        'B129BC36D828361FEFA1008110575A5FA9602EA062C1E0FE1124717AEC33ADDB',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
     {
       label: 'Pylon unstake lp',
-      txHash: 'C7ECFA95EFB695B52E5BE2B72A5C09A79C1401C60A7D9F9F21DDEAC6C198951F',
+      txHash:
+        'C7ECFA95EFB695B52E5BE2B72A5C09A79C1401C60A7D9F9F21DDEAC6C198951F',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
     {
       label: 'Pylon staking',
-      txHash: 'EC82DB91F3C9EDAA58831C3DFC6CC98DA4B0F8A6066DC98D5D2FAD5D8111ABDA',
+      txHash:
+        'EC82DB91F3C9EDAA58831C3DFC6CC98DA4B0F8A6066DC98D5D2FAD5D8111ABDA',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
     {
       label: ' unstake',
-      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
+      txHash:
+        '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
@@ -439,7 +463,8 @@ export const txHashes = {
     },
     {
       label: 'Withdraw liquidity',
-      txHash: '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
+      txHash:
+        '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
@@ -452,178 +477,210 @@ export const txHashes = {
     },
     {
       label: 'provide liquidity',
-      txHash: '1987D4114E7D0911A3C5E4BE4E1D9411A1E29915B78FA7B413961FDDE0E7BDB8',
+      txHash:
+        '1987D4114E7D0911A3C5E4BE4E1D9411A1E29915B78FA7B413961FDDE0E7BDB8',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'withdraw liquidity',
-      txHash: '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
+      txHash:
+        '48219D6CE87E0BEF9091C320A7B2693F995B10C9F9DFDF5AD0AAB37F1302BD6C',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'prism refract',
-      txHash: 'B63EEE39465F455F81CCDBBE39D1B76FFE37775B0DE7B137CE2FB0034F192BC3',
+      txHash:
+        'B63EEE39465F455F81CCDBBE39D1B76FFE37775B0DE7B137CE2FB0034F192BC3',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'bond',
-      txHash: '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
+      txHash:
+        '76E6C65432DC095B0C7DF9D13A776C137A37D0B12756E1F595FC33192A98EF88',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'merge',
-      txHash: '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
+      txHash:
+        '9AC8B2FECB8A32BA7A1C4DA093F854DF346E2EF0A56D673F20397FF1EF2EACC4',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'Prism stake',
-      txHash: 'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
+      txHash:
+        'CBF2254A92391B3E88A45A4373658754088F6CDA09AF4833A3C522253F0E093F',
       walletAddress: 'terra1q0eyhv6wg7ty26x2gkmg6fqqm4qn4wetcukacv',
     },
     {
       label: ' Swap prism for xprism',
-      txHash: '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
+      txHash:
+        '0DAB249C7FBB3DD529436742A84AF8BF0B17803D63D0AFFB034CA44BBF54F467',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
   nft: [
     {
       label: 'random earth pool deposit',
-      txHash: '1403B58E47B1C91F9E89F8EB2EF1A5BCB046BD1DECF1D385D1D2DBBC99101BF1',
+      txHash:
+        '1403B58E47B1C91F9E89F8EB2EF1A5BCB046BD1DECF1D385D1D2DBBC99101BF1',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'random earth pool withdraw',
-      txHash: '20A96BE9F86EFBE187C32A6E5D2D3147BDF6A895A8B4F42ACAEBBF335E474143',
+      txHash:
+        '20A96BE9F86EFBE187C32A6E5D2D3147BDF6A895A8B4F42ACAEBBF335E474143',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'Purchase nft',
-      txHash: 'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
+      txHash:
+        'EC5A9BB498D55CEC400012C92D98E79E0F5B8C3973188BA724C5ACC58AA806D1',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'Withdraw',
-      txHash: 'AFB64256F6E6106DC92058B13FBD68E8505B59B32B07685237A2251D9177CAE7',
+      txHash:
+        'AFB64256F6E6106DC92058B13FBD68E8505B59B32B07685237A2251D9177CAE7',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'Deposit',
-      txHash: '49986E583C33AFD66E089ADC62B4E1E3D9A104851098A52C9519B484F7D4F9E1',
+      txHash:
+        '49986E583C33AFD66E089ADC62B4E1E3D9A104851098A52C9519B484F7D4F9E1',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'Place bid',
-      txHash: '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
+      txHash:
+        '3347CE63DB962FB047B992DB184A5CE4D568720235DAA000994BE1F5691659C8',
       walletAddress: 'terra1wtjfazdwh7d6n5k844dxv4gaz8qlk80ep2qqn3',
     },
     {
       label: 'List nft',
-      txHash: '495BF9BC4BFF5FFE28C6CAA3FD1802925D0FAECF554C725A3B5CF4F2A29BF1F1',
+      txHash:
+        '495BF9BC4BFF5FFE28C6CAA3FD1802925D0FAECF554C725A3B5CF4F2A29BF1F1',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
     {
       label: 'Cancel order',
-      txHash: '0020823EB288412C9EA73EEAD8670E3CAA1F6716DC9AF9F4346FD657D95E9141',
+      txHash:
+        '0020823EB288412C9EA73EEAD8670E3CAA1F6716DC9AF9F4346FD657D95E9141',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
   loop: [
     {
       label: 'claim airdrop',
-      txHash: '0ECC825CEA50F2F699B009D4E88C2655BF3E7C730770E8AF06B515223C91439B',
+      txHash:
+        '0ECC825CEA50F2F699B009D4E88C2655BF3E7C730770E8AF06B515223C91439B',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
   valkyrie: [
     {
       label: 'unstake',
-      txHash: '3F0ADEF5B19F0CABF826195C633D4512B799435628AF4CFEDCFBE9734B0D05EC',
+      txHash:
+        '3F0ADEF5B19F0CABF826195C633D4512B799435628AF4CFEDCFBE9734B0D05EC',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
   kujira: [
     {
       label: ' unstake',
-      txHash: '7C5CCB45FF447F86581A114B8A8DCA2015A0780E1F2DA1EFB42F1E374E224D0C',
+      txHash:
+        '7C5CCB45FF447F86581A114B8A8DCA2015A0780E1F2DA1EFB42F1E374E224D0C',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
   mars: [
     {
       label: ' collateral deposit',
-      txHash: '04854526D1CB8AF7FCC1F351C5170937C6DF39CE12935EA76BA2EC2E958BE315',
+      txHash:
+        '04854526D1CB8AF7FCC1F351C5170937C6DF39CE12935EA76BA2EC2E958BE315',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' borrow',
-      txHash: '76F6E0882C7D4C7C084D28C1B79CBE5E8FF4F570D90AD73F918BF2A5A5F2AC58',
+      txHash:
+        '76F6E0882C7D4C7C084D28C1B79CBE5E8FF4F570D90AD73F918BF2A5A5F2AC58',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' repay',
-      txHash: '53D2F8267039D281642642D25F22F4C42365DF1666594CF8BC2CB31817454D8C',
+      txHash:
+        '53D2F8267039D281642642D25F22F4C42365DF1666594CF8BC2CB31817454D8C',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'leveraged yeild farming open position',
-      txHash: '3FCFE4CE431B557EA9D76238B99872B802CEFFC3165CE47966A26873BA271A11',
+      txHash:
+        '3FCFE4CE431B557EA9D76238B99872B802CEFFC3165CE47966A26873BA271A11',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' leveraged yeild farming adjust position',
-      txHash: '36FBACF52AF464527A56E578FE6FEFAE310ED91B8268E93C3F56267C69AA9352',
+      txHash:
+        '36FBACF52AF464527A56E578FE6FEFAE310ED91B8268E93C3F56267C69AA9352',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' leveraged yeild farming close position',
-      txHash: '91764414343B34D66592B0A534C5C403D54F76DCEF97DFB1C16914386AEBAD62',
+      txHash:
+        '91764414343B34D66592B0A534C5C403D54F76DCEF97DFB1C16914386AEBAD62',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' add collateral',
-      txHash: 'CB244A4EC6A706F1962B8C1588DE49F4798C7DAA6EF06D5CA6EC9E63DAF55C75',
+      txHash:
+        'CB244A4EC6A706F1962B8C1588DE49F4798C7DAA6EF06D5CA6EC9E63DAF55C75',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
   edge: [
     {
       label: ' deposit collateral',
-      txHash: 'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
+      txHash:
+        'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' adjust options',
-      txHash: 'c666023c7259bdbb8fdc7c2d05ea46c5cf985b2b83e39ffe57461467bac5cbbe',
+      txHash:
+        'c666023c7259bdbb8fdc7c2d05ea46c5cf985b2b83e39ffe57461467bac5cbbe',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: 'edge borrow native token',
-      txHash: 'BAD55C99EC86F9252E9C0F8158198927FB5508089CBBDC2D25072E4AFB7AB536',
+      txHash:
+        'BAD55C99EC86F9252E9C0F8158198927FB5508089CBBDC2D25072E4AFB7AB536',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' repay',
-      txHash: 'ce79709537a35c4803a5518e6a0a3728d516a9355ee01388c791e0ee6c360628',
+      txHash:
+        'ce79709537a35c4803a5518e6a0a3728d516a9355ee01388c791e0ee6c360628',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
     {
       label: ' repay native',
-      txHash: '2c70838c859b08d4dcc6b742d242134ad104a6d0c1fef01f37032bfa1669bff8',
+      txHash:
+        '2c70838c859b08d4dcc6b742d242134ad104a6d0c1fef01f37032bfa1669bff8',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
   stader: [
     {
       label: ' lunax delegate',
-      txHash: 'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
+      txHash:
+        'bfee5063227fa2a72e4f0531c76c5decac4831cbcfbc096227e1ca5bfed03af7',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
   generic: [
     {
       label: 'transfer deposit',
-      txHash: '5F0D7AA3CE09B13867CF2B5985A32E22CFFFF6451F6FC573A81BD3E857F333F2',
+      txHash:
+        '5F0D7AA3CE09B13867CF2B5985A32E22CFFFF6451F6FC573A81BD3E857F333F2',
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
@@ -631,7 +688,8 @@ export const txHashes = {
     {
       label: 'basset nasset swap',
 
-      txHash: '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
+      txHash:
+        '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
       walletAddress: 'terra1u9vatqv6t9w6fmrylspnlmqg45h4jgy70kr52r',
     },
   ],

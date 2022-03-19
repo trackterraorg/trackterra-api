@@ -6,7 +6,11 @@ import { RpcException } from '@nestjs/microservices';
 import { ReadWalletResponse, Wallet } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
-import { fShortenHash, NotFoundRpcException, ValidationRpcException } from '@trackterra/common';
+import {
+  fShortenHash,
+  NotFoundRpcException,
+  ValidationRpcException,
+} from '@trackterra/common';
 
 @QueryHandler(GetWalletQuery)
 export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
@@ -17,7 +21,6 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
     const { input } = query;
     const { address } = input;
 
-    
     if (_.isEmpty(address)) {
       throw new ValidationRpcException('Wallet address required!');
     }
@@ -27,14 +30,15 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
     }
 
     try {
-      
       const walletEntity: WalletEntity = await this.walletRepository.findOne(
         { address },
         true,
       );
 
       if (!walletEntity) {
-        throw new NotFoundRpcException('Wallet not parsed. Please parse it first!');
+        throw new NotFoundRpcException(
+          'Wallet not parsed. Please parse it first!',
+        );
       }
 
       const wallet = walletEntity as unknown as Wallet;

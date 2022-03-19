@@ -10,7 +10,7 @@ export class WalletTxsService {
 
   async getTxs(
     address: string,
-    {taxapp, q, page, take, order, orderBy, csv }: FindTxsDto,
+    { taxapp, q, page, take, order, orderBy, csv }: FindTxsDto,
   ): Promise<FindTxsResponse> {
     const filter = q ? JSON.stringify(queryMapper(q)) : q;
     const result = await this.wallet.svc
@@ -27,7 +27,7 @@ export class WalletTxsService {
         csv,
       })
       .toPromise();
-    
+
     return result;
   }
 }

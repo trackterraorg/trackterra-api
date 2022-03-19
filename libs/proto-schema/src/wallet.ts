@@ -2,7 +2,6 @@
 import { Observable } from 'rxjs';
 import { Writer, Reader } from 'protobufjs/minimal';
 
-
 export interface RestPaginate {
   skip: number;
   limit: number;
@@ -566,18 +565,35 @@ const baseUpdateWalletResponse: object = {
 };
 
 export interface WalletService<Context extends DataLoaders> {
+  parseWallet(
+    request: ParseWalletRequest,
+    ctx: Context,
+  ): Promise<ParseWalletResponse>;
 
-  parseWallet(request: ParseWalletRequest, ctx: Context): Promise<ParseWalletResponse>;
+  createTxs(
+    request: CreateTxsRequest,
+    ctx: Context,
+  ): Promise<CreateTxsResponse>;
 
-  createTxs(request: CreateTxsRequest, ctx: Context): Promise<CreateTxsResponse>;
+  readWallet(
+    request: ReadWalletRequest,
+    ctx: Context,
+  ): Promise<ReadWalletResponse>;
 
-  readWallet(request: ReadWalletRequest, ctx: Context): Promise<ReadWalletResponse>;
+  updateWallet(
+    request: UpdateWalletRequest,
+    ctx: Context,
+  ): Promise<UpdateWalletResponse>;
 
-  updateWallet(request: UpdateWalletRequest, ctx: Context): Promise<UpdateWalletResponse>;
+  readWalletDetail(
+    request: ReadWalletDetailRequest,
+    ctx: Context,
+  ): Promise<ReadWalletDetailResponse>;
 
-  readWalletDetail(request: ReadWalletDetailRequest, ctx: Context): Promise<ReadWalletDetailResponse>;
-
-  findWallets(request: FindWalletsRequest, ctx: Context): Promise<FindWalletsResponse>;
+  findWallets(
+    request: FindWalletsRequest,
+    ctx: Context,
+  ): Promise<FindWalletsResponse>;
 
   createTx(request: CreateTxRequest, ctx: Context): Promise<CreateTxResponse>;
 
@@ -587,40 +603,65 @@ export interface WalletService<Context extends DataLoaders> {
 
   findTxs(request: FindTxsRequest, ctx: Context): Promise<FindTxsResponse>;
 
-  pickUnparsedTxs(request: PickUnparsedTxsRequest, ctx: Context): Promise<PickUnparsedTxsResponse>;
-
+  pickUnparsedTxs(
+    request: PickUnparsedTxsRequest,
+    ctx: Context,
+  ): Promise<PickUnparsedTxsResponse>;
 }
 
 export interface WalletServiceClient<Context extends DataLoaders> {
+  parseWallet(
+    request: ParseWalletRequest,
+    ctx?: Context,
+  ): Observable<ParseWalletResponse>;
 
-  parseWallet(request: ParseWalletRequest, ctx?: Context): Observable<ParseWalletResponse>;
+  createTxs(
+    request: CreateTxsRequest,
+    ctx?: Context,
+  ): Observable<CreateTxsResponse>;
 
-  createTxs(request: CreateTxsRequest, ctx?: Context): Observable<CreateTxsResponse>;
+  readWallet(
+    request: ReadWalletRequest,
+    ctx?: Context,
+  ): Observable<ReadWalletResponse>;
 
-  readWallet(request: ReadWalletRequest, ctx?: Context): Observable<ReadWalletResponse>;
+  updateWallet(
+    request: UpdateWalletRequest,
+    ctx?: Context,
+  ): Observable<UpdateWalletResponse>;
 
-  updateWallet(request: UpdateWalletRequest, ctx?: Context): Observable<UpdateWalletResponse>;
+  readWalletDetail(
+    request: ReadWalletDetailRequest,
+    ctx?: Context,
+  ): Observable<ReadWalletDetailResponse>;
 
-  readWalletDetail(request: ReadWalletDetailRequest, ctx?: Context): Observable<ReadWalletDetailResponse>;
+  findWallets(
+    request: FindWalletsRequest,
+    ctx?: Context,
+  ): Observable<FindWalletsResponse>;
 
-  findWallets(request: FindWalletsRequest, ctx?: Context): Observable<FindWalletsResponse>;
+  createTx(
+    request: CreateTxRequest,
+    ctx?: Context,
+  ): Observable<CreateTxResponse>;
 
-  createTx(request: CreateTxRequest, ctx?: Context): Observable<CreateTxResponse>;
-
-  deleteTx(request: DeleteTxRequest, ctx?: Context): Observable<DeleteTxResponse>;
+  deleteTx(
+    request: DeleteTxRequest,
+    ctx?: Context,
+  ): Observable<DeleteTxResponse>;
 
   readTx(request: ReadTxRequest, ctx?: Context): Observable<ReadTxResponse>;
 
   findTxs(request: FindTxsRequest, ctx?: Context): Observable<FindTxsResponse>;
 
-  pickUnparsedTxs(request: PickUnparsedTxsRequest, ctx?: Context): Observable<PickUnparsedTxsResponse>;
-
+  pickUnparsedTxs(
+    request: PickUnparsedTxsRequest,
+    ctx?: Context,
+  ): Observable<PickUnparsedTxsResponse>;
 }
 
 interface DataLoaders {
-
   getDataLoader<T>(identifier: string, constructorFn: () => T): T;
-
 }
 
 export const ParsingStatus = {
@@ -630,13 +671,13 @@ export const ParsingStatus = {
   fromJSON(object: any): ParsingStatus {
     switch (object) {
       case 0:
-      case "PARSING":
+      case 'PARSING':
         return ParsingStatus.PARSING;
       case 1:
-      case "DONE":
+      case 'DONE':
         return ParsingStatus.DONE;
       case 2:
-      case "FAILED":
+      case 'FAILED':
         return ParsingStatus.FAILED;
       default:
         throw new global.Error(`Invalid value ${object}`);
@@ -645,16 +686,16 @@ export const ParsingStatus = {
   toJSON(object: ParsingStatus): string {
     switch (object) {
       case ParsingStatus.PARSING:
-        return "PARSING";
+        return 'PARSING';
       case ParsingStatus.DONE:
-        return "DONE";
+        return 'DONE';
       case ParsingStatus.FAILED:
-        return "FAILED";
+        return 'FAILED';
       default:
-        return "UNKNOWN";
+        return 'UNKNOWN';
     }
   },
-}
+};
 
 export type ParsingStatus = 0 | 1 | 2;
 
@@ -928,7 +969,10 @@ export const Wallet = {
     } else {
       message.address = '';
     }
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = Number(object.highestParsedBlock);
     } else {
       message.highestParsedBlock = 0;
@@ -962,7 +1006,10 @@ export const Wallet = {
     } else {
       message.address = '';
     }
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = object.highestParsedBlock;
     } else {
       message.highestParsedBlock = 0;
@@ -1104,7 +1151,10 @@ export const ReadWalletRequest = {
 };
 
 export const ReadWalletResponse = {
-  encode(message: ReadWalletResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ReadWalletResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     if (message.wallet !== undefined && message.wallet !== undefined) {
       Wallet.encode(message.wallet, writer.uint32(10).fork()).ldelim();
     }
@@ -1163,19 +1213,26 @@ export const ReadWalletResponse = {
   toJSON(message: ReadWalletResponse): unknown {
     const obj: any = {};
     obj.wallet = message.wallet ? Wallet.toJSON(message.wallet) : undefined;
-    obj.extras = message.extras ? WalletExtras.toJSON(message.extras) : undefined;
+    obj.extras = message.extras
+      ? WalletExtras.toJSON(message.extras)
+      : undefined;
     return obj;
   },
 };
 
 export const ReadWalletDetailRequest = {
-  encode(message: ReadWalletDetailRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ReadWalletDetailRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.address);
     return writer;
   },
   decode(reader: Reader, length?: number): ReadWalletDetailRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseReadWalletDetailRequest) as ReadWalletDetailRequest;
+    const message = Object.create(
+      baseReadWalletDetailRequest,
+    ) as ReadWalletDetailRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1190,7 +1247,9 @@ export const ReadWalletDetailRequest = {
     return message;
   },
   fromJSON(object: any): ReadWalletDetailRequest {
-    const message = Object.create(baseReadWalletDetailRequest) as ReadWalletDetailRequest;
+    const message = Object.create(
+      baseReadWalletDetailRequest,
+    ) as ReadWalletDetailRequest;
     if (object.address !== undefined && object.address !== null) {
       message.address = String(object.address);
     } else {
@@ -1198,8 +1257,12 @@ export const ReadWalletDetailRequest = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<ReadWalletDetailRequest>): ReadWalletDetailRequest {
-    const message = Object.create(baseReadWalletDetailRequest) as ReadWalletDetailRequest;
+  fromPartial(
+    object: DeepPartial<ReadWalletDetailRequest>,
+  ): ReadWalletDetailRequest {
+    const message = Object.create(
+      baseReadWalletDetailRequest,
+    ) as ReadWalletDetailRequest;
     if (object.address !== undefined && object.address !== null) {
       message.address = object.address;
     } else {
@@ -1337,7 +1400,10 @@ export const TopOperation = {
 };
 
 export const ReadWalletDetailResponse = {
-  encode(message: ReadWalletDetailResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ReadWalletDetailResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.address);
     writer.uint32(16).int32(message.txCount);
     writer.uint32(24).int32(message.unclassifiedTxCount);
@@ -1353,7 +1419,9 @@ export const ReadWalletDetailResponse = {
   },
   decode(reader: Reader, length?: number): ReadWalletDetailResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseReadWalletDetailResponse) as ReadWalletDetailResponse;
+    const message = Object.create(
+      baseReadWalletDetailResponse,
+    ) as ReadWalletDetailResponse;
     message.topActiveContracts = [];
     message.topOperations = [];
     while (reader.pos < end) {
@@ -1375,10 +1443,14 @@ export const ReadWalletDetailResponse = {
           message.highestParsedBlock = reader.int32();
           break;
         case 6:
-          message.topActiveContracts.push(TopActiveContract.decode(reader, reader.uint32()));
+          message.topActiveContracts.push(
+            TopActiveContract.decode(reader, reader.uint32()),
+          );
           break;
         case 7:
-          message.topOperations.push(TopOperation.decode(reader, reader.uint32()));
+          message.topOperations.push(
+            TopOperation.decode(reader, reader.uint32()),
+          );
           break;
         default:
           reader.skipType(tag & 7);
@@ -1388,7 +1460,9 @@ export const ReadWalletDetailResponse = {
     return message;
   },
   fromJSON(object: any): ReadWalletDetailResponse {
-    const message = Object.create(baseReadWalletDetailResponse) as ReadWalletDetailResponse;
+    const message = Object.create(
+      baseReadWalletDetailResponse,
+    ) as ReadWalletDetailResponse;
     message.topActiveContracts = [];
     message.topOperations = [];
     if (object.address !== undefined && object.address !== null) {
@@ -1401,22 +1475,34 @@ export const ReadWalletDetailResponse = {
     } else {
       message.txCount = 0;
     }
-    if (object.unclassifiedTxCount !== undefined && object.unclassifiedTxCount !== null) {
+    if (
+      object.unclassifiedTxCount !== undefined &&
+      object.unclassifiedTxCount !== null
+    ) {
       message.unclassifiedTxCount = Number(object.unclassifiedTxCount);
     } else {
       message.unclassifiedTxCount = 0;
     }
-    if (object.lastParsingTime !== undefined && object.lastParsingTime !== null) {
+    if (
+      object.lastParsingTime !== undefined &&
+      object.lastParsingTime !== null
+    ) {
       message.lastParsingTime = String(object.lastParsingTime);
     } else {
       message.lastParsingTime = '';
     }
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = Number(object.highestParsedBlock);
     } else {
       message.highestParsedBlock = 0;
     }
-    if (object.topActiveContracts !== undefined && object.topActiveContracts !== null) {
+    if (
+      object.topActiveContracts !== undefined &&
+      object.topActiveContracts !== null
+    ) {
       for (const e of object.topActiveContracts) {
         message.topActiveContracts.push(TopActiveContract.fromJSON(e));
       }
@@ -1428,8 +1514,12 @@ export const ReadWalletDetailResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<ReadWalletDetailResponse>): ReadWalletDetailResponse {
-    const message = Object.create(baseReadWalletDetailResponse) as ReadWalletDetailResponse;
+  fromPartial(
+    object: DeepPartial<ReadWalletDetailResponse>,
+  ): ReadWalletDetailResponse {
+    const message = Object.create(
+      baseReadWalletDetailResponse,
+    ) as ReadWalletDetailResponse;
     message.topActiveContracts = [];
     message.topOperations = [];
     if (object.address !== undefined && object.address !== null) {
@@ -1442,22 +1532,34 @@ export const ReadWalletDetailResponse = {
     } else {
       message.txCount = 0;
     }
-    if (object.unclassifiedTxCount !== undefined && object.unclassifiedTxCount !== null) {
+    if (
+      object.unclassifiedTxCount !== undefined &&
+      object.unclassifiedTxCount !== null
+    ) {
       message.unclassifiedTxCount = object.unclassifiedTxCount;
     } else {
       message.unclassifiedTxCount = 0;
     }
-    if (object.lastParsingTime !== undefined && object.lastParsingTime !== null) {
+    if (
+      object.lastParsingTime !== undefined &&
+      object.lastParsingTime !== null
+    ) {
       message.lastParsingTime = object.lastParsingTime;
     } else {
       message.lastParsingTime = '';
     }
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = object.highestParsedBlock;
     } else {
       message.highestParsedBlock = 0;
     }
-    if (object.topActiveContracts !== undefined && object.topActiveContracts !== null) {
+    if (
+      object.topActiveContracts !== undefined &&
+      object.topActiveContracts !== null
+    ) {
       for (const e of object.topActiveContracts) {
         message.topActiveContracts.push(TopActiveContract.fromPartial(e));
       }
@@ -1477,12 +1579,16 @@ export const ReadWalletDetailResponse = {
     obj.lastParsingTime = message.lastParsingTime || '';
     obj.highestParsedBlock = message.highestParsedBlock || 0;
     if (message.topActiveContracts) {
-      obj.topActiveContracts = message.topActiveContracts.map(e => e ? TopActiveContract.toJSON(e) : undefined);
+      obj.topActiveContracts = message.topActiveContracts.map((e) =>
+        e ? TopActiveContract.toJSON(e) : undefined,
+      );
     } else {
       obj.topActiveContracts = [];
     }
     if (message.topOperations) {
-      obj.topOperations = message.topOperations.map(e => e ? TopOperation.toJSON(e) : undefined);
+      obj.topOperations = message.topOperations.map((e) =>
+        e ? TopOperation.toJSON(e) : undefined,
+      );
     } else {
       obj.topOperations = [];
     }
@@ -1491,7 +1597,10 @@ export const ReadWalletDetailResponse = {
 };
 
 export const FindWalletsRequest = {
-  encode(message: FindWalletsRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindWalletsRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.filter);
     if (message.paginate !== undefined && message.paginate !== undefined) {
       RestPaginate.encode(message.paginate, writer.uint32(18).fork()).ldelim();
@@ -1548,13 +1657,18 @@ export const FindWalletsRequest = {
   toJSON(message: FindWalletsRequest): unknown {
     const obj: any = {};
     obj.filter = message.filter || '';
-    obj.paginate = message.paginate ? RestPaginate.toJSON(message.paginate) : undefined;
+    obj.paginate = message.paginate
+      ? RestPaginate.toJSON(message.paginate)
+      : undefined;
     return obj;
   },
 };
 
 export const FindWalletsResponse = {
-  encode(message: FindWalletsResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindWalletsResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.wallets) {
       Wallet.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -1562,7 +1676,9 @@ export const FindWalletsResponse = {
   },
   decode(reader: Reader, length?: number): FindWalletsResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindWalletsResponse) as FindWalletsResponse;
+    const message = Object.create(
+      baseFindWalletsResponse,
+    ) as FindWalletsResponse;
     message.wallets = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -1578,7 +1694,9 @@ export const FindWalletsResponse = {
     return message;
   },
   fromJSON(object: any): FindWalletsResponse {
-    const message = Object.create(baseFindWalletsResponse) as FindWalletsResponse;
+    const message = Object.create(
+      baseFindWalletsResponse,
+    ) as FindWalletsResponse;
     message.wallets = [];
     if (object.wallets !== undefined && object.wallets !== null) {
       for (const e of object.wallets) {
@@ -1588,7 +1706,9 @@ export const FindWalletsResponse = {
     return message;
   },
   fromPartial(object: DeepPartial<FindWalletsResponse>): FindWalletsResponse {
-    const message = Object.create(baseFindWalletsResponse) as FindWalletsResponse;
+    const message = Object.create(
+      baseFindWalletsResponse,
+    ) as FindWalletsResponse;
     message.wallets = [];
     if (object.wallets !== undefined && object.wallets !== null) {
       for (const e of object.wallets) {
@@ -1600,7 +1720,9 @@ export const FindWalletsResponse = {
   toJSON(message: FindWalletsResponse): unknown {
     const obj: any = {};
     if (message.wallets) {
-      obj.wallets = message.wallets.map(e => e ? Wallet.toJSON(e) : undefined);
+      obj.wallets = message.wallets.map((e) =>
+        e ? Wallet.toJSON(e) : undefined,
+      );
     } else {
       obj.wallets = [];
     }
@@ -1609,7 +1731,10 @@ export const FindWalletsResponse = {
 };
 
 export const ParseWalletRequest = {
-  encode(message: ParseWalletRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ParseWalletRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.address);
     return writer;
   },
@@ -1655,7 +1780,10 @@ export const ParseWalletRequest = {
 };
 
 export const ParseWalletResponse = {
-  encode(message: ParseWalletResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: ParseWalletResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(8).int32(message.numberOfNewParsedTxs);
     writer.uint32(16).int32(message.status);
     writer.uint32(26).string(message.msg);
@@ -1663,7 +1791,9 @@ export const ParseWalletResponse = {
   },
   decode(reader: Reader, length?: number): ParseWalletResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1684,8 +1814,13 @@ export const ParseWalletResponse = {
     return message;
   },
   fromJSON(object: any): ParseWalletResponse {
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
-    if (object.numberOfNewParsedTxs !== undefined && object.numberOfNewParsedTxs !== null) {
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
+    if (
+      object.numberOfNewParsedTxs !== undefined &&
+      object.numberOfNewParsedTxs !== null
+    ) {
       message.numberOfNewParsedTxs = Number(object.numberOfNewParsedTxs);
     } else {
       message.numberOfNewParsedTxs = 0;
@@ -1703,8 +1838,13 @@ export const ParseWalletResponse = {
     return message;
   },
   fromPartial(object: DeepPartial<ParseWalletResponse>): ParseWalletResponse {
-    const message = Object.create(baseParseWalletResponse) as ParseWalletResponse;
-    if (object.numberOfNewParsedTxs !== undefined && object.numberOfNewParsedTxs !== null) {
+    const message = Object.create(
+      baseParseWalletResponse,
+    ) as ParseWalletResponse;
+    if (
+      object.numberOfNewParsedTxs !== undefined &&
+      object.numberOfNewParsedTxs !== null
+    ) {
       message.numberOfNewParsedTxs = object.numberOfNewParsedTxs;
     } else {
       message.numberOfNewParsedTxs = 0;
@@ -2043,7 +2183,10 @@ export const Tx = {
     } else {
       message.receivedToken = '';
     }
-    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+    if (
+      object.receivedTokenContract !== undefined &&
+      object.receivedTokenContract !== null
+    ) {
       message.receivedTokenContract = String(object.receivedTokenContract);
     } else {
       message.receivedTokenContract = '';
@@ -2058,7 +2201,10 @@ export const Tx = {
     } else {
       message.sentToken = '';
     }
-    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+    if (
+      object.sentTokenContract !== undefined &&
+      object.sentTokenContract !== null
+    ) {
       message.sentTokenContract = String(object.sentTokenContract);
     } else {
       message.sentTokenContract = '';
@@ -2098,7 +2244,10 @@ export const Tx = {
     } else {
       message.memo = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = String(object.friendlyDescription);
     } else {
       message.friendlyDescription = '';
@@ -2182,7 +2331,10 @@ export const Tx = {
     } else {
       message.receivedToken = '';
     }
-    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+    if (
+      object.receivedTokenContract !== undefined &&
+      object.receivedTokenContract !== null
+    ) {
       message.receivedTokenContract = object.receivedTokenContract;
     } else {
       message.receivedTokenContract = '';
@@ -2197,7 +2349,10 @@ export const Tx = {
     } else {
       message.sentToken = '';
     }
-    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+    if (
+      object.sentTokenContract !== undefined &&
+      object.sentTokenContract !== null
+    ) {
       message.sentTokenContract = object.sentTokenContract;
     } else {
       message.sentTokenContract = '';
@@ -2237,7 +2392,10 @@ export const Tx = {
     } else {
       message.memo = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = object.friendlyDescription;
     } else {
       message.friendlyDescription = '';
@@ -2608,7 +2766,10 @@ export const TxKoinly = {
     } else {
       message.netWorthToken = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = String(object.friendlyDescription);
     } else {
       message.friendlyDescription = '';
@@ -2682,7 +2843,10 @@ export const TxKoinly = {
     } else {
       message.netWorthToken = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = object.friendlyDescription;
     } else {
       message.friendlyDescription = '';
@@ -3016,7 +3180,10 @@ export const PageInfo = {
     } else {
       message.hasNextPage = '';
     }
-    if (object.hasPreviousPage !== undefined && object.hasPreviousPage !== null) {
+    if (
+      object.hasPreviousPage !== undefined &&
+      object.hasPreviousPage !== null
+    ) {
       message.hasPreviousPage = String(object.hasPreviousPage);
     } else {
       message.hasPreviousPage = '';
@@ -3045,7 +3212,10 @@ export const PageInfo = {
     } else {
       message.hasNextPage = '';
     }
-    if (object.hasPreviousPage !== undefined && object.hasPreviousPage !== null) {
+    if (
+      object.hasPreviousPage !== undefined &&
+      object.hasPreviousPage !== null
+    ) {
       message.hasPreviousPage = object.hasPreviousPage;
     } else {
       message.hasPreviousPage = '';
@@ -3248,7 +3418,10 @@ export const CreateTxRequest = {
     } else {
       message.receivedToken = '';
     }
-    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+    if (
+      object.receivedTokenContract !== undefined &&
+      object.receivedTokenContract !== null
+    ) {
       message.receivedTokenContract = String(object.receivedTokenContract);
     } else {
       message.receivedTokenContract = '';
@@ -3263,7 +3436,10 @@ export const CreateTxRequest = {
     } else {
       message.sentToken = '';
     }
-    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+    if (
+      object.sentTokenContract !== undefined &&
+      object.sentTokenContract !== null
+    ) {
       message.sentTokenContract = String(object.sentTokenContract);
     } else {
       message.sentTokenContract = '';
@@ -3303,7 +3479,10 @@ export const CreateTxRequest = {
     } else {
       message.memo = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = String(object.friendlyDescription);
     } else {
       message.friendlyDescription = '';
@@ -3372,7 +3551,10 @@ export const CreateTxRequest = {
     } else {
       message.receivedToken = '';
     }
-    if (object.receivedTokenContract !== undefined && object.receivedTokenContract !== null) {
+    if (
+      object.receivedTokenContract !== undefined &&
+      object.receivedTokenContract !== null
+    ) {
       message.receivedTokenContract = object.receivedTokenContract;
     } else {
       message.receivedTokenContract = '';
@@ -3387,7 +3569,10 @@ export const CreateTxRequest = {
     } else {
       message.sentToken = '';
     }
-    if (object.sentTokenContract !== undefined && object.sentTokenContract !== null) {
+    if (
+      object.sentTokenContract !== undefined &&
+      object.sentTokenContract !== null
+    ) {
       message.sentTokenContract = object.sentTokenContract;
     } else {
       message.sentTokenContract = '';
@@ -3427,7 +3612,10 @@ export const CreateTxRequest = {
     } else {
       message.memo = '';
     }
-    if (object.friendlyDescription !== undefined && object.friendlyDescription !== null) {
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
       message.friendlyDescription = object.friendlyDescription;
     } else {
       message.friendlyDescription = '';
@@ -3559,7 +3747,9 @@ export const CreateTxsRequest = {
   toJSON(message: CreateTxsRequest): unknown {
     const obj: any = {};
     if (message.txs) {
-      obj.txs = message.txs.map(e => e ? CreateTxRequest.toJSON(e) : undefined);
+      obj.txs = message.txs.map((e) =>
+        e ? CreateTxRequest.toJSON(e) : undefined,
+      );
     } else {
       obj.txs = [];
     }
@@ -3930,7 +4120,9 @@ export const FindTxsRequest = {
     const obj: any = {};
     obj.address = message.address || '';
     obj.filter = message.filter || '';
-    obj.paginate = message.paginate ? RestPaginate.toJSON(message.paginate) : undefined;
+    obj.paginate = message.paginate
+      ? RestPaginate.toJSON(message.paginate)
+      : undefined;
     obj.order = message.order || '';
     obj.orderBy = message.orderBy || '';
     obj.csv = message.csv || false;
@@ -4014,7 +4206,7 @@ export const FindTxsResponse = {
   toJSON(message: FindTxsResponse): unknown {
     const obj: any = {};
     if (message.txs) {
-      obj.txs = message.txs.map(e => e ? TxNode.toJSON(e) : undefined);
+      obj.txs = message.txs.map((e) => (e ? TxNode.toJSON(e) : undefined));
     } else {
       obj.txs = [];
     }
@@ -4025,7 +4217,10 @@ export const FindTxsResponse = {
 };
 
 export const FindTxsResponseKoinly = {
-  encode(message: FindTxsResponseKoinly, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindTxsResponseKoinly,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.txs) {
       TxKoinlyNode.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -4034,7 +4229,9 @@ export const FindTxsResponseKoinly = {
   },
   decode(reader: Reader, length?: number): FindTxsResponseKoinly {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindTxsResponseKoinly) as FindTxsResponseKoinly;
+    const message = Object.create(
+      baseFindTxsResponseKoinly,
+    ) as FindTxsResponseKoinly;
     message.txs = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4053,7 +4250,9 @@ export const FindTxsResponseKoinly = {
     return message;
   },
   fromJSON(object: any): FindTxsResponseKoinly {
-    const message = Object.create(baseFindTxsResponseKoinly) as FindTxsResponseKoinly;
+    const message = Object.create(
+      baseFindTxsResponseKoinly,
+    ) as FindTxsResponseKoinly;
     message.txs = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
@@ -4067,8 +4266,12 @@ export const FindTxsResponseKoinly = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<FindTxsResponseKoinly>): FindTxsResponseKoinly {
-    const message = Object.create(baseFindTxsResponseKoinly) as FindTxsResponseKoinly;
+  fromPartial(
+    object: DeepPartial<FindTxsResponseKoinly>,
+  ): FindTxsResponseKoinly {
+    const message = Object.create(
+      baseFindTxsResponseKoinly,
+    ) as FindTxsResponseKoinly;
     message.txs = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
@@ -4085,7 +4288,9 @@ export const FindTxsResponseKoinly = {
   toJSON(message: FindTxsResponseKoinly): unknown {
     const obj: any = {};
     if (message.txs) {
-      obj.txs = message.txs.map(e => e ? TxKoinlyNode.toJSON(e) : undefined);
+      obj.txs = message.txs.map((e) =>
+        e ? TxKoinlyNode.toJSON(e) : undefined,
+      );
     } else {
       obj.txs = [];
     }
@@ -4095,7 +4300,10 @@ export const FindTxsResponseKoinly = {
 };
 
 export const FindTxsResponseCointracker = {
-  encode(message: FindTxsResponseCointracker, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindTxsResponseCointracker,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.txs) {
       TxCointrackerNode.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -4104,7 +4312,9 @@ export const FindTxsResponseCointracker = {
   },
   decode(reader: Reader, length?: number): FindTxsResponseCointracker {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindTxsResponseCointracker) as FindTxsResponseCointracker;
+    const message = Object.create(
+      baseFindTxsResponseCointracker,
+    ) as FindTxsResponseCointracker;
     message.txs = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4123,7 +4333,9 @@ export const FindTxsResponseCointracker = {
     return message;
   },
   fromJSON(object: any): FindTxsResponseCointracker {
-    const message = Object.create(baseFindTxsResponseCointracker) as FindTxsResponseCointracker;
+    const message = Object.create(
+      baseFindTxsResponseCointracker,
+    ) as FindTxsResponseCointracker;
     message.txs = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
@@ -4137,8 +4349,12 @@ export const FindTxsResponseCointracker = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<FindTxsResponseCointracker>): FindTxsResponseCointracker {
-    const message = Object.create(baseFindTxsResponseCointracker) as FindTxsResponseCointracker;
+  fromPartial(
+    object: DeepPartial<FindTxsResponseCointracker>,
+  ): FindTxsResponseCointracker {
+    const message = Object.create(
+      baseFindTxsResponseCointracker,
+    ) as FindTxsResponseCointracker;
     message.txs = [];
     if (object.txs !== undefined && object.txs !== null) {
       for (const e of object.txs) {
@@ -4155,7 +4371,9 @@ export const FindTxsResponseCointracker = {
   toJSON(message: FindTxsResponseCointracker): unknown {
     const obj: any = {};
     if (message.txs) {
-      obj.txs = message.txs.map(e => e ? TxCointrackerNode.toJSON(e) : undefined);
+      obj.txs = message.txs.map((e) =>
+        e ? TxCointrackerNode.toJSON(e) : undefined,
+      );
     } else {
       obj.txs = [];
     }
@@ -4165,7 +4383,10 @@ export const FindTxsResponseCointracker = {
 };
 
 export const PickUnparsedTxsRequest = {
-  encode(message: PickUnparsedTxsRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: PickUnparsedTxsRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.txhashes) {
       writer.uint32(10).string(v!);
     }
@@ -4173,7 +4394,9 @@ export const PickUnparsedTxsRequest = {
   },
   decode(reader: Reader, length?: number): PickUnparsedTxsRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(basePickUnparsedTxsRequest) as PickUnparsedTxsRequest;
+    const message = Object.create(
+      basePickUnparsedTxsRequest,
+    ) as PickUnparsedTxsRequest;
     message.txhashes = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4189,7 +4412,9 @@ export const PickUnparsedTxsRequest = {
     return message;
   },
   fromJSON(object: any): PickUnparsedTxsRequest {
-    const message = Object.create(basePickUnparsedTxsRequest) as PickUnparsedTxsRequest;
+    const message = Object.create(
+      basePickUnparsedTxsRequest,
+    ) as PickUnparsedTxsRequest;
     message.txhashes = [];
     if (object.txhashes !== undefined && object.txhashes !== null) {
       for (const e of object.txhashes) {
@@ -4198,8 +4423,12 @@ export const PickUnparsedTxsRequest = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<PickUnparsedTxsRequest>): PickUnparsedTxsRequest {
-    const message = Object.create(basePickUnparsedTxsRequest) as PickUnparsedTxsRequest;
+  fromPartial(
+    object: DeepPartial<PickUnparsedTxsRequest>,
+  ): PickUnparsedTxsRequest {
+    const message = Object.create(
+      basePickUnparsedTxsRequest,
+    ) as PickUnparsedTxsRequest;
     message.txhashes = [];
     if (object.txhashes !== undefined && object.txhashes !== null) {
       for (const e of object.txhashes) {
@@ -4211,7 +4440,7 @@ export const PickUnparsedTxsRequest = {
   toJSON(message: PickUnparsedTxsRequest): unknown {
     const obj: any = {};
     if (message.txhashes) {
-      obj.txhashes = message.txhashes.map(e => e || '');
+      obj.txhashes = message.txhashes.map((e) => e || '');
     } else {
       obj.txhashes = [];
     }
@@ -4220,7 +4449,10 @@ export const PickUnparsedTxsRequest = {
 };
 
 export const PickUnparsedTxsResponse = {
-  encode(message: PickUnparsedTxsResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: PickUnparsedTxsResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.txhashes) {
       writer.uint32(10).string(v!);
     }
@@ -4228,7 +4460,9 @@ export const PickUnparsedTxsResponse = {
   },
   decode(reader: Reader, length?: number): PickUnparsedTxsResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(basePickUnparsedTxsResponse) as PickUnparsedTxsResponse;
+    const message = Object.create(
+      basePickUnparsedTxsResponse,
+    ) as PickUnparsedTxsResponse;
     message.txhashes = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4244,7 +4478,9 @@ export const PickUnparsedTxsResponse = {
     return message;
   },
   fromJSON(object: any): PickUnparsedTxsResponse {
-    const message = Object.create(basePickUnparsedTxsResponse) as PickUnparsedTxsResponse;
+    const message = Object.create(
+      basePickUnparsedTxsResponse,
+    ) as PickUnparsedTxsResponse;
     message.txhashes = [];
     if (object.txhashes !== undefined && object.txhashes !== null) {
       for (const e of object.txhashes) {
@@ -4253,8 +4489,12 @@ export const PickUnparsedTxsResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<PickUnparsedTxsResponse>): PickUnparsedTxsResponse {
-    const message = Object.create(basePickUnparsedTxsResponse) as PickUnparsedTxsResponse;
+  fromPartial(
+    object: DeepPartial<PickUnparsedTxsResponse>,
+  ): PickUnparsedTxsResponse {
+    const message = Object.create(
+      basePickUnparsedTxsResponse,
+    ) as PickUnparsedTxsResponse;
     message.txhashes = [];
     if (object.txhashes !== undefined && object.txhashes !== null) {
       for (const e of object.txhashes) {
@@ -4266,7 +4506,7 @@ export const PickUnparsedTxsResponse = {
   toJSON(message: PickUnparsedTxsResponse): unknown {
     const obj: any = {};
     if (message.txhashes) {
-      obj.txhashes = message.txhashes.map(e => e || '');
+      obj.txhashes = message.txhashes.map((e) => e || '');
     } else {
       obj.txhashes = [];
     }
@@ -4275,7 +4515,10 @@ export const PickUnparsedTxsResponse = {
 };
 
 export const UpdateWalletRequest = {
-  encode(message: UpdateWalletRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: UpdateWalletRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(8).uint32(message.highestParsedBlock);
     writer.uint32(16).uint32(message.status);
     writer.uint32(26).string(message.address);
@@ -4283,7 +4526,9 @@ export const UpdateWalletRequest = {
   },
   decode(reader: Reader, length?: number): UpdateWalletRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseUpdateWalletRequest) as UpdateWalletRequest;
+    const message = Object.create(
+      baseUpdateWalletRequest,
+    ) as UpdateWalletRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -4304,8 +4549,13 @@ export const UpdateWalletRequest = {
     return message;
   },
   fromJSON(object: any): UpdateWalletRequest {
-    const message = Object.create(baseUpdateWalletRequest) as UpdateWalletRequest;
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    const message = Object.create(
+      baseUpdateWalletRequest,
+    ) as UpdateWalletRequest;
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = Number(object.highestParsedBlock);
     } else {
       message.highestParsedBlock = 0;
@@ -4323,8 +4573,13 @@ export const UpdateWalletRequest = {
     return message;
   },
   fromPartial(object: DeepPartial<UpdateWalletRequest>): UpdateWalletRequest {
-    const message = Object.create(baseUpdateWalletRequest) as UpdateWalletRequest;
-    if (object.highestParsedBlock !== undefined && object.highestParsedBlock !== null) {
+    const message = Object.create(
+      baseUpdateWalletRequest,
+    ) as UpdateWalletRequest;
+    if (
+      object.highestParsedBlock !== undefined &&
+      object.highestParsedBlock !== null
+    ) {
       message.highestParsedBlock = object.highestParsedBlock;
     } else {
       message.highestParsedBlock = 0;
@@ -4351,7 +4606,10 @@ export const UpdateWalletRequest = {
 };
 
 export const UpdateWalletResponse = {
-  encode(message: UpdateWalletResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: UpdateWalletResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     if (message.wallet !== undefined && message.wallet !== undefined) {
       Wallet.encode(message.wallet, writer.uint32(10).fork()).ldelim();
     }
@@ -4359,7 +4617,9 @@ export const UpdateWalletResponse = {
   },
   decode(reader: Reader, length?: number): UpdateWalletResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseUpdateWalletResponse) as UpdateWalletResponse;
+    const message = Object.create(
+      baseUpdateWalletResponse,
+    ) as UpdateWalletResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -4374,7 +4634,9 @@ export const UpdateWalletResponse = {
     return message;
   },
   fromJSON(object: any): UpdateWalletResponse {
-    const message = Object.create(baseUpdateWalletResponse) as UpdateWalletResponse;
+    const message = Object.create(
+      baseUpdateWalletResponse,
+    ) as UpdateWalletResponse;
     if (object.wallet !== undefined && object.wallet !== null) {
       message.wallet = Wallet.fromJSON(object.wallet);
     } else {
@@ -4383,7 +4645,9 @@ export const UpdateWalletResponse = {
     return message;
   },
   fromPartial(object: DeepPartial<UpdateWalletResponse>): UpdateWalletResponse {
-    const message = Object.create(baseUpdateWalletResponse) as UpdateWalletResponse;
+    const message = Object.create(
+      baseUpdateWalletResponse,
+    ) as UpdateWalletResponse;
     if (object.wallet !== undefined && object.wallet !== null) {
       message.wallet = Wallet.fromPartial(object.wallet);
     } else {
@@ -4400,14 +4664,14 @@ export const UpdateWalletResponse = {
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T[P] extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T[P] extends Date | Function | Uint8Array | undefined
-  ? T[P]
-  : T[P] extends infer U | undefined
-  ? DeepPartial<U>
-  : T[P] extends object
-  ? DeepPartial<T[P]>
-  : T[P]
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : T[P] extends Date | Function | Uint8Array | undefined
+    ? T[P]
+    : T[P] extends infer U | undefined
+    ? DeepPartial<U>
+    : T[P] extends object
+    ? DeepPartial<T[P]>
+    : T[P];
 };

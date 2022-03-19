@@ -4,7 +4,10 @@ import { EventTransformer } from '.';
 import { TransformedEvents } from '../transformers';
 import { ProtocolType } from '../loader/protocol.interface';
 import _ = require('lodash');
-import { TransformedMessages, TransformedOutput } from './transformer.interfaces';
+import {
+  TransformedMessages,
+  TransformedOutput,
+} from './transformer.interfaces';
 
 const failedTxData: TransformedEvents[] = [
   {
@@ -17,20 +20,19 @@ export class LogTransformer {
   logger = new Logger(this.constructor.name);
 
   public transform(txInfo: TxInfo): TransformedOutput {
-
     const messages = this.transformMessages(txInfo);
 
     if (txInfo.code) {
       return {
         events: failedTxData,
         messages,
-      }
+      };
     }
 
     return {
       events: this.transformEvents(txInfo),
       messages,
-    }
+    };
   }
 
   private transformEvents(txInfo: TxInfo): TransformedEvents[] {
@@ -56,7 +58,7 @@ export class LogTransformer {
 
   private transformMessages(txInfo: TxInfo): TransformedMessages {
     const tx: any = txInfo.tx;
-    
+
     return tx.value.msg.map((msg: any) => {
       return msg.value;
     });

@@ -10,8 +10,8 @@ import { hash } from './hash.utils';
  */
 export class CachingUtils {
   private static validator = new Validator();
-  // FIX ME 
-  // The validaton  
+  // FIX ME
+  // The validaton
   public static makeCacheKeyFromId(entityId: string): string {
     // this.validator.isMongoId(entityId);
     return this.makeCacheKeyFromProperty(entityId, 'id');

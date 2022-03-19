@@ -19,8 +19,7 @@ export class EventTransformer {
   public transform(txLog: TxLog): this {
     try {
       this.setTxLog(txLog).setActionKeys().determineTxProtocol().doTransform();
-    } catch(e) {
-    }
+    } catch (e) {}
     return this;
   }
 
@@ -147,13 +146,12 @@ export class EventTransformer {
       nativeSwaps.push(tR);
     }
 
-    this._contractActions['native_swap'] = nativeSwaps
+    this._contractActions['native_swap'] = nativeSwaps;
 
     return this;
   }
 
   private transformTransferActions(): this {
-
     if (!this._actionKeys?.includes('transfer')) {
       return this;
     }
@@ -173,7 +171,7 @@ export class EventTransformer {
         const amounts: IAmount[] = splitTokens(attr.value);
 
         for (const amount of amounts) {
-          transfers.push({...tR, amount} as TransferAction);
+          transfers.push({ ...tR, amount } as TransferAction);
         }
       }
       tR[attr.key] = attr.value;
@@ -205,8 +203,7 @@ export class EventTransformer {
     const amounts: IAmount[] = splitTokens(strAmount.value);
 
     for (const amount of amounts) {
-
-      if(_.isEmpty(amount.token)) {
+      if (_.isEmpty(amount.token)) {
         amount.token = 'uluna';
       }
 
@@ -248,8 +245,7 @@ export class EventTransformer {
     const amounts: IAmount[] = splitTokens(strAmount.value);
 
     for (const amount of amounts) {
-
-      if(_.isEmpty(amount.token)) {
+      if (_.isEmpty(amount.token)) {
         amount.token = 'uluna';
       }
 
@@ -259,7 +255,7 @@ export class EventTransformer {
         amount,
         extraParsingInfo: 'NativeUnDelegate',
       };
-      
+
       this._transferActions.push(transfer);
     }
     return this;
@@ -303,7 +299,6 @@ export class EventTransformer {
   }
 
   private transformProposalVote(): this {
-
     if (!this._actionKeys?.includes('proposal_vote')) {
       return this;
     }

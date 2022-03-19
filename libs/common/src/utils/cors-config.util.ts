@@ -10,8 +10,9 @@ const whitelist = [
 
 export const corsOptions: CorsOptions = {
   origin: whitelist,
-  allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-  methods: "GET,PUT,POST,DELETE,UPDATE,OPTIONS",
+  allowedHeaders:
+    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
+  methods: 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
   credentials: true,
   optionsSuccessStatus: 200,
 };

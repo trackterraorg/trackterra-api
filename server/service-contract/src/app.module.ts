@@ -18,9 +18,7 @@ import { CurrenciesModule } from './currencies/currencies.module';
     }),
     CurrenciesModule,
   ],
-  exports: [
-    ServiceRegistryModule
-  ],
+  exports: [ServiceRegistryModule],
   controllers: [AppController],
   providers: [AppService],
 })

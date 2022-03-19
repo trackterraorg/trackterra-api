@@ -57,5 +57,5 @@ export const ParseProcessors = {
   ...TerraswapProtocol,
   ...StaderProtocol,
   ...NFTParsers,
-  ...Native
+  ...Native,
 };

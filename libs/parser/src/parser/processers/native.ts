@@ -7,63 +7,60 @@ import { SwapEngine } from './swap';
 import { TransferEngine } from './transfer';
 
 export class NativeGovVote implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-    
     const { walletAddress, txType } = args;
 
-    return [{
-      walletAddress,
-      label: TxLabel.Fee,
-      tag: txType.tag,
-      sender: walletAddress,
-      friendlyDescription: txType.description,
-    }];
+    return [
+      {
+        walletAddress,
+        label: TxLabel.Fee,
+        tag: txType.tag,
+        sender: walletAddress,
+        friendlyDescription: txType.description,
+      },
+    ];
   }
 }
 
 export class NativeDelegate implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-    
     const transferActions = args.transferActions.map((tA: any) => {
-      if(tA.sender === 'wallet_address') {
+      if (tA.sender === 'wallet_address') {
         tA.sender = args.walletAddress;
       }
 
-      if(tA.recipient === 'wallet_address') {
+      if (tA.recipient === 'wallet_address') {
         tA.recipient = args.walletAddress;
       }
 
       return tA;
     });
 
-    return (new TransferEngine()).process({
+    return new TransferEngine().process({
       ...args,
-      transferActions
+      transferActions,
     });
   }
 }
 
 export class NativeUnDelegate implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const transferActions = args.transferActions.map((tA: any) => {
-      if(tA.sender === 'wallet_address') {
+      if (tA.sender === 'wallet_address') {
         tA.sender = args.walletAddress;
       }
 
-      if(tA.recipient === 'wallet_address') {
+      if (tA.recipient === 'wallet_address') {
         tA.recipient = args.walletAddress;
       }
 
       return tA;
     });
 
-    return (new TransferEngine()).process({
+    return new TransferEngine().process({
       ...args,
-      transferActions
-    })
+      transferActions,
+    });
   }
 }
 
@@ -90,9 +87,7 @@ export class NativeReward implements IParser {
 }
 
 export class NativeSendRecieveSwap implements IParser {
-
   parseNativeSwap(args: ParserProcessArgs): IParsedTx[] {
-
     // get first tx that belongs to wallet address
     const sendAction = args.transferActions.find((tA: any) => {
       return tA.sender === args.walletAddress;
@@ -111,30 +106,29 @@ export class NativeSendRecieveSwap implements IParser {
       ask_asset: depositAction.amount.token,
       offer_amount: sendAction.amount.amount,
       return_amount: depositAction.amount.amount,
-    }
+    };
 
     return SwapEngine.swap({
       ...args,
       contractActions: {
-        swap: [swapAction]
+        swap: [swapAction],
       },
       transferActions: undefined,
       txType: {
         ...args.txType,
-        description: "Native swap",
-      }
+        description: 'Native swap',
+      },
     });
   }
 
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { contractActions } = args;
 
     if (Object.keys(contractActions).includes('native_swap')) {
       return this.parseNativeSwap(args);
     }
 
-    return (new TransferEngine()).process(args);
+    return new TransferEngine().process(args);
   }
 }
 

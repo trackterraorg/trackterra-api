@@ -4,8 +4,6 @@ import { CurrenciesResolver } from './currencies.resolver';
 
 @Module({
   controllers: [CurrenciesController],
-  providers: [
-    CurrenciesResolver
-  ],
+  providers: [CurrenciesResolver],
 })
 export class CurrenciesModule {}

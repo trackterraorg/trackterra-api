@@ -8,39 +8,32 @@ import { SwapEngine } from './swap';
 import { TransferEngine } from './transfer';
 
 export class NexusStakingRewards implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-    return (new TransferEngine()).process(args);
-  };
-  
+    return new TransferEngine().process(args);
+  }
 }
 
 export class NexusClaimRewards implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    
     let contractActions = args.contractActions;
 
     const transfer = contractActions.transfer.map((cA) => {
-        cA.sender = cA.from;
-        cA.recipient = cA.to;
+      cA.sender = cA.from;
+      cA.recipient = cA.to;
 
-        return cA;
-    })
+      return cA;
+    });
 
-    args.contractActions = { transfer }
+    args.contractActions = { transfer };
 
-    return (new TransferEngine()).process(args);
+    return new TransferEngine().process(args);
   }
 }
 
 export class NexusVaultDeposit implements IParser {
-
-  swapBassetNasset({
-    walletAddress,
-    contractActions
-  }: ParserProcessArgs): {
-    sent: any,
-    received: any,
+  swapBassetNasset({ walletAddress, contractActions }: ParserProcessArgs): {
+    sent: any;
+    received: any;
   } {
     const sent: any | undefined = _.first(contractActions?.send);
     const received: any | undefined = _.first(contractActions?.mint);
@@ -48,15 +41,12 @@ export class NexusVaultDeposit implements IParser {
     return {
       sent,
       received,
-    }
+    };
   }
 
-  swapNassetBasset({
-    walletAddress,
-    contractActions
-  }: ParserProcessArgs): {
-    sent: any,
-    received: any,
+  swapNassetBasset({ walletAddress, contractActions }: ParserProcessArgs): {
+    sent: any;
+    received: any;
   } {
     const sent: any | undefined = _.first(contractActions?.send);
     const received: any | undefined = _.first(contractActions?.transfer);
@@ -64,19 +54,20 @@ export class NexusVaultDeposit implements IParser {
     return {
       sent,
       received,
-    }
+    };
   }
 
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const contract = args.contractActions.send[0].contract as unknown as string;
-    const key = _(['mint', 'burn']).intersection(Object.keys(args.contractActions)).first();
+    const key = _(['mint', 'burn'])
+      .intersection(Object.keys(args.contractActions))
+      .first();
 
     const keys = Object.keys(args.contractActions);
 
     let sentRecieve: {
-      sent: any,
-      received: any,
+      sent: any;
+      received: any;
     };
 
     if (keys.includes('mint')) {
@@ -97,19 +88,16 @@ export class NexusVaultDeposit implements IParser {
       ask_asset: received.contract,
       offer_amount: sent.amount,
       return_amount: received.amount,
-    }
-    
+    };
+
     return SwapEngine.swap({
       ...args,
       contractActions: {
-        swap: [
-          swapAction as unknown as EventAction
-        ]
-      }
+        swap: [swapAction as unknown as EventAction],
+      },
     });
   }
 }
-
 
 export const NexusProtocol = {
   NexusStakingRewards,

@@ -6,31 +6,29 @@ import { MintEngine } from './mint';
 import { SwapEngine } from './swap';
 import { ITransferRecord, TransferEngine } from './transfer';
 
-
 export class LuartStakingReward implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    
     const { walletAddress, contractActions } = args;
-    
-    const withdrawTx = (new TransferEngine()).process({
+
+    const withdrawTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
     });
 
-    const stakingRewardTx = (new TransferEngine()).process({
+    const stakingRewardTx = new TransferEngine().process({
       ...args,
       contractActions: _.pick(args.contractActions, 'transfer'),
       transferActions: undefined,
       txType: {
         ...args.txType,
-        tag: TxTag.StakingRewards
-      }
+        tag: TxTag.StakingRewards,
+      },
     });
-    
+
     return withdrawTx.concat(stakingRewardTx);
   }
 }
 
 export const LuartProtocol = {
-  LuartStakingReward
+  LuartStakingReward,
 };

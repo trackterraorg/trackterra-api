@@ -8,9 +8,7 @@ export abstract class Farm {
   }
 }
 
-
 /**
  * Extract from contract actions
  */
-export const Farms = {
-};
+export const Farms = {};

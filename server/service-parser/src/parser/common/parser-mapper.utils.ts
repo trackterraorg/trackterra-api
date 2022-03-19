@@ -20,8 +20,12 @@ export async function txToTxCreateRequest(
   };
 
   const txKeys = [
-    { token: 'sentToken', contract: 'sentTokenContract', amount: 'sentAmount'},
-    { token: 'receivedToken', contract: 'receivedTokenContract', amount: 'receivedAmount' },
+    { token: 'sentToken', contract: 'sentTokenContract', amount: 'sentAmount' },
+    {
+      token: 'receivedToken',
+      contract: 'receivedTokenContract',
+      amount: 'receivedAmount',
+    },
     { token: 'taxToken', amount: 'taxAmount' },
     { token: 'feeToken', amount: 'feeAmount' },
   ];
@@ -32,21 +36,25 @@ export async function txToTxCreateRequest(
     if (token && amount) {
       // for creating custom tokens
       try {
-        const { currency } = await currencyRpcClientService.svc.upsertCurrency({
-          identifier: token
-        }).toPromise();
+        const { currency } = await currencyRpcClientService.svc
+          .upsertCurrency({
+            identifier: token,
+          })
+          .toPromise();
 
-        const nullIndex = (! isNaN(Number(currency?.nullIndex))) ? `_${currency.nullIndex}` : '';
+        const nullIndex = !isNaN(Number(currency?.nullIndex))
+          ? `_${currency.nullIndex}`
+          : '';
 
         modifiers[txKey.token] = currency.symbol + nullIndex;
         modifiers[txKey.amount] = tokenValue(currency, amount);
 
-        if (! currency.isStable) {
+        if (!currency.isStable) {
           if (Object.keys(txKey).includes('contract')) {
             modifiers[txKey.contract] = currency.identifier;
           }
         }
-      } catch(e) {
+      } catch (e) {
         console.error(e);
       }
     }
@@ -73,12 +81,11 @@ export async function txToUnparsedTxCreateRequest(
     timestamp: new Date(timestamp),
     protocol: 'Unparsed',
   };
-  
+
   return CreateTxRequest.fromJSON(transformedTx);
 }
 
 export function tokenValue(currency: Currency, amount: number): number {
-  
   if (isNaN(amount)) {
     return undefined;
   }

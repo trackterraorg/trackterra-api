@@ -4,7 +4,7 @@ export class BlacklistLoader {
   private static instance: BlacklistLoader;
   private _blackList = [];
   private _errors: any = [];
-  'Can not parse this address. Please try a different address'
+  'Can not parse this address. Please try a different address';
   public static async getInstance(): Promise<BlacklistLoader> {
     if (!BlacklistLoader.instance) {
       const instance = new BlacklistLoader();
@@ -23,8 +23,10 @@ export class BlacklistLoader {
     const blacklistYamlFile = path.resolve('./blacklist/blacklist.yaml');
 
     try {
-      const blacklist: any = yaml.load(fs.readFileSync(blacklistYamlFile, 'utf8'));
-      this._blackList  = blacklist.blacklist;
+      const blacklist: any = yaml.load(
+        fs.readFileSync(blacklistYamlFile, 'utf8'),
+      );
+      this._blackList = blacklist.blacklist;
     } catch (e) {
       console.log(e);
     }
@@ -39,7 +41,7 @@ export class BlacklistLoader {
       return a === address;
     });
 
-    return (exist !== undefined);
+    return exist !== undefined;
   }
 
   addressBlockMessage(address: string) {

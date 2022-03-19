@@ -5,70 +5,73 @@ import { TxTag } from '..';
 import { TransferEngine } from './transfer';
 import _ = require('lodash');
 
-
 export class PoolTransferEngine {
+  static findTxs(args: ParserProcessArgs, key: string) {
+    const transferActions = args.contractActions.transfer.filter((tA: any) => {
+      return tA[key] === args.walletAddress;
+    });
 
-    static findTxs(args: ParserProcessArgs, key: string) {
-        const transferActions = args.contractActions.transfer.filter((tA: any) => {
-            return tA[key] === args.walletAddress;
-        });
-
-        if (_.size(transferActions) > 0) {
-            return transferActions;
-        }
-
-        const sendActions = args.contractActions.send.filter((tA: any) => {
-            console.dir({
-                key: tA[key],
-                walletAddress: args.walletAddress,
-            }, {depth: 'null'});
-            return tA[key] === args.walletAddress;
-        });
-
-        if (_.size(sendActions) > 0) {
-            return sendActions;
-        }
+    if (_.size(transferActions) > 0) {
+      return transferActions;
     }
 
-    static poolDeposit(args: ParserProcessArgs) {
-        return this.findTxs(args, 'from');
+    const sendActions = args.contractActions.send.filter((tA: any) => {
+      console.dir(
+        {
+          key: tA[key],
+          walletAddress: args.walletAddress,
+        },
+        { depth: 'null' },
+      );
+      return tA[key] === args.walletAddress;
+    });
+
+    if (_.size(sendActions) > 0) {
+      return sendActions;
+    }
+  }
+
+  static poolDeposit(args: ParserProcessArgs) {
+    return this.findTxs(args, 'from');
+  }
+
+  static poolWithdraw(args: ParserProcessArgs) {
+    return this.findTxs(args, 'to');
+  }
+
+  static process(args: ParserProcessArgs): IParsedTx[] {
+    let contractActions = args.contractActions;
+    const contractKeys = Object.keys(contractActions);
+
+    let actions: any;
+
+    if (contractKeys.includes('bond')) {
+      actions = this.poolDeposit(args);
+    } else if (contractKeys.includes('unbond')) {
+      actions = this.poolWithdraw(args);
+    } else {
+      return [];
     }
 
-    static poolWithdraw(args: ParserProcessArgs) {
-        return this.findTxs(args, 'to');
+    if (!actions || _.size(actions) === 0) {
+      return [];
     }
+    console.dir(
+      {
+        actions,
+      },
+      { depth: 'null' },
+    );
+    contractActions = {
+      transfer: actions,
+    };
 
-    static process(args: ParserProcessArgs): IParsedTx[]{
-
-        let contractActions = args.contractActions;
-        const contractKeys = Object.keys(contractActions);
-
-        let actions: any;
-
-        if (contractKeys.includes("bond")) {
-            actions = this.poolDeposit(args);
-        } else if (contractKeys.includes("unbond")) {
-            actions = this.poolWithdraw(args);
-        } else {
-            return [];
-        }
-
-        if(! actions || _.size(actions) === 0) {
-            return [];
-        }
-        console.dir({
-            actions
-        }, {depth: 'null'});
-        contractActions = {
-            transfer: actions
-        };
-    
-        return (new TransferEngine()).process({
-            ...args, 
-            contractActions,
-            transferActions: undefined, 
-        });
-    }
+    return new TransferEngine().process({
+      ...args,
+      contractActions,
+      transferActions: undefined,
+    });
+  }
 }
 
 export class GenericPoolTransfer implements IParser {

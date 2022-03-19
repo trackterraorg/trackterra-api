@@ -31,7 +31,9 @@ export const transactionScheme = Joi.object().keys({
   parserClass: Joi.string()
     .valid(...parserClasses)
     .allow(null),
-  tag: Joi.string().allow(null, '').valid(...Object.values(TxTag)),
+  tag: Joi.string()
+    .allow(null, '')
+    .valid(...Object.values(TxTag)),
   description: Joi.string().allow(null),
 });
 

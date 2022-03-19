@@ -8,8 +8,8 @@ import { CurrenciesService } from './currencies.service';
 @Module({
   controllers: [CurrenciesController],
   providers: [
-    CurrenciesService, 
-    CurrencyRepository, 
+    CurrenciesService,
+    CurrencyRepository,
     FCDApiService,
     ...CurrencyCommandHandlers,
     ...CurrencyQueryHandlers,

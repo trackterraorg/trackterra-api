@@ -7,6 +7,11 @@ import { WalletTxsService } from './wallet-txs.service';
 
 @Module({
   controllers: [WalletTxsController],
-  providers: [WalletTxsService, TimestampScalar, TxsResolver, TxsMutationResolver],
+  providers: [
+    WalletTxsService,
+    TimestampScalar,
+    TxsResolver,
+    TxsMutationResolver,
+  ],
 })
 export class WalletTxsModule {}

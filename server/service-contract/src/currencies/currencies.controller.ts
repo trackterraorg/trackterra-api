@@ -6,7 +6,15 @@ import {
   GetCurrenciesQuery,
   UpsertCurrencyCommand,
 } from './cqrs';
-import { ContractService, FindCurrenciesRequest, FindCurrenciesResponse, FindCurrencyRequest, FindCurrencyResponse, UpsertCurrencyRequest, UpsertCurrencyResponse } from '@trackterra/proto-schema/contract';
+import {
+  ContractService,
+  FindCurrenciesRequest,
+  FindCurrenciesResponse,
+  FindCurrencyRequest,
+  FindCurrencyResponse,
+  UpsertCurrencyRequest,
+  UpsertCurrencyResponse,
+} from '@trackterra/proto-schema/contract';
 
 @Controller('currencies')
 export class CurrenciesController {
@@ -20,9 +28,7 @@ export class CurrenciesController {
     request: UpsertCurrencyRequest,
     ctx: any,
   ): Promise<UpsertCurrencyResponse> {
-    return this.commandBus.execute(
-      new UpsertCurrencyCommand(request),
-    );
+    return this.commandBus.execute(new UpsertCurrencyCommand(request));
   }
 
   @GrpcMethod('ContractService')
@@ -30,9 +36,7 @@ export class CurrenciesController {
     request: FindCurrenciesRequest,
     ctx: any,
   ): Promise<FindCurrenciesResponse> {
-    return this.queryBus.execute(
-      new GetCurrenciesQuery(request),
-    );
+    return this.queryBus.execute(new GetCurrenciesQuery(request));
   }
 
   @GrpcMethod('ContractService')
@@ -40,8 +44,6 @@ export class CurrenciesController {
     request: FindCurrencyRequest,
     ctx: any,
   ): Promise<FindCurrencyResponse> {
-    return this.queryBus.execute(
-      new GetCurrencyQuery(request),
-    );
+    return this.queryBus.execute(new GetCurrencyQuery(request));
   }
 }

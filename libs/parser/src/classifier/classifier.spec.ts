@@ -34,7 +34,8 @@ describe('The classifier ', () => {
       throw new UnableToFetchTxInfoException();
     }
 
-    const actions: TransformedEvents[] = logTransformer.transform(txInfo).events;
+    const actions: TransformedEvents[] =
+      logTransformer.transform(txInfo).events;
 
     const { txType } = await Classifier.classify(actions[0]);
     expect(txType).toHaveProperty('classifier');

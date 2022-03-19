@@ -1,4 +1,8 @@
-import { lpTokenCombiner, separateAmountFromToken, splitTokens } from '@trackterra/parser/utils';
+import {
+  lpTokenCombiner,
+  separateAmountFromToken,
+  splitTokens,
+} from '@trackterra/parser/utils';
 import _ = require('lodash');
 import { IAmount, IParsedTx, IParser, TxLabel, TxTag } from '..';
 import { ParserProcessArgs } from '../args';

@@ -1,9 +1,9 @@
-import { fShortenHash, timeToRegularDateTime, timeToUtc } from '@trackterra/common';
 import {
-  Tx,
-  TxExtra,
-  TxNode,
-} from '@trackterra/proto-schema/wallet';
+  fShortenHash,
+  timeToRegularDateTime,
+  timeToUtc,
+} from '@trackterra/common';
+import { Tx, TxExtra, TxNode } from '@trackterra/proto-schema/wallet';
 import { TxEntity } from '@trackterra/repository';
 import { TaxAppType } from '@trackterra/tax-apps/types';
 import _ = require('lodash');
@@ -31,7 +31,7 @@ export async function mapTxToTaxApp(
       return tx;
     });
   }
-  
+
   return mappedTxs;
 }
 

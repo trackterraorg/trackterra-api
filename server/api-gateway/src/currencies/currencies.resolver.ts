@@ -6,18 +6,12 @@ import {
   Context,
   ResolveField,
 } from '@nestjs/graphql';
-import {
-  Currency,
-  CurrencyFilterArgs,
-} from './types';
+import { Currency, CurrencyFilterArgs } from './types';
 import { GqlContext, setRpcContext } from '@trackterra/core';
-import {
-  Currency as CurrencyRpc,
-} from '@trackterra/proto-schema/contract';
+import { Currency as CurrencyRpc } from '@trackterra/proto-schema/contract';
 
 @Resolver()
 export class CurrenciesResolver {
-
   @Query(() => [Currency], { nullable: true })
   async listCurrencies(
     @Args() { where, paginate }: CurrencyFilterArgs,

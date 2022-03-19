@@ -8,7 +8,6 @@ import { ITransferRecord, TransferEngine } from './transfer';
 
 export class StaderSwap implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { walletAddress, contractActions, transferActions } = args;
 
     const sendAction: any = transferActions.find((cA: any) => {
@@ -27,8 +26,8 @@ export class StaderSwap implements IParser {
       ask_asset: recieveAction.contract,
       offer_amount: sendAction.amount.amount,
       return_amount: recieveAction.amount,
-    }
-    
+    };
+
     return SwapEngine.swap({
       ...args,
       contractActions: {
@@ -41,23 +40,24 @@ export class StaderSwap implements IParser {
 
 export class StaderClaimAirdrop implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { walletAddress, contractActions, transferActions } = args;
 
-    const airdropAction: any = contractActions.transfer.filter((cA: any) => {
-      return cA.to === walletAddress;
-    }).map((cA: any) => {
-      return {
-        sender: cA.from,
-        recipient: cA.to,
-        amount: {
-          amount: cA.amount,
-          token: cA.contract,
-        }
-      }
-    });
+    const airdropAction: any = contractActions.transfer
+      .filter((cA: any) => {
+        return cA.to === walletAddress;
+      })
+      .map((cA: any) => {
+        return {
+          sender: cA.from,
+          recipient: cA.to,
+          amount: {
+            amount: cA.amount,
+            token: cA.contract,
+          },
+        };
+      });
 
-    const airdropTx = (new TransferEngine()).process({
+    const airdropTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
       transferActions: airdropAction,
@@ -66,7 +66,7 @@ export class StaderClaimAirdrop implements IParser {
     const txType = args.txType;
     txType.tag = undefined;
 
-    const sentTx = (new TransferEngine()).process({
+    const sentTx = new TransferEngine().process({
       ...args,
       contractActions: undefined,
       transferActions,

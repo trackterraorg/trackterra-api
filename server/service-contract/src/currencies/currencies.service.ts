@@ -13,9 +13,7 @@ import { CurrencyRepository } from '@trackterra/repository';
 export class CurrenciesService implements OnModuleInit {
   logger = new Logger(this.constructor.name);
 
-  constructor(
-    private readonly currencyRepository: CurrencyRepository
-  ) {}
+  constructor(private readonly currencyRepository: CurrencyRepository) {}
 
   async seedStableCoins() {
     const hasStableCoins = await this.currencyRepository.find({
@@ -25,19 +23,18 @@ export class CurrenciesService implements OnModuleInit {
     if (hasStableCoins && hasStableCoins.length > 0) {
       return;
     }
-    
+
     for (const stableCoin of stableCoins) {
-      
       try {
         const stableCoinExist = await this.currencyRepository.findOne({
           symbol: stableCoin.symbol,
-        })
-        
-        if(stableCoinExist) {
+        });
+
+        if (stableCoinExist) {
           continue;
         }
 
-        await this.currencyRepository.create({ ...stableCoin});
+        await this.currencyRepository.create({ ...stableCoin });
       } catch (e) {
         this.logger.error(e);
       }

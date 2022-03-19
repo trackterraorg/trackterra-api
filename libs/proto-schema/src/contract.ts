@@ -2,7 +2,6 @@
 import { Observable } from 'rxjs';
 import { Writer, Reader } from 'protobufjs/minimal';
 
-
 export interface Currency {
   name: string;
   symbol: string;
@@ -29,8 +28,7 @@ export interface FindCurrencyResponse {
   currency: Currency | undefined;
 }
 
-export interface FindCurrenciesRequest {
-}
+export interface FindCurrenciesRequest {}
 
 export interface FindCurrenciesResponse {
   currencies: Currency[];
@@ -62,33 +60,38 @@ const baseFindCurrencyResponse: object = {
   currency: undefined,
 };
 
-const baseFindCurrenciesRequest: object = {
-};
+const baseFindCurrenciesRequest: object = {};
 
 const baseFindCurrenciesResponse: object = {
   currencies: undefined,
 };
 
 export interface ContractService<Context extends DataLoaders> {
+  upsertCurrency(
+    request: UpsertCurrencyRequest,
+    ctx: Context,
+  ): Promise<UpsertCurrencyResponse>;
 
-  upsertCurrency(request: UpsertCurrencyRequest, ctx: Context): Promise<UpsertCurrencyResponse>;
-
-  listCurrencies(request: FindCurrenciesRequest, ctx: Context): Promise<FindCurrenciesResponse>;
-
+  listCurrencies(
+    request: FindCurrenciesRequest,
+    ctx: Context,
+  ): Promise<FindCurrenciesResponse>;
 }
 
 export interface ContractServiceClient<Context extends DataLoaders> {
+  upsertCurrency(
+    request: UpsertCurrencyRequest,
+    ctx?: Context,
+  ): Observable<UpsertCurrencyResponse>;
 
-  upsertCurrency(request: UpsertCurrencyRequest, ctx?: Context): Observable<UpsertCurrencyResponse>;
-
-  listCurrencies(request: FindCurrenciesRequest, ctx?: Context): Observable<FindCurrenciesResponse>;
-
+  listCurrencies(
+    request: FindCurrenciesRequest,
+    ctx?: Context,
+  ): Observable<FindCurrenciesResponse>;
 }
 
 interface DataLoaders {
-
   getDataLoader<T>(identifier: string, constructorFn: () => T): T;
-
 }
 
 export const Currency = {
@@ -228,13 +231,18 @@ export const Currency = {
 };
 
 export const UpsertCurrencyRequest = {
-  encode(message: UpsertCurrencyRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: UpsertCurrencyRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.identifier);
     return writer;
   },
   decode(reader: Reader, length?: number): UpsertCurrencyRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseUpsertCurrencyRequest) as UpsertCurrencyRequest;
+    const message = Object.create(
+      baseUpsertCurrencyRequest,
+    ) as UpsertCurrencyRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -249,7 +257,9 @@ export const UpsertCurrencyRequest = {
     return message;
   },
   fromJSON(object: any): UpsertCurrencyRequest {
-    const message = Object.create(baseUpsertCurrencyRequest) as UpsertCurrencyRequest;
+    const message = Object.create(
+      baseUpsertCurrencyRequest,
+    ) as UpsertCurrencyRequest;
     if (object.identifier !== undefined && object.identifier !== null) {
       message.identifier = String(object.identifier);
     } else {
@@ -257,8 +267,12 @@ export const UpsertCurrencyRequest = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<UpsertCurrencyRequest>): UpsertCurrencyRequest {
-    const message = Object.create(baseUpsertCurrencyRequest) as UpsertCurrencyRequest;
+  fromPartial(
+    object: DeepPartial<UpsertCurrencyRequest>,
+  ): UpsertCurrencyRequest {
+    const message = Object.create(
+      baseUpsertCurrencyRequest,
+    ) as UpsertCurrencyRequest;
     if (object.identifier !== undefined && object.identifier !== null) {
       message.identifier = object.identifier;
     } else {
@@ -274,7 +288,10 @@ export const UpsertCurrencyRequest = {
 };
 
 export const UpsertCurrencyResponse = {
-  encode(message: UpsertCurrencyResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: UpsertCurrencyResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     if (message.currency !== undefined && message.currency !== undefined) {
       Currency.encode(message.currency, writer.uint32(10).fork()).ldelim();
     }
@@ -282,7 +299,9 @@ export const UpsertCurrencyResponse = {
   },
   decode(reader: Reader, length?: number): UpsertCurrencyResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseUpsertCurrencyResponse) as UpsertCurrencyResponse;
+    const message = Object.create(
+      baseUpsertCurrencyResponse,
+    ) as UpsertCurrencyResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -297,7 +316,9 @@ export const UpsertCurrencyResponse = {
     return message;
   },
   fromJSON(object: any): UpsertCurrencyResponse {
-    const message = Object.create(baseUpsertCurrencyResponse) as UpsertCurrencyResponse;
+    const message = Object.create(
+      baseUpsertCurrencyResponse,
+    ) as UpsertCurrencyResponse;
     if (object.currency !== undefined && object.currency !== null) {
       message.currency = Currency.fromJSON(object.currency);
     } else {
@@ -305,8 +326,12 @@ export const UpsertCurrencyResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<UpsertCurrencyResponse>): UpsertCurrencyResponse {
-    const message = Object.create(baseUpsertCurrencyResponse) as UpsertCurrencyResponse;
+  fromPartial(
+    object: DeepPartial<UpsertCurrencyResponse>,
+  ): UpsertCurrencyResponse {
+    const message = Object.create(
+      baseUpsertCurrencyResponse,
+    ) as UpsertCurrencyResponse;
     if (object.currency !== undefined && object.currency !== null) {
       message.currency = Currency.fromPartial(object.currency);
     } else {
@@ -316,19 +341,26 @@ export const UpsertCurrencyResponse = {
   },
   toJSON(message: UpsertCurrencyResponse): unknown {
     const obj: any = {};
-    obj.currency = message.currency ? Currency.toJSON(message.currency) : undefined;
+    obj.currency = message.currency
+      ? Currency.toJSON(message.currency)
+      : undefined;
     return obj;
   },
 };
 
 export const FindCurrencyRequest = {
-  encode(message: FindCurrencyRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindCurrencyRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     writer.uint32(10).string(message.filter);
     return writer;
   },
   decode(reader: Reader, length?: number): FindCurrencyRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindCurrencyRequest) as FindCurrencyRequest;
+    const message = Object.create(
+      baseFindCurrencyRequest,
+    ) as FindCurrencyRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -343,7 +375,9 @@ export const FindCurrencyRequest = {
     return message;
   },
   fromJSON(object: any): FindCurrencyRequest {
-    const message = Object.create(baseFindCurrencyRequest) as FindCurrencyRequest;
+    const message = Object.create(
+      baseFindCurrencyRequest,
+    ) as FindCurrencyRequest;
     if (object.filter !== undefined && object.filter !== null) {
       message.filter = String(object.filter);
     } else {
@@ -352,7 +386,9 @@ export const FindCurrencyRequest = {
     return message;
   },
   fromPartial(object: DeepPartial<FindCurrencyRequest>): FindCurrencyRequest {
-    const message = Object.create(baseFindCurrencyRequest) as FindCurrencyRequest;
+    const message = Object.create(
+      baseFindCurrencyRequest,
+    ) as FindCurrencyRequest;
     if (object.filter !== undefined && object.filter !== null) {
       message.filter = object.filter;
     } else {
@@ -368,7 +404,10 @@ export const FindCurrencyRequest = {
 };
 
 export const FindCurrencyResponse = {
-  encode(message: FindCurrencyResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindCurrencyResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     if (message.currency !== undefined && message.currency !== undefined) {
       Currency.encode(message.currency, writer.uint32(10).fork()).ldelim();
     }
@@ -376,7 +415,9 @@ export const FindCurrencyResponse = {
   },
   decode(reader: Reader, length?: number): FindCurrencyResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindCurrencyResponse) as FindCurrencyResponse;
+    const message = Object.create(
+      baseFindCurrencyResponse,
+    ) as FindCurrencyResponse;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -391,7 +432,9 @@ export const FindCurrencyResponse = {
     return message;
   },
   fromJSON(object: any): FindCurrencyResponse {
-    const message = Object.create(baseFindCurrencyResponse) as FindCurrencyResponse;
+    const message = Object.create(
+      baseFindCurrencyResponse,
+    ) as FindCurrencyResponse;
     if (object.currency !== undefined && object.currency !== null) {
       message.currency = Currency.fromJSON(object.currency);
     } else {
@@ -400,7 +443,9 @@ export const FindCurrencyResponse = {
     return message;
   },
   fromPartial(object: DeepPartial<FindCurrencyResponse>): FindCurrencyResponse {
-    const message = Object.create(baseFindCurrencyResponse) as FindCurrencyResponse;
+    const message = Object.create(
+      baseFindCurrencyResponse,
+    ) as FindCurrencyResponse;
     if (object.currency !== undefined && object.currency !== null) {
       message.currency = Currency.fromPartial(object.currency);
     } else {
@@ -410,18 +455,25 @@ export const FindCurrencyResponse = {
   },
   toJSON(message: FindCurrencyResponse): unknown {
     const obj: any = {};
-    obj.currency = message.currency ? Currency.toJSON(message.currency) : undefined;
+    obj.currency = message.currency
+      ? Currency.toJSON(message.currency)
+      : undefined;
     return obj;
   },
 };
 
 export const FindCurrenciesRequest = {
-  encode(message: FindCurrenciesRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindCurrenciesRequest,
+    writer: Writer = Writer.create(),
+  ): Writer {
     return writer;
   },
   decode(reader: Reader, length?: number): FindCurrenciesRequest {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindCurrenciesRequest) as FindCurrenciesRequest;
+    const message = Object.create(
+      baseFindCurrenciesRequest,
+    ) as FindCurrenciesRequest;
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -433,11 +485,17 @@ export const FindCurrenciesRequest = {
     return message;
   },
   fromJSON(object: any): FindCurrenciesRequest {
-    const message = Object.create(baseFindCurrenciesRequest) as FindCurrenciesRequest;
+    const message = Object.create(
+      baseFindCurrenciesRequest,
+    ) as FindCurrenciesRequest;
     return message;
   },
-  fromPartial(object: DeepPartial<FindCurrenciesRequest>): FindCurrenciesRequest {
-    const message = Object.create(baseFindCurrenciesRequest) as FindCurrenciesRequest;
+  fromPartial(
+    object: DeepPartial<FindCurrenciesRequest>,
+  ): FindCurrenciesRequest {
+    const message = Object.create(
+      baseFindCurrenciesRequest,
+    ) as FindCurrenciesRequest;
     return message;
   },
   toJSON(message: FindCurrenciesRequest): unknown {
@@ -447,7 +505,10 @@ export const FindCurrenciesRequest = {
 };
 
 export const FindCurrenciesResponse = {
-  encode(message: FindCurrenciesResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: FindCurrenciesResponse,
+    writer: Writer = Writer.create(),
+  ): Writer {
     for (const v of message.currencies) {
       Currency.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -455,7 +516,9 @@ export const FindCurrenciesResponse = {
   },
   decode(reader: Reader, length?: number): FindCurrenciesResponse {
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseFindCurrenciesResponse) as FindCurrenciesResponse;
+    const message = Object.create(
+      baseFindCurrenciesResponse,
+    ) as FindCurrenciesResponse;
     message.currencies = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -471,7 +534,9 @@ export const FindCurrenciesResponse = {
     return message;
   },
   fromJSON(object: any): FindCurrenciesResponse {
-    const message = Object.create(baseFindCurrenciesResponse) as FindCurrenciesResponse;
+    const message = Object.create(
+      baseFindCurrenciesResponse,
+    ) as FindCurrenciesResponse;
     message.currencies = [];
     if (object.currencies !== undefined && object.currencies !== null) {
       for (const e of object.currencies) {
@@ -480,8 +545,12 @@ export const FindCurrenciesResponse = {
     }
     return message;
   },
-  fromPartial(object: DeepPartial<FindCurrenciesResponse>): FindCurrenciesResponse {
-    const message = Object.create(baseFindCurrenciesResponse) as FindCurrenciesResponse;
+  fromPartial(
+    object: DeepPartial<FindCurrenciesResponse>,
+  ): FindCurrenciesResponse {
+    const message = Object.create(
+      baseFindCurrenciesResponse,
+    ) as FindCurrenciesResponse;
     message.currencies = [];
     if (object.currencies !== undefined && object.currencies !== null) {
       for (const e of object.currencies) {
@@ -493,7 +562,9 @@ export const FindCurrenciesResponse = {
   toJSON(message: FindCurrenciesResponse): unknown {
     const obj: any = {};
     if (message.currencies) {
-      obj.currencies = message.currencies.map(e => e ? Currency.toJSON(e) : undefined);
+      obj.currencies = message.currencies.map((e) =>
+        e ? Currency.toJSON(e) : undefined,
+      );
     } else {
       obj.currencies = [];
     }
@@ -503,14 +574,14 @@ export const FindCurrenciesResponse = {
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T[P] extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T[P] extends Date | Function | Uint8Array | undefined
-  ? T[P]
-  : T[P] extends infer U | undefined
-  ? DeepPartial<U>
-  : T[P] extends object
-  ? DeepPartial<T[P]>
-  : T[P]
+    ? Array<DeepPartial<U>>
+    : T[P] extends ReadonlyArray<infer U>
+    ? ReadonlyArray<DeepPartial<U>>
+    : T[P] extends Date | Function | Uint8Array | undefined
+    ? T[P]
+    : T[P] extends infer U | undefined
+    ? DeepPartial<U>
+    : T[P] extends object
+    ? DeepPartial<T[P]>
+    : T[P];
 };

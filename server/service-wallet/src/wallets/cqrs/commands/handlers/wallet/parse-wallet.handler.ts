@@ -1,5 +1,5 @@
 import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
-import {Cache} from 'cache-manager';
+import { Cache } from 'cache-manager';
 import {
   CommandBus,
   CommandHandler,
@@ -50,7 +50,8 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         throw new RpcException('Invalid terra account address');
       }
 
-      const blacklistLoader: BlacklistLoader = await BlacklistLoader.getInstance();
+      const blacklistLoader: BlacklistLoader =
+        await BlacklistLoader.getInstance();
 
       if (blacklistLoader.isInBlackList(address)) {
         return {

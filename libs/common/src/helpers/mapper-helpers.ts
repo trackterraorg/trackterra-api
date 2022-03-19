@@ -20,12 +20,11 @@ export function timeToRegularDateTime<T extends string | Date>(
 }
 
 export function timeToUtc(time: string | Date) {
-
-  if(_.isEmpty(time)) {
+  if (_.isEmpty(time)) {
     return;
   }
-    
-  const FORMAT = "YYYY-MM-DD HH:mm:ss";
+
+  const FORMAT = 'YYYY-MM-DD HH:mm:ss';
   return moment(time).utc().format(FORMAT);
 }
 
@@ -78,17 +77,16 @@ export function queryMapper(q: string) {
   return result;
 }
 
-
 export function seperateIndexFromToken(token: string): {
-  token: string,
-  index: number,
+  token: string;
+  index: number;
 } {
-  if(_.isEmpty(token)) {
-    return ;
+  if (_.isEmpty(token)) {
+    return;
   }
 
   // e.g: UST-LUNA_LP_1
-  const splitToken = _.split(token, "_LP_");
+  const splitToken = _.split(token, '_LP_');
 
   if (_.size(splitToken) !== 2) {
     return {
@@ -98,7 +96,7 @@ export function seperateIndexFromToken(token: string): {
   }
 
   return {
-    token: _.first(splitToken) + "_LP",
+    token: _.first(splitToken) + '_LP',
     index: _.last(splitToken) as unknown as number,
-  }
+  };
 }

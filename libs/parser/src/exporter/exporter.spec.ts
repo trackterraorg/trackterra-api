@@ -27,11 +27,11 @@ describe('The exporter should', () => {
     }[] = [];
 
     const walletAddress = 'terra1rk665gs04w7spmej846rsxfg0gssg2m9k3ymnd';
-    
+
     for (let index = 0; index < transformedActions.length; index++) {
       const transformedAction = transformedActions[index];
 
-      const {txType} = await Classifier.classify(transformedAction);
+      const { txType } = await Classifier.classify(transformedAction);
 
       const records = Parser.process({
         txType,

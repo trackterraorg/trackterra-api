@@ -4,15 +4,17 @@ import { ParserProcessArgs } from '../args';
 import { SwapEngine } from './swap';
 
 export class PrismRefract implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { contractActions } = args;
     const walletAddress = args.walletAddress as unknown as string;
 
-    const totalMinted = _.first(contractActions.bond_split).minted as unknown as number;
+    const totalMinted = _.first(contractActions.bond_split)
+      .minted as unknown as number;
 
-    const minted = _.filter(contractActions.mint, (k) => k.to as unknown as string == walletAddress);
+    const minted = _.filter(
+      contractActions.mint,
+      (k) => (k.to as unknown as string) == walletAddress,
+    );
     const sentAmount = (totalMinted / _.size(minted)) as unknown as string;
 
     return minted.map((mintedTx) => {
@@ -26,22 +28,23 @@ export class PrismRefract implements IParser {
         receivedToken: mintedTx.contract as unknown as string,
         tag: TxTag.Swap,
         friendlyDescription: args.txType.description,
-      }
+      };
     });
-  };
-  
+  }
 }
 
 export class PrismBond implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { contractActions } = args;
     const walletAddress = args.walletAddress as unknown as string;
 
-    const totalMinted = _.first(contractActions.bond).minted as unknown as number;
+    const totalMinted = _.first(contractActions.bond)
+      .minted as unknown as number;
 
-    const minted = _.filter(contractActions.mint, (k) => k.to as unknown as string == walletAddress);
+    const minted = _.filter(
+      contractActions.mint,
+      (k) => (k.to as unknown as string) == walletAddress,
+    );
     const sentAmount = (totalMinted / _.size(minted)) as unknown as string;
 
     return minted.map((mintedTx) => {
@@ -55,23 +58,23 @@ export class PrismBond implements IParser {
         receivedToken: mintedTx.contract as unknown as string,
         tag: TxTag.Swap,
         friendlyDescription: args.txType.description,
-      }
+      };
     });
-  };
-  
+  }
 }
 
 export class PrismMerge implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { contractActions } = args;
     const walletAddress = args.walletAddress as unknown as string;
 
     const transfer = _.first(contractActions.transfer);
     const total = transfer.amount as unknown as number;
 
-    const burnt = _.filter(contractActions.burn_from, (k) => k.from as unknown as string == walletAddress);
+    const burnt = _.filter(
+      contractActions.burn_from,
+      (k) => (k.from as unknown as string) == walletAddress,
+    );
     const receivedAmount = (total / _.size(burnt)) as unknown as string;
 
     return burnt.map((burnTx) => {
@@ -85,16 +88,13 @@ export class PrismMerge implements IParser {
         receivedToken: transfer.contract as unknown as string,
         tag: TxTag.Swap,
         friendlyDescription: args.txType.description,
-      }
+      };
     });
-  };
-  
+  }
 }
 
 export class SwapPrismXPrism implements IParser {
-
   process(args: ParserProcessArgs): IParsedTx[] {
-
     const { contractActions, walletAddress } = args;
 
     const sendAction: any = _.first(contractActions.send);
@@ -108,16 +108,15 @@ export class SwapPrismXPrism implements IParser {
       ask_asset: mintAction.contract,
       offer_amount: sendAction.amount,
       return_amount: mintAction.amount,
-    }
+    };
 
     return SwapEngine.swap({
-      ...args, 
+      ...args,
       contractActions: {
-        swap: [swapAction]
+        swap: [swapAction],
       },
-    })
-  };
-  
+    });
+  }
 }
 
 export const PrismProtocol = {
