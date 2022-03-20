@@ -47,7 +47,7 @@ transactions:
       shouldExistAttributes: ['swap', 'withdraw_liquidity']
       shouldNotExistAttributes: []
       contractAddressExtractKeys:
-        mainKey: swap
+        mainKey: withdraw_liquidity
         contractKey: sender
       ignoreContract: false
     isEliminator: true

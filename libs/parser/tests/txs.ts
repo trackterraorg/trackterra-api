@@ -467,6 +467,18 @@ export const txHashes = {
         '908DC4C8F92E74F8AA55E26D3316F73D398FC050714C41ACC151852A13DA33C9',
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
+    {
+      label: 'Spec unstake lp 1',
+      txHash:
+        '10AF9E44C1A799B65DEF5A5DA8AF81C2D31B4C9F412BABC173C9C7B555CAF4E8',
+      walletAddress: 'terra1gkqwe6l3m6s2vnnutdtd24mvs6ps7lpkd2q2hm',
+    },
+    {
+      label: 'Spec unstake lp 2',
+      txHash:
+        '8BE437BC58B70C0415653CCB9CEC5E0D0CE9A68DE666FCC0F88D2D3377533F70',
+      walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
+    },
   ],
   prism: [
     {
@@ -686,11 +698,11 @@ export const txHashes = {
   ],
   tests: [
     {
-      label: 'basset nasset swap',
+      label: 'Spec unstake lp',
 
       txHash:
-        '7E2517AF8E88BA5979C0A69D4B6B034C174481ED5CFBB7D172738C17FD9D0F52',
-      walletAddress: 'terra1u9vatqv6t9w6fmrylspnlmqg45h4jgy70kr52r',
+        '10AF9E44C1A799B65DEF5A5DA8AF81C2D31B4C9F412BABC173C9C7B555CAF4E8',
+      walletAddress: 'terra1gkqwe6l3m6s2vnnutdtd24mvs6ps7lpkd2q2hm',
     },
   ],
 };
