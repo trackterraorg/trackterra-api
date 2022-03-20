@@ -50,7 +50,7 @@ export class GenericAutoStake implements IParser {
       },
     });
 
-    const burnAction: any = _.first(args.contractActions.mint);
+    const burnAction: any = _.first(args.contractActions.burn);
     const transferAction: ITransferRecord = {
       contract: burnAction.contract,
       sender: burnAction.contract,
