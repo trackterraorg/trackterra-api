@@ -5,6 +5,8 @@ ENV NODE_ENV $NODE_ENV
 RUN mkdir -p /nest
 ADD . /nest
 
+RUN mkdir -p /nest/storage/wallets
+
 WORKDIR /nest
 
 RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*

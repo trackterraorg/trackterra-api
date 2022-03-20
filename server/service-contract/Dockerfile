@@ -3,10 +3,12 @@ FROM node:14-alpine
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
 
-RUN mkdir -p /usr/src/app
-ADD . /usr/src/app
+RUN mkdir -p /nest
+ADD . /nest
 
-WORKDIR /usr/src/app
+RUN mkdir -p /nest/storage/wallets
+
+WORKDIR /nest
 
 RUN apk add --update python3 make g++ && rm -rf /var/cache/apk/*
 
