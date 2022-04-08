@@ -158,18 +158,23 @@ export interface TxKoinly {
   friendlyDescription: string;
 }
 
+export interface TxCoinLedger {
+  id: string;
+  txhash: string;
+  timestamp: string;
+  label: string;
+  tag: string;
+  receivedAmount: string;
+  receivedToken: string;
+  sentAmount: string;
+  sentToken: string;
+  feeAmount: string;
+  feeToken: string;
+  friendlyDescription: string;
+}
+
 export interface TxNode {
   tx: Tx | undefined;
-  extras: TxExtra | undefined;
-}
-
-export interface TxKoinlyNode {
-  tx: TxKoinly | undefined;
-  extras: TxExtra | undefined;
-}
-
-export interface TxCointrackerNode {
-  tx: TxCointracker | undefined;
   extras: TxExtra | undefined;
 }
 
@@ -255,16 +260,6 @@ export interface FindTxsResponse {
   txs: TxNode[];
   totalCount: number;
   csvFileName: string;
-}
-
-export interface FindTxsResponseKoinly {
-  txs: TxKoinlyNode[];
-  totalCount: number;
-}
-
-export interface FindTxsResponseCointracker {
-  txs: TxCointrackerNode[];
-  totalCount: number;
 }
 
 export interface PickUnparsedTxsRequest {
@@ -437,17 +432,22 @@ const baseTxKoinly: object = {
   friendlyDescription: '',
 };
 
+const baseTxCoinLedger: object = {
+  id: '',
+  txhash: '',
+  timestamp: '',
+  label: '',
+  tag: '',
+  receivedAmount: '',
+  receivedToken: '',
+  sentAmount: '',
+  sentToken: '',
+  feeAmount: '',
+  feeToken: '',
+  friendlyDescription: '',
+};
+
 const baseTxNode: object = {
-  tx: undefined,
-  extras: undefined,
-};
-
-const baseTxKoinlyNode: object = {
-  tx: undefined,
-  extras: undefined,
-};
-
-const baseTxCointrackerNode: object = {
   tx: undefined,
   extras: undefined,
 };
@@ -534,16 +534,6 @@ const baseFindTxsResponse: object = {
   txs: undefined,
   totalCount: 0,
   csvFileName: '',
-};
-
-const baseFindTxsResponseKoinly: object = {
-  txs: undefined,
-  totalCount: 0,
-};
-
-const baseFindTxsResponseCointracker: object = {
-  txs: undefined,
-  totalCount: 0,
 };
 
 const basePickUnparsedTxsRequest: object = {
@@ -2873,6 +2863,223 @@ export const TxKoinly = {
   },
 };
 
+export const TxCoinLedger = {
+  encode(message: TxCoinLedger, writer: Writer = Writer.create()): Writer {
+    writer.uint32(10).string(message.id);
+    writer.uint32(18).string(message.txhash);
+    writer.uint32(26).string(message.timestamp);
+    writer.uint32(34).string(message.label);
+    writer.uint32(42).string(message.tag);
+    writer.uint32(50).string(message.receivedAmount);
+    writer.uint32(58).string(message.receivedToken);
+    writer.uint32(66).string(message.sentAmount);
+    writer.uint32(74).string(message.sentToken);
+    writer.uint32(82).string(message.feeAmount);
+    writer.uint32(90).string(message.feeToken);
+    writer.uint32(98).string(message.friendlyDescription);
+    return writer;
+  },
+  decode(reader: Reader, length?: number): TxCoinLedger {
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = Object.create(baseTxCoinLedger) as TxCoinLedger;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.id = reader.string();
+          break;
+        case 2:
+          message.txhash = reader.string();
+          break;
+        case 3:
+          message.timestamp = reader.string();
+          break;
+        case 4:
+          message.label = reader.string();
+          break;
+        case 5:
+          message.tag = reader.string();
+          break;
+        case 6:
+          message.receivedAmount = reader.string();
+          break;
+        case 7:
+          message.receivedToken = reader.string();
+          break;
+        case 8:
+          message.sentAmount = reader.string();
+          break;
+        case 9:
+          message.sentToken = reader.string();
+          break;
+        case 10:
+          message.feeAmount = reader.string();
+          break;
+        case 11:
+          message.feeToken = reader.string();
+          break;
+        case 12:
+          message.friendlyDescription = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+  fromJSON(object: any): TxCoinLedger {
+    const message = Object.create(baseTxCoinLedger) as TxCoinLedger;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = String(object.id);
+    } else {
+      message.id = '';
+    }
+    if (object.txhash !== undefined && object.txhash !== null) {
+      message.txhash = String(object.txhash);
+    } else {
+      message.txhash = '';
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = String(object.timestamp);
+    } else {
+      message.timestamp = '';
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = String(object.label);
+    } else {
+      message.label = '';
+    }
+    if (object.tag !== undefined && object.tag !== null) {
+      message.tag = String(object.tag);
+    } else {
+      message.tag = '';
+    }
+    if (object.receivedAmount !== undefined && object.receivedAmount !== null) {
+      message.receivedAmount = String(object.receivedAmount);
+    } else {
+      message.receivedAmount = '';
+    }
+    if (object.receivedToken !== undefined && object.receivedToken !== null) {
+      message.receivedToken = String(object.receivedToken);
+    } else {
+      message.receivedToken = '';
+    }
+    if (object.sentAmount !== undefined && object.sentAmount !== null) {
+      message.sentAmount = String(object.sentAmount);
+    } else {
+      message.sentAmount = '';
+    }
+    if (object.sentToken !== undefined && object.sentToken !== null) {
+      message.sentToken = String(object.sentToken);
+    } else {
+      message.sentToken = '';
+    }
+    if (object.feeAmount !== undefined && object.feeAmount !== null) {
+      message.feeAmount = String(object.feeAmount);
+    } else {
+      message.feeAmount = '';
+    }
+    if (object.feeToken !== undefined && object.feeToken !== null) {
+      message.feeToken = String(object.feeToken);
+    } else {
+      message.feeToken = '';
+    }
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
+      message.friendlyDescription = String(object.friendlyDescription);
+    } else {
+      message.friendlyDescription = '';
+    }
+    return message;
+  },
+  fromPartial(object: DeepPartial<TxCoinLedger>): TxCoinLedger {
+    const message = Object.create(baseTxCoinLedger) as TxCoinLedger;
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = '';
+    }
+    if (object.txhash !== undefined && object.txhash !== null) {
+      message.txhash = object.txhash;
+    } else {
+      message.txhash = '';
+    }
+    if (object.timestamp !== undefined && object.timestamp !== null) {
+      message.timestamp = object.timestamp;
+    } else {
+      message.timestamp = '';
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    } else {
+      message.label = '';
+    }
+    if (object.tag !== undefined && object.tag !== null) {
+      message.tag = object.tag;
+    } else {
+      message.tag = '';
+    }
+    if (object.receivedAmount !== undefined && object.receivedAmount !== null) {
+      message.receivedAmount = object.receivedAmount;
+    } else {
+      message.receivedAmount = '';
+    }
+    if (object.receivedToken !== undefined && object.receivedToken !== null) {
+      message.receivedToken = object.receivedToken;
+    } else {
+      message.receivedToken = '';
+    }
+    if (object.sentAmount !== undefined && object.sentAmount !== null) {
+      message.sentAmount = object.sentAmount;
+    } else {
+      message.sentAmount = '';
+    }
+    if (object.sentToken !== undefined && object.sentToken !== null) {
+      message.sentToken = object.sentToken;
+    } else {
+      message.sentToken = '';
+    }
+    if (object.feeAmount !== undefined && object.feeAmount !== null) {
+      message.feeAmount = object.feeAmount;
+    } else {
+      message.feeAmount = '';
+    }
+    if (object.feeToken !== undefined && object.feeToken !== null) {
+      message.feeToken = object.feeToken;
+    } else {
+      message.feeToken = '';
+    }
+    if (
+      object.friendlyDescription !== undefined &&
+      object.friendlyDescription !== null
+    ) {
+      message.friendlyDescription = object.friendlyDescription;
+    } else {
+      message.friendlyDescription = '';
+    }
+    return message;
+  },
+  toJSON(message: TxCoinLedger): unknown {
+    const obj: any = {};
+    obj.id = message.id || '';
+    obj.txhash = message.txhash || '';
+    obj.timestamp = message.timestamp || '';
+    obj.label = message.label || '';
+    obj.tag = message.tag || '';
+    obj.receivedAmount = message.receivedAmount || '';
+    obj.receivedToken = message.receivedToken || '';
+    obj.sentAmount = message.sentAmount || '';
+    obj.sentToken = message.sentToken || '';
+    obj.feeAmount = message.feeAmount || '';
+    obj.feeToken = message.feeToken || '';
+    obj.friendlyDescription = message.friendlyDescription || '';
+    return obj;
+  },
+};
+
 export const TxNode = {
   encode(message: TxNode, writer: Writer = Writer.create()): Writer {
     if (message.tx !== undefined && message.tx !== undefined) {
@@ -2933,136 +3140,6 @@ export const TxNode = {
   toJSON(message: TxNode): unknown {
     const obj: any = {};
     obj.tx = message.tx ? Tx.toJSON(message.tx) : undefined;
-    obj.extras = message.extras ? TxExtra.toJSON(message.extras) : undefined;
-    return obj;
-  },
-};
-
-export const TxKoinlyNode = {
-  encode(message: TxKoinlyNode, writer: Writer = Writer.create()): Writer {
-    if (message.tx !== undefined && message.tx !== undefined) {
-      TxKoinly.encode(message.tx, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.extras !== undefined && message.extras !== undefined) {
-      TxExtra.encode(message.extras, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(reader: Reader, length?: number): TxKoinlyNode {
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseTxKoinlyNode) as TxKoinlyNode;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.tx = TxKoinly.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.extras = TxExtra.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): TxKoinlyNode {
-    const message = Object.create(baseTxKoinlyNode) as TxKoinlyNode;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = TxKoinly.fromJSON(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.extras !== undefined && object.extras !== null) {
-      message.extras = TxExtra.fromJSON(object.extras);
-    } else {
-      message.extras = undefined;
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<TxKoinlyNode>): TxKoinlyNode {
-    const message = Object.create(baseTxKoinlyNode) as TxKoinlyNode;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = TxKoinly.fromPartial(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.extras !== undefined && object.extras !== null) {
-      message.extras = TxExtra.fromPartial(object.extras);
-    } else {
-      message.extras = undefined;
-    }
-    return message;
-  },
-  toJSON(message: TxKoinlyNode): unknown {
-    const obj: any = {};
-    obj.tx = message.tx ? TxKoinly.toJSON(message.tx) : undefined;
-    obj.extras = message.extras ? TxExtra.toJSON(message.extras) : undefined;
-    return obj;
-  },
-};
-
-export const TxCointrackerNode = {
-  encode(message: TxCointrackerNode, writer: Writer = Writer.create()): Writer {
-    if (message.tx !== undefined && message.tx !== undefined) {
-      TxCointracker.encode(message.tx, writer.uint32(10).fork()).ldelim();
-    }
-    if (message.extras !== undefined && message.extras !== undefined) {
-      TxExtra.encode(message.extras, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-  decode(reader: Reader, length?: number): TxCointrackerNode {
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(baseTxCointrackerNode) as TxCointrackerNode;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.tx = TxCointracker.decode(reader, reader.uint32());
-          break;
-        case 2:
-          message.extras = TxExtra.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): TxCointrackerNode {
-    const message = Object.create(baseTxCointrackerNode) as TxCointrackerNode;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = TxCointracker.fromJSON(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.extras !== undefined && object.extras !== null) {
-      message.extras = TxExtra.fromJSON(object.extras);
-    } else {
-      message.extras = undefined;
-    }
-    return message;
-  },
-  fromPartial(object: DeepPartial<TxCointrackerNode>): TxCointrackerNode {
-    const message = Object.create(baseTxCointrackerNode) as TxCointrackerNode;
-    if (object.tx !== undefined && object.tx !== null) {
-      message.tx = TxCointracker.fromPartial(object.tx);
-    } else {
-      message.tx = undefined;
-    }
-    if (object.extras !== undefined && object.extras !== null) {
-      message.extras = TxExtra.fromPartial(object.extras);
-    } else {
-      message.extras = undefined;
-    }
-    return message;
-  },
-  toJSON(message: TxCointrackerNode): unknown {
-    const obj: any = {};
-    obj.tx = message.tx ? TxCointracker.toJSON(message.tx) : undefined;
     obj.extras = message.extras ? TxExtra.toJSON(message.extras) : undefined;
     return obj;
   },
@@ -4212,172 +4289,6 @@ export const FindTxsResponse = {
     }
     obj.totalCount = message.totalCount || 0;
     obj.csvFileName = message.csvFileName || '';
-    return obj;
-  },
-};
-
-export const FindTxsResponseKoinly = {
-  encode(
-    message: FindTxsResponseKoinly,
-    writer: Writer = Writer.create(),
-  ): Writer {
-    for (const v of message.txs) {
-      TxKoinlyNode.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    writer.uint32(16).int32(message.totalCount);
-    return writer;
-  },
-  decode(reader: Reader, length?: number): FindTxsResponseKoinly {
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(
-      baseFindTxsResponseKoinly,
-    ) as FindTxsResponseKoinly;
-    message.txs = [];
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.txs.push(TxKoinlyNode.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.totalCount = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): FindTxsResponseKoinly {
-    const message = Object.create(
-      baseFindTxsResponseKoinly,
-    ) as FindTxsResponseKoinly;
-    message.txs = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(TxKoinlyNode.fromJSON(e));
-      }
-    }
-    if (object.totalCount !== undefined && object.totalCount !== null) {
-      message.totalCount = Number(object.totalCount);
-    } else {
-      message.totalCount = 0;
-    }
-    return message;
-  },
-  fromPartial(
-    object: DeepPartial<FindTxsResponseKoinly>,
-  ): FindTxsResponseKoinly {
-    const message = Object.create(
-      baseFindTxsResponseKoinly,
-    ) as FindTxsResponseKoinly;
-    message.txs = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(TxKoinlyNode.fromPartial(e));
-      }
-    }
-    if (object.totalCount !== undefined && object.totalCount !== null) {
-      message.totalCount = object.totalCount;
-    } else {
-      message.totalCount = 0;
-    }
-    return message;
-  },
-  toJSON(message: FindTxsResponseKoinly): unknown {
-    const obj: any = {};
-    if (message.txs) {
-      obj.txs = message.txs.map((e) =>
-        e ? TxKoinlyNode.toJSON(e) : undefined,
-      );
-    } else {
-      obj.txs = [];
-    }
-    obj.totalCount = message.totalCount || 0;
-    return obj;
-  },
-};
-
-export const FindTxsResponseCointracker = {
-  encode(
-    message: FindTxsResponseCointracker,
-    writer: Writer = Writer.create(),
-  ): Writer {
-    for (const v of message.txs) {
-      TxCointrackerNode.encode(v!, writer.uint32(10).fork()).ldelim();
-    }
-    writer.uint32(16).int32(message.totalCount);
-    return writer;
-  },
-  decode(reader: Reader, length?: number): FindTxsResponseCointracker {
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = Object.create(
-      baseFindTxsResponseCointracker,
-    ) as FindTxsResponseCointracker;
-    message.txs = [];
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.txs.push(TxCointrackerNode.decode(reader, reader.uint32()));
-          break;
-        case 2:
-          message.totalCount = reader.int32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-  fromJSON(object: any): FindTxsResponseCointracker {
-    const message = Object.create(
-      baseFindTxsResponseCointracker,
-    ) as FindTxsResponseCointracker;
-    message.txs = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(TxCointrackerNode.fromJSON(e));
-      }
-    }
-    if (object.totalCount !== undefined && object.totalCount !== null) {
-      message.totalCount = Number(object.totalCount);
-    } else {
-      message.totalCount = 0;
-    }
-    return message;
-  },
-  fromPartial(
-    object: DeepPartial<FindTxsResponseCointracker>,
-  ): FindTxsResponseCointracker {
-    const message = Object.create(
-      baseFindTxsResponseCointracker,
-    ) as FindTxsResponseCointracker;
-    message.txs = [];
-    if (object.txs !== undefined && object.txs !== null) {
-      for (const e of object.txs) {
-        message.txs.push(TxCointrackerNode.fromPartial(e));
-      }
-    }
-    if (object.totalCount !== undefined && object.totalCount !== null) {
-      message.totalCount = object.totalCount;
-    } else {
-      message.totalCount = 0;
-    }
-    return message;
-  },
-  toJSON(message: FindTxsResponseCointracker): unknown {
-    const obj: any = {};
-    if (message.txs) {
-      obj.txs = message.txs.map((e) =>
-        e ? TxCointrackerNode.toJSON(e) : undefined,
-      );
-    } else {
-      obj.txs = [];
-    }
-    obj.totalCount = message.totalCount || 0;
     return obj;
   },
 };

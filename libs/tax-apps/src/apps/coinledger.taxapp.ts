@@ -1,0 +1,58 @@
+import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
+import { TxCointracker } from '@trackterra/proto-schema/wallet';
+import { ITaxApp } from '../interfaces/base.taxapp.interface';
+import { AppAttrType } from './app.types';
+import { BaseTaxApp } from './base.taxapp';
+
+export class CoinTracker extends BaseTaxApp implements ITaxApp {
+  attributes: AppAttrType[] = [
+    { id: 'timestamp', title: 'Date(UTC)', formatter: (val) => timeToUtc(val) },
+    {
+      id: 'sentToken',
+      title: 'Asset Sent',
+      formatter: (val) => seperateIndexFromToken(val)?.token,
+    },
+    { id: 'sentAmount', title: 'Amount Sent' },
+    {
+      id: 'receivedToken',
+      title: 'Asset Received',
+      formatter: (val) => seperateIndexFromToken(val)?.token,
+    },
+    { id: 'receivedAmount', title: 'Amount Received' },
+    {
+      id: 'feeToken',
+      title: 'Fee Currency(Optional)',
+      formatter: (val) => seperateIndexFromToken(val)?.token,
+    },
+    { id: 'feeAmount', title: 'Fee Amount(Optional)' },
+    { id: 'tag', title: 'Type', formatter: (val) => this.mapTags(val) },
+    { id: 'friendlyDescription', title: 'Description(Optional)' },
+    { id: 'txhash', title: 'TxHash(Optional)' },
+  ];
+
+  tagMappings = {
+    add_liquidity: '',
+    cost: '',
+    deposit: '',
+    fail: 'lost',
+    fee: 'payment',
+    governance_vote: 'payment',
+    mint: '',
+    native_delegation: '',
+    native_claim_rewards: 'airdrop',
+    pool_deposit: 'staked',
+    pool_withdrawal: '',
+    remove_liquidity: '',
+    staking_rewards: 'airdrop',
+    swap: '',
+    withdraw: '',
+  };
+
+  txObj() {
+    return TxCointracker;
+  }
+
+  mapTags(tag: string) {
+    return this.tagMappings[tag] ?? '';
+  }
+}
