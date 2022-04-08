@@ -7,10 +7,7 @@ import { RpcException } from '@nestjs/microservices';
 import { FindTxsResponse, Tx } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
-import {
-  mapTxToTaxApp,
-  txEntityToView,
-} from 'server/service-wallet/src/common';
+import { txEntityToView } from 'server/service-wallet/src/common';
 import { cleanEmptyProperties, walletsDir } from '@trackterra/common';
 import { join } from 'path';
 import * as fs from 'fs';
@@ -18,7 +15,6 @@ import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
 import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
 import { TaxappSelector } from '@trackterra/tax-apps/apps';
-import { TaxAppTxType } from 'server/service-wallet/src/common/taxapp.types';
 
 @QueryHandler(GetTxsQuery)
 export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
@@ -94,7 +90,7 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
 
       const objTaxapp = TaxappSelector.select(input?.taxapp ?? 'regular');
 
-      const mappedBasedOnApp = await mapTxToTaxApp(txs, objTaxapp);
+      const mappedBasedOnApp = objTaxapp.processTxs(txs);
 
       if (input.csv) {
         const csvFileName = await this.createCsvFile(
@@ -127,7 +123,7 @@ export class GetTxsHandler implements IQueryHandler<GetTxsQuery> {
 
   private async createCsvFile(
     address: string,
-    txs: TaxAppTxType[],
+    txs: any[],
     header: ICsvHeaderCell[],
   ) {
     const dir = join(walletsDir(), address);

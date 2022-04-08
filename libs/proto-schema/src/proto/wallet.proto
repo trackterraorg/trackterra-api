@@ -150,51 +150,6 @@ message Tx {
     string updatedAt = 27;
 }
 
-message TxCointracker {
-    string id = 1;
-    string timestamp = 2;
-    string received_amount = 3;
-    string received_token = 4;
-    string sent_amount = 5;
-    string sent_token = 6;
-    string fee_amount = 7;
-    string fee_token = 8;
-    string label = 9;
-    string tag = 10;
-}
-
-message TxKoinly {
-    string id = 1;
-    string txhash = 2;
-    string timestamp = 3;
-    string label = 4;
-    string tag = 5;
-    string received_amount = 6;
-    string received_token = 7;
-    string sent_amount = 8;
-    string sent_token = 9;
-    string fee_amount = 10;
-    string fee_token = 11;
-    string net_worth_amount = 12;
-    string net_worth_token = 13;
-    string friendly_description = 14;
-}
-
-message TxCoinLedger {
-    string id = 1;
-    string txhash = 2;
-    string timestamp = 3;
-    string label = 4;
-    string tag = 5;
-    string received_amount = 6;
-    string received_token = 7;
-    string sent_amount = 8;
-    string sent_token = 9;
-    string fee_amount = 10;
-    string fee_token = 11;
-    string friendly_description = 12;
-}
-
 message TxNode {
     Tx tx = 1;
     TxExtra extras = 2; 

@@ -1,7 +1,7 @@
+import { TxEntity } from '@trackterra/repository';
 import { ICsvHeaderCell } from './csv-header-cell.interface';
-import { ITagTransform } from './tag-transform.interface';
 
 export interface ITaxApp {
-  txObj(): any;
+  processTxs(entities: TxEntity[]): any[] | null;
   csvCells(): ICsvHeaderCell[];
 }

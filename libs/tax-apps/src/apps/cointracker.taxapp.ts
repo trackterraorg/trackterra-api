@@ -46,10 +46,6 @@ export class CoinTracker extends BaseTaxApp implements ITaxApp {
     withdraw: '',
   };
 
-  txObj() {
-    return TxCointracker;
-  }
-
   mapTags(tag: string) {
     return this.tagMappings[tag] ?? '';
   }

@@ -43,8 +43,4 @@ export class Regular extends BaseTaxApp implements ITaxApp {
     { id: 'memo', title: 'Memo' },
     { id: 'friendlyDescription', title: 'Friendly description' },
   ];
-
-  txObj() {
-    return Tx;
-  }
 }

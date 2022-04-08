@@ -1,5 +1,4 @@
 import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
-import { TxKoinly } from '@trackterra/proto-schema/wallet';
 import { ITaxApp } from '../interfaces/base.taxapp.interface';
 import { AppAttrType } from './app.types';
 import { BaseTaxApp } from './base.taxapp';
@@ -52,10 +51,6 @@ export class Koinly extends BaseTaxApp implements ITaxApp {
     }
 
     return '';
-  }
-
-  txObj() {
-    return TxKoinly;
   }
 
   private generateTokenName(val: string) {
