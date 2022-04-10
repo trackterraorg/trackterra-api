@@ -1,6 +1,6 @@
 import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
 import { ITaxApp } from '../interfaces/base.taxapp.interface';
-import { AppAttrType } from './app.types';
+import { AppAttrType, RowFormatterType } from './app.types';
 import { BaseTaxApp } from './base.taxapp';
 
 export class Koinly extends BaseTaxApp implements ITaxApp {
@@ -42,6 +42,12 @@ export class Koinly extends BaseTaxApp implements ITaxApp {
     { id: 'friendlyDescription', title: 'Description' },
     { id: 'txhash', title: 'TxHash' },
   ];
+
+  rowFormatter: RowFormatterType = {
+    formatter: (row) => {
+      return row;
+    },
+  };
 
   private transformTags(val: string) {
     if (!val) {

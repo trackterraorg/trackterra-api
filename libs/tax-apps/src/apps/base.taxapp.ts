@@ -1,13 +1,16 @@
 import _ = require('lodash');
 import { TxEntity } from '@trackterra/repository';
 import { ICsvHeaderCell } from '../interfaces/csv-header-cell.interface';
-import { AppAttrType } from './app.types';
+import { AppAttrType, RowFormatterType } from './app.types';
 
 export abstract class BaseTaxApp {
   abstract attributes: AppAttrType[];
+  abstract rowFormatter: RowFormatterType;
 
   processTxs(entities: TxEntity[]): any[] {
-    const mappedTxs = this.pluckAttrs(entities);
+    let mappedTxs = this.pluckAttrs(entities);
+
+    mappedTxs = this.formatRows(mappedTxs);
 
     return this.formatAttrs(mappedTxs);
   }
@@ -19,6 +22,12 @@ export abstract class BaseTaxApp {
 
     return entities.map((entity: TxEntity) => {
       return _.pick(entity, appKeys);
+    });
+  }
+
+  private formatRows(mappedTxs: any[]): any[] {
+    return mappedTxs.map((tx) => {
+      return this.rowFormatter.formatter(tx);
     });
   }
 

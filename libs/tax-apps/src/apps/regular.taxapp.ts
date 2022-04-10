@@ -1,7 +1,7 @@
 import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
 import { Tx } from '@trackterra/proto-schema/wallet';
 import { ITaxApp } from '../interfaces/base.taxapp.interface';
-import { AppAttrType } from './app.types';
+import { AppAttrType, RowFormatterType } from './app.types';
 import { BaseTaxApp } from './base.taxapp';
 
 export class Regular extends BaseTaxApp implements ITaxApp {
@@ -47,4 +47,10 @@ export class Regular extends BaseTaxApp implements ITaxApp {
     { id: 'memo', title: 'Memo' },
     { id: 'friendlyDescription', title: 'Friendly description' },
   ];
+
+  rowFormatter: RowFormatterType = {
+    formatter: (row) => {
+      return row;
+    },
+  };
 }

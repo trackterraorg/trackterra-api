@@ -1,6 +1,6 @@
 import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
 import { ITaxApp } from '../interfaces/base.taxapp.interface';
-import { AppAttrType } from './app.types';
+import { AppAttrType, RowFormatterType } from './app.types';
 import { BaseTaxApp } from './base.taxapp';
 
 export class CoinLedger extends BaseTaxApp implements ITaxApp {
@@ -37,6 +37,12 @@ export class CoinLedger extends BaseTaxApp implements ITaxApp {
     { id: 'friendlyDescription', title: 'Description (Optional)' },
     { id: 'txhash', title: 'TxHash (Optional)' },
   ];
+
+  rowFormatter: RowFormatterType = {
+    formatter: (row) => {
+      return row;
+    },
+  };
 
   tagMappings = {
     add_liquidity: 'Withdrawal',
