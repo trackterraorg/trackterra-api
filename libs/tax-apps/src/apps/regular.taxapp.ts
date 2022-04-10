@@ -8,7 +8,11 @@ export class Regular extends BaseTaxApp implements ITaxApp {
   attributes: AppAttrType[] = [
     { id: 'txhash', title: 'Tx hash' },
     { id: 'blockHeight', title: 'Block height' },
-    { id: 'timestamp', title: 'Timestamp', formatter: (val) => timeToUtc(val) },
+    {
+      id: 'timestamp',
+      title: 'Timestamp',
+      formatter: (val) => timeToUtc(val.attrValue),
+    },
     { id: 'label', title: 'Label' },
     { id: 'tag', title: 'Tag' },
     { id: 'contract', title: 'Contract' },
@@ -18,19 +22,19 @@ export class Regular extends BaseTaxApp implements ITaxApp {
     {
       id: 'receivedToken',
       title: 'Received token',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'sentAmount', title: 'Sent amount' },
     {
       id: 'sentToken',
       title: 'Sent token',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'feeAmount', title: 'Fee amount' },
     {
       id: 'feeToken',
       title: 'Fee token',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'taxAmount', title: 'Tax amount' },
     { id: 'taxToken', title: 'Tax token' },
@@ -38,7 +42,7 @@ export class Regular extends BaseTaxApp implements ITaxApp {
     {
       id: 'netWorthToken',
       title: 'Networth token',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'memo', title: 'Memo' },
     { id: 'friendlyDescription', title: 'Friendly description' },

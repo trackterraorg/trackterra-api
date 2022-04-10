@@ -8,28 +8,32 @@ export class CoinLedger extends BaseTaxApp implements ITaxApp {
     {
       id: 'timestamp',
       title: 'Date (UTC)',
-      formatter: (val) => timeToUtc(val),
+      formatter: (val) => timeToUtc(val.attrValue),
     },
     { id: 'n_a', title: 'Platform (Optional)', formatter: (val) => '' },
     {
       id: 'sentToken',
       title: 'Asset Sent',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'sentAmount', title: 'Amount Sent' },
     {
       id: 'receivedToken',
       title: 'Asset Received',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'receivedAmount', title: 'Amount Received' },
     {
       id: 'feeToken',
       title: 'Fee Currency (Optional)',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'feeAmount', title: 'Fee Amount (Optional)' },
-    { id: 'tag', title: 'Type', formatter: (val) => this.mapTags(val) },
+    {
+      id: 'tag',
+      title: 'Type',
+      formatter: (val) => this.mapTags(val.attrValue),
+    },
     { id: 'friendlyDescription', title: 'Description (Optional)' },
     { id: 'txhash', title: 'TxHash (Optional)' },
   ];

@@ -30,7 +30,10 @@ export abstract class BaseTaxApp {
     if (_.size(attrsToFormat) > 0) {
       mappedTxs = mappedTxs.map((tx) => {
         _.forEach(attrsToFormat, (attr) => {
-          tx[attr.id] = attr?.formatter(tx[attr.id]);
+          tx[attr.id] = attr?.formatter({
+            attrValue: tx[attr.id],
+            row: tx,
+          });
         });
         return tx;
       });

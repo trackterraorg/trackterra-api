@@ -5,26 +5,34 @@ import { BaseTaxApp } from './base.taxapp';
 
 export class CoinTracker extends BaseTaxApp implements ITaxApp {
   attributes: AppAttrType[] = [
-    { id: 'timestamp', title: 'Date', formatter: (val) => timeToUtc(val) },
+    {
+      id: 'timestamp',
+      title: 'Date',
+      formatter: (val) => timeToUtc(val.attrValue),
+    },
     { id: 'receivedAmount', title: 'Received Quantity' },
     {
       id: 'receivedToken',
       title: 'Received Currency',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'sentAmount', title: 'Sent Quantity' },
     {
       id: 'sentToken',
       title: 'Sent Currency',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
     { id: 'feeAmount', title: 'Fee amount' },
     {
       id: 'feeToken',
       title: 'Fee token',
-      formatter: (val) => seperateIndexFromToken(val)?.token,
+      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
     },
-    { id: 'tag', title: 'Tag', formatter: (val) => this.mapTags(val) },
+    {
+      id: 'tag',
+      title: 'Tag',
+      formatter: (val) => this.mapTags(val.attrValue),
+    },
   ];
 
   tagMappings = {
