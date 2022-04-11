@@ -4,6 +4,7 @@ import { Regular } from '../apps/regular.taxapp';
 import { CoinLedger } from '../apps/coinledger.taxapp';
 import { CryptoTaxCalculator } from '../apps/cryptotaxcalculator.taxapp';
 import { ZenLedger } from '../apps/zenledger.taxapp';
+import { CoinTracking } from '../apps/cointracking.taxapp';
 
 export type TaxAppType =
   | Regular
@@ -11,4 +12,5 @@ export type TaxAppType =
   | CoinTracker
   | CoinLedger
   | CryptoTaxCalculator
-  | ZenLedger;
+  | ZenLedger
+  | CoinTracking;
