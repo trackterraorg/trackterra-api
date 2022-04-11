@@ -3,6 +3,7 @@ import { Koinly } from './koinly.taxapp';
 import { CoinTracker } from './cointracker.taxapp';
 import { CoinLedger } from './coinledger.taxapp';
 import { CryptoTaxCalculator } from './cryptotaxcalculator.taxapp';
+import { ZenLedger } from './zenledger.taxapp';
 
 export const TaxApps = {
   Regular,
@@ -10,6 +11,7 @@ export const TaxApps = {
   CoinTracker,
   CoinLedger,
   CryptoTaxCalculator,
+  ZenLedger,
 };
 
 const taxappTypeMap = {
