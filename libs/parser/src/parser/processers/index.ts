@@ -2,6 +2,7 @@ import { Swaps } from './swap';
 import { Transfers } from './transfer';
 import { Fail } from './fail';
 import { FeeOnly } from './fee';
+import { Ignore } from './ignore';
 import { Minters } from './mint';
 import { Rewarders } from './reward';
 import { Burners } from './burn';
@@ -31,6 +32,7 @@ import { StaderProtocol } from './stader';
 export const ParseProcessors = {
   Fail,
   FeeOnly,
+  Ignore,
   ToBeDefined,
   NotTaxed,
   ...Swaps,
