@@ -244,3 +244,15 @@ transactions:
       ignoreContract: false
     description: Cast vote
     parserClass: FeeOnly
+
+  - name: MirrorLimitOrder
+    contract: terra1zpr8tq3ts96mthcdkukmqq4y9lhw0ycevsnw89
+    classifier:
+      shouldExistAttributes: [execute_order]
+      shouldNotExistAttributes: []
+      contractAddressExtractKeys:
+        mainKey: execute_order
+        contractKey: contract
+      ignoreContract: false
+    description: Mirror limit order
+    parserClass: Ignore
