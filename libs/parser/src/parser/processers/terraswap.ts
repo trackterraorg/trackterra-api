@@ -90,7 +90,6 @@ export class TerraswapSwap2 implements IParser {
 
 export class TerraswapSwap3 implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
-    
     // native swap takes place before contract action
     const nativeSwap: any = _.first(args.contractActions.native_swap);
     const contractSwap: any = _.first(args.contractActions.swap);
@@ -99,7 +98,7 @@ export class TerraswapSwap3 implements IParser {
     const askAsset: IAmount = {
       token: contractSwap.ask_asset,
       amount: contractSwap.return_amount,
-    } 
+    };
 
     const swapAction: any = {
       contract: '',
@@ -111,8 +110,6 @@ export class TerraswapSwap3 implements IParser {
       return_amount: askAsset.amount,
     };
 
-    console.dir(swapAction, {depth: 'null'});
-    
     return SwapEngine.swap({
       ...args,
       contractActions: {
@@ -123,8 +120,30 @@ export class TerraswapSwap3 implements IParser {
   }
 }
 
+export class TerraswapMultiSwap implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    const swaps: any = args.contractActions.swap;
+
+    let swapTxs = [];
+
+    _.forEach(swaps, (swap) => {
+      const swapTx = SwapEngine.swap({
+        ...args,
+        contractActions: {
+          swap: [swap],
+        },
+        transferActions: undefined,
+      });
+      swapTxs = swapTxs.concat(swapTx);
+    });
+
+    return swapTxs;
+  }
+}
+
 export const TerraswapProtocol = {
   TerraswapSwap,
   TerraswapSwap2,
   TerraswapSwap3,
+  TerraswapMultiSwap,
 };
