@@ -88,7 +88,43 @@ export class TerraswapSwap2 implements IParser {
   }
 }
 
+export class TerraswapSwap3 implements IParser {
+  process(args: ParserProcessArgs): IParsedTx[] {
+    
+    // native swap takes place before contract action
+    const nativeSwap: any = _.first(args.contractActions.native_swap);
+    const contractSwap: any = _.first(args.contractActions.swap);
+
+    const offerAsset = separateAmountFromToken(nativeSwap.offer);
+    const askAsset: IAmount = {
+      token: contractSwap.ask_asset,
+      amount: contractSwap.return_amount,
+    } 
+
+    const swapAction: any = {
+      contract: '',
+      sender: args.walletAddress,
+      receiver: args.walletAddress,
+      offer_asset: offerAsset.token,
+      ask_asset: askAsset.token,
+      offer_amount: offerAsset.amount,
+      return_amount: askAsset.amount,
+    };
+
+    console.dir(swapAction, {depth: 'null'});
+    
+    return SwapEngine.swap({
+      ...args,
+      contractActions: {
+        swap: [swapAction],
+      },
+      transferActions: undefined,
+    });
+  }
+}
+
 export const TerraswapProtocol = {
   TerraswapSwap,
   TerraswapSwap2,
+  TerraswapSwap3,
 };
