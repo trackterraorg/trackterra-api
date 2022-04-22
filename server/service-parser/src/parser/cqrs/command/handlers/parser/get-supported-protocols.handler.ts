@@ -1,10 +1,7 @@
 import { Logger } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { GetSupportedProtocolsCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
-import { AccAddress } from '@terra-money/terra.js';
-import { Queue } from 'bull';
-import { InjectQueue } from '@nestjs/bull';
 import * as _ from 'lodash';
 import { SupportedProtocolsResponse } from '@trackterra/proto-schema/parser';
 import { ProtocolLoader } from '@trackterra/parser/loader';

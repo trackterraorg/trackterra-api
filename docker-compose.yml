@@ -71,12 +71,6 @@ services:
     image: consul
     command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
 
-  eventstore:
-    container_name: eventstore-node
-    ports:
-      - '2113:2113'
-      - '1113:1113'
-    image: eventstore/eventstore:release-5.0.8
 
   mongo:
     container_name: mongo

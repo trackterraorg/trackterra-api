@@ -78,10 +78,9 @@ as well as other services
     - Click trackterra then config in the list
     - You should see the config file for each service.
 
-- It is required to make some changes to the config params to make sure that the services communicate with mongo, eventstore, redis.
+- It is required to make some changes to the config params to make sure that the services communicate with mongo, redis.
     - Set the fcd node uri
     - In mongodb section, replace localhost with mongo
-    - In eventstore section, replace localhost with eventstore
     - In redis section, replace localhost with redis
 Make changes to other config params based on your custom configurations.
 Repeat this process for all listed services.
@@ -97,17 +96,13 @@ docker restart $(docker ps -q)
     - docker restart <wallet-service-id>
 ## Without Docker
 
-- Run consul, mongo, redis, eventstore using docker
+- Run consul, mongo, redis using docker
     ```bash
     consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -bind=67.205.178.222 -data-dir=/var/lib/consul
 
     docker run -d -p 27017:27017 mongo
     
     docker run -d -p 6379:6379 redis
-
-    docker run --name eventstore -it -d -p 2113:2113 -p 1113:1113 \
-    eventstore/eventstore:release-5.0.8 --insecure --run-projections=All \
-    --enable-external-tcp
     ```
 
 - (optional) Refer to [this](https://learn.hashicorp.com/tutorials/consul/deployment-guide#configure-systemd) tutorial to setup service for consul

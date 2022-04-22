@@ -1,9 +1,5 @@
 import { Module } from '@nestjs/common';
 import {
-  EventStoreSubscriptionType,
-  EventStoreModule,
-} from '@juicycleff/nestjs-event-store';
-import {
   WalletParsedEvent,
   WalletCreatedEvent,
   WalletUpdatedEvent,
@@ -25,24 +21,6 @@ import { PARSING_QUEUE_NAME } from './parser.constants';
 @Module({
   imports: [
     FCDApiService,
-    EventStoreModule.registerFeature({
-      type: 'event-store',
-      featureStreamName: '$ce-parser',
-      subscriptions: [
-        {
-          type: EventStoreSubscriptionType.Volatile,
-          stream: '$ce-parser',
-        },
-      ],
-      eventHandlers: {
-        WalletParsedEvent: (data) => new WalletParsedEvent(data),
-        WalletCreatedEvent: (data) => new WalletCreatedEvent(data),
-        WalletUpdatedEvent: (data) => new WalletUpdatedEvent(data),
-        WalletDeletedEvent: (data) => new WalletDeletedEvent(data),
-        WalletParsingEvent: (data) => new WalletParsingEvent(data),
-        TxsParsedEvent: (data) => null,
-      },
-    }),
     BullModule.registerQueueAsync({
       name: PARSING_QUEUE_NAME,
       useClass: BullConfigService,

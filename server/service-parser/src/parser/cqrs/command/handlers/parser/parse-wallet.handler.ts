@@ -1,8 +1,7 @@
 import { Logger } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { ParseWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
-import { WalletParsedEvent } from '@trackterra/core/cqrs';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
 import { Queue } from 'bull';
@@ -30,10 +29,6 @@ import {
 @CommandHandler(ParseWalletCommand)
 export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   logger = new Logger(this.constructor.name);
-  /**
-   * @constructor
-   * @param eventBus {EventBus}
-   */
   public constructor(
     @InjectQueue(PARSING_QUEUE_NAME) readonly queue: Queue,
     private readonly fcdApiService: FCDApiService,

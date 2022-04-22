@@ -1,10 +1,6 @@
 import { Logger } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import {
-  TxEntity,
-  TxRepository,
-  WalletRepository,
-} from '@trackterra/repository';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { TxEntity, TxRepository } from '@trackterra/repository';
 import { CreateTxsCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import {

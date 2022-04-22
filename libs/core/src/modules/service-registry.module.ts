@@ -7,8 +7,7 @@ import { ConsulModule } from '@nestcloud/consul';
 import { BootModule } from '@nestcloud/boot';
 import { ServiceModule } from '@nestcloud/service';
 import { LoggerModule } from '@nestcloud/logger';
-import { EventStoreModule } from '@juicycleff/nestjs-event-store';
-import { CacheStoreConfigService, EventstoreConfigService } from '../services';
+import { CacheStoreConfigService } from '../services';
 import { TerminusModule } from '@nestjs/terminus';
 
 @Global()
@@ -23,10 +22,6 @@ import { TerminusModule } from '@nestjs/terminus';
     LoadbalanceModule.register({ dependencies: [NEST_BOOT] }),
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
-    }),
-    EventStoreModule.registerAsync({
-      type: 'event-store',
-      useClass: EventstoreConfigService,
     }),
     TerminusModule.forRootAsync({
       useFactory: () => ({
@@ -45,10 +40,6 @@ import { TerminusModule } from '@nestjs/terminus';
     LoadbalanceModule.register({ dependencies: [NEST_BOOT] }),
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
-    }),
-    EventStoreModule.registerAsync({
-      type: 'event-store',
-      useClass: EventstoreConfigService,
     }),
     TerminusModule.forRootAsync({
       useFactory: () => ({

@@ -1,7 +1,6 @@
 import { Logger } from '@nestjs/common';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { TxRepository } from '@trackterra/repository';
-import { TxDeletedEvent } from '@trackterra/core';
 import { DeleteTxCommand } from '../../impl';
 import { DeleteTxResponse, Tx } from '@trackterra/proto-schema/wallet';
 import { RpcException } from '@nestjs/microservices';
@@ -11,7 +10,7 @@ export class DeleteTxHandler implements ICommandHandler<DeleteTxCommand> {
   logger = new Logger(this.constructor.name);
   txRepository: TxRepository;
 
-  public constructor(private readonly eventBus: EventBus) {}
+  public constructor() {}
 
   async execute(command: DeleteTxCommand): Promise<DeleteTxResponse> {
     this.logger = new Logger(this.constructor.name);
@@ -33,7 +32,6 @@ export class DeleteTxHandler implements ICommandHandler<DeleteTxCommand> {
       }
 
       await this.txRepository.deleteOne({ RpcException: input.id });
-      await this.eventBus.publish(new TxDeletedEvent(tx));
 
       return {
         tx: tx as unknown as Tx,

@@ -56,7 +56,6 @@ The final step is preparing the parsed data to be exported and used by other par
  - consul
  - redis
  - mongo 5
- - eventstore 5
  - jq
  - yq 4.18.1
  
@@ -98,7 +97,7 @@ The registeration script has to be run every time consul starts if consul is sta
 
 ## Usage  
   
-Consul, Mongodb, redis, and eventstore all need to be started first as our microservices need to connect to them.  
+Consul, Mongodb, and redis all need to be started first as our microservices need to connect to them.  
   
 Start consul  
 ```bash  
@@ -112,11 +111,10 @@ mongod
 If you have docker installed  
 ```bash  
 docker run -d -p 27017:27017 mongo  
-docker run -d -p 1113:1113 -p 2113:2113 eventstore/eventstore --insecure # insecure flag specifies no certificate required - suitable for devmode 
 docker run -d -p 6379:6379 redis  
 ```  
   
-Otherwise, you can install and run redis and eventstore locally if you choose.  
+Otherwise, you can install and run redis locally if you choose.  
   
 ## Running the microservices  
 You can start the microservices in any order. Example  

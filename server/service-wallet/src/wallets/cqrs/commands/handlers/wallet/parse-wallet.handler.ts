@@ -1,11 +1,6 @@
 import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import {
-  CommandBus,
-  CommandHandler,
-  EventBus,
-  ICommandHandler,
-} from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { WalletEntity, WalletRepository } from '@trackterra/repository';
 import { ParseWalletCommand, UpdateWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
@@ -30,7 +25,6 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   /**
    * @constructor
    * @param walletRepository {WalletRepository}
-   * @param eventBus {EventBus}
    */
   public constructor(
     private readonly walletRepository: WalletRepository,

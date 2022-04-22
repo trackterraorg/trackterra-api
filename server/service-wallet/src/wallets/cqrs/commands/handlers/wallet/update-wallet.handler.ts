@@ -1,17 +1,13 @@
 import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { WalletRepository } from '@trackterra/repository';
 import { UpdateWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { AccAddress } from '@terra-money/terra.js';
 import * as _ from 'lodash';
 import moment = require('moment');
-import {
-  ParsingStatus,
-  UpdateWalletResponse,
-  Wallet,
-} from '@trackterra/proto-schema/wallet';
+import { UpdateWalletResponse, Wallet } from '@trackterra/proto-schema/wallet';
 
 /**
  * @class
@@ -25,7 +21,6 @@ export class UpdateWalletHandler
   /**
    * @constructor
    * @param walletRepository {WalletRepository}
-   * @param eventBus {EventBus}
    */
   public constructor(
     private readonly walletRepository: WalletRepository,

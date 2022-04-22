@@ -12,18 +12,6 @@ database:
     name: srv-wallet
     options: ""
 
-  eventstore:
-    poolMax:
-    poolMin:
-    streamProtocol: "http"
-    hostname: "localhost"
-    httpPort: 2113
-    httpPotocol: "http"
-    tcpPassword: "changeit"
-    tcpUsername: "admin"
-    tcpPort: 1113
-    tcpProtocol: tcp
-
   redis:
     host: "localhost"
     port: "6379"

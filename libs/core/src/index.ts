@@ -1,4 +1,3 @@
-export * from './cqrs';
 export * from './interfaces';
 export * from './decorators';
 export * from './modules';
