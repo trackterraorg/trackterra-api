@@ -3,8 +3,6 @@ consul:
   port: 8500
 config:
   key: trackterra/config/${{ service.name }}
-nats:
-  url: nats://${{NATS_HOST}}:4222
 redis:
   host: ${{REDIS_HOST}}
   port: 6379

@@ -14,7 +14,6 @@ services:
       - redis
     environment:
       - CONSUL_HOST=consul
-      - NATS_HOST=nats
       - DISCOVERY_HOST=api-gateway
     ports:
       - 2052:2052
@@ -35,7 +34,6 @@ services:
       - redis
     environment:
       - CONSUL_HOST=consul
-      - NATS_HOST=nats
       - DISCOVERY_HOST=service-parser
     ports:
       - 50050:50050
@@ -55,7 +53,6 @@ services:
       - redis
     environment:
       - CONSUL_HOST=consul
-      - NATS_HOST=nats
       - DISCOVERY_HOST=service-contract
     ports:
       - 50085:50085
@@ -75,7 +72,6 @@ services:
       - redis
     environment:
       - CONSUL_HOST=consul
-      - NATS_HOST=nats
       - DISCOVERY_HOST=service-wallet
     ports:
       - 50075:50075
@@ -90,14 +86,6 @@ services:
       - "8600:53/udp"
     image: consul
     command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
-
-  nats:
-    container_name: nats
-    ports:
-      - "4222:4222"
-      - "6222:6222"
-      - "8222:8222"
-    image: nats
 
   mongo:
     container_name: mongo
