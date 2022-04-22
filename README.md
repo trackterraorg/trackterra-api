@@ -13,7 +13,6 @@ TrackTerra
 The app consist of 4 services each responsible for a handling a specific task in the application as follows:
 
  - `api-gateway` is the interface of the application through which all requests & responses are handled. All requests to the application need to go through api-gateway.
- - `service-contract` Responsible for handling contract related operations. For example, token names are retrieved from their contracts once it is being parsed by the praser service.
  
  These are the main services of the app. However their are couple libs which are common among the services. The most important one is the parser lib which is the core of the backend app.
 
@@ -125,7 +124,6 @@ sh scripts/setup.sh
 Run the services
 ```bash
 node dist/server/api-gateway/main.js  
-node dist/server/service-contract/main.js  
 ```
 
 or 
@@ -134,9 +132,6 @@ or
   
 $ yarn setup:local
   
-# Start the contract service  
-$ npx nest start service-contract
-
 # Start the gateway service  
 $ npx nest start api-gateway
   

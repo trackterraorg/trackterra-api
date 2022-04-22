@@ -1,15 +1,14 @@
 import { TxInfo } from '@terra-money/terra.js';
-import { ContractRpcClientService } from '@trackterra/core';
 import { TTOutput } from '@trackterra/parser';
-import { TxLabel } from '@trackterra/parser/parser';
 import { Currency } from '@trackterra/proto-schema/contract';
 import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
+import { CurrenciesService } from '../../currencies/currencies.service';
 
 export async function txToTxCreateRequest(
   tx: TTOutput,
   walletAddress: string,
-  currencyRpcClientService: ContractRpcClientService,
+  currenciesService: CurrenciesService,
 ): Promise<CreateTxRequest> {
   const { blockHeight, timestamp } = tx;
 
@@ -36,11 +35,9 @@ export async function txToTxCreateRequest(
     if (token && amount) {
       // for creating custom tokens
       try {
-        const { currency } = await currencyRpcClientService.svc
-          .upsertCurrency({
-            identifier: token,
-          })
-          .toPromise();
+        const { currency } = await currenciesService.upsertCurrency({
+          identifier: token,
+        });
 
         const nullIndex = !isNaN(Number(currency?.nullIndex))
           ? `_${currency.nullIndex}`

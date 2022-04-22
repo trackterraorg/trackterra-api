@@ -7,20 +7,22 @@ import {
   ResolveField,
 } from '@nestjs/graphql';
 import { Currency, CurrencyFilterArgs } from './types';
-import { GqlContext, setRpcContext } from '@trackterra/core';
 import { Currency as CurrencyRpc } from '@trackterra/proto-schema/contract';
+import { CurrenciesService } from '../currencies.service';
 
 @Resolver()
 export class CurrenciesResolver {
+  constructor(private readonly currenciesService: CurrenciesService) {}
+
   @Query(() => [Currency], { nullable: true })
   async listCurrencies(
     @Args() { where, paginate }: CurrencyFilterArgs,
-    @Context() ctx: GqlContext,
   ): Promise<CurrencyRpc[]> {
     const filter = JSON.stringify(where);
-    const result = await ctx?.rpc?.currency?.svc
-      .listCurrencies({ filter, paginate }, ctx)
-      .toPromise();
+    const result = await this.currenciesService.listCurrencies({
+      filter,
+      paginate,
+    });
     return result.currencies;
   }
 }

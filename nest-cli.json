@@ -112,15 +112,6 @@
       "compilerOptions": {
         "tsConfigPath": "server/api-gateway/tsconfig.app.json"
       }
-    },
-    "service-contract": {
-      "type": "application",
-      "root": "server/service-contract",
-      "entryFile": "main",
-      "sourceRoot": "server/service-contract/src",
-      "compilerOptions": {
-        "tsConfigPath": "server/service-contract/tsconfig.app.json"
-      }
     }
   }
 }

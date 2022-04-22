@@ -1,12 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import {
-  GlobalClientService,
-  ContractRpcClientService,
-} from '@trackterra/core';
+import { GlobalClientService } from '@trackterra/core';
 
 @Global()
 @Module({
-  providers: [GlobalClientService, ContractRpcClientService],
-  exports: [GlobalClientService, ContractRpcClientService],
+  providers: [GlobalClientService],
+  exports: [GlobalClientService],
 })
 export class GlobalClientModule {}

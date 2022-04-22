@@ -20,25 +20,6 @@ services:
       - 4000:4000
     volumes:
       - storage-static:/nest/storage
-
-  service-contract:
-    build:
-      context: .
-      dockerfile: server/service-contract/Dockerfile
-      args:
-        NODE_ENV: development
-    image: "trackterra/service-contract:latest"
-    restart: always
-    depends_on:
-      - consul
-      - redis
-    environment:
-      - CONSUL_HOST=consul
-      - DISCOVERY_HOST=service-contract
-    ports:
-      - 50085:50085
-    volumes:
-      - storage-static:/nest/storage
   
   consul:
     container_name: consul

@@ -15,20 +15,6 @@ services:
       - 2052:2052
     volumes:
       - storage-static:/nest/storage
-  
-  service-contract:
-    build:
-      context: .
-      dockerfile: server/service-contract/Dockerfile
-    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-contract:${IMAGE_TAG:?err}"
-    restart: always
-    environment:
-      - CONSUL_HOST=consul
-      - DISCOVERY_HOST=service-contract
-    ports:
-      - 50085:50085
-    volumes:
-      - storage-static:/nest/storage
       
   consul:
     container_name: consul

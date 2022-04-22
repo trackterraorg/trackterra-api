@@ -8,13 +8,14 @@ import * as _ from 'lodash';
 import moment = require('moment');
 
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
-import { ContractRpcClientService, FCDApiService } from '@trackterra/core';
+import { FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { WalletsService } from 'server/api-gateway/src/wallets/wallets.service';
 import {
   txToTxCreateRequest,
   txToUnparsedTxCreateRequest,
 } from 'server/api-gateway/src/parser/common/parser-mapper.utils';
+import { CurrenciesService } from 'server/api-gateway/src/currencies/currencies.service';
 
 /**
  * @class
@@ -27,7 +28,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     private readonly fcdApiService: FCDApiService,
     private readonly parserService: TTParserService,
     private readonly walletService: WalletsService,
-    private readonly currencyRpcClientService: ContractRpcClientService,
+    private readonly currenciesService: CurrenciesService,
   ) {}
 
   /**
@@ -85,7 +86,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
               const mappedResult = await txToTxCreateRequest(
                 resultTx,
                 address,
-                this.currencyRpcClientService,
+                this.currenciesService,
               );
               parsedTxs = parsedTxs.concat(mappedResult);
             }
