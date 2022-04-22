@@ -4,13 +4,10 @@ import { ParseWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
-import { Queue } from 'bull';
-import { InjectQueue } from '@nestjs/bull';
 import * as _ from 'lodash';
 import moment = require('moment');
 
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
-import { PARSING_QUEUE_NAME } from 'server/service-parser/src/parser/parser.constants';
 import {
   ContractRpcClientService,
   FCDApiService,
@@ -30,7 +27,6 @@ import {
 export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   logger = new Logger(this.constructor.name);
   public constructor(
-    @InjectQueue(PARSING_QUEUE_NAME) readonly queue: Queue,
     private readonly fcdApiService: FCDApiService,
     private readonly parserService: TTParserService,
     private readonly walletRpcService: WalletsRpcClientService,
