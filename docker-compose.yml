@@ -15,20 +15,6 @@ services:
       - 2052:2052
     volumes:
       - storage-static:/nest/storage
-
-  service-parser:
-    build:
-      context: .
-      dockerfile: server/service-parser/Dockerfile
-    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-parser:${IMAGE_TAG:?err}"
-    restart: always
-    environment:
-      - CONSUL_HOST=consul
-      - DISCOVERY_HOST=service-parser
-    ports:
-      - 50050:50050
-    volumes:
-      - storage-static:/nest/storage
   
   service-contract:
     build:

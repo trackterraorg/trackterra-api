@@ -158,7 +158,6 @@ npm install pm2@latest -g
 - Start the services
 ```bash
 pm2 start dist/server/api-gateway/main.js
-pm2 start dist/server/service-parser/main.js
 pm2 start dist/server/service-contract/main.js
 ```
 

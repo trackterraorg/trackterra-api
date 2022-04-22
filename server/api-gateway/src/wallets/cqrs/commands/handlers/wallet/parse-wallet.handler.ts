@@ -5,15 +5,14 @@ import { WalletEntity, WalletRepository } from '@trackterra/repository';
 import { ParseWalletCommand, UpdateWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { AccAddress } from '@terra-money/terra.js';
-import { ParserRpcClientService } from '@trackterra/core';
 import * as _ from 'lodash';
 import moment = require('moment');
 import {
-  CreateTxsResponse,
   ParseWalletResponse,
   ParsingStatus,
 } from '@trackterra/proto-schema/wallet';
 import { BlacklistLoader } from '@trackterra/parser/blacklist';
+import { ParserService } from 'server/api-gateway/src/parser/parser.service';
 
 /**
  * @class
@@ -28,7 +27,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
    */
   public constructor(
     private readonly walletRepository: WalletRepository,
-    private readonly parserRpcService: ParserRpcClientService,
+    private readonly parserService: ParserService,
     private readonly commandBus: CommandBus,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
@@ -99,12 +98,10 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       let parsingResult;
       try {
-        parsingResult = await this.parserRpcService.svc
-          .doParse({
-            address: wallet.address,
-            highestParsedBlockHeight,
-          })
-          .toPromise();
+        parsingResult = await this.parserService.doParse({
+          address: wallet.address,
+          highestParsedBlockHeight,
+        });
       } catch (e) {
         await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
           updates: {

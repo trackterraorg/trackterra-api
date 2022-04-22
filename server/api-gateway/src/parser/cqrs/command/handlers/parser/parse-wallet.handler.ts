@@ -10,11 +10,11 @@ import moment = require('moment');
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import { ContractRpcClientService, FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
+import { WalletsService } from 'server/api-gateway/src/wallets/wallets.service';
 import {
   txToTxCreateRequest,
   txToUnparsedTxCreateRequest,
-} from 'server/service-parser/src/parser/common/parser-mapper.utils';
-import { WalletsService } from 'server/api-gateway/src/wallets/wallets.service';
+} from 'server/api-gateway/src/parser/common/parser-mapper.utils';
 
 /**
  * @class

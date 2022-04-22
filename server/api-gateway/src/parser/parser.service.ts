@@ -16,7 +16,7 @@ export class ParserService {
     return this.commandBus.execute(new GetSupportedProtocolsCommand());
   }
 
-  doParse(request: ParseWalletRequest, ctx: any): Promise<ParseWalletResponse> {
+  doParse(request: ParseWalletRequest): Promise<ParseWalletResponse> {
     return this.commandBus.execute(new ParseWalletCommand(request));
   }
 }

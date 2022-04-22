@@ -4,18 +4,13 @@ import { RedisCache } from 'apollo-server-cache-redis';
 import { corsApollOptions } from '@trackterra/common';
 import { buildContext } from 'graphql-passport';
 import { ConsulConfig, InjectConfig } from '@nestcloud/config';
-import {
-  ContractRpcClientService,
-  GqlContext,
-  ParserRpcClientService,
-} from '@trackterra/core';
+import { ContractRpcClientService, GqlContext } from '@trackterra/core';
 import { RedisOptions } from 'ioredis';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
   constructor(
     @InjectConfig() private readonly config: ConsulConfig,
-    private readonly parser: ParserRpcClientService,
     private readonly currency: ContractRpcClientService,
   ) {}
 
@@ -38,7 +33,6 @@ export class GqlConfigService implements GqlOptionsFactory {
           connection,
           ...bc,
           rpc: {
-            parser: this.parser,
             currency: this.currency,
           },
         };

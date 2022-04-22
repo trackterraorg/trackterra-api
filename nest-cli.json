@@ -113,15 +113,6 @@
         "tsConfigPath": "server/api-gateway/tsconfig.app.json"
       }
     },
-    "service-parser": {
-      "type": "application",
-      "root": "server/service-parser",
-      "entryFile": "main",
-      "sourceRoot": "server/service-parser/src",
-      "compilerOptions": {
-        "tsConfigPath": "server/service-parser/tsconfig.app.json"
-      }
-    },
     "service-contract": {
       "type": "application",
       "root": "server/service-contract",

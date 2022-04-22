@@ -1,6 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { ParserRpcClientService } from '@trackterra/core';
 import { SupportedProtocol } from '@trackterra/proto-schema/parser';
 import { ParserService } from '../parser.service';
 
