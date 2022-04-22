@@ -14,9 +14,6 @@ async function bootstrap() {
       new FastifyAdapter(),
     ),
   );
-  await microserviceSetup(app, 'proto/wallet.proto', {
-    enableNats: false,
-    enableMqtt: false,
-  });
+  await microserviceSetup(app, 'proto/wallet.proto', {});
 }
 (() => bootstrap())();

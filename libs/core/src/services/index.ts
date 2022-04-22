@@ -8,4 +8,3 @@ export * from './others/fcd-api.service';
 export * from './configs/mongo-config.service';
 export * from './grpc-clients';
 export * from './configs/cache-store-config.service';
-export * from './configs/mqtt-client-config';
