@@ -8,7 +8,6 @@ import {
   ContractRpcClientService,
   GqlContext,
   ParserRpcClientService,
-  WalletsRpcClientService,
 } from '@trackterra/core';
 import { RedisOptions } from 'ioredis';
 
@@ -17,7 +16,6 @@ export class GqlConfigService implements GqlOptionsFactory {
   constructor(
     @InjectConfig() private readonly config: ConsulConfig,
     private readonly parser: ParserRpcClientService,
-    private readonly wallet: WalletsRpcClientService,
     private readonly currency: ContractRpcClientService,
   ) {}
 
@@ -41,7 +39,6 @@ export class GqlConfigService implements GqlOptionsFactory {
           ...bc,
           rpc: {
             parser: this.parser,
-            wallet: this.wallet,
             currency: this.currency,
           },
         };
