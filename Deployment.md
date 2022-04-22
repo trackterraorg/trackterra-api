@@ -160,7 +160,6 @@ npm install pm2@latest -g
 pm2 start dist/server/api-gateway/main.js
 pm2 start dist/server/service-parser/main.js
 pm2 start dist/server/service-contract/main.js
-pm2 start dist/server/service-wallet/main.js
 ```
 
 ## Test API

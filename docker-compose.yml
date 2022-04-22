@@ -44,20 +44,6 @@ services:
     volumes:
       - storage-static:/nest/storage
       
-  service-wallet:
-    build:
-      context: .
-      dockerfile: server/service-wallet/Dockerfile
-    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/service-wallet:${IMAGE_TAG:?err}"
-    restart: always
-    environment:
-      - CONSUL_HOST=consul
-      - DISCOVERY_HOST=service-wallet
-    ports:
-      - 50075:50075
-    volumes:
-      - storage-static:/nest/storage  
-      
   consul:
     container_name: consul
     ports:

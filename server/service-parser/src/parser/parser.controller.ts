@@ -7,7 +7,6 @@ import {
   ParserService,
   ParseWalletRequest,
   ParseWalletResponse,
-  SupportedProtocolsRequest,
   SupportedProtocolsResponse,
 } from '@trackterra/proto-schema/parser';
 

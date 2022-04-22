@@ -1,6 +1,5 @@
 import { Request as ExpressRequest } from 'express';
 import {
-  WalletsRpcClientService,
   ParserRpcClientService,
   ContractRpcClientService,
 } from '@trackterra/core/services';
@@ -10,7 +9,6 @@ export interface IRequest extends ExpressRequest {}
 export interface GqlContext extends Partial<Context> {
   connection?: any;
   rpc: {
-    wallet: WalletsRpcClientService;
     parser: ParserRpcClientService;
     currency: ContractRpcClientService;
   };

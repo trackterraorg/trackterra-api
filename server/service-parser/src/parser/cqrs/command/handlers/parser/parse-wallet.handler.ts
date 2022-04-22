@@ -8,16 +8,13 @@ import * as _ from 'lodash';
 import moment = require('moment');
 
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
-import {
-  ContractRpcClientService,
-  FCDApiService,
-  WalletsRpcClientService,
-} from '@trackterra/core';
+import { ContractRpcClientService, FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import {
   txToTxCreateRequest,
   txToUnparsedTxCreateRequest,
 } from 'server/service-parser/src/parser/common/parser-mapper.utils';
+import { WalletsService } from 'server/api-gateway/src/wallets/wallets.service';
 
 /**
  * @class
@@ -29,7 +26,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   public constructor(
     private readonly fcdApiService: FCDApiService,
     private readonly parserService: TTParserService,
-    private readonly walletRpcService: WalletsRpcClientService,
+    private readonly walletService: WalletsService,
     private readonly currencyRpcClientService: ContractRpcClientService,
   ) {}
 
@@ -106,11 +103,9 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         _(parsedTxs.concat(unparsedTxs))
           .chunk(10)
           .forEach((parsedTxsChunk) => {
-            this.walletRpcService.svc
-              .createTxs({
-                txs: parsedTxsChunk,
-              })
-              .toPromise();
+            this.walletService.createTxs({
+              txs: parsedTxsChunk,
+            });
           });
 
         parsedTxs = [];
@@ -123,13 +118,11 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         }
       }
 
-      this.walletRpcService.svc
-        .updateWallet({
-          address,
-          highestParsedBlock: newHighestBlockHeight,
-          status: ParsingStatus.DONE,
-        })
-        .toPromise();
+      this.walletService.updateWallet({
+        address,
+        highestParsedBlock: newHighestBlockHeight,
+        status: ParsingStatus.DONE,
+      });
 
       const msg = `Parsing completed for wallet address ${address}. ${numberOfNewParsedTxs} new txs parsed!`;
 

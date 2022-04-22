@@ -1,9 +1,5 @@
 import { Module } from '@nestjs/common';
-import {
-  FCDApiService,
-  WalletsRpcClientService,
-  ContractRpcClientService,
-} from '@trackterra/core';
+import { FCDApiService, ContractRpcClientService } from '@trackterra/core';
 import { ParserController } from './parser.controller';
 import { ParserCommandHandlers } from './cqrs';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
@@ -16,7 +12,6 @@ import { TTParser } from '@trackterra/parser';
     TTParserService,
     FCDApiService,
     ...ParserCommandHandlers,
-    WalletsRpcClientService,
     ContractRpcClientService,
   ],
   controllers: [ParserController],

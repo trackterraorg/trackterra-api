@@ -15,7 +15,6 @@ The app consist of 4 services each responsible for a handling a specific task in
  - `api-gateway` is the interface of the application through which all requests & responses are handled. All requests to the application need to go through api-gateway.
  - `service-parser` This service is responsible for handling parsing process of the application. Once a wallet address enters this services it is being prepared, validated and parsed. It will make an rpc call to the wallet service to store the parsing txs as well as updating the parsing status of wallets.
  - `service-contract` Responsible for handling contract related operations. For example, token names are retrieved from their contracts once it is being parsed by the praser service.
- - `service-wallet` This services handles all tasks related to wallets and their txs after parsing. The wallets and their status are held in this service as well as fetching parsed transactions and exporting to csv.
  
  These are the main services of the app. However their are couple libs which are common among the services. The most important one is the parser lib which is the core of the backend app.
 
@@ -129,7 +128,6 @@ Run the services
 node dist/server/api-gateway/main.js  
 node dist/server/service-parser/main.js  
 node dist/server/service-contract/main.js  
-node dist/server/service-wallet/main.js
 ```
 
 or 
@@ -140,9 +138,6 @@ $ yarn setup:local
   
 # Start the parser service  
 $ npx nest start service-parser
-
-# Start the wallet service  
-$ npx nest start service-wallet
 
 # Start the contract service  
 $ npx nest start service-contract

@@ -122,15 +122,6 @@
         "tsConfigPath": "server/service-parser/tsconfig.app.json"
       }
     },
-    "service-wallet": {
-      "type": "application",
-      "root": "server/service-wallet",
-      "entryFile": "main",
-      "sourceRoot": "server/service-wallet/src",
-      "compilerOptions": {
-        "tsConfigPath": "server/service-wallet/tsconfig.app.json"
-      }
-    },
     "service-contract": {
       "type": "application",
       "root": "server/service-contract",

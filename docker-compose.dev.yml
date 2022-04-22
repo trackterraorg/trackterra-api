@@ -58,25 +58,6 @@ services:
       - 50085:50085
     volumes:
       - storage-static:/nest/storage
-
-  service-wallet:
-    build:
-      context: .
-      dockerfile: server/service-wallet/Dockerfile
-      args:
-        NODE_ENV: development
-    image: "trackterra/service-wallet:latest"
-    restart: always
-    depends_on:
-      - consul
-      - redis
-    environment:
-      - CONSUL_HOST=consul
-      - DISCOVERY_HOST=service-wallet
-    ports:
-      - 50075:50075
-    volumes:
-      - storage-static:/nest/storage
   
   consul:
     container_name: consul
