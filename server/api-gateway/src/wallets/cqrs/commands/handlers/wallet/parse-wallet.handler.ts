@@ -36,7 +36,8 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
    */
   async execute(command: ParseWalletCommand): Promise<ParseWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
-    const { address } = command.address;
+
+    const { address } = command.input;
 
     try {
       if (!AccAddress.validate(address)) {
