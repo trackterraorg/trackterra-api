@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { ParseWalletCommand } from '../../impl';
+import { DoParseCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
@@ -14,10 +14,10 @@ import _ = require('lodash');
 
 /**
  * @class
- * @implements {ICommandHandler<ParseWalletCommand>}
+ * @implements {ICommandHandler<DoParseCommand>}
  */
-@CommandHandler(ParseWalletCommand)
-export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
+@CommandHandler(DoParseCommand)
+export class DoParseHandler implements ICommandHandler<DoParseCommand> {
   logger = new Logger(this.constructor.name);
   public constructor(
     private readonly fcdApiService: FCDApiService,
@@ -27,9 +27,9 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   ) {}
 
   /**
-   * @param command {ParseWalletCommand}
+   * @param command {DoParseCommand}
    */
-  async execute(command: ParseWalletCommand): Promise<ParseWalletResponse> {
+  async execute(command: DoParseCommand): Promise<ParseWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
 
     const { address, highestParsedBlockHeight } = command.input;

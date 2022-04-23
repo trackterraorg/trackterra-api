@@ -1,7 +1,7 @@
-import { ParseWalletHandler } from './parse-wallet.handler';
+import { DoParseHandler } from './do-parse.handler';
 import { GetSupportedProtocolsHandler } from './get-supported-protocols.handler';
 
 export const ParserCommandHandlers = [
-  ParseWalletHandler,
+  DoParseHandler,
   GetSupportedProtocolsHandler,
 ];
