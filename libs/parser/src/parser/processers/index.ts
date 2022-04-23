@@ -20,7 +20,7 @@ import { GlowProtocol } from './glow';
 import { NFTParsers } from './nft';
 import { Native } from './native';
 import { NexusProtocol } from './nexus';
-import { SpecProtocol } from './spec';
+import { SpecProtocol } from './specp';
 import { PylonProtocol } from './pylon';
 import { AnchorProtocol } from './anchor';
 import { LuartProtocol } from './luart';

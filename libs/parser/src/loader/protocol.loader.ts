@@ -84,7 +84,7 @@ export class ProtocolLoader {
     const path = await import('path');
     const fs = await import('fs');
 
-    const directoryPath = path.resolve('./protocols');
+    const directoryPath = path.resolve('./libs/parser/src/yml/protocols');
 
     try {
       const files = await fs.readdirSync(directoryPath);

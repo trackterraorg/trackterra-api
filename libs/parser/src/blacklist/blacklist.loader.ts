@@ -20,7 +20,9 @@ export class BlacklistLoader {
     const fs = await import('fs');
     const path = await import('path');
 
-    const blacklistYamlFile = path.resolve('./blacklist/blacklist.yaml');
+    const blacklistYamlFile = path.resolve(
+      './libs/parser/src/yml/blacklist/blacklist.yaml',
+    );
 
     try {
       const blacklist: any = yaml.load(

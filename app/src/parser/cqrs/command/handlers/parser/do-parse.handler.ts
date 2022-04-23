@@ -9,7 +9,10 @@ import { FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { WalletsService } from '@trackterra/app/wallets/wallets.service';
 import { CurrenciesService } from '@trackterra/app/currencies/currencies.service';
-import { txToTxCreateRequest, txToUnparsedTxCreateRequest } from '@trackterra/app/parser/common/parser-mapper.utils';
+import {
+  txToTxCreateRequest,
+  txToUnparsedTxCreateRequest,
+} from '@trackterra/app/parser/common/parser-mapper.utils';
 import _ = require('lodash');
 
 /**

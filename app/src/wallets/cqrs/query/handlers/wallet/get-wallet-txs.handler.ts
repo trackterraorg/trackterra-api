@@ -21,8 +21,8 @@ import { join } from 'path';
 import * as fs from 'fs';
 import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
-import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces/csv-header-cell.interface';
 import { TaxappSelector } from '@trackterra/tax-apps/apps';
+import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces';
 
 @QueryHandler(GetWalletTxsQuery)
 export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
