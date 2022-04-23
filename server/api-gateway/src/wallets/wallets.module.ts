@@ -10,11 +10,9 @@ import { WalletsService } from './wallets.service';
 import { ParserService } from '../parser/parser.service';
 
 @Module({
-  imports: [FCDApiService],
   providers: [
     TTParser,
     TTParserService,
-    FCDApiService,
     WalletsService,
     ...ParseWalletCommandHandlers,
     ...ParseWalletQueryHandlers,

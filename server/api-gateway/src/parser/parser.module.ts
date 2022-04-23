@@ -10,7 +10,6 @@ import { WalletRepository } from '@trackterra/repository';
 import { CurrenciesService } from '../currencies/currencies.service';
 
 @Module({
-  imports: [FCDApiService],
   providers: [
     TTParser,
     TTParserService,
