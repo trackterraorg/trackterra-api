@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { FCDApiService } from '@trackterra/core';
 import { ParserService } from './parser.service';
 import { ParserCommandHandlers } from './cqrs';
@@ -18,8 +18,7 @@ import { WalletsModule } from '../wallets/wallets.module';
     CurrenciesService,
   ],
   controllers: [ParserController],
-  imports: [
-    WalletsModule
-  ]
+  imports: [forwardRef(() => WalletsModule)],
+  exports: [ParserService],
 })
 export class ParserModule {}
