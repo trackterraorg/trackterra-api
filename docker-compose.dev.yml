@@ -1,20 +1,20 @@
 version: "3.2"
 
 services:
-  api-gateway:
+  app:
     build:
       context: .
-      dockerfile: server/api-gateway/Dockerfile
+      dockerfile: app/Dockerfile
       args:
         NODE_ENV: development
-    image: "trackterra/api-gateway:latest"
+    image: "trackterra/app:latest"
     restart: always
     depends_on:
       - consul
       - redis
     environment:
       - CONSUL_HOST=consul
-      - DISCOVERY_HOST=api-gateway
+      - DISCOVERY_HOST=app
     ports:
       - 2052:2052
       - 4000:4000

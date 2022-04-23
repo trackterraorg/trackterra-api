@@ -224,7 +224,8 @@
       "@trackterra/repository/(.*)": "<rootDir>/libs/repository/src/$1",
       "@trackterra/repository": "<rootDir>/libs/repository/src",
       "@juicycleff/repo-orm/(.*)": "<rootDir>/libs/repo-orm/src/$1",
-      "@juicycleff/repo-orm": "<rootDir>/libs/repo-orm/src"
+      "@juicycleff/repo-orm": "<rootDir>/libs/repo-orm/src",
+      "@trackterra/app/*": ["<rootDir>/app/src"]
     }
   },
   "remarkConfig": {

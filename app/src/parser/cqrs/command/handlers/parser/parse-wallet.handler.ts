@@ -4,18 +4,13 @@ import { ParseWalletCommand } from '../../impl';
 import { RpcException } from '@nestjs/microservices';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
-import * as _ from 'lodash';
-import moment = require('moment');
-
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import { FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
-import { WalletsService } from 'server/api-gateway/src/wallets/wallets.service';
-import {
-  txToTxCreateRequest,
-  txToUnparsedTxCreateRequest,
-} from 'server/api-gateway/src/parser/common/parser-mapper.utils';
-import { CurrenciesService } from 'server/api-gateway/src/currencies/currencies.service';
+import { WalletsService } from '@trackterra/app/wallets/wallets.service';
+import { CurrenciesService } from '@trackterra/app/currencies/currencies.service';
+import { txToTxCreateRequest, txToUnparsedTxCreateRequest } from '@trackterra/app/parser/common/parser-mapper.utils';
+import _ = require('lodash');
 
 /**
  * @class

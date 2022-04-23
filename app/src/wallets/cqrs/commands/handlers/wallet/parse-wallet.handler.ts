@@ -12,7 +12,7 @@ import {
   ParsingStatus,
 } from '@trackterra/proto-schema/wallet';
 import { BlacklistLoader } from '@trackterra/parser/blacklist';
-import { ParserService } from 'server/api-gateway/src/parser/parser.service';
+import { ParserService } from '@trackterra/app/parser/parser.service';
 
 /**
  * @class

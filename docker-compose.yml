@@ -2,15 +2,15 @@ version: "3.2"
 
 services:
 
-  api-gateway:
+  app:
     build:
       context: .
-      dockerfile: server/api-gateway/Dockerfile
-    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/api-gateway:${IMAGE_TAG:?err}"
+      dockerfile: app/Dockerfile
+    image: "${DOCKER_REGISTRY}/${DOCKER_REPO:?err}/app:${IMAGE_TAG:?err}"
     restart: always
     environment:
       - CONSUL_HOST=consul
-      - DISCOVERY_HOST=api-gateway
+      - DISCOVERY_HOST=app
     ports:
       - 2052:2052
     volumes:

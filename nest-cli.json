@@ -1,11 +1,11 @@
 {
   "collection": "@nestjs/schematics",
-  "sourceRoot": "server/api-gateway/src",
+  "sourceRoot": "app/src",
   "monorepo": true,
-  "root": "server/api-gateway",
+  "root": "app",
   "compilerOptions": {
     "webpack": true,
-    "tsConfigPath": "server/api-gateway/tsconfig.app.json",
+    "tsConfigPath": "app/tsconfig.app.json",
     "assets": [
       {
         "include": "**/*.graphql"
@@ -104,13 +104,13 @@
         "tsConfigPath": "libs/proto-schema/tsconfig.lib.json"
       }
     },
-    "api-gateway": {
+    "app": {
       "type": "application",
-      "root": "server/api-gateway",
+      "root": "app",
       "entryFile": "main",
-      "sourceRoot": "server/api-gateway/src",
+      "sourceRoot": "app/src",
       "compilerOptions": {
-        "tsConfigPath": "server/api-gateway/tsconfig.app.json"
+        "tsConfigPath": "app/tsconfig.app.json"
       }
     }
   }
