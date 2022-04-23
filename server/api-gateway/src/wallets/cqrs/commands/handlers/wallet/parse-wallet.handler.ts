@@ -97,7 +97,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
 
-      let parsingResult;
+      let parsingResult: any;
       try {
         parsingResult = await this.parserService.doParse({
           address: wallet.address,
