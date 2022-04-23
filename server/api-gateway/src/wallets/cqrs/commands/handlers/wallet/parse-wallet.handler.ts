@@ -27,7 +27,6 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
    */
   public constructor(
     private readonly walletRepository: WalletRepository,
-    private readonly parserService: ParserService,
     private readonly commandBus: CommandBus,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
@@ -98,20 +97,24 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
       const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
 
       let parsingResult: any;
-      try {
-        parsingResult = await this.parserService.doParse({
-          address: wallet.address,
-          highestParsedBlockHeight,
-        });
-      } catch (e) {
-        await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
-          updates: {
-            $set: {
-              status: ParsingStatus.FAILED,
-            },
-          },
-        });
-      }
+
+      // fire parsing event here
+
+      
+      // try {
+      //   parsingResult = await this.parserService.doParse({
+      //     address: wallet.address,
+      //     highestParsedBlockHeight,
+      //   });
+      // } catch (e) {
+      //   await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
+      //     updates: {
+      //       $set: {
+      //         status: ParsingStatus.FAILED,
+      //       },
+      //     },
+      //   });
+      // }
 
       this.cacheManager.reset();
 

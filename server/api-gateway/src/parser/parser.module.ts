@@ -5,9 +5,8 @@ import { ParserCommandHandlers } from './cqrs';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { TTParser } from '@trackterra/parser';
 import { ParserController } from './controllers/parser.controller';
-import { WalletsService } from '../wallets/wallets.service';
-import { WalletRepository } from '@trackterra/repository';
 import { CurrenciesService } from '../currencies/currencies.service';
+import { WalletsModule } from '../wallets/wallets.module';
 
 @Module({
   providers: [
@@ -16,10 +15,11 @@ import { CurrenciesService } from '../currencies/currencies.service';
     FCDApiService,
     ...ParserCommandHandlers,
     ParserService,
-    WalletsService,
-    WalletRepository,
     CurrenciesService,
   ],
   controllers: [ParserController],
+  imports: [
+    WalletsModule
+  ]
 })
 export class ParserModule {}
