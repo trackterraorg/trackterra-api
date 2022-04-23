@@ -10,7 +10,7 @@ app:
 database:
   mongodb:
     uri: mongodb://localhost:27017/
-    name: srv-account
+    name: trackterra
     options: ""
 
   redis:
