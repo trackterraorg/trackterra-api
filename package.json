@@ -46,7 +46,6 @@
     "@nestcloud/memcached": "^0.6.11",
     "@nestcloud/proxy": "^0.6.11",
     "@nestcloud/redis": "^0.6.11",
-    "@nestcloud/service": "^0.6.11",
     "@nestjs/common": "^7.4.2",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.4.2",
