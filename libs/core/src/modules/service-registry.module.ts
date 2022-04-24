@@ -5,13 +5,11 @@ import { ScheduleModule } from '@nestcloud/schedule';
 import { ConsulModule } from '@nestcloud/consul';
 import { BootModule } from '@nestcloud/boot';
 import { ServiceModule } from '@nestcloud/service';
-import { LoggerModule } from '@nestcloud/logger';
 import { CacheStoreConfigService } from '../services';
 
 @Global()
 @Module({
   imports: [
-    LoggerModule.register(),
     ScheduleModule.register(),
     BootModule.register(__dirname, `bootstrap.yaml`),
     ConsulModule.register({ dependencies: [NEST_BOOT] }),
@@ -22,7 +20,6 @@ import { CacheStoreConfigService } from '../services';
     }),
   ],
   exports: [
-    LoggerModule.register(),
     ScheduleModule.register(),
     BootModule.register(__dirname, `bootstrap.yaml`),
     ConsulModule.register({ dependencies: [NEST_BOOT] }),

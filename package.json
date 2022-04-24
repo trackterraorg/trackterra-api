@@ -43,7 +43,6 @@
     "@nestcloud/feign": "^0.6.11",
     "@nestcloud/grpc": "^0.6.11",
     "@nestcloud/http": "^0.6.10-0",
-    "@nestcloud/logger": "^0.6.11",
     "@nestcloud/memcached": "^0.6.11",
     "@nestcloud/proxy": "^0.6.11",
     "@nestcloud/redis": "^0.6.11",
