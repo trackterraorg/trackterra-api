@@ -5,7 +5,6 @@ import { RpcException } from '@nestjs/microservices';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
-import { FCDApiService } from '@trackterra/core';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { WalletsService } from '@trackterra/app/wallets/wallets.service';
 import { CurrenciesService } from '@trackterra/app/currencies/currencies.service';
@@ -14,6 +13,7 @@ import {
   txToUnparsedTxCreateRequest,
 } from '@trackterra/app/parser/common/parser-mapper.utils';
 import _ = require('lodash');
+import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 
 /**
  * @class

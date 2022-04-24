@@ -5,10 +5,12 @@ import { AppService } from './app.service';
 import { CurrenciesModule } from './currencies/currencies.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { ParserModule } from './parser/parser.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
   imports: [
     ServiceRegistryModule,
+    ApiModule,
     WalletsModule,
     ParserModule,
     CurrenciesModule,

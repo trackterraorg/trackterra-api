@@ -8,9 +8,9 @@ import {
   Currency,
   UpsertCurrencyResponse,
 } from '@trackterra/proto-schema/contract';
-import { FCDApiService } from '@trackterra/core';
 import { ContractInfo } from '@terra-money/terra.js';
 import { tokenCleanUp } from '@trackterra/parser/utils';
+import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler

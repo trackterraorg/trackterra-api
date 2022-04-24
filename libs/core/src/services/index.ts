@@ -4,6 +4,5 @@ export * from './others/aws-s3.service';
 export * from './configs/config.service';
 export * from './others/generator.service';
 export * from './others/validator.service';
-export * from './others/fcd-api.service';
 export * from './configs/mongo-config.service';
 export * from './configs/cache-store-config.service';

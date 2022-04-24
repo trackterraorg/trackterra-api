@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Put } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Currency as CurrencyRpc } from '@trackterra/proto-schema/contract';
 import { CurrenciesService } from '../currencies.service';
