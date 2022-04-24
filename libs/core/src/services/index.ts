@@ -6,5 +6,4 @@ export * from './others/generator.service';
 export * from './others/validator.service';
 export * from './others/fcd-api.service';
 export * from './configs/mongo-config.service';
-export * from './grpc-clients';
 export * from './configs/cache-store-config.service';

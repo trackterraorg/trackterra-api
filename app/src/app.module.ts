@@ -8,7 +8,6 @@ import {
 } from '@trackterra/core';
 import { AppService } from './app.service';
 import { GqlConfigService } from './gql-config.service';
-import { GlobalClientModule } from './common/global-client.module';
 import { SeedModule } from './seed.module';
 import { CurrenciesModule } from './currencies/currencies.module';
 import { WalletsModule } from './wallets/wallets.module';
@@ -25,7 +24,6 @@ import { ParserModule } from './parser/parser.module';
     GraphQLModule.forRootAsync({
       useClass: GqlConfigService,
     }),
-    GlobalClientModule,
     CoreModule,
     WalletsModule,
     ParserModule,
