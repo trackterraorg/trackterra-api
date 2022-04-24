@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConfig } from '@nestcloud/config';
-import { EtcdConfig } from '@nestcloud/config/etcd-config';
 import { MongoModuleOptions, MongoOptionsFactory } from '@juicycleff/repo-orm';
-import { ConsulDatabaseConfig } from '@trackterra/common';
+import { ConfigService } from '@nestjs/config';
+import { DatabaseConfig } from '@trackterra/common/interfaces/config.interface';
 
 const jestMongoDb = global.__MONGO_URI__
   ? `${global.__MONGO_URI__}/${global.__MONGO_DB_NAME__}`
@@ -10,11 +9,10 @@ const jestMongoDb = global.__MONGO_URI__
 
 @Injectable()
 export class MongoConfigService implements MongoOptionsFactory {
-  constructor(@InjectConfig() private readonly config: EtcdConfig) {}
+  constructor(private readonly configService: ConfigService) {}
 
   createMongoOptions(): Promise<MongoModuleOptions> | MongoModuleOptions {
-    const database = this.config.get<ConsulDatabaseConfig>('database');
-
+    const database = this.configService.get<DatabaseConfig>('database');
     return {
       uri: jestMongoDb || `${database?.mongodb?.uri}${database?.mongodb?.name}`,
       dbName: global.__MONGO_DB_NAME__ || database?.mongodb?.name,

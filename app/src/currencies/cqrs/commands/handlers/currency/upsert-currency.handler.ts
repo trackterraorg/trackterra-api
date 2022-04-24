@@ -40,7 +40,6 @@ export class UpsertCurrencyHandler
 
       return { currency: currency as unknown as Currency };
     } catch (error) {
-      console.dir({ 'The error': 'erorroro' }, { depth: 'null' });
       this.logger.error(error);
       throw new RpcException(error);
     }

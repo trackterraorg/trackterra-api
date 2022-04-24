@@ -3,21 +3,20 @@ import {
   CacheOptionsFactory,
   Injectable,
 } from '@nestjs/common';
-import { InjectConfig } from '@nestcloud/config';
 import { Etcd3 } from 'etcd3';
-import { EtcdConfig } from '@nestcloud/config/etcd-config';
 import redisStore from 'cache-manager-redis-store';
-import * as redis from 'redis';
+import { RedisOptions } from 'ioredis';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CacheStoreConfigService implements CacheOptionsFactory {
   ty: Etcd3;
-  constructor(@InjectConfig() private readonly config: EtcdConfig) {}
+  constructor(private readonly configService: ConfigService) {}
 
   createCacheOptions(): Promise<CacheModuleOptions> | CacheModuleOptions {
-    const database = this.config.get<redis.RedisOptions>('database.redis');
+    const database = this.configService.get<RedisOptions>('database.redis');
     const caching =
-      this.config.get<{ ttl: number; max: number }>('app.caching');
+      this.configService.get<{ ttl: number; max: number }>('app.caching');
 
     if (database?.password === '') {
       delete database.password;

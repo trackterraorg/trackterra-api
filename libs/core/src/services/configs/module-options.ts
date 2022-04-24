@@ -1,10 +1,11 @@
 import { ConfigModuleOptions } from '@nestjs/config/dist/interfaces';
 import * as Joi from 'joi';
-import configuration from './configuration';
+import config from './config';
 
 export const configModuleOptions: ConfigModuleOptions = {
+  isGlobal: true,
   envFilePath: '.env',
-  load: [configuration],
+  load: [config],
   validationSchema: Joi.object({
     APP_ENV: Joi.string()
       .valid('development', 'production', 'test')

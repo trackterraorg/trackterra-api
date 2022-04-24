@@ -97,28 +97,6 @@ export class RandomEarthDeposit implements IParser {
     }
 
     return depositTx.concat(purchaseTx);
-    // console.dir({
-    //   'hererr': 'herrrrrrrrrrrrrrrr'
-    // }, {depth: 'null'});
-    // const { walletAddress, txType, contractActions } = args;
-
-    // const key = _(['transfer_nft', 'send_nft']).intersection(Object.keys(contractActions)).first();
-
-    // const transferActions = contractActions[key].map((cA: any) => {
-    //   const amount: IAmount = {
-    //     amount: '1',
-    //     token: cA.contract,
-    //   }
-
-    //   cA.amount = amount;
-    //   return cA;
-    // });
-
-    // return (new TransferEngine()).process({
-    //   ...args,
-    //   contractActions: undefined,
-    //   transferActions,
-    // });
   }
 }
 

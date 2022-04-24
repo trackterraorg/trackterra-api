@@ -3,17 +3,17 @@ import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
 import { RedisCache } from 'apollo-server-cache-redis';
 import { corsApollOptions } from '@trackterra/common';
 import { buildContext } from 'graphql-passport';
-import { ConsulConfig, InjectConfig } from '@nestcloud/config';
 import { GqlContext } from '@trackterra/core';
 import { RedisOptions } from 'ioredis';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GqlConfigService implements GqlOptionsFactory {
-  constructor(@InjectConfig() private readonly config: ConsulConfig) {}
+  constructor(private readonly configService: ConfigService) {}
 
   createGqlOptions(): Promise<GqlModuleOptions> | GqlModuleOptions {
     /* Get redis config from consul */
-    const redisOptions = this.config.get<RedisOptions>('database.redis');
+    const redisOptions = this.configService.get<RedisOptions>('database.redis');
 
     /* initialize cache */
     const cache = new RedisCache(redisOptions);

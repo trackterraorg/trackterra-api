@@ -1,8 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { Logger } from '@nestjs/common';
-import * as getPort from 'get-port';
-import { NestCloud } from '@nestcloud/core';
-import { SERVICE_NAME } from './constants';
 import { AppModule } from './app.module';
 import {
   AppUtils,
@@ -11,20 +8,24 @@ import {
   setupSwagger,
 } from '@trackterra/common';
 import { SwaggerModule } from '@nestjs/swagger';
+import { AppConfig } from '@trackterra/common/interfaces/config.interface';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const app = NestCloud.create(await NestFactory.create(AppModule));
+  const app = await NestFactory.create(AppModule);
 
   app.enableCors(corsOptions);
   app.use(bloodTearsMiddleware);
   AppUtils.killAppWithGrace(app);
 
+  const configService = app.get(ConfigService);
+  const appConfig = configService.get<AppConfig>('app');
+
   const document = SwaggerModule.createDocument(app, setupSwagger());
   SwaggerModule.setup('docs', app, document);
 
-  const port = await getPort();
-  await app.listen(NestCloud.global.boot.get('service.port', port));
-  Logger.log(`${SERVICE_NAME} running on: ${await app.getUrl()}`, 'Bootstrap');
+  await app.listen(process.env.PORT || appConfig.port || 3000, '0.0.0.0');
+  Logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 
 (async () => await bootstrap())();

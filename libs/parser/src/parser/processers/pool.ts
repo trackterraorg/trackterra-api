@@ -16,13 +16,6 @@ export class PoolTransferEngine {
     }
 
     const sendActions = args.contractActions.send.filter((tA: any) => {
-      console.dir(
-        {
-          key: tA[key],
-          walletAddress: args.walletAddress,
-        },
-        { depth: 'null' },
-      );
       return tA[key] === args.walletAddress;
     });
 
@@ -56,12 +49,7 @@ export class PoolTransferEngine {
     if (!actions || _.size(actions) === 0) {
       return [];
     }
-    console.dir(
-      {
-        actions,
-      },
-      { depth: 'null' },
-    );
+
     contractActions = {
       transfer: actions,
     };
