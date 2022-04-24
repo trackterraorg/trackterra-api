@@ -50,7 +50,6 @@ The parser component is used to parse the transformed data using the parserClass
 The final step is preparing the parsed data to be exported and used by other parts of the app. The exporter is useful to clean up the parsed data and add fees and taxes.
 ## Prerequists
  - node 14
- - consul
  - redis
  - mongo 5
  - jq
@@ -74,32 +73,11 @@ install packages
 ```bash  
 $ yarn install
 ```  
-  
-## Configuration  
-  
-All services fetch configuration from consul. The consul should be started and configs should be added for each service. Each service contains a file 'config.app.yaml' which contains sample configuration for the service. The configuration can be added to consul using register.sh in scripts directory. You would have to install [jq](https://github.com/stedolan/jq) and [yq](https://github.com/mikefarah/yq) to run the registeration script.
-
-```bash  
-sh scripts/register.sh 
-```
-
-Once this process is finished. Navigate to localhost:8500 then key/value to check if the configurations has been added to consul. Make necessary changes to the configuration and then restart the services to make sure new configs have been loaded in the service.
-
-To learn more about consul click [here](https://learn.hashicorp.com/consul). It is recommended that you follow the guidelines and best practices outlined [here](https://learn.hashicorp.com/tutorials/consul/get-started-service-discovery?in=consul/getting-started)
-
-It is not recomended to expose the consul client to the public web interface , however for setup it can be done using the -client flag , consul agent --dev -client x.x.x.x.
-
-The registeration script has to be run every time consul starts if consul is started using --dev flag because it does not persis the key/value pairs.
-
 
 ## Usage  
   
-Consul, Mongodb, and redis all need to be started first as our microservices need to connect to them.  
-  
-Start consul  
-```bash  
-consul agent --dev  
-```
+Mongodb, and redis all need to be started first as our microservices need to connect to them.  
+
 Start mongodb  
 ```bash  
 mongod  

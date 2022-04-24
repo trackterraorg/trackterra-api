@@ -1,7 +1,4 @@
-import { ConsulConfig, InjectConfig } from '@nestcloud/config';
-import { Injectable } from '@nestjs/common';
 import { ContractInfo, TxInfo } from '@terra-money/terra.js';
-import { ConsulFcdConfig } from '@trackterra/common';
 import { ApisauceInstance, create } from 'apisauce';
 
 export const DEFAULT_FCD_URL = 'https://fcd.terra.dev/v1';

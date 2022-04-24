@@ -12,7 +12,6 @@ export class GqlConfigService implements GqlOptionsFactory {
   constructor(private readonly configService: ConfigService) {}
 
   createGqlOptions(): Promise<GqlModuleOptions> | GqlModuleOptions {
-    /* Get redis config from consul */
     const redisOptions = this.configService.get<RedisOptions>('database.redis');
 
     /* initialize cache */

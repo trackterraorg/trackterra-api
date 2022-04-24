@@ -23,14 +23,6 @@ sudo chmod a+x /usr/local/bin/yq
 sudo apt install docker.io
 ```
 
-- Install consul
-```bash
-apt install consul
-```
-Make sure you see v 1.5 or newer after running 
-```bash
-consul -v
-```
 ## Using Docker
 
 - Install docker compose
@@ -96,16 +88,12 @@ docker restart $(docker ps -q)
     - docker restart <wallet-service-id>
 ## Without Docker
 
-- Run consul, mongo, redis using docker
+- Run mongo, redis using docker
     ```bash
-    consul agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0 -bind=67.205.178.222 -data-dir=/var/lib/consul
-
     docker run -d -p 27017:27017 mongo
     
     docker run -d -p 6379:6379 redis
     ```
-
-- (optional) Refer to [this](https://learn.hashicorp.com/tutorials/consul/deployment-guide#configure-systemd) tutorial to setup service for consul
 
 - Install node
     - Follow the option 2 section of  [this](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) tutorial.
@@ -174,12 +162,6 @@ pm2 start dist/server/api-gateway/main.js
     - Click on the url to collapse the view
     - Click on try it out to parse a wallet
     - Enter wallet address and execute to see the result
-
-- To further protect the node, cosul ui should be disabled by either
-    - disabling port 8500 after your config is done
-    - disable ui flag when running the container
-    - protect it by setting u ACL which can be found here 
-    https://www.consul.io/docs/security/acl
 
 ## UI
 Refer to the instruction [here](https://github.com/trackterraorg/trackterra-ui/blob/main/README.md) to deploy UI

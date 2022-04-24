@@ -10,26 +10,14 @@ services:
     image: "trackterra/app:latest"
     restart: always
     depends_on:
-      - consul
       - redis
     environment:
-      - CONSUL_HOST=consul
       - DISCOVERY_HOST=app
     ports:
       - 2052:2052
       - 4000:4000
     volumes:
       - storage-static:/nest/storage
-  
-  consul:
-    container_name: consul
-    ports:
-      - "8400:8400"
-      - "8500:8500"
-      - "8600:53/udp"
-    image: consul
-    command: ["agent", "-server", "-bootstrap", "-ui", "-client", "0.0.0.0"]
-
   mongo:
     container_name: mongo
     image: mongo
