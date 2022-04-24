@@ -1,9 +1,13 @@
-import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
+import {
+  CACHE_MANAGER,
+  Inject,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { WalletEntity, WalletRepository } from '@trackterra/repository';
 import { ParseWalletCommand, UpdateWalletCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { AccAddress } from '@terra-money/terra.js';
 import * as _ from 'lodash';
 import moment = require('moment');
@@ -13,6 +17,7 @@ import {
 } from '@trackterra/proto-schema/wallet';
 import { BlacklistLoader } from '@trackterra/parser/blacklist';
 import { ParserService } from '@trackterra/app/parser/parser.service';
+import { BadRequestError } from '@trackterra/common';
 
 /**
  * @class
@@ -41,7 +46,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
     try {
       if (!AccAddress.validate(address)) {
-        throw new RpcException('Invalid terra account address');
+        throw new BadRequestError('Invalid terra account address');
       }
 
       const blacklistLoader: BlacklistLoader =
@@ -121,7 +126,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
       };
     } catch (error) {
       this.logger.log(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }

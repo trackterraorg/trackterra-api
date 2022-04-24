@@ -1,7 +1,6 @@
-import { Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { GetSupportedProtocolsCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import * as _ from 'lodash';
 import { SupportedProtocolsResponse } from '@trackterra/proto-schema/parser';
 import { ProtocolLoader } from '@trackterra/parser/loader';
@@ -48,7 +47,7 @@ export class GetSupportedProtocolsHandler
       };
     } catch (error) {
       this.logger.log(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }

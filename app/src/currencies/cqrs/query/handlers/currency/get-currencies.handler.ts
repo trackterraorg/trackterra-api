@@ -1,7 +1,6 @@
-import { Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetCurrenciesQuery } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { CurrencyRepository } from '@trackterra/repository';
 import {
   Currency,
@@ -25,7 +24,7 @@ export class GetCurrenciesHandler implements IQueryHandler<GetCurrenciesQuery> {
       };
     } catch (e) {
       this.logger.error(e);
-      throw new RpcException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 }

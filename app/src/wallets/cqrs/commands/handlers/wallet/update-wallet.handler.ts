@@ -1,9 +1,14 @@
-import { CACHE_MANAGER, Inject, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  CACHE_MANAGER,
+  Inject,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { WalletRepository } from '@trackterra/repository';
 import { UpdateWalletCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { AccAddress } from '@terra-money/terra.js';
 import * as _ from 'lodash';
 import moment = require('moment');
@@ -36,7 +41,7 @@ export class UpdateWalletHandler
 
     try {
       if (!AccAddress.validate(address)) {
-        throw new RpcException('Invalid terra account address');
+        throw new BadRequestException('Invalid terra account address');
       }
 
       const wallet = await this.walletRepository.findOneAndUpdate({
@@ -58,7 +63,7 @@ export class UpdateWalletHandler
       };
     } catch (error) {
       this.logger.log(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }

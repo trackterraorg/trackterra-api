@@ -1,15 +1,14 @@
-import { Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { CurrencyRepository, CurrencyEntity } from '@trackterra/repository';
+import { CurrencyRepository } from '@trackterra/repository';
 import { GetCurrencyQuery } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import _ = require('lodash');
 import {
   Currency,
-  FindCurrencyRequest,
   FindCurrencyResponse,
 } from '@trackterra/proto-schema/contract';
 import { utils } from '@juicycleff/repo-orm';
+import { BadRequestError } from '@trackterra/common';
 
 @QueryHandler(GetCurrencyQuery)
 export class GetCurrencyHandler implements IQueryHandler<GetCurrencyQuery> {
@@ -20,7 +19,7 @@ export class GetCurrencyHandler implements IQueryHandler<GetCurrencyQuery> {
     const { input } = query;
 
     if (!input.filter) {
-      throw new RpcException('Missing where input');
+      throw new BadRequestError('Missing where input');
     }
 
     try {
@@ -33,7 +32,7 @@ export class GetCurrencyHandler implements IQueryHandler<GetCurrencyQuery> {
       };
     } catch (e) {
       this.logger.error(e);
-      throw new RpcException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 }

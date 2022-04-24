@@ -34,10 +34,3 @@ export class ServiceError extends Error implements GrpcServiceError {
     this.extensions = { ...extensions, code };
   }
 }
-
-export class NotFoundRpcException extends ServiceError {
-  constructor(message: string, properties?: { [key: string]: any }) {
-    super(message, 'NOT_FOUND_RPC_EXCEPTION', properties);
-    Object.defineProperty(this, 'name', { value: 'NotFoundRpcException' });
-  }
-}

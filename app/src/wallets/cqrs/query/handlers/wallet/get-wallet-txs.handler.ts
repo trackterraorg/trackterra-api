@@ -1,9 +1,12 @@
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { utils } from '@juicycleff/repo-orm';
 import { Order, TxRepository, WalletRepository } from '@trackterra/repository';
 import { GetWalletTxsQuery } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import {
   FindTxsResponse,
   Tx,
@@ -39,11 +42,11 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
     const { address, order, orderBy } = input;
 
     if (_.isEmpty(address)) {
-      throw new RpcException('Wallet address required!');
+      throw new BadRequestException('Wallet address required!');
     }
 
     if (!AccAddress.validate(address)) {
-      throw new RpcException('Please enter a valid address');
+      throw new BadRequestException('Please enter a valid address');
     }
 
     const walletParsed = await this.walletRepository.exist({
@@ -51,7 +54,7 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
     });
 
     if (!walletParsed) {
-      throw new RpcException(
+      throw new BadRequestException(
         'Wallet has not been parsed. Please parse it first!',
       );
     }
@@ -124,7 +127,7 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
       };
     } catch (e) {
       this.logger.error(e);
-      throw new RpcException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 

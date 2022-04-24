@@ -1,16 +1,15 @@
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { WalletEntity, WalletRepository } from '@trackterra/repository';
 import { GetWalletQuery } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { ReadWalletResponse, Wallet } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
-import {
-  fShortenHash,
-  NotFoundRpcException,
-  ValidationRpcException,
-} from '@trackterra/common';
+import { fShortenHash } from '@trackterra/common';
 
 @QueryHandler(GetWalletQuery)
 export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
@@ -22,11 +21,11 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
     const { address } = input;
 
     if (_.isEmpty(address)) {
-      throw new ValidationRpcException('Wallet address required!');
+      throw new BadRequestException('Wallet address required!');
     }
 
     if (!AccAddress.validate(address)) {
-      throw new ValidationRpcException('Please enter a valid address');
+      throw new BadRequestException('Please enter a valid address');
     }
 
     try {
@@ -36,7 +35,7 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
       );
 
       if (!walletEntity) {
-        throw new NotFoundRpcException(
+        throw new BadRequestException(
           'Wallet not parsed. Please parse it first!',
         );
       }
@@ -54,7 +53,7 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
       };
     } catch (e) {
       this.logger.error(e);
-      throw new RpcException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 }

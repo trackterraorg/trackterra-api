@@ -1,8 +1,11 @@
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CurrencyEntity, CurrencyRepository } from '@trackterra/repository';
 import { UpsertCurrencyCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import _ = require('lodash');
 import {
   Currency,
@@ -31,7 +34,7 @@ export class UpsertCurrencyHandler
     const { input } = command;
     try {
       if (input === null || _.isEmpty(input?.identifier)) {
-        throw new RpcException('Currency identifier is missing');
+        throw new BadRequestException('Currency identifier is missing');
       }
 
       const { identifier } = input;
@@ -40,8 +43,7 @@ export class UpsertCurrencyHandler
 
       return { currency: currency as unknown as Currency };
     } catch (error) {
-      this.logger.error(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 

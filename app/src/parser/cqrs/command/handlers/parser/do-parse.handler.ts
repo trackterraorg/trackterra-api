@@ -1,7 +1,10 @@
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DoParseCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
@@ -38,7 +41,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
     const { address, highestParsedBlockHeight } = command.input;
     try {
       if (!AccAddress.validate(address)) {
-        throw new RpcException('Invalid terra account address');
+        throw new BadRequestException('Invalid terra account address');
       }
 
       const prevHighestParsedBlockHeight = highestParsedBlockHeight;
@@ -134,7 +137,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
       };
     } catch (error) {
       this.logger.log(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }

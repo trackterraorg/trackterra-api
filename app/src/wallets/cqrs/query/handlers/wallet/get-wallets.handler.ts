@@ -1,9 +1,8 @@
-import { Logger } from '@nestjs/common';
+import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { utils } from '@juicycleff/repo-orm';
 import { WalletRepository } from '@trackterra/repository';
 import { GetWalletsQuery } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import { FindWalletsResponse, Wallet } from '@trackterra/proto-schema/wallet';
 
 @QueryHandler(GetWalletsQuery)
@@ -38,7 +37,7 @@ export class GetWalletsHandler implements IQueryHandler<GetWalletsQuery> {
       };
     } catch (e) {
       this.logger.error(e);
-      throw new RpcException(e);
+      throw new InternalServerErrorException(e);
     }
   }
 }

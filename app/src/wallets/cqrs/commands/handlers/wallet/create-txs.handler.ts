@@ -1,8 +1,11 @@
-import { Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { TxEntity, TxRepository } from '@trackterra/repository';
 import { CreateTxsCommand } from '../../impl';
-import { RpcException } from '@nestjs/microservices';
 import {
   CreateTxsResponse,
   ParsingStatus,
@@ -24,7 +27,7 @@ export class CreateTxsHandler implements ICommandHandler<CreateTxsCommand> {
     try {
       if (input === null) {
         // Check to make sure input is not null
-        throw new RpcException('Tx data is missing'); // Throw an apollo input error
+        throw new BadRequestException('Tx data is missing'); // Throw an apollo input error
       }
 
       const parsedTxs = input.txs;
@@ -38,7 +41,7 @@ export class CreateTxsHandler implements ICommandHandler<CreateTxsCommand> {
       };
     } catch (error) {
       this.logger.error(error);
-      throw new RpcException(error);
+      throw new InternalServerErrorException(error);
     }
   }
 }
