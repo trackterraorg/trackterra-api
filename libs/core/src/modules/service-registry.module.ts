@@ -8,7 +8,6 @@ import { BootModule } from '@nestcloud/boot';
 import { ServiceModule } from '@nestcloud/service';
 import { LoggerModule } from '@nestcloud/logger';
 import { CacheStoreConfigService } from '../services';
-import { TerminusModule } from '@nestjs/terminus';
 
 @Global()
 @Module({
@@ -23,12 +22,6 @@ import { TerminusModule } from '@nestjs/terminus';
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
     }),
-    TerminusModule.forRootAsync({
-      useFactory: () => ({
-        disableDeprecationWarnings: true,
-        endpoints: [{ url: '/health', healthIndicators: [] }],
-      }),
-    }),
   ],
   exports: [
     LoggerModule.register(),
@@ -40,12 +33,6 @@ import { TerminusModule } from '@nestjs/terminus';
     LoadbalanceModule.register({ dependencies: [NEST_BOOT] }),
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
-    }),
-    TerminusModule.forRootAsync({
-      useFactory: () => ({
-        disableDeprecationWarnings: true,
-        endpoints: [{ url: '/health', healthIndicators: [] }],
-      }),
     }),
   ],
 })

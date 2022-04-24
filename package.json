@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@anchan828/nest-sendgrid": "^0.3.16",
-    "@godaddy/terminus": "^4.4.1",
     "@grpc/proto-loader": "^0.5.5",
     "@konfy/graphql-mongo-query": "^2.0.6",
     "@nestcloud/boot": "^0.6.11",
@@ -63,7 +62,6 @@
     "@nestjs/platform-express": "^7.4.2",
     "@nestjs/platform-fastify": "^7.4.2",
     "@nestjs/swagger": "^4.5.12",
-    "@nestjs/terminus": "^7.0.1",
     "@sindresorhus/slugify": "^1.1.0",
     "@terra-money/terra.js": "^3.0.1",
     "@types/cache-manager": "^3.4.3",
