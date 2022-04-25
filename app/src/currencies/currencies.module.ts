@@ -5,6 +5,7 @@ import { CurrenciesSeeder } from './currencies.seeder';
 import { CurrenciesService } from './currencies.service';
 import { CurrenciesController } from './controllers/currencies.controller';
 import { ApiModule } from '../api/api.module';
+import { CurrenciesResolver } from './resolvers/currencies.resolver';
 
 @Module({
   controllers: [CurrenciesController],
@@ -14,6 +15,7 @@ import { ApiModule } from '../api/api.module';
     ...CurrencyCommandHandlers,
     ...CurrencyQueryHandlers,
     CurrenciesSeeder,
+    CurrenciesResolver,
   ],
   imports: [ApiModule],
   exports: [CurrenciesService],

@@ -1,7 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Currency as CurrencyRpc } from '@trackterra/proto-schema/contract';
+import { Controller, Get, HttpStatus } from '@nestjs/common';
+import {
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
+  BaseApiResponse,
+  SwaggerBaseApiResponse,
+} from '@trackterra/repository/dtos/response/base-api-response.dto';
 import { CurrenciesService } from '../currencies.service';
+import { CurrencyDto } from './dto/currency.dto';
 
 @Controller('/api/v1/currencies')
 @ApiTags('Currency')
@@ -9,9 +18,20 @@ export class CurrenciesController {
   constructor(private readonly currenciesService: CurrenciesService) {}
 
   @Get('/')
-  @ApiOkResponse({ description: 'Done fiding currency' })
-  async findCurrencies(): Promise<CurrencyRpc[]> {
+  @ApiOperation({
+    summary: 'Update article API',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(CurrencyDto),
+  })
+  async listCurrencies(): Promise<BaseApiResponse<CurrencyDto>> {
     const result = await this.currenciesService.listCurrencies({});
-    return result.currencies;
+    return {
+      data: result.currencies,
+      meta: {
+        totalCount: result.count,
+      },
+    };
   }
 }

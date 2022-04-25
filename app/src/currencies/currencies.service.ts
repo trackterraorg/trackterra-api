@@ -6,8 +6,6 @@ import {
   UpsertCurrencyCommand,
 } from './cqrs';
 import {
-  FindCurrenciesRequest,
-  FindCurrenciesResponse,
   FindCurrencyRequest,
   FindCurrencyResponse,
   UpsertCurrencyRequest,
@@ -21,19 +19,19 @@ export class CurrenciesService {
     private readonly queryBus: QueryBus,
   ) {}
 
-  upsertCurrency(
+  async upsertCurrency(
     request: UpsertCurrencyRequest,
   ): Promise<UpsertCurrencyResponse> {
     return this.commandBus.execute(new UpsertCurrencyCommand(request));
   }
 
-  listCurrencies(
-    request: FindCurrenciesRequest,
-  ): Promise<FindCurrenciesResponse> {
-    return this.queryBus.execute(new GetCurrenciesQuery(request));
+  async listCurrencies() {
+    return await this.queryBus.execute(new GetCurrenciesQuery());
   }
 
-  findCurrency(request: FindCurrencyRequest): Promise<FindCurrencyResponse> {
+  async findCurrency(
+    request: FindCurrencyRequest,
+  ): Promise<FindCurrencyResponse> {
     return this.queryBus.execute(new GetCurrencyQuery(request));
   }
 }
