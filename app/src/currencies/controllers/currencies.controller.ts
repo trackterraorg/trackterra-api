@@ -19,14 +19,14 @@ export class CurrenciesController {
 
   @Get('/')
   @ApiOperation({
-    summary: 'Update article API',
+    summary: 'List of currencies',
   })
   @ApiResponse({
     status: HttpStatus.OK,
     type: SwaggerBaseApiResponse(CurrencyDto),
   })
   async listCurrencies(): Promise<BaseApiResponse<CurrencyDto>> {
-    const result = await this.currenciesService.listCurrencies({});
+    const result = await this.currenciesService.listCurrencies();
     return {
       data: result.currencies,
       meta: {

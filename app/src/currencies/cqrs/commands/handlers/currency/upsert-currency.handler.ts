@@ -7,13 +7,10 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CurrencyEntity, CurrencyRepository } from '@trackterra/repository';
 import { UpsertCurrencyCommand } from '../../impl';
 import _ = require('lodash');
-import {
-  Currency,
-  UpsertCurrencyResponse,
-} from '@trackterra/proto-schema/contract';
 import { ContractInfo } from '@terra-money/terra.js';
 import { tokenCleanUp } from '@trackterra/parser/utils';
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
+import { UpsertCurrencyResponse } from '@trackterra/app/currencies/currency.types';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler
@@ -41,7 +38,7 @@ export class UpsertCurrencyHandler
 
       const currency = await this.upsertCurrency(tokenCleanUp(identifier));
 
-      return { currency: currency as unknown as Currency };
+      return currency;
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -67,7 +64,7 @@ export class UpsertCurrencyHandler
         return await this.getTokenFromULPContract(initMsg.mint.minter);
       }
 
-      const currFromFcd: Partial<Currency> = initMsg;
+      const currFromFcd = initMsg;
 
       return await this.currencyRepository.create({
         name: currFromFcd?.name,

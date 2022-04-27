@@ -35,7 +35,7 @@ export async function txToTxCreateRequest(
     if (token && amount) {
       // for creating custom tokens
       try {
-        const { currency } = await currenciesService.upsertCurrency({
+        const currency = await currenciesService.upsertCurrency({
           identifier: token,
         });
 

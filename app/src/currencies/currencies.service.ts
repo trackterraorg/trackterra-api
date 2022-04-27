@@ -1,16 +1,10 @@
 import { Controller } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { GetCurrenciesQuery, UpsertCurrencyCommand } from './cqrs';
 import {
-  GetCurrencyQuery,
-  GetCurrenciesQuery,
-  UpsertCurrencyCommand,
-} from './cqrs';
-import {
-  FindCurrencyRequest,
-  FindCurrencyResponse,
   UpsertCurrencyRequest,
   UpsertCurrencyResponse,
-} from '@trackterra/proto-schema/contract';
+} from './currency.types';
 
 @Controller('currencies')
 export class CurrenciesService {
@@ -27,11 +21,5 @@ export class CurrenciesService {
 
   async listCurrencies() {
     return await this.queryBus.execute(new GetCurrenciesQuery());
-  }
-
-  async findCurrency(
-    request: FindCurrencyRequest,
-  ): Promise<FindCurrencyResponse> {
-    return this.queryBus.execute(new GetCurrencyQuery(request));
   }
 }

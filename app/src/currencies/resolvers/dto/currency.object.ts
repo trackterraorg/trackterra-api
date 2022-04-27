@@ -15,12 +15,18 @@ export class CurrencyObject extends Node {
   symbol: string;
 
   @Field()
+  nullIndex: number;
+
+  @Field()
   decimals: number;
 
   @Field()
-  icon: number;
+  icon: string;
 
   @Filterable()
   @Field()
   identifier: string;
+
+  @Field()
+  isStable: boolean;
 }

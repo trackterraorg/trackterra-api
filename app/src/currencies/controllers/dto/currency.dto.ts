@@ -18,6 +18,11 @@ export class CurrencyDto {
   @ApiProperty()
   decimals: number;
 
+  @Expose()
+  @ApiProperty()
+  icon: string;
+
+  @Expose()
   @ApiProperty()
   identifier: string;
 
