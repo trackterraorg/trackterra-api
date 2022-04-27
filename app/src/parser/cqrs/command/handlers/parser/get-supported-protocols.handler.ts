@@ -2,8 +2,8 @@ import { InternalServerErrorException, Logger } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { GetSupportedProtocolsCommand } from '../../impl';
 import * as _ from 'lodash';
-import { SupportedProtocolsResponse } from '@trackterra/proto-schema/parser';
 import { ProtocolLoader } from '@trackterra/parser/loader';
+import { SupportedProtocolsResponse } from '@trackterra/app/parser/parser.types';
 
 /**
  * @class
@@ -42,9 +42,7 @@ export class GetSupportedProtocolsHandler
           return supportedProcols;
         });
 
-      return {
-        protocols: supportedProcols,
-      };
+      return supportedProcols;
     } catch (error) {
       this.logger.log(error);
       throw new InternalServerErrorException(error);

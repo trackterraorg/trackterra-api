@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DoParseCommand } from '../../impl';
-import { ParseWalletResponse } from '@trackterra/proto-schema/parser';
 import { AccAddress } from '@terra-money/terra.js';
 import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
@@ -17,6 +16,7 @@ import {
 } from '@trackterra/app/parser/common/parser-mapper.utils';
 import _ = require('lodash');
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
+import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 
 /**
  * @class

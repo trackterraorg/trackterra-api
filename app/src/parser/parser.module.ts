@@ -7,6 +7,7 @@ import { ParserController } from './controllers/parser.controller';
 import { CurrenciesService } from '../currencies/currencies.service';
 import { WalletsModule } from '../wallets/wallets.module';
 import { ApiModule } from '../api/api.module';
+import { ParserResolver } from './resolvers/parser.resolver';
 
 @Module({
   providers: [
@@ -15,6 +16,7 @@ import { ApiModule } from '../api/api.module';
     ...ParserCommandHandlers,
     ParserService,
     CurrenciesService,
+    ParserResolver,
   ],
   controllers: [ParserController],
   imports: [forwardRef(() => WalletsModule), ApiModule],

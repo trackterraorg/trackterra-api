@@ -13,9 +13,6 @@ import {
 import {
   FindWalletsRequest,
   FindWalletsResponse,
-  WalletService,
-  ParseWalletRequest,
-  ParseWalletResponse,
   ReadWalletRequest,
   ReadWalletResponse,
   CreateTxsRequest,
@@ -29,6 +26,10 @@ import {
 import { WalletRepository } from '@trackterra/repository';
 import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
 import { queryMapper } from '@trackterra/common';
+import {
+  ParseWalletRequest,
+  ParseWalletResponse,
+} from '../parser/parser.types';
 
 @Controller('wallet')
 export class WalletsService {

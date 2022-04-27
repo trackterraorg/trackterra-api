@@ -1,12 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { GetSupportedProtocolsCommand, DoParseCommand } from './cqrs';
-
 import {
   ParseWalletRequest,
   ParseWalletResponse,
   SupportedProtocolsResponse,
-} from '@trackterra/proto-schema/parser';
+} from './parser.types';
 
 @Controller('parser')
 export class ParserService {

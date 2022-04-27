@@ -1,7 +1,6 @@
 import { Res, Controller, Get, Param, Put } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
-  ParseWalletResponse,
   ReadWalletDetailResponse,
   ReadWalletResponse,
 } from '@trackterra/proto-schema/wallet';
@@ -11,6 +10,7 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 import { walletsDir } from '@trackterra/common';
 import moment = require('moment');
+import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 
 @Controller('/api/v1/wallets')
 @ApiTags('Wallet')
