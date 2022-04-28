@@ -1,5 +1,4 @@
 import { seperateIndexFromToken, timeToUtc } from '@trackterra/common';
-import { Tx } from '@trackterra/proto-schema/wallet';
 import { ITaxApp } from '../interfaces/base.taxapp.interface';
 import { AppAttrType, RowFormatterType } from './app.types';
 import { BaseTaxApp } from './base.taxapp';

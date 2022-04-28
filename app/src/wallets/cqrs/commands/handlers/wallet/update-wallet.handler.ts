@@ -12,7 +12,10 @@ import { UpdateWalletCommand } from '../../impl';
 import { AccAddress } from '@terra-money/terra.js';
 import * as _ from 'lodash';
 import moment = require('moment');
-import { UpdateWalletResponse, Wallet } from '@trackterra/proto-schema/wallet';
+import {
+  UpdateWalletResponse,
+  Wallet,
+} from '@trackterra/app/wallets/wallet.types';
 
 /**
  * @class

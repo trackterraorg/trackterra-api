@@ -5,3 +5,5 @@ import { UpsertCurrencyInput as GUpsertCurrencyInput } from './resolvers/dto/cur
 
 export type UpsertCurrencyRequest = RUpsertCurrencyInput | GUpsertCurrencyInput;
 export type UpsertCurrencyResponse = CurrencyDto | CurrencyObject | undefined;
+
+export type Currency = CurrencyDto | CurrencyObject;

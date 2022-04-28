@@ -9,8 +9,6 @@ import {
   UpdateWalletCommand,
 } from './cqrs';
 
-import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
-import { queryMapper } from '@trackterra/common';
 import {
   ParseWalletRequest,
   ParseWalletResponse,
@@ -19,6 +17,7 @@ import {
   CreateTxsRequest,
   CreateTxsResponse,
   FindTxsRequest,
+  FindTxsResponse,
   ReadWalletDetailRequest,
   ReadWalletDetailResponse,
   ReadWalletRequest,

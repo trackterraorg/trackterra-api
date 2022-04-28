@@ -1,7 +1,7 @@
 import { TxInfo } from '@terra-money/terra.js';
+import { Currency } from '@trackterra/app/currencies/currency.types';
+import { Tx } from '@trackterra/app/wallets/wallet.types';
 import { TTOutput } from '@trackterra/parser';
-import { Currency } from '@trackterra/proto-schema/contract';
-import { CreateTxRequest } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { CurrenciesService } from '../../currencies/currencies.service';
 
@@ -9,7 +9,7 @@ export async function txToTxCreateRequest(
   tx: TTOutput,
   walletAddress: string,
   currenciesService: CurrenciesService,
-): Promise<CreateTxRequest> {
+): Promise<Tx> {
   const { blockHeight, timestamp } = tx;
 
   const modifiers = {
@@ -62,13 +62,13 @@ export async function txToTxCreateRequest(
     ...modifiers,
   };
 
-  return transformedTx as unknown as CreateTxRequest;
+  return transformedTx as unknown as Tx;
 }
 
 export async function txToUnparsedTxCreateRequest(
   tx: TxInfo,
   walletAddress: string,
-): Promise<CreateTxRequest> {
+): Promise<Tx> {
   const { timestamp, height } = tx;
 
   const transformedTx = {
@@ -79,7 +79,7 @@ export async function txToUnparsedTxCreateRequest(
     protocol: 'Unparsed',
   };
 
-  return CreateTxRequest.fromJSON(transformedTx);
+  return transformedTx as unknown as Tx;
 }
 
 export function tokenValue(currency: Currency, amount: number): number {

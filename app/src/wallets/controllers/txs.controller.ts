@@ -14,8 +14,8 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 import { walletsDir } from '@trackterra/common';
 import moment = require('moment');
-import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
 import { FindTxsRequestDto } from './dto/tx-input';
+import { FindTxsResponse } from '../wallet.types';
 
 @Controller('/api/v1/txs')
 @ApiTags('Transactions')
