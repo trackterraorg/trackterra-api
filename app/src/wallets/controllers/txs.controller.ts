@@ -35,7 +35,7 @@ export class TxsController {
     status: HttpStatus.OK,
     type: SwaggerBaseApiResponse(FindTxsRequestDto),
   })
-  async listCurrencies(
+  async listTxs(
     @Param('address') address: string,
     @Query() args: FindTxsRequestDto,
   ): Promise<BaseApiResponse<FindTxsResponseDto>> {
@@ -59,7 +59,6 @@ export class TxsController {
   ) {
     try {
       const p = join(walletsDir(), address, filename);
-
       if (fs.existsSync(p)) {
         res.set({
           'Content-Disposition': `attachment; filename=export-${moment().valueOf()}.csv`,

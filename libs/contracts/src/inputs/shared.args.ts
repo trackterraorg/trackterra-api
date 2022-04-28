@@ -3,7 +3,7 @@ import { CursorScaler } from '@trackterra/core/scalers';
 @InputType()
 export class PaginationInput {
   @Field(() => Int)
-  skip: number = 0;
+  page: number = 1;
 
   @Field(() => Int)
   limit: number = 10;

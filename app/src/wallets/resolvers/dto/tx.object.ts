@@ -80,6 +80,7 @@ export class TxObject extends Node {
   friendlyDescription: string;
 }
 
+@ObjectType()
 export class TxExtraObject {
   @Field({ nullable: true })
   sTxHash: string;
@@ -99,7 +100,7 @@ export class TxExtraObject {
   @Field({ nullable: true })
   sRecipient: string;
 }
-
+@ObjectType()
 export class TxNodeObject {
   @Field({ nullable: true })
   tx: TxObject | undefined;
@@ -107,19 +108,14 @@ export class TxNodeObject {
   @Field({ nullable: true })
   extras: TxExtraObject | undefined;
 }
-
-export class GetTxsResponseTxs {
-  @Field({ nullable: true })
-  txs: TxNodeObject[];
-
-  @Field({ nullable: true })
-  totalCount: number;
+@ObjectType()
+export class FindTxsResponseObject {
+  @Field(() => [TxNodeObject], { nullable: true })
+  txs?: TxNodeObject[];
 
   @Field({ nullable: true })
-  csvFileName: string;
-}
+  totalCount?: number;
 
-export class GetTxsResponseFile {
   @Field({ nullable: true })
-  csvFileName: string;
+  csvFileName?: string;
 }

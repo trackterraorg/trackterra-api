@@ -6,6 +6,7 @@ import { WalletsResolver } from './resolvers/wallets.resolver';
 import { WalletsService } from './wallets.service';
 import { ParserModule } from '../parser/parser.module';
 import { TxsController } from './controllers/txs.controller';
+import { TxsResolver } from './resolvers/txs.resolver';
 
 @Module({
   providers: [
@@ -15,6 +16,7 @@ import { TxsController } from './controllers/txs.controller';
     ...ParseWalletQueryHandlers,
     TxRepository,
     WalletsResolver,
+    TxsResolver,
   ],
   controllers: [WalletsController, TxsController],
   exports: [WalletsService, WalletRepository],

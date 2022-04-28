@@ -139,27 +139,6 @@ export class TxNodeDto {
   extras: TxExtraDto | undefined;
 }
 
-export class GetTxsResponseTxs {
-  @Expose()
-  @Type(() => TxNodeDto)
-  @ApiProperty()
-  txs: TxNodeDto[];
-
-  @Expose()
-  @ApiProperty()
-  totalCount: number;
-
-  @Expose()
-  @ApiProperty()
-  csvFileName: string;
-}
-
-export class GetTxsResponseFile {
-  @Expose()
-  @ApiProperty()
-  csvFileName: string;
-}
-
 export class FindTxsResponseDto {
   @Expose()
   @ApiPropertyOptional()

@@ -5,6 +5,7 @@ import { BaseTaxApp } from './base.taxapp';
 
 export class Regular extends BaseTaxApp implements ITaxApp {
   attributes: AppAttrType[] = [
+    { id: 'id', title: 'id' },
     { id: 'txhash', title: 'Tx hash' },
     { id: 'blockHeight', title: 'Block height' },
     {

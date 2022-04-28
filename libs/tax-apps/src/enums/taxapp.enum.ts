@@ -1,3 +1,5 @@
+import { registerEnumType } from '@nestjs/graphql';
+
 export enum TaxApp {
   coinledger = 'coinledger',
   cointracker = 'cointracker',
@@ -7,3 +9,8 @@ export enum TaxApp {
   regular = 'regular',
   zenledger = 'zenledger',
 }
+
+registerEnumType(TaxApp, {
+  name: 'TaxAppField',
+  description: 'Supported tax applications field',
+});

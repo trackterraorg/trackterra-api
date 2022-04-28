@@ -37,5 +37,5 @@ export class FindTxsRequestDto extends PageOptionsDto {
   })
   @IsEnum(Order, { each: true })
   @IsOptional()
-  order: string;
+  order?: string;
 }

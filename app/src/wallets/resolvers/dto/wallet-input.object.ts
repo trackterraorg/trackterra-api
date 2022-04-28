@@ -17,37 +17,8 @@ export class ParseWalletMutationInput {
   parse: ParseWalletInput;
 }
 
-@InputType()
-export class WalletFilterInput extends FilterMongo(WalletObject, {
-  simple: true,
-}) {}
-
 @ArgsType()
-export class WalletFilterArgs {
-  @Field({ nullable: true })
-  address?: string;
-
-  @Field(() => WalletFilterInput, { nullable: true })
-  where?: WalletFilterInput;
-
-  @Field(() => PaginationInput, { nullable: true })
-  paginate?: PaginationInput;
-}
-
-@ArgsType()
-export class WalletCheckArg {
+export class WalletFilterAddressArg {
   @Field()
-  address: string;
-}
-
-@ArgsType()
-export class ReadWalletRequestObject {
-  @Field({ nullable: true })
-  address: string;
-}
-
-@ArgsType()
-export class ReadWalletDetailRequestObject {
-  @Field({ nullable: true })
   address: string;
 }

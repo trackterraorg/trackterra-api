@@ -11,6 +11,9 @@ export class WalletObject extends Node {
 
   @Field({ nullable: true })
   highestParsedBlock: number;
+
+  @Field({ nullable: true })
+  status: number;
 }
 
 @ObjectType()

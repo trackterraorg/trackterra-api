@@ -13,6 +13,7 @@ import {
   ReadWalletResponse,
   Wallet,
 } from '@trackterra/app/wallets/wallet.types';
+import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
 
 @QueryHandler(GetWalletQuery)
 export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
@@ -51,7 +52,7 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
         wallet,
         extras: {
           sAddress,
-          parsed: _.isEmpty(wallet?.highestParsedBlock),
+          parsed: wallet.status === ParsingStatus.DONE,
         },
       };
     } catch (e) {

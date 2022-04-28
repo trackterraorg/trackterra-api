@@ -1,10 +1,9 @@
 import { Mutation, Resolver, Query, Args, Context } from '@nestjs/graphql';
 import {
-  ParseWalletInput,
   WalletObject,
-  WalletFilterArgs,
   ReadWalletResponseObject,
   ReadWalletDetailResponseObject,
+  WalletFilterAddressArg,
 } from './dto';
 import { WalletsService } from '../wallets.service';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
@@ -15,7 +14,7 @@ export class WalletsResolver {
 
   @Mutation(() => WalletObject)
   async parseWallet(
-    @Args('input') { address }: ParseWalletInput,
+    @Args() { address }: WalletFilterAddressArg,
   ): Promise<ParseWalletResponse> {
     const result = await this.walletsService.parseWallet({
       address,
@@ -26,7 +25,7 @@ export class WalletsResolver {
 
   @Query(() => WalletObject)
   async readWallet(
-    @Args() { address }: WalletFilterArgs,
+    @Args() { address }: WalletFilterAddressArg,
   ): Promise<ReadWalletResponseObject> {
     const result = await this.walletsService.readWallet({
       address,
@@ -36,7 +35,7 @@ export class WalletsResolver {
 
   @Query(() => ReadWalletDetailResponseObject, { nullable: true })
   async readWalletDetail(
-    @Args('address') address: string,
+    @Args() { address }: WalletFilterAddressArg,
   ): Promise<ReadWalletDetailResponseObject> {
     const result = await this.walletsService.readWalletDetail({ address });
     return result;

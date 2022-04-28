@@ -8,9 +8,8 @@ import {
   ReadWalletRequestDto,
 } from './controllers/dto/wallet-input.dto';
 import {
-  ReadWalletDetailRequestObject,
   ReadWalletDetailResponseObject,
-  ReadWalletRequestObject,
+  WalletFilterAddressArg,
   ReadWalletResponseObject,
   WalletObject,
 } from './resolvers/dto';
@@ -21,6 +20,7 @@ import {
   TxNodeDto,
 } from './controllers/dto/tx.dto';
 import {
+  FindTxsResponseObject,
   TxExtraObject,
   TxNodeObject,
   TxObject,
@@ -30,13 +30,13 @@ import { FindTxsRequestDto } from './controllers/dto/tx-input';
 
 export type Wallet = WalletObject | WalletDto;
 
-export type ReadWalletRequest = ReadWalletRequestObject | ReadWalletRequestDto;
+export type ReadWalletRequest = WalletFilterAddressArg | ReadWalletRequestDto;
 export type ReadWalletResponse =
   | ReadWalletResponseObject
   | ReadWalletResponseDto;
 
 export type ReadWalletDetailRequest =
-  | ReadWalletDetailRequestObject
+  | WalletFilterAddressArg
   | ReadWalletDetailRequestDto;
 export type ReadWalletDetailResponse =
   | ReadWalletDetailResponseObject
@@ -66,4 +66,4 @@ export type UpdateWalletResponse = {
 
 export type FindTxsRequest = FindTxsRequestDto;
 
-export type FindTxsResponse = FindTxsResponseDto;
+export type FindTxsResponse = FindTxsResponseDto | FindTxsResponseObject;

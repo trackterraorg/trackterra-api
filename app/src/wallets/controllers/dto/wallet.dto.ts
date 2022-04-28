@@ -10,6 +10,10 @@ export class WalletDto extends BaseDto {
   @Expose()
   @ApiProperty()
   highestParsedBlock: number;
+
+  @Expose()
+  @ApiProperty()
+  status: number;
 }
 
 export class WalletExtrasDto {
