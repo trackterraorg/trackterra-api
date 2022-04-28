@@ -5,6 +5,7 @@ import { WalletsController } from './controllers/wallets.controller';
 import { WalletsResolver } from './resolvers/wallets.resolver';
 import { WalletsService } from './wallets.service';
 import { ParserModule } from '../parser/parser.module';
+import { TxsController } from './controllers/txs.controller';
 
 @Module({
   providers: [
@@ -15,7 +16,7 @@ import { ParserModule } from '../parser/parser.module';
     TxRepository,
     WalletsResolver,
   ],
-  controllers: [WalletsController],
+  controllers: [WalletsController, TxsController],
   exports: [WalletsService, WalletRepository],
   imports: [forwardRef(() => ParserModule)],
 })

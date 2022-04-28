@@ -1,6 +1,9 @@
 export enum TaxApp {
-  regular = 'regular',
-  koinly = 'koinly',
-  cointracker = 'cointracker',
   coinledger = 'coinledger',
+  cointracker = 'cointracker',
+  cointracking = 'cointracking',
+  cryptotaxcalculator = 'cryptotaxcalculator',
+  koinly = 'koinly',
+  regular = 'regular',
+  zenledger = 'zenledger',
 }

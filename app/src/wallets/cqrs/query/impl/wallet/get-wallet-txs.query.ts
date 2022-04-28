@@ -1,6 +1,9 @@
 import { IQuery } from '@nestjs/cqrs';
-import { FindTxsRequest } from '@trackterra/proto-schema/wallet';
+import { FindTxsRequest } from '@trackterra/app/wallets/wallet.types';
 
 export class GetWalletTxsQuery implements IQuery {
-  constructor(public readonly input?: FindTxsRequest) {}
+  constructor(
+    public readonly address: string,
+    public readonly input?: FindTxsRequest,
+  ) {}
 }

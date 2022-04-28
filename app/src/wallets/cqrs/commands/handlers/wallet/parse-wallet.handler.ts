@@ -11,7 +11,7 @@ import { ParseWalletCommand, UpdateWalletCommand } from '../../impl';
 import { AccAddress } from '@terra-money/terra.js';
 import * as _ from 'lodash';
 import moment = require('moment');
-import { ParsingStatus } from '@trackterra/proto-schema/wallet';
+import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
 import { BlacklistLoader } from '@trackterra/parser/blacklist';
 import { ParserService } from '@trackterra/app/parser/parser.service';
 import { BadRequestError } from '@trackterra/common';

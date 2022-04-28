@@ -6,12 +6,9 @@ import {
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { TxEntity, TxRepository } from '@trackterra/repository';
 import { CreateTxsCommand } from '../../impl';
-import {
-  CreateTxsResponse,
-  ParsingStatus,
-  Tx,
-} from '@trackterra/proto-schema/wallet';
+import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
 import _ = require('lodash');
+import { CreateTxsResponse } from '@trackterra/app/wallets/wallet.types';
 
 @CommandHandler(CreateTxsCommand)
 export class CreateTxsHandler implements ICommandHandler<CreateTxsCommand> {

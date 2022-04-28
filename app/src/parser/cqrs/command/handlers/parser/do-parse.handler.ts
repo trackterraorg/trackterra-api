@@ -6,7 +6,6 @@ import {
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DoParseCommand } from '../../impl';
 import { AccAddress } from '@terra-money/terra.js';
-import { ParsingStatus } from '@trackterra/proto-schema/wallet';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
 import { WalletsService } from '@trackterra/app/wallets/wallets.service';
 import { CurrenciesService } from '@trackterra/app/currencies/currencies.service';
@@ -17,6 +16,7 @@ import {
 import _ = require('lodash');
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
+import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
 
 /**
  * @class

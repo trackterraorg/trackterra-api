@@ -1,6 +1,6 @@
 import { ArgsType, Field, ID, InputType } from '@nestjs/graphql';
 import { FilterMongo, PaginationInput } from '@trackterra/contracts';
-import { Wallet } from './wallet.type';
+import { WalletObject } from './wallet.object';
 
 @InputType()
 export class ParseWallet {
@@ -18,7 +18,7 @@ export class ParseWalletMutationInput {
 }
 
 @InputType()
-export class WalletFilterInput extends FilterMongo(Wallet, {
+export class WalletFilterInput extends FilterMongo(WalletObject, {
   simple: true,
 }) {}
 
@@ -37,5 +37,17 @@ export class WalletFilterArgs {
 @ArgsType()
 export class WalletCheckArg {
   @Field()
+  address: string;
+}
+
+@ArgsType()
+export class ReadWalletRequestObject {
+  @Field({ nullable: true })
+  address: string;
+}
+
+@ArgsType()
+export class ReadWalletDetailRequestObject {
+  @Field({ nullable: true })
   address: string;
 }

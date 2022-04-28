@@ -1,23 +1,22 @@
 import { Mutation, Resolver, Query, Args, Context } from '@nestjs/graphql';
 import {
   ParseWalletInput,
-  Wallet,
-  WalletDetailType,
+  WalletObject,
   WalletFilterArgs,
-  WalletMutations,
-} from './types';
-import {
-  ReadWalletDetailResponse as ReadWalletDetailResponseRpc,
-  Wallet as WalletRpc,
-} from '@trackterra/proto-schema/wallet';
+  ReadWalletResponseObject,
+  ReadWalletDetailResponseObject,
+} from './dto';
 import { WalletsService } from '../wallets.service';
+import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 
 @Resolver()
 export class WalletsResolver {
   constructor(private readonly walletsService: WalletsService) {}
 
-  @Mutation(() => Wallet)
-  async parseWallet(@Args('input') { address }: ParseWalletInput) {
+  @Mutation(() => WalletObject)
+  async parseWallet(
+    @Args('input') { address }: ParseWalletInput,
+  ): Promise<ParseWalletResponse> {
     const result = await this.walletsService.parseWallet({
       address,
     });
@@ -25,28 +24,21 @@ export class WalletsResolver {
     return result;
   }
 
-  @Query(() => Wallet)
-  async readWallet(@Args() { address }: WalletFilterArgs) {
+  @Query(() => WalletObject)
+  async readWallet(
+    @Args() { address }: WalletFilterArgs,
+  ): Promise<ReadWalletResponseObject> {
     const result = await this.walletsService.readWallet({
       address,
     });
     return result;
   }
 
-  @Query(() => WalletDetailType, { nullable: true })
+  @Query(() => ReadWalletDetailResponseObject, { nullable: true })
   async readWalletDetail(
     @Args('address') address: string,
-  ): Promise<ReadWalletDetailResponseRpc> {
+  ): Promise<ReadWalletDetailResponseObject> {
     const result = await this.walletsService.readWalletDetail({ address });
     return result;
-  }
-
-  @Query(() => [Wallet], { nullable: true })
-  async findWallets(
-    @Args() { where, paginate }: WalletFilterArgs,
-  ): Promise<WalletRpc[]> {
-    const filter = JSON.stringify(where);
-    const result = await this.walletsService.findWallets({ filter, paginate });
-    return result.wallets;
   }
 }

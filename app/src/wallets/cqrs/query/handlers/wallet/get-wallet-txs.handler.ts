@@ -7,17 +7,12 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { utils } from '@juicycleff/repo-orm';
 import { Order, TxRepository, WalletRepository } from '@trackterra/repository';
 import { GetWalletTxsQuery } from '../../impl';
-import {
-  FindTxsResponse,
-  Tx,
-  TxExtra,
-  TxNode,
-} from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
 import {
   cleanEmptyProperties,
   fShortenHash,
+  queryMapper,
   walletsDir,
 } from '@trackterra/common';
 import { join } from 'path';
@@ -26,20 +21,30 @@ import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
 import { TaxappSelector } from '@trackterra/tax-apps/apps';
 import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces';
+import { skipRecord } from '@trackterra/repository/dtos/utils';
+import { toLower, toNumber } from 'lodash';
+import {
+  FindTxsResponse,
+  Tx,
+  TxExtra,
+  TxNode,
+} from '@trackterra/app/wallets/wallet.types';
 
 @QueryHandler(GetWalletTxsQuery)
 export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
   logger = new Logger(this.constructor.name);
-  txRepository: TxRepository;
 
-  constructor(private readonly walletRepository: WalletRepository) {}
+  constructor(
+    private readonly walletRepository: WalletRepository,
+    private readonly txRepository: TxRepository,
+  ) {}
 
   async execute(query: GetWalletTxsQuery): Promise<FindTxsResponse> {
     this.logger = new Logger(this.constructor.name);
     this.logger.log(`Async ${query.constructor.name}...`);
-    const { input } = query;
+    const { address, input } = query;
 
-    const { address, order, orderBy } = input;
+    const { order, orderBy, limit, page, q } = input;
 
     if (_.isEmpty(address)) {
       throw new BadRequestException('Wallet address required!');
@@ -67,8 +72,9 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
     };
 
     try {
-      if (input.filter) {
-        const where = JSON.parse(input.filter);
+      if (q) {
+        const qWhere = q ? JSON.stringify(queryMapper(q)) : q;
+        const where = JSON.parse(qWhere);
 
         const filter = utils.gqlMongoParser(where);
         conditions = { ...conditions, ...filter };
@@ -76,24 +82,33 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
 
       const sort = {};
       const sortDir =
-        Order[(['asc', 'desc'].includes(order) ? order : 'desc').toUpperCase()];
+        Order[
+          (['asc', 'desc'].includes(toLower(order))
+            ? order
+            : 'desc'
+          ).toUpperCase()
+        ];
       const sortAttr = orderBy ?? 'blockHeight';
       sort[sortAttr] = sortDir;
 
-      const queryParams = {
+      let queryParams = {
         conditions,
         sort,
       };
 
       let totalCount = 0;
       if (!input.csv) {
-        queryParams['limit'] = input.paginate?.limit || 10;
-        queryParams['skip'] = input.paginate?.skip || 0;
-
         const collection = await this.txRepository.collection;
         const cleanConditions = cleanEmptyProperties(conditions);
 
         totalCount = await collection.find(cleanConditions).count();
+
+        const paginationParams = {
+          limit: toNumber(limit),
+          skip: skipRecord(page, limit),
+        };
+
+        queryParams = { ...queryParams, ...paginationParams };
       }
 
       const txs = await this.txRepository.find(queryParams);
@@ -116,9 +131,7 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
         };
       }
 
-      const mappedTxs = mappedBasedOnApp.map((tx) =>
-        this.txEntityToView(Tx.fromJSON(tx)),
-      );
+      const mappedTxs = mappedBasedOnApp.map((tx) => this.txEntityToView(tx));
 
       return {
         txs: mappedTxs,

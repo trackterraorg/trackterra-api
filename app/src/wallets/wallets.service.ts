@@ -4,39 +4,34 @@ import {
   CreateTxsCommand,
   GetWalletDetailQuery,
   GetWalletQuery,
-  GetWalletsQuery,
   GetWalletTxsQuery,
   ParseWalletCommand,
   UpdateWalletCommand,
 } from './cqrs';
 
-import {
-  FindWalletsRequest,
-  FindWalletsResponse,
-  ReadWalletRequest,
-  ReadWalletResponse,
-  CreateTxsRequest,
-  CreateTxsResponse,
-  ReadWalletDetailRequest,
-  ReadWalletDetailResponse,
-  UpdateWalletRequest,
-  UpdateWalletResponse,
-  FindTxsResponse,
-} from '@trackterra/proto-schema/wallet';
-import { WalletRepository } from '@trackterra/repository';
-import { FindTxsDto } from '@trackterra/repository/dtos/request/find-txs.dto';
+import { FindTxsResponse } from '@trackterra/proto-schema/wallet';
 import { queryMapper } from '@trackterra/common';
 import {
   ParseWalletRequest,
   ParseWalletResponse,
 } from '../parser/parser.types';
+import {
+  CreateTxsRequest,
+  CreateTxsResponse,
+  FindTxsRequest,
+  ReadWalletDetailRequest,
+  ReadWalletDetailResponse,
+  ReadWalletRequest,
+  ReadWalletResponse,
+  UpdateWalletRequest,
+  UpdateWalletResponse,
+} from './wallet.types';
 
 @Controller('wallet')
 export class WalletsService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly walletRepository: WalletRepository,
   ) {}
 
   parseWallet(request: ParseWalletRequest): Promise<ParseWalletResponse> {
@@ -45,12 +40,6 @@ export class WalletsService {
 
   createTxs(request: CreateTxsRequest): Promise<CreateTxsResponse> {
     return this.commandBus.execute(new CreateTxsCommand(request));
-  }
-
-  findWallets(request: FindWalletsRequest): Promise<FindWalletsResponse> {
-    return this.queryBus.execute(
-      new GetWalletsQuery(this.walletRepository, request),
-    );
   }
 
   updateWallet(request: UpdateWalletRequest): Promise<UpdateWalletResponse> {
@@ -69,23 +58,10 @@ export class WalletsService {
 
   async getTxs(
     address: string,
-    { taxapp, q, page, take, order, orderBy, csv }: FindTxsDto,
+    query: FindTxsRequest,
   ): Promise<FindTxsResponse> {
-    const filter = q ? JSON.stringify(queryMapper(q)) : q;
-
     const result = await this.queryBus.execute(
-      new GetWalletTxsQuery({
-        address,
-        filter,
-        paginate: {
-          skip: ((page ?? 1) - 1) * take,
-          limit: take,
-        },
-        orderBy,
-        order,
-        taxapp,
-        csv,
-      }),
+      new GetWalletTxsQuery(address, query),
     );
 
     return result;

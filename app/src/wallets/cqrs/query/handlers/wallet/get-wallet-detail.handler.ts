@@ -6,10 +6,10 @@ import {
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { TxRepository, WalletRepository } from '@trackterra/repository';
 import { GetWalletDetailQuery } from '../../impl';
-import { ReadWalletDetailResponse } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
 import { timeToCalendarFormat } from '@trackterra/common';
+import { ReadWalletDetailResponse } from '@trackterra/app/wallets/wallet.types';
 
 @QueryHandler(GetWalletDetailQuery)
 export class GetWalletDetailHandler

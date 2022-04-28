@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
 import { RedisCache } from 'apollo-server-cache-redis';
 import { corsApollOptions } from '@trackterra/common';
-import { buildContext } from 'graphql-passport';
-import { GqlContext } from '@trackterra/core';
 import { RedisOptions } from 'ioredis';
 import { ConfigService } from '@nestjs/config';
 
@@ -20,17 +18,7 @@ export class GqlConfigService implements GqlOptionsFactory {
       autoSchemaFile: true,
       path: 'graphql',
       cors: corsApollOptions,
-      context: ({ req, res, payload, connection }): GqlContext => {
-        const bc = buildContext({ req, res });
-
-        return {
-          // @ts-ignore
-          payload,
-          connection,
-          ...bc,
-          rpc: {},
-        };
-      },
+      context: ({ req }) => ({ req }),
       cache,
 
       /**

@@ -6,10 +6,13 @@ import {
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { WalletEntity, WalletRepository } from '@trackterra/repository';
 import { GetWalletQuery } from '../../impl';
-import { ReadWalletResponse, Wallet } from '@trackterra/proto-schema/wallet';
 import _ = require('lodash');
 import { AccAddress } from '@terra-money/terra.js';
 import { fShortenHash } from '@trackterra/common';
+import {
+  ReadWalletResponse,
+  Wallet,
+} from '@trackterra/app/wallets/wallet.types';
 
 @QueryHandler(GetWalletQuery)
 export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {

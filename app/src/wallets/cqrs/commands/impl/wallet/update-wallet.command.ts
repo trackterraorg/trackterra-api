@@ -1,5 +1,5 @@
 import { ICommand } from '@nestjs/cqrs';
-import { UpdateWalletRequest } from '@trackterra/proto-schema/wallet';
+import { UpdateWalletRequest } from '@trackterra/app/wallets/wallet.types';
 
 export class UpdateWalletCommand implements ICommand {
   constructor(public readonly input: UpdateWalletRequest) {}
