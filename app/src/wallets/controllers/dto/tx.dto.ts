@@ -1,4 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiModelPropertyOptional } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 import { BaseDto } from '@trackterra/repository/dtos';
 import { Expose, Type } from 'class-transformer';
 
@@ -157,4 +158,18 @@ export class GetTxsResponseFile {
   @Expose()
   @ApiProperty()
   csvFileName: string;
+}
+
+export class FindTxsResponseDto {
+  @Expose()
+  @ApiPropertyOptional()
+  txs?: TxNodeDto[];
+
+  @Expose()
+  @ApiPropertyOptional()
+  totalCount?: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  csvFileName?: string;
 }

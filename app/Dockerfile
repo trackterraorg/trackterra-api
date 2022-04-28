@@ -16,7 +16,6 @@ RUN yarn global add @nestjs/cli
 RUN yarn install --production=false
 
 # Build production files
-RUN nest build proto-schema
 RUN nest build api-gateway
 
 # Bundle app source

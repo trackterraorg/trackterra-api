@@ -14,7 +14,12 @@ import {
   ReadWalletResponseObject,
   WalletObject,
 } from './resolvers/dto';
-import { TxDto, TxExtraDto, TxNodeDto } from './controllers/dto/tx.dto';
+import {
+  FindTxsResponseDto,
+  TxDto,
+  TxExtraDto,
+  TxNodeDto,
+} from './controllers/dto/tx.dto';
 import {
   TxExtraObject,
   TxNodeObject,
@@ -60,8 +65,5 @@ export type UpdateWalletResponse = {
 };
 
 export type FindTxsRequest = FindTxsRequestDto;
-export type FindTxsResponse = {
-  txs: TxNode[];
-  totalCount: number;
-  csvFileName: string;
-};
+
+export type FindTxsResponse = FindTxsResponseDto;

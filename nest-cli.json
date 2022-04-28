@@ -20,12 +20,6 @@
         "include": "**/*.conf"
       },
       {
-        "include": "**/*.proto"
-      },
-      {
-        "include": "*.proto"
-      },
-      {
         "include": "*.conf"
       }
     ],
@@ -93,15 +87,6 @@
       "sourceRoot": "libs/tax-apps/src",
       "compilerOptions": {
         "tsConfigPath": "libs/tax-apps/tsconfig.lib.json"
-      }
-    },
-    "proto-schema": {
-      "type": "library",
-      "root": "libs/proto-schema",
-      "entryFile": "index",
-      "sourceRoot": "libs/proto-schema/src",
-      "compilerOptions": {
-        "tsConfigPath": "libs/proto-schema/tsconfig.lib.json"
       }
     },
     "app": {

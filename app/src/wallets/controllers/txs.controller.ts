@@ -7,7 +7,7 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { WalletsService } from '../wallets.service';
 import { join } from 'path';
 import * as fs from 'fs';
@@ -16,6 +16,11 @@ import { walletsDir } from '@trackterra/common';
 import moment = require('moment');
 import { FindTxsRequestDto } from './dto/tx-input';
 import { FindTxsResponse } from '../wallet.types';
+import {
+  BaseApiResponse,
+  SwaggerBaseApiResponse,
+} from '@trackterra/repository/dtos/response/base-api-response.dto';
+import { FindTxsResponseDto } from './dto/tx.dto';
 
 @Controller('/api/v1/txs')
 @ApiTags('Transactions')
@@ -23,11 +28,27 @@ export class TxsController {
   constructor(private readonly walletsService: WalletsService) {}
 
   @Get('/:address')
-  async getTxs(
+  @ApiOperation({
+    summary: 'List of transactions for wallet',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(FindTxsRequestDto),
+  })
+  async listCurrencies(
     @Param('address') address: string,
     @Query() args: FindTxsRequestDto,
-  ): Promise<FindTxsResponse> {
-    return await this.walletsService.getTxs(address, args);
+  ): Promise<BaseApiResponse<FindTxsResponseDto>> {
+    const result = await this.walletsService.getTxs(address, args);
+
+    return {
+      data: {
+        ...result,
+      },
+      meta: {
+        totalCount: result?.totalCount,
+      },
+    };
   }
 
   @Get('/csv/:address/:filename')
