@@ -1,7 +1,7 @@
 import { ContractInfo, TxInfo } from '@terra-money/terra.js';
 import { ApisauceInstance, create } from 'apisauce';
 
-export const DEFAULT_FCD_URL = 'https://fcd.terra.dev/v1';
+export const DEFAULT_FCD_URL = 'https://fcd.terra.dev';
 export const DEFAULT_LIMIT = 100;
 export class FCDApi {
   private readonly _api: ApisauceInstance;
@@ -18,7 +18,7 @@ export class FCDApi {
   }
 
   async getByTxHash(txHash: string): Promise<TxInfo> {
-    const result = await this.api.get(`/tx/${txHash}`);
+    const result = await this.api.get(`/v1/tx/${txHash}`);
 
     if (result.ok) {
       const txInfo: TxInfo = this.mapTx(result);
@@ -43,7 +43,7 @@ export class FCDApi {
   }> {
     args.limit = args.limit ?? DEFAULT_LIMIT;
 
-    const result: any = await this.api.get(`/txs`, args);
+    const result: any = await this.api.get(`/v1/txs`, args);
 
     if (result.ok) {
       const { next, block } = result.data;
@@ -65,7 +65,7 @@ export class FCDApi {
   }
 
   async getContractInfo(address: string): Promise<ContractInfo> {
-    const result = await this._api.get(`/wasm/contract/${address}`);
+    const result = await this._api.get(`/terra/wasm/v1beta1/contracts/${address}`);
 
     if (result.ok) {
       const contractInfo: ContractInfo = result.data as unknown as ContractInfo;
