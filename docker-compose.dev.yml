@@ -10,12 +10,13 @@ services:
     image: "trackterra/app:latest"
     restart: always
     depends_on:
+      - mongo
       - redis
-    environment:
-      - DISCOVERY_HOST=app
     ports:
       - 2052:2052
       - 4000:4000
+    env_file:
+      - .env
     volumes:
       - storage-static:/nest/storage
   mongo:

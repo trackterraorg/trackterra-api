@@ -12,6 +12,11 @@ services:
       - DISCOVERY_HOST=app
     ports:
       - 2052:2052
+    depends_on:
+      - mongo
+      - redis
+    env_file:
+      - .env
     volumes:
       - storage-static:/nest/storage
       

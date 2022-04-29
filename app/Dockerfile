@@ -16,10 +16,10 @@ RUN yarn global add @nestjs/cli
 RUN yarn install --production=false
 
 # Build production files
-RUN nest build api-gateway
+RUN nest build app
 
 # Bundle app source
 COPY . .
 
 EXPOSE 2052 4000
-CMD ["node", "dist/server/api-gateway/main.js"]
+CMD ["node", "dist/app/main.js"]
