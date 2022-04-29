@@ -4,17 +4,10 @@ TrackTerra
     
 <p align="center"> 
   This repo is the backend app for the TrackTerra.
-  It is built using microservice pattern with REST API & GraphQL API and GRPC Microservices, based on Domain (DDD) using the command query responsibility segregation (CQRS) design pattern.
+  It is built using microservice pattern with REST API & GraphQL API, based on Domain (DDD) using the command query responsibility segregation (CQRS) design pattern.
 </p>  
     <p align="center">  
 </p>  
-
-## Services 
-The app consist of 4 services each responsible for a handling a specific task in the application as follows:
-
- - `api-gateway` is the interface of the application through which all requests & responses are handled. All requests to the application need to go through api-gateway.
- 
- These are the main services of the app. However their are couple libs which are common among the services. The most important one is the parser lib which is the core of the backend app.
 
 ## Parser library
 The parser lib is the core component of the app. It transform, classify, parse, and export the parsed result to a format interpretable by other parts of the application. It does not store nor read any data from the app. It consists of the following components
@@ -52,22 +45,9 @@ The final step is preparing the parsed data to be exported and used by other par
  - node 14
  - redis
  - mongo 5
- - jq
- - yq 4.18.1
  
  These can be installed locally or using docker containers
 ## Installation  
-
-yq
-```bash
-sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.18.1/yq_linux_amd64
-sudo chmod a+x /usr/local/bin/yq
-```
-
-open a new terminal and test it
-```bash
-yq --version
-```
 
 install packages
 ```bash  
@@ -76,7 +56,7 @@ $ yarn install
 
 ## Usage  
   
-Mongodb, and redis all need to be started first as our microservices need to connect to them.  
+Mongodb, and redis all need to be started first as our application needs to connect to them.  
 
 Start mongodb  
 ```bash  
@@ -91,29 +71,20 @@ docker run -d -p 6379:6379 redis
   
 Otherwise, you can install and run redis locally if you choose.  
   
-## Running the microservices  
-You can start the microservices in any order. Example  
+## Setup
+Create a .env file and copy contents of .env.sample file to .env and configure the parameters based on your setup
+<br>  
+## Running the app  
 
-Build the app
+Run in production mode
 ```bash
-sh scripts/setup.sh
+yarn start:prod
 ```
 
-Run the services
+Run in dev mode
 ```bash
-node dist/server/api-gateway/main.js  
+yarn start:dev
 ```
-
-or 
-
-```bash
-  
-$ yarn setup:local
-  
-# Start the gateway service  
-$ npx nest start api-gateway
-  
-```  
   
 ## REST and GRAPHQL  
 
@@ -133,7 +104,7 @@ One way to ease this process is to add a sample tx in protocols.spec file and en
   
 ```bash  
 # unit tests  
-$ yarn run test  
+$ yarn test  
   
 # Useful when adding new tx types
 $ jest libs/parser/tests/protocols.spec.ts  
