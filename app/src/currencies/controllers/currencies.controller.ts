@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiOperation,
@@ -25,13 +25,33 @@ export class CurrenciesController {
     status: HttpStatus.OK,
     type: SwaggerBaseApiResponse(CurrencyDto),
   })
-  async listCurrencies(): Promise<BaseApiResponse<CurrencyDto>> {
+  async listCurrencies(): Promise<BaseApiResponse<CurrencyDto[]>> {
     const result = await this.currenciesService.listCurrencies();
     return {
       data: result.currencies,
       meta: {
         totalCount: result.count,
       },
+    };
+  }
+
+  @Post('/:identifier')
+  @ApiOperation({
+    summary: 'Upsert currency',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(CurrencyDto),
+  })
+  async upsertCurreny(
+    @Param('identifier') identifier: string,
+  ): Promise<BaseApiResponse<CurrencyDto>> {
+    const result = await this.currenciesService.upsertCurrency({
+      identifier,
+    });
+    return {
+      data: result,
+      meta: {},
     };
   }
 }

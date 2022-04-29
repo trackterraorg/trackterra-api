@@ -46,7 +46,7 @@ export class UpsertCurrencyHandler
 
   private async upsertCurrency(identifier: string): Promise<CurrencyEntity> {
     let currency: CurrencyEntity = await this.currencyRepository.findOne({
-      identifier,
+      $or: [{ identifier }, { name: identifier }],
     });
 
     if (currency) {
@@ -60,16 +60,14 @@ export class UpsertCurrencyHandler
 
       const { init_msg: initMsg } = contractInfo;
 
-      if (initMsg?.symbol.toLowerCase() == 'ulp') {
+      if (initMsg?.symbol.toLowerCase() === 'ulp') {
         return await this.getTokenFromULPContract(initMsg.mint.minter);
       }
 
-      const currFromFcd = initMsg;
-
       return await this.currencyRepository.create({
-        name: currFromFcd?.name,
-        symbol: currFromFcd?.symbol,
-        decimals: currFromFcd?.decimals ?? 6,
+        name: initMsg?.name,
+        symbol: initMsg?.symbol,
+        decimals: initMsg?.decimals ?? 6,
         icon: '',
         identifier: identifier,
         isStable: false,

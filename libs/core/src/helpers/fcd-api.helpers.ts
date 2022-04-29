@@ -65,11 +65,13 @@ export class FCDApi {
   }
 
   async getContractInfo(address: string): Promise<ContractInfo> {
-    const result = await this._api.get(`/terra/wasm/v1beta1/contracts/${address}`);
+    const result: any = await this._api.get(
+      `/terra/wasm/v1beta1/contracts/${address}`,
+    );
 
     if (result.ok) {
-      const contractInfo: ContractInfo = result.data as unknown as ContractInfo;
-      return contractInfo;
+      const { contract_info: contractInfo } = result.data;
+      return contractInfo as unknown as ContractInfo;
     }
 
     if (result.problem) {
