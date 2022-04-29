@@ -21,7 +21,7 @@ import { v1 as uuid } from 'uuid';
 import { createObjectCsvWriter } from 'csv-writer';
 import { TaxappSelector } from '@trackterra/tax-apps/apps';
 import { ICsvHeaderCell } from '@trackterra/tax-apps/interfaces';
-import { skipRecord } from '@trackterra/repository/dtos/utils';
+import { limitRecord, skipRecord } from '@trackterra/repository/dtos/utils';
 import { toLower, toNumber } from 'lodash';
 import {
   FindTxsResponse,
@@ -103,9 +103,10 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
 
         totalCount = await collection.find(cleanConditions).count();
 
+        let limitRecords = limitRecord(limit);
         const paginationParams = {
-          limit: toNumber(limit),
-          skip: skipRecord(page, limit),
+          limit: limitRecords,
+          skip: skipRecord(page, limitRecords),
         };
 
         queryParams = { ...queryParams, ...paginationParams };

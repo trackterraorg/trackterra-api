@@ -20,7 +20,7 @@ export function timeToRegularDateTime<T extends string | Date>(
 }
 
 export function timeToUtc(time: string | Date) {
-  if (_.isEmpty(time)) {
+  if (!time) {
     return;
   }
 
