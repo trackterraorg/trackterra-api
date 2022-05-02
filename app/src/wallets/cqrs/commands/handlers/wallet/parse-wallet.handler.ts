@@ -76,7 +76,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         this.logger.log(msg);
         return {
           numberOfNewParsedTxs: 0,
-          status: ParsingStatus.DONE,
+          status: ParsingStatus.PARSING,
           msg,
         };
       } else if (moment(moment()).diff(wallet.updatedAt) < 60000) {
