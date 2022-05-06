@@ -10,6 +10,7 @@ import {
 import { SwaggerModule } from '@nestjs/swagger';
 import { AppConfig } from '@trackterra/common/interfaces/config.interface';
 import { ConfigService } from '@nestjs/config';
+import { AppService } from './app.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,9 @@ async function bootstrap() {
   app.enableCors(corsOptions);
   app.use(bloodTearsMiddleware);
   AppUtils.killAppWithGrace(app);
+
+  const appService = app.get(AppService);
+  appService.checkWalletsDirectory();
 
   const configService = app.get(ConfigService);
   const appConfig = configService.get<AppConfig>('app');
