@@ -1,7 +1,7 @@
 import { ContractInfo, TxInfo } from '@terra-money/terra.js';
 import { ApisauceInstance, create } from 'apisauce';
 
-export const DEFAULT_FCD_URL = 'https://fcd.terra.dev';
+export const DEFAULT_FCD_URL = 'https://columbus-fcd.terra.dev';
 export const DEFAULT_LIMIT = 100;
 export class FCDApi {
   private readonly _api: ApisauceInstance;
@@ -13,7 +13,10 @@ export class FCDApi {
   constructor(fcdUrl = undefined) {
     this._api = create({
       baseURL: fcdUrl ?? DEFAULT_FCD_URL,
-      headers: { Accept: 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': 'TT/1.0',
+      },
     });
   }
 
