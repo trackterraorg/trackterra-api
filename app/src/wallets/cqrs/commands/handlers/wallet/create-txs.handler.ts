@@ -31,7 +31,9 @@ export class CreateTxsHandler implements ICommandHandler<CreateTxsCommand> {
 
       const txs = parsedTxs.map((tx) => tx as unknown as TxEntity);
 
-      await this.txRepository.createMany(txs);
+      txs.forEach((tx) => {
+        this.txRepository.create(tx);
+      });
 
       return {
         status: ParsingStatus.DONE,
