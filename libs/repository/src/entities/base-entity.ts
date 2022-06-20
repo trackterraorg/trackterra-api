@@ -1,4 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
+import { ChainSelector } from 'libs/chains/src';
 import { ObjectID } from 'mongodb';
 import { BaseDto } from '../dtos';
 
@@ -7,7 +8,7 @@ export abstract class BaseEntity<
 > extends AggregateRoot {
   id?: ObjectID | string;
 
-  createdBy?: ObjectID | string;
+  chain?: string | String = ChainSelector.select('luna').identifier;
 
   createdAt?: Date;
 
