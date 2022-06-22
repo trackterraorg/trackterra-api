@@ -185,6 +185,8 @@
       "@trackterra/repository": "<rootDir>/libs/repository/src",
       "@trackterra/tax-apps/(.*)": "<rootDir>/libs/tax-apps/src/$1",
       "@trackterra/tax-apps": "<rootDir>/libs/tax-apps/src",
+      "@trackterra/chains/(.*)": "<rootDir>/libs/chains/src/$1",
+      "@trackterra/chains": "<rootDir>/libs/chains/src",
       "@juicycleff/repo-orm/(.*)": "<rootDir>/libs/repo-orm/src/$1",
       "@juicycleff/repo-orm": "<rootDir>/libs/repo-orm/src",
       "@trackterra/app/(.*)": "<rootDir>/app/src/$1",

@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
-export class ParseWalletRequestObject {
+export class WalletRequestObject {
   @Field()
   address: string;
 

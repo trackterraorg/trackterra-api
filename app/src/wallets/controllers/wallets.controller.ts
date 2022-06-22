@@ -14,7 +14,10 @@ import {
   BaseApiResponse,
   SwaggerBaseApiResponse,
 } from '@trackterra/repository/dtos/response/base-api-response.dto';
-import { ParseWalletResponseDto } from '@trackterra/app/parser/controllers/dto/parse-wallet.dto';
+import {
+  WalletRequestDto,
+  ParseWalletResponseDto,
+} from '@trackterra/app/parser/controllers/dto/parse-wallet.dto';
 import {
   ReadWalletDetailResponseDto,
   ReadWalletResponseDto,
@@ -34,7 +37,7 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ParseWalletResponseDto),
   })
   async parseWallet(
-    @Param('address') address: string,
+    @Query() { address }: WalletRequestDto,
   ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
     const result = await this.walletsService.parseWallet({
       address,
@@ -54,7 +57,7 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ReadWalletResponseDto),
   })
   async readWallet(
-    @Param('address') address: string,
+    @Query() { address }: WalletRequestDto,
   ): Promise<BaseApiResponse<ReadWalletResponseDto>> {
     const result = await this.walletsService.readWallet({
       address,
@@ -75,7 +78,7 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ReadWalletDetailResponseDto),
   })
   async readWalletDetail(
-    @Param('address') address: string,
+    @Query() { address }: WalletRequestDto,
   ): Promise<BaseApiResponse<ReadWalletDetailResponseDto>> {
     const result = await this.walletsService.readWalletDetail({
       address,

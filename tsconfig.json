@@ -63,6 +63,9 @@
       "@trackterra/tax-apps/*": [
         "libs/tax-apps/src/*"
       ],
+      "@trackterra/chains/*": [
+        "libs/chains/src/*"
+      ],
       "@trackterra/app/*": [
         "app/src/*"
       ]

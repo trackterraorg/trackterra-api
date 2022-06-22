@@ -9,10 +9,7 @@ import {
   UpdateWalletCommand,
 } from './cqrs';
 
-import {
-  ParseWalletRequest,
-  ParseWalletResponse,
-} from '../parser/parser.types';
+import { WalletRequest, ParseWalletResponse } from '../parser/parser.types';
 import {
   CreateTxsRequest,
   CreateTxsResponse,
@@ -33,7 +30,7 @@ export class WalletsService {
     private readonly queryBus: QueryBus,
   ) {}
 
-  parseWallet(request: ParseWalletRequest): Promise<ParseWalletResponse> {
+  parseWallet(request: WalletRequest): Promise<ParseWalletResponse> {
     return this.commandBus.execute(new ParseWalletCommand(request));
   }
 

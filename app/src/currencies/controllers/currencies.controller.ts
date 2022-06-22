@@ -1,4 +1,11 @@
-import { Controller, Get, HttpStatus, Param, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiOperation,
@@ -10,7 +17,7 @@ import {
   SwaggerBaseApiResponse,
 } from '@trackterra/repository/dtos/response/base-api-response.dto';
 import { CurrenciesService } from '../currencies.service';
-import { CurrencyDto } from './dto/currency.dto';
+import { CurrencyRequestDto, CurrencyResponseDto } from './dto/currency.dto';
 
 @Controller('/api/v1/currencies')
 @ApiTags('Currency')
@@ -23,9 +30,11 @@ export class CurrenciesController {
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: SwaggerBaseApiResponse(CurrencyDto),
+    type: SwaggerBaseApiResponse(CurrencyResponseDto),
   })
-  async listCurrencies(): Promise<BaseApiResponse<CurrencyDto[]>> {
+  async listCurrencies(
+    @Query() { chain }: CurrencyRequestDto,
+  ): Promise<BaseApiResponse<CurrencyResponseDto[]>> {
     const result = await this.currenciesService.listCurrencies();
     return {
       data: result.currencies,
@@ -35,23 +44,23 @@ export class CurrenciesController {
     };
   }
 
-  @Post('/:identifier')
-  @ApiOperation({
-    summary: 'Upsert currency',
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    type: SwaggerBaseApiResponse(CurrencyDto),
-  })
-  async upsertCurreny(
-    @Param('identifier') identifier: string,
-  ): Promise<BaseApiResponse<CurrencyDto>> {
-    const result = await this.currenciesService.upsertCurrency({
-      identifier,
-    });
-    return {
-      data: result,
-      meta: {},
-    };
-  }
+  // @Post('/:identifier')
+  // @ApiOperation({
+  //   summary: 'Upsert currency',
+  // })
+  // @ApiResponse({
+  //   status: HttpStatus.OK,
+  //   type: SwaggerBaseApiResponse(CurrencyDto),
+  // })
+  // async upsertCurreny(
+  //   @Param('identifier') identifier: string,
+  // ): Promise<BaseApiResponse<CurrencyDto>> {
+  //   const result = await this.currenciesService.upsertCurrency({
+  //     identifier,
+  //   });
+  //   return {
+  //     data: result,
+  //     meta: {},
+  //   };
+  // }
 }

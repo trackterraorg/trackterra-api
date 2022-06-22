@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { GetSupportedProtocolsCommand, DoParseCommand } from './cqrs';
 import {
-  ParseWalletRequest,
+  WalletRequest,
   ParseWalletResponse,
   SupportedProtocolsResponse,
 } from './parser.types';
@@ -15,7 +15,7 @@ export class ParserService {
     return this.commandBus.execute(new GetSupportedProtocolsCommand());
   }
 
-  doParse(request: ParseWalletRequest): Promise<ParseWalletResponse> {
+  doParse(request: WalletRequest): Promise<ParseWalletResponse> {
     return this.commandBus.execute(new DoParseCommand(request));
   }
 }

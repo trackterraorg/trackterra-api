@@ -14,7 +14,7 @@ import * as fs from 'fs';
 import * as _ from 'lodash';
 import { walletsDir } from '@trackterra/common';
 import moment = require('moment');
-import { FindTxsRequestDto } from './dto/tx-input';
+import { DownloadCsvRequestDto, FindTxsRequestDto } from './dto/tx-input';
 import { FindTxsResponse } from '../wallet.types';
 import {
   BaseApiResponse,
@@ -52,11 +52,7 @@ export class TxsController {
   }
 
   @Get('/csv/:address/:filename')
-  async csv(
-    @Res() res,
-    @Param('address') address: string,
-    @Param('filename') filename: string,
-  ) {
+  async csv(@Res() res, @Query() { address, filename }: DownloadCsvRequestDto) {
     try {
       const p = join(walletsDir(), address, filename);
       if (fs.existsSync(p)) {

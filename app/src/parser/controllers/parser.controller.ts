@@ -1,11 +1,14 @@
-import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   BaseApiResponse,
   SwaggerBaseApiResponse,
 } from '@trackterra/repository/dtos/response/base-api-response.dto';
 import { ParserService } from '../parser.service';
-import { SupportedProtocolDto } from './dto';
+import {
+  SupportedProtocolRequestDto,
+  SupportedProtocolResponseDto,
+} from './dto';
 
 @Controller('/api/v1/parser')
 @ApiTags('Parser')
@@ -18,9 +21,11 @@ export class ParserController {
   })
   @ApiResponse({
     status: HttpStatus.OK,
-    type: SwaggerBaseApiResponse(SupportedProtocolDto),
+    type: SwaggerBaseApiResponse(SupportedProtocolResponseDto),
   })
-  async supportedProtocols(): Promise<BaseApiResponse<SupportedProtocolDto[]>> {
+  async supportedProtocols(
+    @Query() { chain }: SupportedProtocolRequestDto,
+  ): Promise<BaseApiResponse<SupportedProtocolResponseDto[]>> {
     return { data: await this.parserService.supportedProtocols(), meta: {} };
   }
 }
