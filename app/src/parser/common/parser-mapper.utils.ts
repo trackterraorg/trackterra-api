@@ -1,5 +1,5 @@
 import { TxInfo } from '@terra-money/terra.js';
-import { Currency } from '@trackterra/app/currencies/currency.types';
+import { CurrencyResponse } from '@trackterra/app/currencies/currency.types';
 import { Tx } from '@trackterra/app/wallets/wallet.types';
 import { TTOutput } from '@trackterra/parser';
 import _ = require('lodash');
@@ -80,7 +80,7 @@ export async function txToUnparsedTxCreateRequest(
   return transformedTx as unknown as Tx;
 }
 
-export function tokenValue(currency: Currency, amount: number): number {
+export function tokenValue(currency: CurrencyResponse, amount: number): number {
   if (isNaN(amount)) {
     return undefined;
   }

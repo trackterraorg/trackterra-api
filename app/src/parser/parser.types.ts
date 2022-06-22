@@ -1,4 +1,4 @@
-import { SupportedProtocolDto } from './controllers/dto';
+import { SupportedProtocolResponseDto } from './controllers/dto';
 import {
   WalletRequestDto,
   ParseWalletResponseDto,
@@ -10,7 +10,7 @@ import {
 } from './resolvers/dto/parse-wallet.dto';
 
 export type SupportedProtocolsResponse = (
-  | SupportedProtocolDto
+  | SupportedProtocolResponseDto
   | SupportedProtocolObject
 )[];
 
