@@ -44,7 +44,11 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
     this.logger.log(`Async ${query.constructor.name}...`);
     const { address, input } = query;
 
-    const { order, orderBy, limit, page, q } = input;
+    const { chain, order, orderBy, limit, page, q } = input;
+
+    if (_.isEmpty(chain)) {
+      throw new BadRequestException('Please provide valid chain!');
+    }
 
     if (_.isEmpty(address)) {
       throw new BadRequestException('Wallet address required!');
@@ -55,6 +59,7 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
     }
 
     const walletParsed = await this.walletRepository.exist({
+      chain,
       address,
     });
 
@@ -66,6 +71,7 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
 
     let conditions = {
       walletAddress: address,
+      chain,
       protocol: {
         $ne: 'Unparsed',
       },

@@ -1,9 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ApiModelPropertyOptional } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
+import { defaultChainName, nameOfChains } from '@trackterra/chains/utils/utils';
 import { BaseDto } from '@trackterra/repository/dtos';
 import { Expose, Type } from 'class-transformer';
 
 export class TxDto extends BaseDto {
+  @Expose()
+  @ApiProperty({
+    enum: nameOfChains,
+    default: defaultChainName,
+  })
+  chain: Chain;
+
   @Expose()
   @ApiProperty()
   txhash: string;

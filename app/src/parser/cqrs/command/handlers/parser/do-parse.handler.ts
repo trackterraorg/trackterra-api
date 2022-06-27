@@ -38,7 +38,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
   async execute(command: DoParseCommand): Promise<ParseWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
 
-    const { address, highestParsedBlockHeight } = command.input;
+    const { chain, address, highestParsedBlockHeight } = command.input;
     try {
       if (!AccAddress.validate(address)) {
         throw new BadRequestException('Invalid terra account address');
@@ -88,6 +88,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
             for (const resultTx of result) {
               const mappedResult = await txToTxCreateRequest(
                 resultTx,
+                chain,
                 address,
                 this.currenciesService,
               );
@@ -123,6 +124,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
       }
 
       this.walletService.updateWallet({
+        chain,
         address,
         highestParsedBlock: newHighestBlockHeight,
         status: ParsingStatus.DONE,

@@ -22,7 +22,7 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
 
   async execute(query: GetWalletQuery): Promise<ReadWalletResponse> {
     const { input } = query;
-    const { address } = input;
+    const { chain, address } = input;
 
     if (_.isEmpty(address)) {
       throw new BadRequestException('Wallet address required!');
@@ -34,7 +34,7 @@ export class CheckWalletHandler implements IQueryHandler<GetWalletQuery> {
 
     try {
       const walletEntity: WalletEntity = await this.walletRepository.findOne(
-        { address },
+        { chain, address },
         true,
       );
 

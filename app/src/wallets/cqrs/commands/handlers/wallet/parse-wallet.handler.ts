@@ -40,7 +40,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   async execute(command: ParseWalletCommand): Promise<ParseWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
 
-    const { address } = command.input;
+    const { chain, address } = command.input;
 
     try {
       if (!AccAddress.validate(address)) {
@@ -67,6 +67,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       if (!wallet) {
         wallet = await this.walletRepository.create({
+          chain,
           address,
           status: ParsingStatus.PARSING,
         });
@@ -92,6 +93,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       await this.commandBus.execute(
         new UpdateWalletCommand({
+          chain,
           highestParsedBlock: wallet.highestParsedBlock,
           status: ParsingStatus.PARSING,
           address: wallet.address,
@@ -103,6 +105,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
       let parsingResult: any;
       try {
         parsingResult = await this.parserService.doParse({
+          chain,
           address: wallet.address,
           highestParsedBlockHeight,
         });

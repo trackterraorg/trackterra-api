@@ -8,15 +8,15 @@ import { ObjectID } from 'mongodb';
 export abstract class Node {
   @Filterable()
   @Field(() => ID)
-  id: string | ObjectID;
+  id?: string | ObjectID;
 
   @Filterable()
   @Field(() => GraphQLISODateTime)
-  createdAt: string | Date;
+  createdAt?: string | Date;
 
   @Filterable()
   @Field(() => GraphQLISODateTime)
-  updatedAt: string | Date;
+  updatedAt?: string | Date;
 }
 
 @ObjectType()

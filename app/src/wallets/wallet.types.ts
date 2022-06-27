@@ -36,8 +36,9 @@ export type ReadWalletResponse =
   | ReadWalletResponseDto;
 
 export type ReadWalletDetailRequest =
-  | WalletFilterAddressArg
-  | ReadWalletDetailRequestDto;
+  | ReadWalletDetailRequestDto
+  | WalletFilterAddressArg;
+
 export type ReadWalletDetailResponse =
   | ReadWalletDetailResponseObject
   | ReadWalletDetailResponseDto;
@@ -57,6 +58,7 @@ export type CreateTxsResponse = {
 export type UpdateWalletRequest = {
   highestParsedBlock: number;
   status: number;
+  chain: string;
   address: string;
 };
 

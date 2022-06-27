@@ -37,11 +37,9 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ParseWalletResponseDto),
   })
   async parseWallet(
-    @Query() { address }: WalletRequestDto,
+    @Query() args: WalletRequestDto,
   ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
-    const result = await this.walletsService.parseWallet({
-      address,
-    });
+    const result = await this.walletsService.parseWallet(args);
     return {
       data: result,
       meta: {},
@@ -57,11 +55,9 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ReadWalletResponseDto),
   })
   async readWallet(
-    @Query() { address }: WalletRequestDto,
+    @Query() args: WalletRequestDto,
   ): Promise<BaseApiResponse<ReadWalletResponseDto>> {
-    const result = await this.walletsService.readWallet({
-      address,
-    });
+    const result = await this.walletsService.readWallet(args);
     return {
       data: result,
       meta: {},
@@ -78,11 +74,9 @@ export class WalletsController {
     type: SwaggerBaseApiResponse(ReadWalletDetailResponseDto),
   })
   async readWalletDetail(
-    @Query() { address }: WalletRequestDto,
+    @Query() args: WalletRequestDto,
   ): Promise<BaseApiResponse<ReadWalletDetailResponseDto>> {
-    const result = await this.walletsService.readWalletDetail({
-      address,
-    });
+    const result = await this.walletsService.readWalletDetail(args);
     return {
       data: result,
       meta: {},

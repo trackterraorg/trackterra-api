@@ -10,13 +10,15 @@ export class TxsResolver {
   @Query(() => FindTxsResponseObject)
   async listTxs(@Args() args: TxFilterArgs): Promise<FindTxsResponseObject> {
     const where = JSON.stringify(args.q);
-    const result = await this.walletsService.getTxs(args.address, {
+    const result = await this.walletsService.getTxs(args.chain, args.address, {
+      chain: args.chain,
       taxapp: args.taxapp,
       q: where,
       csv: false,
       page: 0,
       limit: 0,
     });
+
     return result;
   }
 }

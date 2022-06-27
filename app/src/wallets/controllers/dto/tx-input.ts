@@ -1,4 +1,7 @@
-import { ApiModelPropertyOptional } from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
+import {
+  ApiModelProperty,
+  ApiModelPropertyOptional,
+} from '@nestjs/swagger/dist/decorators/api-model-property.decorator';
 
 import { IsEmpty, IsEnum, IsOptional, IsString } from 'class-validator';
 import {
@@ -12,11 +15,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 
 export class FindTxsRequestDto extends PageOptionsDto {
-  @ApiModelPropertyOptional({
+  @ApiModelProperty({
     enum: nameOfChains,
     default: defaultChainName,
   })
-  @IsOptional()
   readonly chain: string;
 
   @ApiModelPropertyOptional({

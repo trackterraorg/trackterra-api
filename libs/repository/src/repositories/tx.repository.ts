@@ -41,20 +41,25 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
     return merge(data, this.onUpdate());
   }
 
-  public async countWalletTxs(walletAddress: string): Promise<number | 0> {
+  public async countWalletTxs(
+    chain: string,
+    walletAddress: string,
+  ): Promise<number | 0> {
     const collection = await this.collection;
     const c = await collection.countDocuments({
+      chain,
       walletAddress,
     });
 
     return c;
   }
 
-  public async topActiveContracts(walletAddress: string) {
+  public async topActiveContracts(chain: string, walletAddress: string) {
     const collection = await this.collection;
     const mostActiveContracts = await collection.aggregate([
       {
         $match: {
+          chain,
           walletAddress: walletAddress,
         },
       },
@@ -94,9 +99,13 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
     return topFiveContracts.reverse();
   }
 
-  public async countUnclassified(walletAddress: string): Promise<number | 0> {
+  public async countUnclassified(
+    chain: string,
+    walletAddress: string,
+  ): Promise<number | 0> {
     const collection = await this.collection;
     const c = await collection.countDocuments({
+      chain,
       walletAddress,
       protocol: 'Unclassified',
     });
@@ -104,11 +113,12 @@ export class TxRepository extends BaseMongoRepository<TxEntity> {
     return c;
   }
 
-  public async topOperations(walletAddress: string) {
+  public async topOperations(chain: string, walletAddress: string) {
     const collection = await this.collection;
     const topOperations = await collection.aggregate([
       {
         $match: {
+          chain,
           walletAddress: walletAddress,
         },
       },

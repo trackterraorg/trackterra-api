@@ -24,7 +24,11 @@ export class GetWalletDetailHandler
   async execute(
     query: GetWalletDetailQuery,
   ): Promise<ReadWalletDetailResponse> {
-    const { address } = query?.input;
+    const { chain, address } = query?.input;
+
+    if (_.isEmpty(chain)) {
+      throw new BadRequestException('Chain is required!');
+    }
 
     if (_.isEmpty(address)) {
       throw new BadRequestException('Wallet address required!');
@@ -35,24 +39,30 @@ export class GetWalletDetailHandler
     }
 
     try {
-      const wallet = await this.walletRepository.findOne({ address }, true);
+      const wallet = await this.walletRepository.findOne(
+        { chain, address },
+        true,
+      );
 
       if (wallet) {
         const lastParsingTime = timeToCalendarFormat(wallet.updatedAt);
         const highestParsedBlock = wallet.highestParsedBlock;
 
-        const txCount = await this.txRepository.countWalletTxs(wallet.address);
+        const txCount = await this.txRepository.countWalletTxs(chain, address);
 
         const unclassifiedTxCount = await this.txRepository.countUnclassified(
-          wallet.address,
+          chain,
+          address,
         );
 
         const topActiveContracts = await this.txRepository.topActiveContracts(
-          wallet.address,
+          chain,
+          address,
         );
 
         const topOperations = await this.txRepository.topOperations(
-          wallet.address,
+          chain,
+          address,
         );
 
         return {

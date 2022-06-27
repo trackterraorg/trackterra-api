@@ -53,11 +53,12 @@ export class WalletsService {
   }
 
   async getTxs(
+    chain: string,
     address: string,
     query: FindTxsRequest,
   ): Promise<FindTxsResponse> {
     const result = await this.queryBus.execute(
-      new GetWalletTxsQuery(address, query),
+      new GetWalletTxsQuery(chain, address, query),
     );
 
     return result;

@@ -1,5 +1,6 @@
 import { Directive, Field, ObjectType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 import { Node } from '@trackterra/contracts';
 import { BaseDto } from '@trackterra/repository/dtos';
 import { Expose, Type } from 'class-transformer';
@@ -7,6 +8,9 @@ import { Expose, Type } from 'class-transformer';
 @Directive(`@key(fields: "id")`)
 @ObjectType()
 export class TxObject extends Node {
+  @Field((type) => Chain)
+  chain: Chain;
+
   @Field()
   txhash: string;
 

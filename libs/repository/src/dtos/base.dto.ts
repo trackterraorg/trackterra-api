@@ -6,9 +6,9 @@ import { ApiProperty } from '@nestjs/swagger';
 export class BaseDto {
   @Expose()
   @ApiProperty()
-  id: string | ObjectID;
-  createdAt: Date | string;
-  updatedAt: Date | string;
+  id?: string | ObjectID;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 
   constructor(entity: BaseEntity) {
     this.id = entity.id;

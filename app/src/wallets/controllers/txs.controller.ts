@@ -36,10 +36,11 @@ export class TxsController {
     type: SwaggerBaseApiResponse(FindTxsRequestDto),
   })
   async listTxs(
+    @Param('chain') chain: string,
     @Param('address') address: string,
     @Query() args: FindTxsRequestDto,
   ): Promise<BaseApiResponse<FindTxsResponseDto>> {
-    const result = await this.walletsService.getTxs(address, args);
+    const result = await this.walletsService.getTxs(chain, address, args);
 
     return {
       data: {

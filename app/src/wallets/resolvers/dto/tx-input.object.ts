@@ -1,4 +1,5 @@
 import { ArgsType, Field, InputType } from '@nestjs/graphql';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 import { FilterMongo, PaginationInput } from '@trackterra/contracts';
 import { Order } from '@trackterra/repository';
 import { TaxApp } from '@trackterra/tax-apps/enums/taxapp.enum';
@@ -11,6 +12,9 @@ export class TxFilterInput extends FilterMongo(TxObject, {
 
 @ArgsType()
 export class TxFilterArgs {
+  @Field((type) => Chain)
+  chain: Chain;
+
   @Field({ nullable: true })
   address: string;
 

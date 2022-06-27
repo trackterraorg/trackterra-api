@@ -14,9 +14,10 @@ export class WalletsResolver {
 
   @Mutation(() => WalletObject)
   async parseWallet(
-    @Args() { address }: WalletFilterAddressArg,
+    @Args() { chain, address }: WalletFilterAddressArg,
   ): Promise<ParseWalletResponse> {
     const result = await this.walletsService.parseWallet({
+      chain,
       address,
     });
 
@@ -25,9 +26,10 @@ export class WalletsResolver {
 
   @Query(() => WalletObject)
   async readWallet(
-    @Args() { address }: WalletFilterAddressArg,
+    @Args() { chain, address }: WalletFilterAddressArg,
   ): Promise<ReadWalletResponseObject> {
     const result = await this.walletsService.readWallet({
+      chain,
       address,
     });
     return result;
@@ -35,9 +37,12 @@ export class WalletsResolver {
 
   @Query(() => ReadWalletDetailResponseObject, { nullable: true })
   async readWalletDetail(
-    @Args() { address }: WalletFilterAddressArg,
+    @Args() { chain, address }: WalletFilterAddressArg,
   ): Promise<ReadWalletDetailResponseObject> {
-    const result = await this.walletsService.readWalletDetail({ address });
+    const result = await this.walletsService.readWalletDetail({
+      chain,
+      address,
+    });
     return result;
   }
 }

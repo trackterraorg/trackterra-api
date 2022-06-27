@@ -7,12 +7,14 @@ import { CurrenciesService } from '../../currencies/currencies.service';
 
 export async function txToTxCreateRequest(
   tx: TTOutput,
+  chain: string,
   walletAddress: string,
   currenciesService: CurrenciesService,
 ): Promise<Tx> {
   const { blockHeight, timestamp } = tx;
 
   const modifiers = {
+    chain,
     walletAddress,
     blockHeight: parseFloat(blockHeight),
     timestamp: new Date(timestamp),
