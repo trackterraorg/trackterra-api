@@ -19,7 +19,7 @@ export class CurrenciesService {
     return this.commandBus.execute(new UpsertCurrencyCommand(request));
   }
 
-  async listCurrencies() {
-    return await this.queryBus.execute(new GetCurrenciesQuery());
+  async listCurrencies(chain: string) {
+    return await this.queryBus.execute(new GetCurrenciesQuery(chain));
   }
 }

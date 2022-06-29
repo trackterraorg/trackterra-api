@@ -1,7 +1,12 @@
-import { InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetCurrenciesQuery } from '../../impl';
 import { CurrencyRepository } from '@trackterra/repository';
+import _ = require('lodash');
 
 @QueryHandler(GetCurrenciesQuery)
 export class GetCurrenciesHandler implements IQueryHandler<GetCurrenciesQuery> {
@@ -16,9 +21,21 @@ export class GetCurrenciesHandler implements IQueryHandler<GetCurrenciesQuery> {
     this.logger = new Logger(this.constructor.name);
     this.logger.log(`Async ${query.constructor.name}...`);
 
+    const { chain } = query;
+
+    if (_.isEmpty(chain)) {
+      throw new BadRequestException('Please provide valid chain!');
+    }
+
     try {
-      const currencies = await this.currencyRepository.find();
-      const count = await this.currencyRepository.countDocuments({});
+      const currencies = await this.currencyRepository.find({
+        conditions: {
+          chain,
+        },
+      });
+      const count = await this.currencyRepository.countDocuments({
+        chain,
+      });
 
       return {
         currencies,

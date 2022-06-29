@@ -15,7 +15,7 @@ import { WalletEntity } from '../entities';
   name: 'wallets',
   indexes: [
     {
-      fields: { address: 1 },
+      fields: { chain: 1, address: 1 },
       options: { unique: true },
     },
   ],

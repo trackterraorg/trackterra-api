@@ -1,5 +1,6 @@
 const stableCoins = [
   {
+    chain: 'Lunc',
     name: 'AUT',
     symbol: 'AUT',
     nullIndex: undefined,
@@ -9,6 +10,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'CAT',
     symbol: 'CAT',
     nullIndex: undefined,
@@ -18,6 +20,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'CHT',
     symbol: 'CHT',
     nullIndex: undefined,
@@ -27,6 +30,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'CNT',
     symbol: 'CNT',
     nullIndex: undefined,
@@ -36,6 +40,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'DKT',
     symbol: 'DKT',
     nullIndex: undefined,
@@ -45,6 +50,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'EUT',
     symbol: 'EUT',
     nullIndex: undefined,
@@ -54,6 +60,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'GBT',
     symbol: 'GBT',
     nullIndex: undefined,
@@ -63,6 +70,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'HKT',
     symbol: 'HKT',
     nullIndex: undefined,
@@ -72,6 +80,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'IDT',
     symbol: 'IDT',
     nullIndex: undefined,
@@ -81,6 +90,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'INT',
     symbol: 'INT',
     nullIndex: undefined,
@@ -90,6 +100,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'JPT',
     symbol: 'JPT',
     nullIndex: undefined,
@@ -99,6 +110,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'KRT',
     symbol: 'KRT',
     nullIndex: undefined,
@@ -108,6 +120,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'LUNA',
     symbol: 'LUNA',
     nullIndex: undefined,
@@ -117,6 +130,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'MNT',
     symbol: 'MNT',
     nullIndex: undefined,
@@ -126,6 +140,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'MYT',
     symbol: 'MYT',
     nullIndex: undefined,
@@ -135,6 +150,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'NOT',
     symbol: 'NOT',
     nullIndex: undefined,
@@ -144,6 +160,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'PHT',
     symbol: 'PHT',
     nullIndex: undefined,
@@ -153,6 +170,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'SDT',
     symbol: 'SDT',
     nullIndex: undefined,
@@ -162,6 +180,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'SET',
     symbol: 'SET',
     nullIndex: undefined,
@@ -171,6 +190,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'SGT',
     symbol: 'SGT',
     nullIndex: undefined,
@@ -180,6 +200,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'THT',
     symbol: 'THT',
     nullIndex: undefined,
@@ -189,6 +210,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'TWT',
     symbol: 'TWT',
     nullIndex: undefined,
@@ -198,6 +220,7 @@ const stableCoins = [
     isStable: true,
   },
   {
+    chain: 'Lunc',
     name: 'UST',
     symbol: 'UST',
     nullIndex: undefined,

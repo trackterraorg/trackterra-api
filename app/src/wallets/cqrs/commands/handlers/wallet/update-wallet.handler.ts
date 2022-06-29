@@ -40,7 +40,7 @@ export class UpdateWalletHandler
    */
   async execute(command: UpdateWalletCommand): Promise<UpdateWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
-    const { address, highestParsedBlock, status } = command.input;
+    const { chain, address, highestParsedBlock, status } = command.input;
 
     try {
       if (!AccAddress.validate(address)) {
@@ -49,6 +49,7 @@ export class UpdateWalletHandler
 
       const wallet = await this.walletRepository.findOneAndUpdate({
         conditions: {
+          chain,
           address,
         },
         updates: {

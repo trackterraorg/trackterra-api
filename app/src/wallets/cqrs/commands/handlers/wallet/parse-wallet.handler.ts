@@ -60,6 +60,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       let wallet: WalletEntity = await this.walletRepository.findOne(
         {
+          chain,
           address,
         },
         true,

@@ -1,5 +1,5 @@
 import { IQuery } from '@nestjs/cqrs';
 
 export class GetCurrenciesQuery implements IQuery {
-  constructor() {}
+  constructor(public readonly chain: string) {}
 }

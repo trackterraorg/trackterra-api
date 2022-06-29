@@ -7,8 +7,8 @@ export class CurrenciesResolver {
   constructor(private readonly currenciesService: CurrenciesService) {}
 
   @Query(() => [CurrencyObject], { nullable: true })
-  async listCurrencies(): Promise<CurrencyObject[]> {
-    const result = await this.currenciesService.listCurrencies();
+  async listCurrencies(chain: string): Promise<CurrencyObject[]> {
+    const result = await this.currenciesService.listCurrencies(chain);
     return result.currencies;
   }
 }

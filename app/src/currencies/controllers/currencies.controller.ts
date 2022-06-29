@@ -35,7 +35,7 @@ export class CurrenciesController {
   async listCurrencies(
     @Query() { chain }: CurrencyRequestDto,
   ): Promise<BaseApiResponse<CurrencyResponseDto[]>> {
-    const result = await this.currenciesService.listCurrencies();
+    const result = await this.currenciesService.listCurrencies(chain);
     return {
       data: result.currencies,
       meta: {
