@@ -3,6 +3,7 @@ import { Protocol, ProtocolType } from './protocol.interface';
 import { protocolSchema } from './protocol.scheme';
 import * as _ from 'lodash';
 import { ProtocolsNotLoadedException } from '../exceptions';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 export class ProtocolLoader {
   private static instance: ProtocolLoader;
   private _protocols: Protocol[] = [];
@@ -84,18 +85,29 @@ export class ProtocolLoader {
     const path = await import('path');
     const fs = await import('fs');
 
-    const directoryPath = path.resolve('./libs/parser/src/yml/protocols');
-
     try {
-      const files = await fs.readdirSync(directoryPath);
+      const chains = Object.keys(Chain);
 
-      const protocolFiles = files
-        .map((fileName: string) => {
-          return path.join(directoryPath, fileName);
-        })
-        .filter((fileName: string) => {
-          return path.extname(fileName).toLowerCase() === '.yaml';
-        });
+      let protocolFiles: string[] = [];
+
+      chains.forEach((chain) => {
+        const directoryPath = path.resolve(
+          './libs/parser/src/yml/protocols',
+          chain,
+        );
+
+        const files = fs.readdirSync(directoryPath);
+
+        const ymlFiles = files
+          .map((fileName: string) => {
+            return path.join(directoryPath, fileName);
+          })
+          .filter((fileName: string) => {
+            return path.extname(fileName).toLowerCase() === '.yaml';
+          });
+
+        protocolFiles = protocolFiles.concat(ymlFiles);
+      });
 
       return protocolFiles;
     } catch (error: any) {
