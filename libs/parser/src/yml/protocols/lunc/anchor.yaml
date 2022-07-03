@@ -1,4 +1,5 @@
 name: Anchor
+chain: Lunc
 type: Contract
 priority: 0
 transactions:

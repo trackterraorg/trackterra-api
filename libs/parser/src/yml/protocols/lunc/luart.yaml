@@ -1,4 +1,5 @@
 name: Luart
+chain: Lunc
 type: Contract
 priority: 0
 transactions:

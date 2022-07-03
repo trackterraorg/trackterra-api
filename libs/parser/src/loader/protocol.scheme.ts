@@ -1,3 +1,4 @@
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 import * as Joi from 'joi';
 import { parserClasses, TxLabel, TxTag } from '../parser';
 import { ProtocolType } from './protocol.interface';
@@ -40,6 +41,10 @@ export const transactionScheme = Joi.object().keys({
 export const protocolSchema = Joi.object()
   .keys({
     name: Joi.string().required().description('Protocol name is required'),
+    chain: Joi.string()
+      .required()
+      .valid(...Object.values(Chain))
+      .description('Chain is required'),
     type: Joi.string()
       .required()
       .valid(ProtocolType.Contract, ProtocolType.Native, ProtocolType.Fail),

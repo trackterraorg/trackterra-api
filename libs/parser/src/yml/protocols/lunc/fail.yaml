@@ -1,4 +1,5 @@
 name: Fail
+chain: Lunc
 type: Fail
 priority: 99
 transactions:

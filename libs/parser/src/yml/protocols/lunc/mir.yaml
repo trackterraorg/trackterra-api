@@ -1,4 +1,5 @@
 name: Mir Protocol
+chain: Lunc
 type: Contract
 priority: 1
 transactions:

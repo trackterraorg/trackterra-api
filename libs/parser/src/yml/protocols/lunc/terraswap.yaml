@@ -1,4 +1,5 @@
 name: TerraSwap
+chain: Lunc
 type: Contract
 priority: 98
 transactions:

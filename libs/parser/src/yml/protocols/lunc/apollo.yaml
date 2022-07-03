@@ -1,4 +1,5 @@
 name: Apollo
+chain: Lunc
 type: Contract
 priority: 0
 transactions:
