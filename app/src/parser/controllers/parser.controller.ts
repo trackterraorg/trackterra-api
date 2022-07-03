@@ -24,8 +24,11 @@ export class ParserController {
     type: SwaggerBaseApiResponse(SupportedProtocolResponseDto),
   })
   async supportedProtocols(
-    @Query() { chain }: SupportedProtocolRequestDto,
+    @Query() args: SupportedProtocolRequestDto,
   ): Promise<BaseApiResponse<SupportedProtocolResponseDto[]>> {
-    return { data: await this.parserService.supportedProtocols(), meta: {} };
+    return {
+      data: await this.parserService.supportedProtocols(args),
+      meta: {},
+    };
   }
 }

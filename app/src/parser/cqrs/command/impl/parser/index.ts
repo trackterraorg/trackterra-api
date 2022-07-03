@@ -1,2 +1,2 @@
 export * from './do-parse.command';
-export * from './get-supported-protocols.command';
+export * from '../../../query/impl/protocols/get-supported-protocols.query';

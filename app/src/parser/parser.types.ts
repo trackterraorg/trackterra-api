@@ -1,17 +1,27 @@
-import { SupportedProtocolResponseDto } from './controllers/dto';
+import {
+  SupportedProtocolRequestDto,
+  SupportedProtocolResponseDto,
+} from './controllers/dto';
 import {
   WalletRequestDto,
   ParseWalletResponseDto,
 } from './controllers/dto/parse-wallet.dto';
-import { SupportedProtocolObject } from './resolvers/dto';
+import {
+  SupportedProtocolRequestObject,
+  SupportedProtocolResponseObject,
+} from './resolvers/dto';
 import {
   WalletRequestObject,
   ParseWalletResponseObject,
 } from './resolvers/dto/parse-wallet.dto';
 
+export type SupportedProtocolRequest =
+  | SupportedProtocolRequestDto
+  | SupportedProtocolRequestObject;
+
 export type SupportedProtocolsResponse = (
   | SupportedProtocolResponseDto
-  | SupportedProtocolObject
+  | SupportedProtocolResponseObject
 )[];
 
 export type WalletRequest = WalletRequestDto | WalletRequestObject;

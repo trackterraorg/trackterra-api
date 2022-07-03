@@ -1,27 +1,32 @@
-import { InternalServerErrorException, Logger } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { GetSupportedProtocolsCommand } from '../../impl';
-import * as _ from 'lodash';
+import {
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
+import { GetSupportedProtocolsQuery } from '../../impl';
+import _ = require('lodash');
 import { ProtocolLoader } from '@trackterra/parser/loader';
-import { SupportedProtocolsResponse } from '@trackterra/app/parser/parser.types';
+import { SupportedProtocolRequest } from '@trackterra/app/parser/parser.types';
 
-/**
- * @class
- * @implements {ICommandHandler<GetSupportedProtocolsCommand>}
- */
-@CommandHandler(GetSupportedProtocolsCommand)
+@QueryHandler(GetSupportedProtocolsQuery)
 export class GetSupportedProtocolsHandler
-  implements ICommandHandler<GetSupportedProtocolsCommand>
+  implements IQueryHandler<GetSupportedProtocolsQuery>
 {
   logger = new Logger(this.constructor.name);
+  constructor() {}
 
-  /**
-   * @param command {GetSupportedProtocolsCommand}
-   */
   async execute(
-    command: GetSupportedProtocolsCommand,
-  ): Promise<SupportedProtocolsResponse> {
-    this.logger.log(`Async ${command.constructor.name}...`);
+    query: GetSupportedProtocolsQuery,
+  ): Promise<SupportedProtocolRequest[]> {
+    this.logger.log(`Async ${query.constructor.name}...`);
+
+    const { chain } = query.input;
+
+    if (_.isEmpty(chain)) {
+      throw new BadRequestException('Please provide valid chain!');
+    }
+
     try {
       const protocolLoader = await ProtocolLoader.getInstance();
 
@@ -29,6 +34,9 @@ export class GetSupportedProtocolsHandler
       protocolLoader.protocols
         .filter((protocol: any) => {
           return !['Fail', 'Unclassified'].includes(protocol.name);
+        })
+        .filter((protocol: any) => {
+          return protocol.chain === chain;
         })
         .forEach((protocol) => {
           const protocolName = protocol.name;
