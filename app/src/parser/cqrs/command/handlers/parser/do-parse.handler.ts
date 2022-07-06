@@ -59,7 +59,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
-        const result = await this.fcdApiService.api.getByAccount({
+        const result = await this.fcdApiService.api(chain).getByAccount({
           account: address,
           limit: 100,
           offset: next,

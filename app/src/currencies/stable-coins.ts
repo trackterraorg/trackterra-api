@@ -1,6 +1,8 @@
+import { Chain } from '@trackterra/chains/enums/chain.enum';
+
 const stableCoins = [
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'AUT',
     symbol: 'AUT',
     nullIndex: undefined,
@@ -10,7 +12,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'CAT',
     symbol: 'CAT',
     nullIndex: undefined,
@@ -20,7 +22,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'CHT',
     symbol: 'CHT',
     nullIndex: undefined,
@@ -30,7 +32,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'CNT',
     symbol: 'CNT',
     nullIndex: undefined,
@@ -40,7 +42,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'DKT',
     symbol: 'DKT',
     nullIndex: undefined,
@@ -50,7 +52,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'EUT',
     symbol: 'EUT',
     nullIndex: undefined,
@@ -60,7 +62,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'GBT',
     symbol: 'GBT',
     nullIndex: undefined,
@@ -70,7 +72,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'HKT',
     symbol: 'HKT',
     nullIndex: undefined,
@@ -80,7 +82,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'IDT',
     symbol: 'IDT',
     nullIndex: undefined,
@@ -90,7 +92,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'INT',
     symbol: 'INT',
     nullIndex: undefined,
@@ -100,7 +102,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'JPT',
     symbol: 'JPT',
     nullIndex: undefined,
@@ -110,7 +112,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'KRT',
     symbol: 'KRT',
     nullIndex: undefined,
@@ -120,7 +122,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'LUNA',
     symbol: 'LUNA',
     nullIndex: undefined,
@@ -130,7 +132,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'MNT',
     symbol: 'MNT',
     nullIndex: undefined,
@@ -140,7 +142,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'MYT',
     symbol: 'MYT',
     nullIndex: undefined,
@@ -150,7 +152,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'NOT',
     symbol: 'NOT',
     nullIndex: undefined,
@@ -160,7 +162,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'PHT',
     symbol: 'PHT',
     nullIndex: undefined,
@@ -170,7 +172,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'SDT',
     symbol: 'SDT',
     nullIndex: undefined,
@@ -180,7 +182,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'SET',
     symbol: 'SET',
     nullIndex: undefined,
@@ -190,7 +192,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'SGT',
     symbol: 'SGT',
     nullIndex: undefined,
@@ -200,7 +202,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'THT',
     symbol: 'THT',
     nullIndex: undefined,
@@ -210,7 +212,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'TWT',
     symbol: 'TWT',
     nullIndex: undefined,
@@ -220,7 +222,7 @@ const stableCoins = [
     isStable: true,
   },
   {
-    chain: 'Lunc',
+    chain: Chain.lunc,
     name: 'UST',
     symbol: 'UST',
     nullIndex: undefined,

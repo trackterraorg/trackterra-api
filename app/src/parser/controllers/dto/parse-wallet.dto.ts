@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 import { defaultChainName, nameOfChains } from '@trackterra/chains/utils/utils';
 import { Exclude, Expose } from 'class-transformer';
 
@@ -7,7 +8,7 @@ export class WalletRequestDto {
     enum: nameOfChains,
     default: defaultChainName,
   })
-  readonly chain: string;
+  readonly chain: Chain;
 
   @Expose()
   @ApiProperty()

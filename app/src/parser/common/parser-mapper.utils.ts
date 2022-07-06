@@ -1,13 +1,14 @@
 import { TxInfo } from '@terra-money/terra.js';
 import { CurrencyResponse } from '@trackterra/app/currencies/currency.types';
 import { Tx } from '@trackterra/app/wallets/wallet.types';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 import { TTOutput } from '@trackterra/parser';
 import _ = require('lodash');
 import { CurrenciesService } from '../../currencies/currencies.service';
 
 export async function txToTxCreateRequest(
   tx: TTOutput,
-  chain: string,
+  chain: Chain,
   walletAddress: string,
   currenciesService: CurrenciesService,
 ): Promise<Tx> {
@@ -38,6 +39,7 @@ export async function txToTxCreateRequest(
       // for creating custom tokens
       try {
         const currency = await currenciesService.upsertCurrency({
+          chain,
           identifier: token,
         });
 

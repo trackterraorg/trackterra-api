@@ -11,6 +11,7 @@ import { ContractInfo } from '@terra-money/terra.js';
 import { tokenCleanUp } from '@trackterra/parser/utils';
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 import { UpsertCurrencyResponse } from '@trackterra/app/currencies/currency.types';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler
@@ -28,15 +29,16 @@ export class UpsertCurrencyHandler
   ): Promise<UpsertCurrencyResponse> {
     this.logger = new Logger(this.constructor.name);
     this.logger.log(`Async ${command.constructor.name}...`);
-    const { input } = command;
+    const { chain, identifier } = command.input;
     try {
-      if (input === null || _.isEmpty(input?.identifier)) {
+      if (!identifier) {
         throw new BadRequestException('Currency identifier is missing');
       }
 
-      const { identifier } = input;
-
-      const currency = await this.upsertCurrency(tokenCleanUp(identifier));
+      const currency = await this.upsertCurrency(
+        chain,
+        tokenCleanUp(identifier),
+      );
 
       return currency;
     } catch (error) {
@@ -44,8 +46,12 @@ export class UpsertCurrencyHandler
     }
   }
 
-  private async upsertCurrency(identifier: string): Promise<CurrencyEntity> {
+  private async upsertCurrency(
+    chain: Chain,
+    identifier: string,
+  ): Promise<CurrencyEntity> {
     let currency: CurrencyEntity = await this.currencyRepository.findOne({
+      chain,
       $or: [{ identifier }, { name: identifier }],
     });
 
@@ -54,22 +60,23 @@ export class UpsertCurrencyHandler
     }
 
     try {
-      const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(
-        identifier,
-      );
+      const contractInfo: ContractInfo = await this.fcd
+        .api(chain)
+        .getContractInfo(identifier);
 
       const { init_msg: initMsg } = contractInfo;
 
       if (initMsg?.symbol.toLowerCase() === 'ulp') {
-        return await this.getTokenFromULPContract(initMsg.mint.minter);
+        return await this.getTokenFromULPContract(chain, initMsg.mint.minter);
       }
 
       return await this.currencyRepository.create({
+        chain,
         name: initMsg?.name,
         symbol: initMsg?.symbol,
         decimals: initMsg?.decimals ?? 6,
         icon: '',
-        identifier: identifier,
+        identifier,
         isStable: false,
       });
     } catch (e) {
@@ -78,12 +85,13 @@ export class UpsertCurrencyHandler
   }
 
   private async getTokenFromULPContract(
+    chain: Chain,
     contractAddress: string,
   ): Promise<CurrencyEntity> {
     try {
-      const contractInfo: ContractInfo = await this.fcd.api.getContractInfo(
-        contractAddress,
-      );
+      const contractInfo: ContractInfo = await this.fcd
+        .api(chain)
+        .getContractInfo(contractAddress);
 
       const assets = contractInfo.init_msg.asset_infos
         .map((asset: any): string => {
@@ -107,13 +115,14 @@ export class UpsertCurrencyHandler
         })
         .filter((asset: any) => asset != undefined);
 
-      return await this.generateUlpToken(contractAddress, assets);
+      return await this.generateUlpToken(chain, contractAddress, assets);
     } catch (e) {
       this.logger.log(e);
     }
   }
 
   private async generateUlpToken(
+    chain: Chain,
     identifier: string,
     tokens: string[],
   ): Promise<CurrencyEntity> {
@@ -121,6 +130,7 @@ export class UpsertCurrencyHandler
 
     let currency: CurrencyEntity = await this.currencyRepository.findOne(
       {
+        chain,
         identifier,
       },
       true,
@@ -131,19 +141,21 @@ export class UpsertCurrencyHandler
     }
 
     for (const token of tokens) {
-      const result = await this.upsertCurrency(token);
+      const result = await this.upsertCurrency(chain, token);
       tokenSymbols.push(result.symbol);
     }
 
     const lpTokenName = tokenSymbols.join('-') + '_LP';
 
     const lpTokenCount = await this.currencyRepository.countDocuments({
+      chain,
       symbol: {
         $regex: '_LP$',
       },
     });
 
     return await this.currencyRepository.create({
+      chain,
       name: lpTokenName,
       symbol: lpTokenName,
       nullIndex: lpTokenCount + 1,

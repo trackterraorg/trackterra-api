@@ -19,4 +19,7 @@ export default (): Config => ({
   fcd: {
     url: process.env.FCD,
   },
+  fcd_lunc: {
+    url: process.env.FCD_LUNC,
+  },
 });

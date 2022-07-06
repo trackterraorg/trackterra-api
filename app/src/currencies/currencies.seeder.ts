@@ -21,6 +21,7 @@ export class CurrenciesSeeder implements OnModuleInit {
       limit: stableCoins.length,
       conditions: {},
     });
+
     if (hasStableCoins && hasStableCoins.length > 0) {
       return;
     }
@@ -28,6 +29,7 @@ export class CurrenciesSeeder implements OnModuleInit {
     for (const stableCoin of stableCoins) {
       try {
         const stableCoinExist = await this.currencyRepository.findOne({
+          chain: stableCoin.chain,
           symbol: stableCoin.symbol,
         });
 
