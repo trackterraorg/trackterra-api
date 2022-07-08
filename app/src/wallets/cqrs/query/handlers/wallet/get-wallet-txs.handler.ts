@@ -42,9 +42,9 @@ export class GetWalletTxsHandler implements IQueryHandler<GetWalletTxsQuery> {
   async execute(query: GetWalletTxsQuery): Promise<FindTxsResponse> {
     this.logger = new Logger(this.constructor.name);
     this.logger.log(`Async ${query.constructor.name}...`);
-    const { address, input } = query;
+    const { input } = query;
 
-    const { chain, order, orderBy, limit, page, q } = input;
+    const { chain, address, order, orderBy, limit, page, q } = input;
 
     if (_.isEmpty(chain)) {
       throw new BadRequestException('Please provide valid chain!');

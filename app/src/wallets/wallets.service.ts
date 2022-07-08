@@ -52,14 +52,8 @@ export class WalletsService {
     return this.queryBus.execute(new GetWalletDetailQuery(request));
   }
 
-  async getTxs(
-    chain: string,
-    address: string,
-    query: FindTxsRequest,
-  ): Promise<FindTxsResponse> {
-    const result = await this.queryBus.execute(
-      new GetWalletTxsQuery(chain, address, query),
-    );
+  async getTxs(query: FindTxsRequest): Promise<FindTxsResponse> {
+    const result = await this.queryBus.execute(new GetWalletTxsQuery(query));
 
     return result;
   }

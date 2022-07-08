@@ -13,13 +13,17 @@ import { Order } from '@trackterra/repository';
 import { defaultChainName, nameOfChains } from '@trackterra/chains/utils/utils';
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 
 export class FindTxsRequestDto extends PageOptionsDto {
-  @ApiModelProperty({
+  @ApiProperty({
     enum: nameOfChains,
     default: defaultChainName,
   })
-  readonly chain: string;
+  readonly chain: Chain;
+
+  @ApiModelProperty()
+  readonly address: string;
 
   @ApiModelPropertyOptional({
     enum: nameOfTaxApps,
