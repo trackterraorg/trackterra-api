@@ -59,7 +59,7 @@ export class LogTransformer {
   private transformMessages(txInfo: TxInfo): TransformedMessages {
     const tx: any = txInfo.tx;
 
-    return tx.value.msg.map((msg: any) => {
+    return tx?.value?.msg?.map((msg: any) => {
       return msg.value;
     });
   }
