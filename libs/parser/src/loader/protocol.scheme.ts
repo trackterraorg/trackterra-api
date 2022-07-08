@@ -43,7 +43,7 @@ export const protocolSchema = Joi.object()
     name: Joi.string().required().description('Protocol name is required'),
     chain: Joi.string()
       .required()
-      .valid(...Object.values(Chain))
+      .valid('Common', ...Object.values(Chain))
       .description('Chain is required'),
     type: Joi.string()
       .required()

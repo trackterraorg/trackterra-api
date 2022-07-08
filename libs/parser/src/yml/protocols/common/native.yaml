@@ -1,5 +1,5 @@
 name: Native
-chain: Lunc
+chain: Common
 type: Native
 priority: 0
 transactions:

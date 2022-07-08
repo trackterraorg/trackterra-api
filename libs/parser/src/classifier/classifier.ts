@@ -137,7 +137,6 @@ export class Classifier {
     transferActions: TransferAction[],
   ): ClassifyOutput {
     const nativeProtocol = _.first(protocols);
-    const transferAction = _.first(transferActions);
 
     // default native tx type
     let txTypeName = 'NativeSendReceive';

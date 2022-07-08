@@ -86,7 +86,9 @@ export class ProtocolLoader {
     const fs = await import('fs');
 
     try {
-      const chains = Object.keys(Chain);
+      let chains = Object.keys(Chain);
+
+      chains = chains.concat('common');
 
       let protocolFiles: string[] = [];
 
