@@ -1,6 +1,6 @@
 import { Chain } from '@trackterra/chains/enums/chain.enum';
 
-const stableCoins = [
+const nativeTokens = [
   {
     chain: Chain.lunc,
     name: 'AUT',
@@ -123,8 +123,8 @@ const stableCoins = [
   },
   {
     chain: Chain.lunc,
-    name: 'LUNA',
-    symbol: 'LUNA',
+    name: 'LUNC',
+    symbol: 'LUNC',
     nullIndex: undefined,
     decimals: 6,
     identifier: 'uluna',
@@ -223,14 +223,24 @@ const stableCoins = [
   },
   {
     chain: Chain.lunc,
-    name: 'UST',
-    symbol: 'UST',
+    name: 'USTC',
+    symbol: 'USTC',
     nullIndex: undefined,
     decimals: 6,
     identifier: 'uusd',
     icon: '',
     isStable: true,
   },
+  {
+    chain: Chain.luna,
+    name: 'LUNA',
+    symbol: 'LUNA',
+    nullIndex: undefined,
+    decimals: 6,
+    identifier: 'uluna',
+    icon: '',
+    isStable: true,
+  },
 ];
 
-export default stableCoins;
+export default nativeTokens;

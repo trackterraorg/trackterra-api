@@ -1,13 +1,6 @@
-import {
-  CacheStore,
-  CACHE_MANAGER,
-  Inject,
-  Injectable,
-  Logger,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import _ = require('lodash');
-import stableCoins from './stable-coins';
+import nativeTokens from './native-tokens';
 import { CurrencyRepository } from '@trackterra/repository';
 
 @Injectable()
@@ -16,28 +9,28 @@ export class CurrenciesSeeder implements OnModuleInit {
 
   constructor(private readonly currencyRepository: CurrencyRepository) {}
 
-  async seedStableCoins() {
-    const hasStableCoins = await this.currencyRepository.find({
-      limit: stableCoins.length,
+  async seedNativeTokens() {
+    const hasNativeTokens = await this.currencyRepository.find({
+      limit: nativeTokens.length,
       conditions: {},
     });
 
-    if (hasStableCoins && hasStableCoins.length > 0) {
+    if (hasNativeTokens && hasNativeTokens.length > 0) {
       return;
     }
 
-    for (const stableCoin of stableCoins) {
+    for (const nativeToken of nativeTokens) {
       try {
-        const stableCoinExist = await this.currencyRepository.findOne({
-          chain: stableCoin.chain,
-          symbol: stableCoin.symbol,
+        const nativeTokenExist = await this.currencyRepository.findOne({
+          chain: nativeToken.chain,
+          symbol: nativeToken.symbol,
         });
 
-        if (stableCoinExist) {
+        if (nativeTokenExist) {
           continue;
         }
 
-        await this.currencyRepository.create({ ...stableCoin });
+        await this.currencyRepository.create({ ...nativeToken });
       } catch (e) {
         this.logger.error(e);
       }
@@ -45,6 +38,6 @@ export class CurrenciesSeeder implements OnModuleInit {
   }
 
   async onModuleInit() {
-    this.seedStableCoins();
+    this.seedNativeTokens();
   }
 }
