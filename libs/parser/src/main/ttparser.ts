@@ -107,7 +107,10 @@ export class TTParser {
     });
 
     const tx: any = txInfo.tx;
-    let fees: IAmount[] | undefined = FeeParser.process(tx.value?.fee?.amount);
+
+    let fees: IAmount[] | undefined = FeeParser.process(
+      tx?.value?.fee?.amount ?? tx?.auth_info?.fee.amount,
+    );
 
     // is it a fail tx?
     const failedTxRecord = txs.find((tx) => {
