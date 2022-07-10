@@ -28,7 +28,7 @@ import {
 export class WalletsController {
   constructor(private readonly walletsService: WalletsService) {}
 
-  @Put('/parse/:address')
+  @Put('/parse')
   @ApiOperation({
     summary: 'Parse wallet address',
   })
