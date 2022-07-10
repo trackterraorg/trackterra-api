@@ -46,7 +46,7 @@ export class WalletsController {
     };
   }
 
-  @Get('/:address')
+  @Get('/')
   @ApiOperation({
     summary: 'Read wallet information',
   })
@@ -64,7 +64,7 @@ export class WalletsController {
     };
   }
 
-  @Get('/detail/:address')
+  @Get('/detail')
   @ApiOperation({
     summary:
       'Read wallet detail information including top operations and active contracts',
