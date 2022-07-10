@@ -24,6 +24,18 @@ export class WalletsResolver {
     return result;
   }
 
+  @Mutation(() => WalletObject)
+  async reparseWallet(
+    @Args() { chain, address }: WalletFilterAddressArg,
+  ): Promise<ParseWalletResponse> {
+    const result = await this.walletsService.reparseWallet({
+      chain,
+      address,
+    });
+
+    return result;
+  }
+
   @Query(() => WalletObject)
   async readWallet(
     @Args() { chain, address }: WalletFilterAddressArg,

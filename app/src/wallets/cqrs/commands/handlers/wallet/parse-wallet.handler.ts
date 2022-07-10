@@ -16,6 +16,7 @@ import { BlacklistLoader } from '@trackterra/parser/blacklist';
 import { ParserService } from '@trackterra/app/parser/parser.service';
 import { BadRequestError } from '@trackterra/common';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
+import { ValidatorService } from '@trackterra/core';
 
 /**
  * @class
@@ -31,6 +32,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   public constructor(
     private readonly walletRepository: WalletRepository,
     private readonly parserService: ParserService,
+    private readonly validatorService: ValidatorService,
     private readonly commandBus: CommandBus,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
@@ -43,6 +45,10 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     const { chain, address } = command.input;
 
     try {
+      if (!this.validatorService.isValidChain(chain)) {
+        throw new BadRequestError('Please select a valid chain');
+      }
+
       if (!AccAddress.validate(address)) {
         throw new BadRequestError('Invalid terra account address');
       }

@@ -52,12 +52,14 @@ export class TxsController {
   }
 
   @Get('/csv')
-  async csv(@Res() res:any, @Query() { address, filename }: DownloadCsvRequestDto) {
+  async csv(
+    @Res() res: any,
+    @Query() { address, filename }: DownloadCsvRequestDto,
+  ) {
     try {
       const p = join(walletsDir(), address, filename);
-      
+
       if (fs.existsSync(p)) {
-        console.dir(p, {depth: 'null'});
         res.set({
           'Content-Disposition': `attachment; filename=export-${moment().valueOf()}.csv`,
         });

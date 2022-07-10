@@ -6,6 +6,7 @@ import {
   GetWalletQuery,
   GetWalletTxsQuery,
   ParseWalletCommand,
+  ReparseWalletCommand,
   UpdateWalletCommand,
 } from './cqrs';
 
@@ -32,6 +33,10 @@ export class WalletsService {
 
   parseWallet(request: WalletRequest): Promise<ParseWalletResponse> {
     return this.commandBus.execute(new ParseWalletCommand(request));
+  }
+
+  reparseWallet(request: WalletRequest): Promise<ParseWalletResponse> {
+    return this.commandBus.execute(new ReparseWalletCommand(request));
   }
 
   createTxs(request: CreateTxsRequest): Promise<CreateTxsResponse> {

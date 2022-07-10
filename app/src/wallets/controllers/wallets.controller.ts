@@ -6,6 +6,7 @@ import {
   Put,
   HttpStatus,
   Query,
+  HttpException,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { WalletsService } from '../wallets.service';
@@ -39,11 +40,37 @@ export class WalletsController {
   async parseWallet(
     @Query() args: WalletRequestDto,
   ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
-    const result = await this.walletsService.parseWallet(args);
-    return {
-      data: result,
-      meta: {},
-    };
+    try {
+      const result = await this.walletsService.parseWallet(args);
+      return {
+        data: result,
+        meta: {},
+      };
+    } catch (e) {
+      throw new HttpException(e.message, e.status);
+    }
+  }
+
+  @Put('/reparse')
+  @ApiOperation({
+    summary: 'Reparse wallet address',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: SwaggerBaseApiResponse(ParseWalletResponseDto),
+  })
+  async reparseWallet(
+    @Query() args: WalletRequestDto,
+  ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
+    try {
+      const result = await this.walletsService.reparseWallet(args);
+      return {
+        data: result,
+        meta: {},
+      };
+    } catch (e) {
+      throw new HttpException(e.message, e.status);
+    }
   }
 
   @Get('/')
