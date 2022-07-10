@@ -28,7 +28,7 @@ import { Chain } from '@trackterra/chains/enums/chain.enum';
 export class TxsController {
   constructor(private readonly walletsService: WalletsService) {}
 
-  @Get('/:address')
+  @Get('/')
   @ApiOperation({
     summary: 'List of transactions for wallet',
   })
@@ -51,11 +51,13 @@ export class TxsController {
     };
   }
 
-  @Get('/csv/:address/:filename')
-  async csv(@Res() res, @Query() { address, filename }: DownloadCsvRequestDto) {
+  @Get('/csv')
+  async csv(@Res() res:any, @Query() { address, filename }: DownloadCsvRequestDto) {
     try {
       const p = join(walletsDir(), address, filename);
+      
       if (fs.existsSync(p)) {
+        console.dir(p, {depth: 'null'});
         res.set({
           'Content-Disposition': `attachment; filename=export-${moment().valueOf()}.csv`,
         });
