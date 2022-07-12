@@ -51,8 +51,14 @@ export class UpsertCurrencyHandler
     identifier: string,
   ): Promise<CurrencyEntity> {
     let currency: CurrencyEntity = await this.currencyRepository.findOne({
-      chain,
-      $or: [{ identifier }, { name: identifier }],
+      $and: [
+        {
+          $or: [{ chain }, { chain: 'OTHER' }],
+        },
+        {
+          $or: [{ identifier }, { name: identifier }],
+        },
+      ],
     });
 
     if (currency) {

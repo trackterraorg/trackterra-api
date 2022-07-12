@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import _ = require('lodash');
-import nativeTokens from './native-tokens';
+import tokens from './tokens';
 import { CurrencyRepository } from '@trackterra/repository';
 
 @Injectable()
@@ -9,28 +9,20 @@ export class CurrenciesSeeder implements OnModuleInit {
 
   constructor(private readonly currencyRepository: CurrencyRepository) {}
 
-  async seedNativeTokens() {
-    const hasNativeTokens = await this.currencyRepository.find({
-      limit: nativeTokens.length,
-      conditions: {},
-    });
-
-    if (hasNativeTokens && hasNativeTokens.length > 0) {
-      return;
-    }
-
-    for (const nativeToken of nativeTokens) {
+  async seedTokens() {
+    for (const token of tokens) {
+      const { chain, symbol } = token;
       try {
-        const nativeTokenExist = await this.currencyRepository.findOne({
-          chain: nativeToken.chain,
-          symbol: nativeToken.symbol,
+        const tokenExist = await this.currencyRepository.findOne({
+          chain,
+          symbol,
         });
 
-        if (nativeTokenExist) {
+        if (tokenExist) {
           continue;
         }
 
-        await this.currencyRepository.create({ ...nativeToken });
+        await this.currencyRepository.create({ ...token });
       } catch (e) {
         this.logger.error(e);
       }
@@ -38,6 +30,6 @@ export class CurrenciesSeeder implements OnModuleInit {
   }
 
   async onModuleInit() {
-    this.seedNativeTokens();
+    this.seedTokens();
   }
 }

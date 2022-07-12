@@ -4,7 +4,7 @@ import { BaseEntity } from './base-entity';
 
 @Entity({ name: 'currencies' })
 export class CurrencyEntity extends BaseEntity<any> {
-  chain: Chain;
+  chain: any;
   name: string;
   symbol: string;
   nullIndex: number;

@@ -1,6 +1,6 @@
 import { Chain } from '@trackterra/chains/enums/chain.enum';
 
-const nativeTokens = [
+const tokens = [
   {
     chain: Chain.lunc,
     name: 'AUT',
@@ -239,8 +239,19 @@ const nativeTokens = [
     decimals: 6,
     identifier: 'uluna',
     icon: '',
-    isStable: true,
+    isStable: false,
+  },
+  {
+    chain: 'OTHER',
+    name: 'SCRT',
+    symbol: 'SCRT',
+    nullIndex: undefined,
+    decimals: 6,
+    identifier:
+      'ibc/EB2CED20AB0466F18BE49285E56B31306D4C60438A022EA995BA65D5E3CF7E09',
+    icon: '',
+    isStable: false,
   },
 ];
 
-export default nativeTokens;
+export default tokens;
