@@ -46,7 +46,7 @@ export class GetWalletDetailHandler
 
       if (wallet) {
         const lastParsingTime = timeToCalendarFormat(wallet.updatedAt);
-        const highestParsedBlock = wallet.highestParsedBlock;
+        const highestParsedBlock = wallet.highestParsedBlock ?? 0;
 
         const txCount = await this.txRepository.countWalletTxs(chain, address);
 

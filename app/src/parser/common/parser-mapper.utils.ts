@@ -43,15 +43,19 @@ export async function txToTxCreateRequest(
           identifier: token,
         });
 
-        const nullIndex = currency?.nullIndex ? `_${currency.nullIndex}` : '';
+        if (currency) {
+          const nullIndex = currency?.nullIndex ? `_${currency.nullIndex}` : '';
 
-        modifiers[txKey.token] = currency.symbol + nullIndex;
-        modifiers[txKey.amount] = tokenValue(currency, amount);
+          modifiers[txKey.token] = currency.symbol + nullIndex;
+          modifiers[txKey.amount] = tokenValue(currency, amount);
 
-        if (!currency.isStable) {
-          if (Object.keys(txKey).includes('contract')) {
-            modifiers[txKey.contract] = currency.identifier;
+          if (!currency.isStable) {
+            if (Object.keys(txKey).includes('contract')) {
+              modifiers[txKey.contract] = currency.identifier;
+            }
           }
+        } else {
+          console.log(`Could not upsert token ${token}`);
         }
       } catch (e) {
         console.error(e);
