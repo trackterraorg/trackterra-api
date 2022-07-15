@@ -252,6 +252,28 @@ const tokens = [
     icon: '',
     isStable: false,
   },
+  {
+    chain: 'OTHER',
+    name: 'axlUSDC',
+    symbol: 'axlUSDC',
+    nullIndex: undefined,
+    decimals: 6,
+    identifier:
+      'ibc/B3504E092456BA618CC28AC671A71FB08C6CA0FD0BE7C8A5B5A3E2DD933CC9E4',
+    icon: '',
+    isStable: true,
+  },
+  {
+    chain: 'OTHER',
+    name: 'axlUSDT',
+    symbol: 'axlUSDT',
+    nullIndex: undefined,
+    decimals: 6,
+    identifier:
+      'ibc/CBF67A2BCF6CAE343FDF251E510C8E18C361FC02B23430C121116E0811835DEF',
+    icon: '',
+    isStable: true,
+  },
 ];
 
 export default tokens;
