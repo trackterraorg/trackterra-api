@@ -1,5 +1,5 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { ChainSelector } from 'libs/chains/src';
+import { ChainSelector } from '@trackterra/chains/chains';
 import { ObjectID } from 'mongodb';
 import { BaseDto } from '../dtos';
 

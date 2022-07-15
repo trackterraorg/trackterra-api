@@ -45,7 +45,10 @@ export class Classifier {
         );
 
         if (!_.isEmpty(txType)) {
-          console.log(txType);
+          if (process.env.APP_ENV === 'development') {
+            console.log(txType);
+          }
+
           return {
             protocol: selectedProtocol,
             txType,

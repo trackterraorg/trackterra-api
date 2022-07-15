@@ -6,6 +6,7 @@ import { CurrenciesModule } from './currencies/currencies.module';
 import { WalletsModule } from './wallets/wallets.module';
 import { ParserModule } from './parser/parser.module';
 import { ApiModule } from './api/api.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ApiModule } from './api/api.module';
     ParserModule,
     CurrenciesModule,
   ],
+  controllers: [AppController],
   providers: [AppService, CookieSerializer],
 })
 export class AppModule {}
