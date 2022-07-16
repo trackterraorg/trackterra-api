@@ -37,7 +37,7 @@ export class EventTransformer {
   }
 
   private determineTxProtocol(): this {
-    if (this._actionKeys?.includes('from_contract')) {
+    if (this._actionKeys?.includes('wasm')) {
       this._txProtocol = ProtocolType.Contract;
       return this;
     }
@@ -82,10 +82,10 @@ export class EventTransformer {
   }
 
   private transformContractActions(): this {
-    const attributes = findAttributes(this._txLog?.events, 'from_contract');
+    const attributes = findAttributes(this._txLog?.events, 'wasm');
 
     if (!attributes) {
-      throw new UnableToExtractActionException('from_contract');
+      throw new UnableToExtractActionException('wasm');
     }
 
     const contractActions: any = {};
@@ -93,7 +93,7 @@ export class EventTransformer {
 
     for (let i = 0; i < attributes.length; i += 1) {
       const attr = attributes[i];
-      if (attr.key === 'contract_address') {
+      if (attr.key === 'contract_address' || attr.key === '_contract_address') {
         contract = attr.value;
         continue;
       }
@@ -105,7 +105,11 @@ export class EventTransformer {
         for (i = i + 1; i < attributes.length; i += 1) {
           const attr = attributes[i];
 
-          if (attr.key === 'contract_address' || attr.key === 'action') {
+          if (
+            attr.key === 'contract_address' ||
+            attr.key === '_contract_address' ||
+            attr.key === 'action'
+          ) {
             i = i - 1;
             break;
           }
