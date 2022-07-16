@@ -1,7 +1,10 @@
 import { TxInfo } from '@terra-money/terra.js';
 import { FCDApi } from '@trackterra/core';
 import { TTParser } from '@trackterra/parser';
-import { txHashes } from './txs';
+import _ = require('lodash');
+import { commonTxHashes } from './common';
+import { lunaTxHashes } from './luna_txs';
+import { luncTxHashes } from './lunc_txs';
 
 const api = new FCDApi();
 
@@ -18,10 +21,21 @@ const doParseTx = async ({ txHash, walletAddress }: Args) => {
   return result;
 };
 
-const testProtocolOnly = true;
+const tempsOnly = false;
 
 describe('The parser should classify and parse ', () => {
-  const txs = testProtocolOnly ? { tests: txHashes.tests } : txHashes;
+  let txs: any[] = [];
+
+  [commonTxHashes, luncTxHashes, lunaTxHashes].forEach((txHashes) => {
+    if (tempsOnly) {
+      return txHashes.temp;
+    }
+    _.forEach(txHashes, (value, key) => {
+      if (value.length > 0) {
+        txs.push(value);
+      }
+    });
+  });
 
   Object.entries(txs).forEach(([protocol, txs]) => {
     txs.forEach((tx) => {
