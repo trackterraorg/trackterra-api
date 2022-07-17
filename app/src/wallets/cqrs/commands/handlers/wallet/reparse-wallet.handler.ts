@@ -68,8 +68,8 @@ export class ReparseWalletHandler
         };
       }
 
-      if (moment(moment()).diff(wallet.updatedAt) < 60000 * 60) {
-        const tryAgain = 59 - moment().diff(wallet.updatedAt, 'minutes');
+      if (moment(moment()).diff(wallet.updatedAt) < 2000 * 60) {
+        const tryAgain = 2 - moment().diff(wallet.updatedAt, 'minutes');
         const msg = `Wallet is recently parsed. Please try again in ${tryAgain} minutes!`;
         this.logger.log(msg);
         return {
