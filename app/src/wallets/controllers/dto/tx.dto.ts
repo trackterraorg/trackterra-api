@@ -95,14 +95,6 @@ export class TxDto extends BaseDto {
 
   @Expose()
   @ApiProperty()
-  netWorthAmount: string;
-
-  @Expose()
-  @ApiProperty()
-  netWorthToken: string;
-
-  @Expose()
-  @ApiProperty()
   memo: string;
 
   @Expose()

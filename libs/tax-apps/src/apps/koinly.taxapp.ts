@@ -28,12 +28,6 @@ export class Koinly extends BaseTaxApp implements ITaxApp {
       title: 'Fee Currency',
       formatter: (val) => this.generateTokenName(val.attrValue),
     },
-    { id: 'netWorthAmount', title: 'Net Worth Amount' },
-    {
-      id: 'netWorthToken',
-      title: 'Net Worth Currency',
-      formatter: (val) => this.generateTokenName(val.attrValue),
-    },
     {
       id: 'tag',
       title: 'Label',

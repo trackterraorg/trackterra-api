@@ -28,8 +28,6 @@ export class TxEntity extends BaseEntity<any> {
   taxAmount: number;
   taxToken: string;
 
-  netWorthAmount: number;
-  netWorthToken: string;
   memo: string;
   friendlyDescription: string;
 }

@@ -38,12 +38,6 @@ export class Regular extends BaseTaxApp implements ITaxApp {
     },
     { id: 'taxAmount', title: 'Tax amount' },
     { id: 'taxToken', title: 'Tax token' },
-    { id: 'netWorthAmount', title: 'Networth amount' },
-    {
-      id: 'netWorthToken',
-      title: 'Networth token',
-      formatter: (val) => seperateIndexFromToken(val.attrValue)?.token,
-    },
     { id: 'memo', title: 'Memo' },
     { id: 'friendlyDescription', title: 'Friendly description' },
   ];

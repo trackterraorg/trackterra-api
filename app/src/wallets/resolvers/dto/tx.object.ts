@@ -72,12 +72,6 @@ export class TxObject extends Node {
   taxToken: string;
 
   @Field({ nullable: true })
-  netWorthAmount: string;
-
-  @Field({ nullable: true })
-  netWorthToken: string;
-
-  @Field({ nullable: true })
   memo: string;
 
   @Field({ nullable: true })

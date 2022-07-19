@@ -85,27 +85,6 @@ export class Exporter {
       }
     }
 
-    // calculate networth
-    let netWorthAmount: number;
-    records = records.map((record: any) => {
-      if (record.label === TxLabel.Swap) {
-        if (!netWorthAmount) {
-          if (record.sentToken === 'uusd') {
-            netWorthAmount = record.sentAmount;
-          } else if (record.receivedToken === 'uusd') {
-            netWorthAmount = record.receivedAmount;
-          }
-        }
-
-        if (netWorthAmount) {
-          record.netWorthAmount = netWorthAmount / 1000000;
-          record.netWorthToken = 'USD';
-        }
-      }
-
-      return record;
-    });
-
     return records;
   }
 }
