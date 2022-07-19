@@ -86,7 +86,7 @@ export class ReparseWalletHandler
 
       await this.txRepository.deleteMany({
         chain: wallet.chain,
-        address: wallet.address,
+        walletAddress: wallet.address,
       });
 
       return await this.commandBus.execute(

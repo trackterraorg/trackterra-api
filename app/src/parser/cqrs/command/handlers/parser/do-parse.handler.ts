@@ -78,7 +78,11 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
             const result = await this.parserService.parseTx(address, tx);
 
             if (_.isEmpty(result)) {
-              const unparsedTx = await txToUnparsedTxCreateRequest(tx, address);
+              const unparsedTx = await txToUnparsedTxCreateRequest(
+                chain,
+                address,
+                tx,
+              );
               unparsedTxs = unparsedTxs.concat(unparsedTx);
               continue;
             }
@@ -95,7 +99,11 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
               parsedTxs = parsedTxs.concat(mappedResult);
             }
           } catch (e) {
-            const unparsedTx = await txToUnparsedTxCreateRequest(tx, address);
+            const unparsedTx = await txToUnparsedTxCreateRequest(
+              chain,
+              address,
+              tx,
+            );
             unparsedTxs = unparsedTxs.concat(unparsedTx);
             this.logger.error(e);
           } finally {

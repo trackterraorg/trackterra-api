@@ -72,12 +72,14 @@ export async function txToTxCreateRequest(
 }
 
 export async function txToUnparsedTxCreateRequest(
-  tx: TxInfo,
+  chain: Chain,
   walletAddress: string,
+  tx: TxInfo,
 ): Promise<Tx> {
   const { timestamp, height } = tx;
 
   const transformedTx = {
+    chain,
     walletAddress,
     txhash: tx.txhash,
     blockHeight: height as unknown as number,
