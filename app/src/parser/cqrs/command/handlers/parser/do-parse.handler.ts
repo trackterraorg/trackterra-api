@@ -75,6 +75,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
 
         for await (const tx of txsToBeParsed) {
           try {
+            this.logger.log(`Started parsing tx: ${tx.txhash}`);
             const result = await this.parserService.parseTx(address, tx);
 
             if (_.isEmpty(result)) {
@@ -87,7 +88,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
               continue;
             }
 
-            this.logger.log(`Parsed tx: ${tx.txhash}`);
+            this.logger.log(`Finished parsing tx: ${tx.txhash}`);
             numberOfNewParsedTxs++;
             for (const resultTx of result) {
               const mappedResult = await txToTxCreateRequest(
