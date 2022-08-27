@@ -5,6 +5,18 @@ import { defaultChainName, nameOfChains } from '@trackterra/chains/utils/utils';
 import { Expose } from 'class-transformer';
 import { IsOptional } from 'class-validator';
 
+export class CurrencyInputDto {
+  @ApiProperty({
+    enum: nameOfChains,
+    default: defaultChainName,
+  })
+  readonly chain: Chain;
+
+  @Expose()
+  @ApiProperty()
+  identifier: string;
+}
+
 export class CurrencyRequestDto {
   @ApiModelPropertyOptional({
     enum: nameOfChains,
