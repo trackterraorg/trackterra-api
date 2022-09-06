@@ -12,7 +12,7 @@ export class FCDApiService implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {}
 
   onModuleInit() {
-    const fcdLunaUrl = this.configService.get<FcdConfig>('fcd')?.url;
+    const fcdLunaUrl = this.configService.get<FcdConfig>('fcd_luna')?.url;
 
     const fcdLuncUrl = this.configService.get<FcdConfig>('fcd_lunc')?.url;
 

@@ -1,7 +1,7 @@
 export interface Config {
   app: AppConfig;
   database: DatabaseConfig;
-  fcd: FcdConfig;
+  fcd_luna: FcdConfig;
   fcd_lunc: FcdConfig;
 }
 

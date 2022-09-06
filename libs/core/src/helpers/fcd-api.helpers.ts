@@ -21,6 +21,8 @@ export class FCDApi {
   }
 
   async getByTxHash(txHash: string): Promise<TxInfo> {
+    console.log(this.api.getBaseURL());
+
     const result = await this.api.get(`/v1/tx/${txHash}`);
 
     if (result.ok) {

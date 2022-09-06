@@ -8,5 +8,12 @@ export const lunaTxHashes = {
     },
   ],
 
-  temp: [],
+  temp: [
+    {
+      label: 'transfer deposit',
+      txHash:
+        'D6ED7235A312BE0E51AE959FAA0A7A6E6C873D9F14F3C6DAD17F23E6B43C177F',
+      walletAddress: 'terra1rk665gs04w7spmej846rsxfg0gssg2m9k3ymnd',
+    },
+  ],
 };

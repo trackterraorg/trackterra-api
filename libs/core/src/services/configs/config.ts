@@ -16,8 +16,8 @@ export default (): Config => ({
       password: process.env.REDIS_PASS ?? '',
     },
   },
-  fcd: {
-    url: process.env.FCD,
+  fcd_luna: {
+    url: process.env.FCD_LUNA,
   },
   fcd_lunc: {
     url: process.env.FCD_LUNC,
