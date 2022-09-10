@@ -1,21 +1,36 @@
 export interface Config {
   app: AppConfig;
   database: DatabaseConfig;
-  fcd_luna: FcdConfig;
-  fcd_lunc: FcdConfig;
+  chains: ChainsConfig;
 }
 
 export interface AppConfig {
   port: number;
 }
 
-export interface FcdConfig {
-  url: string;
-}
-
 export interface DatabaseConfig {
   mongodb: MongodbConfig;
   redis: RedisConfig;
+}
+
+export interface ChainsConfig {
+  lunc: ChainConfig;
+  luna: ChainConfig;
+}
+
+export interface ChainConfig {
+  fcd: string;
+  lcd: string;
+  endpoints: {
+    fcd: EndPoint;
+    lcd: EndPoint;
+  };
+}
+
+export interface EndPoint {
+  txInfo?: string;
+  txs?: string;
+  contractInfo?: string;
 }
 
 export interface MongodbConfig {

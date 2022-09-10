@@ -1,7 +1,9 @@
 import { Luna } from './luna.chain';
+import { Lunc } from './lunc.chain';
 
 export const Chains = {
   Luna,
+  Lunc,
 };
 
 const chainTypeMap = {

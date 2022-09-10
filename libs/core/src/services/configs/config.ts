@@ -16,10 +16,32 @@ export default (): Config => ({
       password: process.env.REDIS_PASS ?? '',
     },
   },
-  fcd_luna: {
-    url: process.env.FCD_LUNA,
-  },
-  fcd_lunc: {
-    url: process.env.FCD_LUNC,
+  chains: {
+    luna: {
+      fcd: process.env.FCD_LUNA,
+      lcd: process.env.LCD_LUNA,
+      endpoints: {
+        fcd: {
+          txInfo: '/v1/tx/',
+          txs: '/v1/txs/',
+        },
+        lcd: {
+          contractInfo: '/cosmwasm/wasm/v1/contract/',
+        },
+      },
+    },
+    lunc: {
+      fcd: process.env.FCD_LUNC,
+      lcd: process.env.LCD_LUNC,
+      endpoints: {
+        fcd: {
+          txInfo: '/v1/tx/',
+          txs: '/v1/txs/',
+        },
+        lcd: {
+          contractInfo: '/terra/wasm/v1beta1/contracts/',
+        },
+      },
+    },
   },
 });

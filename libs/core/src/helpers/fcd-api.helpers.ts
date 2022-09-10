@@ -1,7 +1,7 @@
 import { ContractInfo, TxInfo } from '@terra-money/terra.js';
+import { ChainConfig } from '@trackterra/common/interfaces/config.interface';
 import { ApisauceInstance, create } from 'apisauce';
 
-export const DEFAULT_FCD_URL = 'https://columbus-fcd.terra.dev';
 export const DEFAULT_LIMIT = 100;
 export class FCDApi {
   private readonly _api: ApisauceInstance;
@@ -10,9 +10,9 @@ export class FCDApi {
     return this._api;
   }
 
-  constructor(fcdUrl = undefined) {
+  constructor(private options: ChainConfig) {
     this._api = create({
-      baseURL: fcdUrl ?? DEFAULT_FCD_URL,
+      baseURL: options.fcd,
       headers: {
         Accept: 'application/json',
         'User-Agent': 'TT/1.0',
@@ -21,9 +21,13 @@ export class FCDApi {
   }
 
   async getByTxHash(txHash: string): Promise<TxInfo> {
-    console.log(this.api.getBaseURL());
-
-    const result = await this.api.get(`/v1/tx/${txHash}`);
+    const result = await this.api.get(
+      `${this.options.endpoints.fcd.txInfo + txHash}`,
+      {},
+      {
+        baseURL: this.options.fcd,
+      },
+    );
 
     if (result.ok) {
       const txInfo: TxInfo = this.mapTx(result);
@@ -48,18 +52,28 @@ export class FCDApi {
   }> {
     args.limit = args.limit ?? DEFAULT_LIMIT;
 
-    const result: any = await this.api.get(`/v1/txs`, args);
+    try {
+      const result: any = await this.api.get(
+        this.options.endpoints.fcd.txs,
+        args,
+        {
+          baseURL: this.options.fcd,
+        },
+      );
 
-    if (result.ok) {
-      const { next, block } = result.data;
+      if (result.ok) {
+        const { next, block } = result.data;
 
-      const txs: TxInfo[] = result.data.txs.map((tx: any): TxInfo => tx);
+        const txs: TxInfo[] = result.data.txs.map((tx: any): TxInfo => tx);
 
-      return { txs, next };
-    }
+        return { txs, next };
+      }
 
-    if (result.problem) {
-      console.error(result.problem);
+      if (result.problem) {
+        console.error(result.problem);
+      }
+    } catch (error) {
+      console.log(error);
     }
 
     throw 'Could not fetch transactions';
@@ -70,8 +84,12 @@ export class FCDApi {
   }
 
   async getContractInfo(address: string): Promise<ContractInfo> {
-    const result: any = await this._api.get(
-      `/terra/wasm/v1beta1/contracts/${address}`,
+    const result: any = await this.api.get(
+      `${this.options.endpoints.lcd.contractInfo + address}`,
+      {},
+      {
+        baseURL: this.options.lcd,
+      },
     );
 
     if (result.ok) {
