@@ -16,5 +16,9 @@ export const configModuleOptions: ConfigModuleOptions = {
     REDIS_HOST: Joi.string().required(),
     REDIS_PORT: Joi.string().required(),
     REDIS_PASS: Joi.string().required().allow(null, ''),
+    FCD_LUNA: Joi.string().required().allow(null, ''),
+    LCD_LUNA: Joi.string().required().allow(null, ''),
+    FCD_LUNC: Joi.string().required().allow(null, ''),
+    LCD_LUNC: Joi.string().required().allow(null, ''),
   }),
 };
