@@ -8,13 +8,11 @@ import {
 import { FCDApi } from '@trackterra/core/helpers';
 
 @Injectable()
-export class FCDApiService implements OnModuleInit {
+export class FCDApiService {
   private logger = new Logger(this.constructor.name);
   private _apis: { [x: string]: FCDApi } = {};
 
-  constructor(private readonly configService: ConfigService) {}
-
-  onModuleInit() {
+  constructor(private readonly configService: ConfigService) {
     Object.keys(Chain).forEach((chain) => {
       const chainConfig: ChainConfig =
         this.configService.get<ChainsConfig>('chains')[chain];

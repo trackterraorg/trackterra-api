@@ -665,5 +665,4 @@ export const luncTxHashes = {
       walletAddress: 'terra1selhr9ekvylll4ana76vmdamelps4ds52twx6f',
     },
   ],
-  temp: [],
 };

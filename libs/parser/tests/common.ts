@@ -29,6 +29,4 @@ export const commonTxHashes = {
       walletAddress: 'terra1caz4sp8gpzgkfheml0l7d78hxxxzh0cmqyln6m',
     },
   ],
-
-  temp: [],
 };
