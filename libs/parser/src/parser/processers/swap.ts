@@ -30,7 +30,7 @@ export class SwapEngine {
         recipient: lastSwapAction.receiver,
         receivedAmount: lastSwapAction.return_amount,
         receivedToken: lastSwapAction.ask_asset,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }
@@ -61,7 +61,7 @@ export class AnchorBlunaMint implements IParser {
         recipient: walletAddress,
         receivedAmount: swapAction.minted,
         receivedToken: contract,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }
@@ -87,7 +87,7 @@ export class AnchorBlunaUnbond implements IParser {
         recipient: walletAddress,
         receivedAmount: swapAction.minted,
         receivedToken: contract,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }
@@ -124,7 +124,7 @@ export class AnchorLiquidateCollateral implements IParser {
         recipient: sent ? walletAddress : undefined,
         receivedAmount: recieved?.repay_amount,
         receivedToken: recieved ? 'uusd' : undefined,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }

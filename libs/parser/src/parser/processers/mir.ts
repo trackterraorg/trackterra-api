@@ -126,7 +126,7 @@ export class MirOpenShortFarm implements IParser {
       sender: walletAddress,
       sentAmount: amount,
       sentToken: token,
-      friendlyDescription: txType.description,
+      friendlyDescription: txType?.description ?? '',
     };
   }
 
@@ -147,7 +147,7 @@ export class MirOpenShortFarm implements IParser {
       sender: walletAddress,
       sentAmount: amount,
       sentToken: token,
-      friendlyDescription: txType.description,
+      friendlyDescription: txType?.description ?? '',
     };
   }
 

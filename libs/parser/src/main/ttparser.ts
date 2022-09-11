@@ -148,7 +148,7 @@ export class TTParser {
         txhash,
         memo: tx.body?.memo,
         timestamp,
-        friendlyDescription: undefined,
+        friendlyDescription: '',
         ...record,
       });
     });

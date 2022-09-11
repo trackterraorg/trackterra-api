@@ -30,7 +30,7 @@ export class PurchaseNFT implements IParser {
         sentToken: sentValue.token,
         receivedAmount: receivedValue.amount,
         receivedToken: receivedValue.token,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       };
     });
   }

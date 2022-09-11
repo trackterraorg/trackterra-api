@@ -21,7 +21,7 @@ export class AnchorAustRedeem implements IParser {
         recipient: walletAddress,
         receivedAmount: swapAction.redeem_amount,
         receivedToken: 'uusd',
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }
@@ -47,7 +47,7 @@ export class AnchorAustMint implements IParser {
         recipient: walletAddress,
         receivedAmount: swapAction.mint_amount,
         receivedToken: contract,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }

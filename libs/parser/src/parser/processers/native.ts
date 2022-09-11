@@ -16,7 +16,7 @@ export class NativeGovVote implements IParser {
         label: TxLabel.Fee,
         tag: txType.tag,
         sender: walletAddress,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }
@@ -80,7 +80,7 @@ export class NativeReward implements IParser {
         recipient: walletAddress,
         receivedAmount: amount.amount,
         receivedToken: amount.token,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       };
     });
   }

@@ -88,7 +88,7 @@ export class TransferEngine {
           recipient: transferAction.recipient,
           receivedAmount: transferAction.amount.amount,
           receivedToken: transferAction.amount.token,
-          friendlyDescription: txType.description,
+          friendlyDescription: txType?.description ?? '',
         });
       } else if (transferAction.sender == walletAddress) {
         result.push({
@@ -100,7 +100,7 @@ export class TransferEngine {
           sentAmount: transferAction.amount.amount,
           sentToken: transferAction.amount.token,
           recipient: transferAction.recipient,
-          friendlyDescription: txType.description,
+          friendlyDescription: txType?.description ?? '',
         });
       }
     });

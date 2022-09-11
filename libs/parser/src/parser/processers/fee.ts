@@ -11,7 +11,7 @@ export class FeeOnly implements IParser {
         sender: walletAddress,
         label: TxLabel.Fee,
         tag: TxTag.Cost,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       },
     ];
   }

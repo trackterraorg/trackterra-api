@@ -47,7 +47,7 @@ export class LiquidityEngine {
         recipient: walletAddress,
         receivedAmount: recievedToken.amount,
         receivedToken: recievedToken.token,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       });
     }
     return result;
@@ -91,7 +91,7 @@ export class LiquidityEngine {
         recipient: walletAddress,
         receivedAmount: receivedToken.amount,
         receivedToken: receivedToken.token,
-        friendlyDescription: txType.description,
+        friendlyDescription: txType?.description ?? '',
       });
     }
     return result;

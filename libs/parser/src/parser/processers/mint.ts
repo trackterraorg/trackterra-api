@@ -30,7 +30,7 @@ export class MintEngine {
       recipient,
       receivedAmount,
       receivedToken,
-      friendlyDescription: txType.description,
+      friendlyDescription: txType?.description ?? '',
     };
   }
 }

@@ -25,8 +25,8 @@ export class Exporter {
     if (taxes) {
       txs.forEach((tx, index) => {
         const tax = taxes[index];
-        tx.records[0].taxAmount = tax?.amount;
-        tx.records[0].taxToken = tax?.token;
+        tx.records[0].taxAmount = tax?.amount ?? '';
+        tx.records[0].taxToken = tax?.token ?? '';
       });
     }
 
