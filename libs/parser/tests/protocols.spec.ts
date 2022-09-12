@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TxInfo } from '@terra-money/terra.js';
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 import { Chain } from '@trackterra/chains/enums/chain.enum';
-import { FCDApi } from '@trackterra/core';
 import config from '@trackterra/core/services/configs/config';
 import { TTParser } from '@trackterra/parser';
 import _ = require('lodash');
@@ -65,8 +64,6 @@ describe('The parser should classify and parse ', () => {
 
   _.forEach(txs, (tx) => {
     it(`${tx.type} ${tx.label} transaction in ${tx.chain} chain`, async () => {
-      console.log(tx.chain);
-
       const api = fcdApiService.api(tx.chain);
 
       const txInfo: TxInfo = await api.getByTxHash(tx.txHash);
