@@ -3,6 +3,13 @@ import { CurrencyResponseDto } from './controllers/dto/currency.dto';
 import { CurrencyObject } from './resolvers/dto';
 import { UpsertCurrencyInput as GUpsertCurrencyInput } from './resolvers/dto/currency.input';
 
+export type TokenInfo = {
+  name: string;
+  symbol: string;
+  decimals: number;
+  total_supply: number;
+};
+
 export type UpsertCurrencyRequest = RUpsertCurrencyInput | GUpsertCurrencyInput;
 export type UpsertCurrencyResponse =
   | CurrencyResponseDto

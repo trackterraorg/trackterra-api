@@ -81,7 +81,7 @@ export class TransferEngine {
       if (transferAction.recipient == walletAddress) {
         result.push({
           walletAddress,
-          contract: transferAction.contract,
+          contract: transferAction?.contract ?? txType.contract ?? '',
           label: TxLabel.Deposit,
           tag: txType.tag ?? TxTag.Deposit,
           sender: transferAction.sender,
@@ -93,7 +93,7 @@ export class TransferEngine {
       } else if (transferAction.sender == walletAddress) {
         result.push({
           walletAddress,
-          contract: transferAction.contract,
+          contract: transferAction?.contract ?? txType.contract ?? '',
           label: TxLabel.Withdraw,
           tag: txType.tag ?? TxTag.Withdraw,
           sender: transferAction.sender,

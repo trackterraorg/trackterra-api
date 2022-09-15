@@ -10,8 +10,12 @@ import _ = require('lodash');
 import { ContractInfo } from '@terra-money/terra.js';
 import { tokenCleanUp } from '@trackterra/parser/utils';
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
-import { UpsertCurrencyResponse } from '@trackterra/app/currencies/currency.types';
+import {
+  TokenInfo,
+  UpsertCurrencyResponse,
+} from '@trackterra/app/currencies/currency.types';
 import { Chain } from '@trackterra/chains/enums/chain.enum';
+import { CurrencyQueryEnum } from '@trackterra/app/currencies/query.enum';
 
 @CommandHandler(UpsertCurrencyCommand)
 export class UpsertCurrencyHandler
@@ -66,21 +70,19 @@ export class UpsertCurrencyHandler
     }
 
     try {
-      const contractInfo: ContractInfo = await this.fcd
+      const token: TokenInfo = await this.fcd
         .api(chain)
-        .getContractInfo(identifier);
+        .queryContract(identifier, CurrencyQueryEnum.tokenInfo);
 
-      const { init_msg: initMsg } = contractInfo;
-
-      if (initMsg?.symbol.toLowerCase() === 'ulp') {
-        return await this.getTokenFromULPContract(chain, initMsg.mint.minter);
+      if (token.symbol.toLowerCase() === 'ulp') {
+        return await this.getTokenFromULPContract(chain, identifier);
       }
 
       return await this.currencyRepository.create({
         chain,
-        name: initMsg?.name,
-        symbol: initMsg?.symbol,
-        decimals: initMsg?.decimals ?? 6,
+        name: token?.name,
+        symbol: token?.symbol,
+        decimals: token?.decimals ?? 6,
         icon: '',
         identifier,
         isStable: false,
@@ -95,11 +97,15 @@ export class UpsertCurrencyHandler
     contractAddress: string,
   ): Promise<CurrencyEntity> {
     try {
-      const contractInfo: ContractInfo = await this.fcd
+      const { minter } = await this.fcd
         .api(chain)
-        .getContractInfo(contractAddress);
+        .queryContract(contractAddress, CurrencyQueryEnum.minterInfo);
 
-      const assets = contractInfo.init_msg.asset_infos
+      const { asset_infos } = await this.fcd
+        .api(chain)
+        .queryContract(minter, CurrencyQueryEnum.pairInfo);
+
+      const assets = asset_infos
         .map((asset: any): string => {
           const keys = Object.keys(asset);
 

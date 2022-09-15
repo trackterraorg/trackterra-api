@@ -26,7 +26,7 @@ export default (): Config => ({
           txs: '/v1/txs/',
         },
         lcd: {
-          contractInfo: '/cosmwasm/wasm/v1/contract/',
+          queryContract: '/cosmwasm/wasm/v1/contract/{address}/smart/{query}',
         },
       },
     },
@@ -39,7 +39,8 @@ export default (): Config => ({
           txs: '/v1/txs/',
         },
         lcd: {
-          contractInfo: '/terra/wasm/v1beta1/contracts/',
+          queryContract:
+            '/terra/wasm/v1beta1/contracts/{address}/store?query_msg={query}',
         },
       },
     },

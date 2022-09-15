@@ -30,7 +30,7 @@ export interface ChainConfig {
 export interface EndPoint {
   txInfo?: string;
   txs?: string;
-  contractInfo?: string;
+  queryContract?: string;
 }
 
 export interface MongodbConfig {

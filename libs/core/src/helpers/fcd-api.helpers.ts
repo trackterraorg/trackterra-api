@@ -1,6 +1,8 @@
-import { ContractInfo, TxInfo } from '@terra-money/terra.js';
+import { TxInfo } from '@terra-money/terra.js';
+import { TokenInfo } from '@trackterra/app/currencies/currency.types';
 import { ChainConfig } from '@trackterra/common/interfaces/config.interface';
 import { ApisauceInstance, create } from 'apisauce';
+import _ = require('lodash');
 
 export const DEFAULT_LIMIT = 100;
 export class FCDApi {
@@ -31,6 +33,7 @@ export class FCDApi {
 
     if (result.ok) {
       const txInfo: TxInfo = this.mapTx(result);
+
       return txInfo;
     }
 
@@ -52,28 +55,24 @@ export class FCDApi {
   }> {
     args.limit = args.limit ?? DEFAULT_LIMIT;
 
-    try {
-      const result: any = await this.api.get(
-        this.options.endpoints.fcd.txs,
-        args,
-        {
-          baseURL: this.options.fcd,
-        },
-      );
+    const result: any = await this.api.get(
+      this.options.endpoints.fcd.txs,
+      args,
+      {
+        baseURL: this.options.fcd,
+      },
+    );
 
-      if (result.ok) {
-        const { next, block } = result.data;
+    if (result.ok) {
+      const { next, block } = result.data;
 
-        const txs: TxInfo[] = result.data.txs.map((tx: any): TxInfo => tx);
+      const txs: TxInfo[] = result.data.txs.map((tx: any): TxInfo => tx);
 
-        return { txs, next };
-      }
+      return { txs, next };
+    }
 
-      if (result.problem) {
-        console.error(result.problem);
-      }
-    } catch (error) {
-      console.log(error);
+    if (result.problem) {
+      console.error(result.problem);
     }
 
     throw 'Could not fetch transactions';
@@ -83,9 +82,13 @@ export class FCDApi {
     return JSON.parse(JSON.stringify(result.data));
   }
 
-  async getContractInfo(address: string): Promise<ContractInfo> {
+  async queryContract(address: string, query: string): Promise<any> {
+    let url = this.options.endpoints.lcd.queryContract;
+    url = _.replace(url, '{address}', address);
+    url = _.replace(url, '{query}', query);
+
     const result: any = await this.api.get(
-      `${this.options.endpoints.lcd.contractInfo + address}`,
+      url,
       {},
       {
         baseURL: this.options.lcd,
@@ -93,8 +96,8 @@ export class FCDApi {
     );
 
     if (result.ok) {
-      const { contract_info: contractInfo } = result.data;
-      return contractInfo as unknown as ContractInfo;
+      const { data, query_result } = result.data;
+      return data ?? query_result;
     }
 
     if (result.problem) {
