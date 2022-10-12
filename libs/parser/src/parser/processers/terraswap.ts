@@ -58,6 +58,12 @@ export class TerraswapSwap implements IParser {
 
 export class TerraswapSwap2 implements IParser {
   process(args: ParserProcessArgs): IParsedTx[] {
+    if (args.contractActions?.swap) {
+      if (args.contractActions.swap.length > 1) {
+        return SwapEngine.swap(args);
+      }
+    }
+
     // get first tx that belongs to wallet address
     const sendAction = args.transferActions.find((tA: any) => {
       return tA.sender === args.walletAddress;
