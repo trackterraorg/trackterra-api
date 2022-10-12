@@ -37,7 +37,10 @@ export class EventTransformer {
   }
 
   private determineTxProtocol(): this {
-    if (this._actionKeys?.includes('wasm')) {
+    if (
+      this._actionKeys?.includes('wasm') ||
+      this._actionKeys?.includes('from_contract')
+    ) {
       this._txProtocol = ProtocolType.Contract;
       return this;
     }
@@ -82,11 +85,17 @@ export class EventTransformer {
   }
 
   private transformContractActions(): this {
-    const attributes = findAttributes(this._txLog?.events, 'wasm');
+    const wasmAttributes = findAttributes(this._txLog?.events, 'wasm');
+    const fromContractAttributes = findAttributes(
+      this._txLog?.events,
+      'from_contract',
+    );
 
-    if (!attributes) {
-      throw new UnableToExtractActionException('wasm');
+    if (!wasmAttributes && !fromContractAttributes) {
+      throw new UnableToExtractActionException('wasm and from_contract');
     }
+
+    const attributes = wasmAttributes ?? fromContractAttributes;
 
     const contractActions: any = {};
     let contract = '';
