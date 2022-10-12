@@ -6,13 +6,34 @@ import { LogTransformer, TransformedEvents } from '../transformers';
 import { TaxParser } from '../parser/tax.parser';
 import { FeeParser } from '../parser/fee.parser';
 import { Exporter } from '../exporter/exporter';
-import { ParserNotFoundException } from '../exceptions';
+import config from '@trackterra/core/services/configs/config';
+import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConfigModule } from '@nestjs/config';
+import { Chain } from '@trackterra/chains/enums/chain.enum';
 
-const api = new FCDApi();
 const logTransformer = new LogTransformer();
 
 describe('The exporter should', () => {
+  let fcdApiService: FCDApiService;
+
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [FCDApiService],
+      imports: [
+        ConfigModule.forRoot({
+          load: [config],
+          isGlobal: true,
+        }),
+      ],
+    }).compile();
+
+    fcdApiService = module.get<FCDApiService>(FCDApiService);
+  });
+
   it('export result in singular formatted type', async () => {
+    const api = fcdApiService.api(Chain.lunc);
+
     const txInfo: TxInfo = await api.getByTxHash(
       '47AF52C4EF5229796F4BCD315EAF6A36C9E4830C1339C63B68C076BC87634D00',
     );
