@@ -57,7 +57,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
       while (true) {
         this.logger.log('Fetching txs from fcd ');
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         const result = await this.fcdApiService.api(chain).getByAccount({
           account: address,
@@ -97,7 +97,10 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
                 address,
                 this.currenciesService,
               );
-              parsedTxs = parsedTxs.concat(mappedResult);
+              // parsedTxs = parsedTxs.concat(mappedResult);
+              this.walletService.createTxs({
+                txs: [mappedResult],
+              });
             }
           } catch (e) {
             const unparsedTx = await txToUnparsedTxCreateRequest(
@@ -105,7 +108,10 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
               address,
               tx,
             );
-            unparsedTxs = unparsedTxs.concat(unparsedTx);
+            // unparsedTxs = unparsedTxs.concat(unparsedTx);
+            this.walletService.createTxs({
+              txs: [unparsedTx],
+            });
             this.logger.error(e);
           } finally {
             if (tx.height > newHighestBlockHeight) {
@@ -114,13 +120,13 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
           }
         }
 
-        _(parsedTxs.concat(unparsedTxs))
-          .chunk(10)
-          .forEach((parsedTxsChunk) => {
-            this.walletService.createTxs({
-              txs: parsedTxsChunk,
-            });
-          });
+        // _(parsedTxs.concat(unparsedTxs))
+        //   .chunk(10)
+        //   .forEach((parsedTxsChunk) => {
+        //     this.walletService.createTxs({
+        //       txs: parsedTxsChunk,
+        //     });
+        //   });
 
         parsedTxs = [];
         unparsedTxs = [];

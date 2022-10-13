@@ -95,7 +95,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         this.logger.log(msg);
         return {
           numberOfNewParsedTxs: 0,
-          status: ParsingStatus.DONE,
+          status: ParsingStatus.FAILED,
           msg,
         };
       }

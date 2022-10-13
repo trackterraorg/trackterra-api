@@ -8,6 +8,7 @@ import { configModuleOptions } from '../services/configs/module-options';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { BullModule } from '@nestjs/bull';
 import { BullConfigService } from '../services/configs/bull-config.service';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Global()
 @Module({
@@ -27,6 +28,7 @@ import { BullConfigService } from '../services/configs/bull-config.service';
       name: 'parser_queue',
       useClass: BullConfigService,
     }),
+    EventEmitterModule.forRoot(),
   ],
   exports: [
     ConfigModule,

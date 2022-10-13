@@ -7,6 +7,7 @@ import { WalletsService } from './wallets.service';
 import { ParserModule } from '../parser/parser.module';
 import { TxsController } from './controllers/txs.controller';
 import { TxsResolver } from './resolvers/txs.resolver';
+import { EventsModule } from './events/events.module';
 
 @Module({
   providers: [
@@ -19,7 +20,7 @@ import { TxsResolver } from './resolvers/txs.resolver';
     TxsResolver,
   ],
   controllers: [WalletsController, TxsController],
-  exports: [WalletsService, WalletRepository],
-  imports: [forwardRef(() => ParserModule)],
+  exports: [WalletsService, WalletRepository, EventsModule],
+  imports: [EventsModule, forwardRef(() => ParserModule)],
 })
 export class WalletsModule {}
