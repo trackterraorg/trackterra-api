@@ -17,6 +17,8 @@ import { ParserService } from '@trackterra/app/parser/parser.service';
 import { BadRequestError } from '@trackterra/common';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 import { ValidatorService } from '@trackterra/core';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 /**
  * @class
@@ -31,9 +33,9 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
    */
   public constructor(
     private readonly walletRepository: WalletRepository,
-    private readonly parserService: ParserService,
     private readonly validatorService: ValidatorService,
     private readonly commandBus: CommandBus,
+    @InjectQueue('parser_queue') readonly queue: Queue,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
   /**
@@ -111,11 +113,23 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
       let parsingResult: any;
       try {
-        parsingResult = await this.parserService.doParse({
-          chain,
-          address: wallet.address,
-          highestParsedBlockHeight,
-        });
+        this.queue.add(
+          {
+            chain,
+            address: wallet.address,
+            highestParsedBlockHeight,
+          },
+          {
+            removeOnComplete: true,
+            attempts: 3,
+          },
+        );
+
+        return {
+          numberOfNewParsedTxs: 0,
+          status: ParsingStatus.PARSING,
+          msg: 'Parsing started...',
+        };
       } catch (e) {
         await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
           updates: {

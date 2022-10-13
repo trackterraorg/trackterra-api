@@ -29,6 +29,7 @@
   "dependencies": {
     "@anchan828/nest-sendgrid": "^0.3.16",
     "@konfy/graphql-mongo-query": "^2.0.6",
+    "@nestjs/bull": "^0.6.1",
     "@nestjs/common": "^7.4.2",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.4.2",
@@ -41,6 +42,7 @@
     "@nestjs/swagger": "^4.5.12",
     "@sindresorhus/slugify": "^1.1.0",
     "@terra-money/terra.js": "^3.0.1",
+    "@types/bull": "^3.15.9",
     "@types/cache-manager": "^3.4.3",
     "@types/js-yaml": "^4.0.5",
     "apisauce": "^2.1.2",
@@ -54,6 +56,7 @@
     "bcryptjs": "^2.4.3",
     "brakes": "^3.0.0",
     "bson": "^4.0.4",
+    "bull": "^4.10.0",
     "cache-manager": "^3.3.0",
     "cache-manager-memcached-store": "^2.2.0",
     "cache-manager-redis-store": "^2.0.0",

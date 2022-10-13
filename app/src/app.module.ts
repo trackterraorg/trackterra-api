@@ -7,6 +7,7 @@ import { WalletsModule } from './wallets/wallets.module';
 import { ParserModule } from './parser/parser.module';
 import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
+import { ParserProcess } from './wallets/queue';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { AppController } from './app.controller';
     CurrenciesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CookieSerializer],
+  providers: [AppService, CookieSerializer, ParserProcess],
 })
 export class AppModule {}
