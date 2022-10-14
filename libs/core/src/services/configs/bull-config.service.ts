@@ -14,6 +14,10 @@ export class BullConfigService implements BullOptionsFactory {
     const database = this.configService.get<RedisOptions>('database.redis');
     return {
       name: 'parser_queue',
+      limiter: {
+        max: 5,
+        duration: 60 * 1000,
+      },
       redis: {
         ...database,
       },
