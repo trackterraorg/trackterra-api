@@ -45,6 +45,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     this.logger.log(`Async ${command.constructor.name}...`);
 
     const { chain, address } = command.input;
+    const reparse = command.reparse ?? false;
 
     try {
       if (!this.validatorService.isValidChain(chain)) {
@@ -101,12 +102,15 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
       }
 
       await this.commandBus.execute(
-        new UpdateWalletCommand({
-          chain,
-          highestParsedBlock: wallet.highestParsedBlock,
-          status: ParsingStatus.PARSING,
-          address: wallet.address,
-        }),
+        new UpdateWalletCommand(
+          {
+            chain,
+            highestParsedBlock: wallet.highestParsedBlock,
+            status: ParsingStatus.PARSING,
+            address: wallet.address,
+          },
+          reparse ? moment().toDate() : undefined,
+        ),
       );
 
       const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;

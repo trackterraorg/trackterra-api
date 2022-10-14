@@ -68,9 +68,12 @@ export class ReparseWalletHandler
         };
       }
 
-      if (moment(moment()).diff(wallet.updatedAt) < 2000 * 60) {
-        const tryAgain = 2 - moment().diff(wallet.updatedAt, 'minutes');
-        const msg = `Wallet is recently parsed. Please try again in ${tryAgain} minutes!`;
+      const nextReparseTime = moment(
+        wallet.reparsedAt ?? moment().subtract(8, 'days'),
+      ).add(7, 'days');
+
+      if (moment() < nextReparseTime) {
+        const msg = `Wallet is recently reparsed. please try again after ${nextReparseTime}!`;
         this.logger.log(msg);
         return {
           numberOfNewParsedTxs: 0,
@@ -90,10 +93,13 @@ export class ReparseWalletHandler
       });
 
       return await this.commandBus.execute(
-        new ParseWalletCommand({
-          chain,
-          address,
-        }),
+        new ParseWalletCommand(
+          {
+            chain,
+            address,
+          },
+          true,
+        ),
       );
     } catch (error) {
       this.logger.log(error);
