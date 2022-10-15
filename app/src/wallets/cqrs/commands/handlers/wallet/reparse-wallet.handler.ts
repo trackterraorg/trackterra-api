@@ -40,6 +40,7 @@ export class ReparseWalletHandler
     this.logger.log(`Async ${command.constructor.name}...`);
 
     const { chain, address } = command.input;
+    const ip = command.ip;
 
     try {
       if (!this.validatorService.isValidChain(chain)) {
@@ -99,6 +100,7 @@ export class ReparseWalletHandler
             address,
           },
           true,
+          ip,
         ),
       );
     } catch (error) {

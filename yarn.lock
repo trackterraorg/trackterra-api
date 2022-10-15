@@ -1971,6 +1971,11 @@
     socket.io-adapter "^2.4.0"
     uid2 "0.0.3"
 
+"@supercharge/request-ip@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@supercharge/request-ip/-/request-ip-1.2.0.tgz#b8a8164322e09de3fa9b6f556885795c4841a7d4"
+  integrity sha512-wlt6JW69MHqLY2M6Sm/jVyCojNRKq2CBvwH0Hbx24SFhDQQGkgEjeKxVutDxHSyrWixFaOSLXC27euzxijhyMQ==
+
 "@terra-money/terra.js@^3.0.1":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@terra-money/terra.js/-/terra.js-3.0.4.tgz#1805447fdc76d2d976757bffc07d8ba47eb47783"
@@ -9326,6 +9331,13 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
   integrity sha512-iyam8fBuCUpWeKPGpaNMetEocMt364qkCsfL9JuhjXX6dRnguRVOfk2GZaDpPjcOKiiXCPINZC1GczQ7iTq3Zw==
+
+nestjs-real-ip@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/nestjs-real-ip/-/nestjs-real-ip-2.2.0.tgz#4132b8093be218cb252f02734e3bb2326fbb4a4f"
+  integrity sha512-YiewaXGJTd9Ba99Q8Or4VoiYjspl8LwTpb6TYJov62xVH8gW9y+uWoZTLHh11T4K/qfqYQ+DGUFIRqT94Y7BKQ==
+  dependencies:
+    "@supercharge/request-ip" "^1.2.0"
 
 new-find-package-json@^1.1.0:
   version "1.1.0"

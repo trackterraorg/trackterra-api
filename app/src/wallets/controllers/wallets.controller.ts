@@ -23,7 +23,7 @@ import {
   ReadWalletDetailResponseDto,
   ReadWalletResponseDto,
 } from './dto/wallet.dto';
-
+import { RealIP } from 'nestjs-real-ip';
 @Controller('/api/v1/wallets')
 @ApiTags('Wallet')
 export class WalletsController {
@@ -39,9 +39,10 @@ export class WalletsController {
   })
   async parseWallet(
     @Query() args: WalletRequestDto,
+    @RealIP() ip: string,
   ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
     try {
-      const result = await this.walletsService.parseWallet(args);
+      const result = await this.walletsService.parseWallet(args, ip);
       return {
         data: result,
         meta: {},
@@ -61,9 +62,10 @@ export class WalletsController {
   })
   async reparseWallet(
     @Query() args: WalletRequestDto,
+    @RealIP() ip: string,
   ): Promise<BaseApiResponse<ParseWalletResponseDto>> {
     try {
-      const result = await this.walletsService.reparseWallet(args);
+      const result = await this.walletsService.reparseWallet(args, ip);
       return {
         data: result,
         meta: {},

@@ -7,4 +7,5 @@ export class WalletEntity extends BaseEntity<any> {
   highestParsedBlock: number | 0;
   status: number;
   reparsedAt?: Date;
+  ip?: string;
 }

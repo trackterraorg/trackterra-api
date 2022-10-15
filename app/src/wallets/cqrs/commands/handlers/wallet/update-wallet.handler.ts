@@ -41,8 +41,8 @@ export class UpdateWalletHandler
   async execute(command: UpdateWalletCommand): Promise<UpdateWalletResponse> {
     this.logger.log(`Async ${command.constructor.name}...`);
     const { chain, address, highestParsedBlock, status } = command.input;
+    const ip = command.ip;
     const reparsedAt = command.reparsedAt;
-
     try {
       if (!AccAddress.validate(address)) {
         throw new BadRequestException('Invalid terra account address');
@@ -55,6 +55,10 @@ export class UpdateWalletHandler
 
       if (reparsedAt) {
         updates['reparsedAt'] = reparsedAt;
+      }
+
+      if (ip) {
+        updates['ip'] = ip;
       }
 
       const wallet = await this.walletRepository.findOneAndUpdate({

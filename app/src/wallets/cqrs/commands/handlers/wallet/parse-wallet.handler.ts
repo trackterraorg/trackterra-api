@@ -46,6 +46,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
 
     const { chain, address } = command.input;
     const reparse = command.reparse ?? false;
+    const ip = command.ip;
 
     try {
       if (!this.validatorService.isValidChain(chain)) {
@@ -109,6 +110,7 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
             status: ParsingStatus.PARSING,
             address: wallet.address,
           },
+          ip,
           reparse ? moment().toDate() : undefined,
         ),
       );

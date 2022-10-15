@@ -95,6 +95,7 @@
     "mkdir": "^0.0.2",
     "moment": "^2.29.3",
     "mongodb": "^3.6.0",
+    "nestjs-real-ip": "^2.2.0",
     "object-path": "^0.11.4",
     "parse-iso-duration": "^1.1.0",
     "query": "protobi/query",

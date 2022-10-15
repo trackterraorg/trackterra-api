@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DoParseCommand } from '../../impl';
 import { AccAddress } from '@terra-money/terra.js';
 import { TTParserService } from '@trackterra/core/services/others/parser.service';
@@ -17,6 +17,7 @@ import _ = require('lodash');
 import { FCDApiService } from '@trackterra/app/api/fcd-api.service';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
+import { UpdateWalletCommand } from '@trackterra/app/wallets/cqrs';
 
 /**
  * @class
@@ -30,6 +31,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
     private readonly parserService: TTParserService,
     private readonly walletService: WalletsService,
     private readonly currenciesService: CurrenciesService,
+    private readonly commandBus: CommandBus,
   ) {}
 
   /**
@@ -118,14 +120,6 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
           }
         }
 
-        // _(parsedTxs.concat(unparsedTxs))
-        //   .chunk(10)
-        //   .forEach((parsedTxsChunk) => {
-        //     this.walletService.createTxs({
-        //       txs: parsedTxsChunk,
-        //     });
-        //   });
-
         parsedTxs = [];
         unparsedTxs = [];
 
@@ -136,12 +130,14 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
         }
       }
 
-      this.walletService.updateWallet({
-        chain,
-        address,
-        highestParsedBlock: newHighestBlockHeight,
-        status: ParsingStatus.DONE,
-      });
+      await this.commandBus.execute(
+        new UpdateWalletCommand({
+          chain,
+          highestParsedBlock: newHighestBlockHeight,
+          status: ParsingStatus.DONE,
+          address,
+        }),
+      );
 
       return {
         numberOfNewParsedTxs,

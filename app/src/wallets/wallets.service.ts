@@ -31,20 +31,29 @@ export class WalletsService {
     private readonly queryBus: QueryBus,
   ) {}
 
-  parseWallet(request: WalletRequest): Promise<ParseWalletResponse> {
-    return this.commandBus.execute(new ParseWalletCommand(request));
+  parseWallet(
+    request: WalletRequest,
+    ip?: string,
+  ): Promise<ParseWalletResponse> {
+    return this.commandBus.execute(new ParseWalletCommand(request, false, ip));
   }
 
-  reparseWallet(request: WalletRequest): Promise<ParseWalletResponse> {
-    return this.commandBus.execute(new ReparseWalletCommand(request));
+  reparseWallet(
+    request: WalletRequest,
+    ip?: string,
+  ): Promise<ParseWalletResponse> {
+    return this.commandBus.execute(new ReparseWalletCommand(request, true, ip));
   }
 
   createTxs(request: CreateTxsRequest): Promise<CreateTxsResponse> {
     return this.commandBus.execute(new CreateTxsCommand(request));
   }
 
-  updateWallet(request: UpdateWalletRequest): Promise<UpdateWalletResponse> {
-    return this.commandBus.execute(new UpdateWalletCommand(request));
+  updateWallet(
+    request: UpdateWalletRequest,
+    ip?: string,
+  ): Promise<UpdateWalletResponse> {
+    return this.commandBus.execute(new UpdateWalletCommand(request, ip));
   }
 
   readWallet(request: ReadWalletRequest): Promise<ReadWalletResponse> {
