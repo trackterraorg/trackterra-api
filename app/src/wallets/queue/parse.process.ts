@@ -3,11 +3,11 @@ import {
   Process,
   OnQueueActive,
   OnQueueCompleted,
+  OnQueueFailed,
 } from '@nestjs/bull';
 import { Job } from 'bull';
 import { Logger } from '@nestjs/common';
 import { Chain } from '@trackterra/chains/enums/chain.enum';
-import { WalletsService } from '../wallets.service';
 import { ParserService } from '@trackterra/app/parser/parser.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
@@ -31,7 +31,7 @@ export class ParserProcess {
       return;
     }
 
-    await this.parserService.doParse({
+    return await this.parserService.doParse({
       ...job.data,
     });
   }
@@ -48,26 +48,40 @@ export class ParserProcess {
       numberOfNewParsedTxs: 0,
     });
 
-    this.logger.log(
-      `Processing job ${job.id} of type ${job.name} with data ${job.data}...`,
-    );
+    this.logger.log(`Processing job ${job.id} for address ${address}`);
   }
 
   @OnQueueCompleted()
-  async onCompleted(job: Job) {
+  async onCompleted(job: Job, result: any) {
     const { chain, address } = job.data;
 
     this.eventEmitter.emit('parsing', {
       chain,
       address,
-      msg: 'Parsing completed...',
-      status: ParsingStatus.DONE,
-      numberOfNewParsedTxs: 0,
+      msg: `Parsing completed. Number of transactions parsed: ${result.numberOfNewParsedTxs}`,
+      status: result.status,
+      numberOfNewParsedTxs: result.numberOfNewParsedTxs,
     });
 
     this.logger.log(
-      `Completed job ${job.id} of type ${job.name} with ${job.returnvalue.numberOfNewParsedTxs}`,
+      `Completed job ${job.id} for address ${address}. Number of new txs parsed: ${result.numberOfNewParsedTxs}`,
     );
+    await job.remove();
+  }
+
+  @OnQueueFailed()
+  async onFailed(job: Job) {
+    const { chain, address } = job.data;
+
+    this.eventEmitter.emit('parsing', {
+      chain,
+      address,
+      msg: 'Parsing failed...',
+      status: ParsingStatus.FAILED,
+      numberOfNewParsedTxs: 0,
+    });
+
+    this.logger.log(`Failed job ${job.id} for address ${address}`);
     await job.remove();
   }
 }

@@ -143,14 +143,10 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
         status: ParsingStatus.DONE,
       });
 
-      const msg = `Parsing completed for wallet address ${address}. ${numberOfNewParsedTxs} new txs parsed!`;
-
-      this.logger.log(msg);
-
       return {
         numberOfNewParsedTxs,
         status: ParsingStatus.DONE,
-        msg,
+        msg: 'Handled by the job',
       };
     } catch (error) {
       this.logger.log(error);
