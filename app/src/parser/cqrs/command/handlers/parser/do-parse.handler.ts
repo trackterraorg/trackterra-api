@@ -57,8 +57,6 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
       while (true) {
         this.logger.log('Fetching txs from fcd ');
 
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
         const result = await this.fcdApiService.api(chain).getByAccount({
           account: address,
           limit: 100,
