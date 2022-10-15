@@ -11,6 +11,7 @@ import { SwaggerModule } from '@nestjs/swagger';
 import { AppConfig } from '@trackterra/common/interfaces/config.interface';
 import { ConfigService } from '@nestjs/config';
 import { AppService } from './app.service';
+import { RedisIoAdapter } from './wallets/adapters/redis-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -18,6 +19,10 @@ async function bootstrap() {
   app.enableCors(corsOptions);
   app.use(bloodTearsMiddleware);
   AppUtils.killAppWithGrace(app);
+
+  const redisIoAdapter = new RedisIoAdapter(app);
+  await redisIoAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisIoAdapter);
 
   const appService = app.get(AppService);
   appService.checkWalletsDirectory();
