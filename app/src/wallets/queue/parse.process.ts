@@ -66,7 +66,6 @@ export class ParserProcess {
     this.logger.log(
       `Completed job ${job.id} for address ${address}. Number of new txs parsed: ${result.numberOfNewParsedTxs}`,
     );
-    await job.remove();
   }
 
   @OnQueueFailed()
@@ -82,6 +81,5 @@ export class ParserProcess {
     });
 
     this.logger.log(`Failed job ${job.id} for address ${address}`);
-    await job.remove();
   }
 }
