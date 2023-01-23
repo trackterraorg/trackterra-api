@@ -13,12 +13,10 @@ import * as _ from 'lodash';
 import moment = require('moment');
 import { ParsingStatus } from '@trackterra/repository/enums/parsing-status.enum';
 import { BlacklistLoader } from '@trackterra/parser/blacklist';
-import { ParserService } from '@trackterra/app/parser/parser.service';
 import { BadRequestError } from '@trackterra/common';
 import { ParseWalletResponse } from '@trackterra/app/parser/parser.types';
 import { ValidatorService } from '@trackterra/core';
-import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
+import { ParserService } from '@trackterra/app/parser/parser.service';
 
 /**
  * @class
@@ -34,8 +32,8 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
   public constructor(
     private readonly walletRepository: WalletRepository,
     private readonly validatorService: ValidatorService,
+    private readonly parserService: ParserService,
     private readonly commandBus: CommandBus,
-    @InjectQueue('parser_queue') readonly queue: Queue,
     @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
   ) {}
   /**
@@ -115,26 +113,19 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         ),
       );
 
-      const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
-
-      let parsingResult: any;
       try {
-        this.queue.add(
-          {
-            chain,
-            address: wallet.address,
-            highestParsedBlockHeight,
-          },
-          {
-            removeOnComplete: true,
-            attempts: 3,
-          },
-        );
+        const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
 
+        let parsingResult = await this.parserService.doParse({
+          chain,
+          address: wallet.address,
+          highestParsedBlockHeight,
+        });
+
+        this.cacheManager.reset();
         return {
-          numberOfNewParsedTxs: 0,
-          status: ParsingStatus.PARSING,
-          msg: 'Parsing started...',
+          ...parsingResult,
+          status: parsingResult.status as unknown as ParsingStatus,
         };
       } catch (e) {
         await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
@@ -145,13 +136,6 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
           },
         });
       }
-
-      this.cacheManager.reset();
-
-      return {
-        ...parsingResult,
-        status: parsingResult.status as unknown as ParsingStatus,
-      };
     } catch (error) {
       this.logger.log(error);
       throw new InternalServerErrorException(error);

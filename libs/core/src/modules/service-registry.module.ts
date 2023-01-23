@@ -6,8 +6,6 @@ import { GqlConfigService } from '@trackterra/app/gql-config.service';
 import { MongoModule } from '@juicycleff/repo-orm';
 import { configModuleOptions } from '../services/configs/module-options';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { BullModule } from '@nestjs/bull';
-import { BullConfigService } from '../services/configs/bull-config.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Global()
@@ -24,20 +22,12 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
     }),
-    BullModule.registerQueueAsync({
-      name: 'parser_queue',
-      useClass: BullConfigService,
-    }),
     EventEmitterModule.forRoot(),
   ],
   exports: [
     ConfigModule,
     CacheModule.registerAsync({
       useClass: CacheStoreConfigService,
-    }),
-    BullModule.registerQueueAsync({
-      name: 'parser_queue',
-      useClass: BullConfigService,
     }),
   ],
 })

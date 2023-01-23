@@ -142,7 +142,7 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
       return {
         numberOfNewParsedTxs,
         status: ParsingStatus.DONE,
-        msg: 'Handled by the job',
+        msg: 'Successfully parsed wallet!',
       };
     } catch (error) {
       this.logger.log(error);
