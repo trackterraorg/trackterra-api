@@ -1,0 +1,19 @@
+version: "3.2"
+
+services:
+  mongo:
+    container_name: tt-mongo
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  redis:
+    container_name: tt-redis
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+
+volumes:
+  storage-static:
