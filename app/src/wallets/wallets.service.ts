@@ -35,7 +35,13 @@ export class WalletsService {
     request: WalletRequest,
     ip?: string,
   ): Promise<ParseWalletResponse> {
-    return this.commandBus.execute(new ParseWalletCommand(request, false, ip));
+    try {
+      return this.commandBus.execute(
+        new ParseWalletCommand(request, false, ip),
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   reparseWallet(

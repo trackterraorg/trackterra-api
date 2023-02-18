@@ -46,60 +46,58 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
     const reparse = command.reparse ?? false;
     const ip = command.ip;
 
+    if (!this.validatorService.isValidChain(chain)) {
+      throw new BadRequestError('Please select a valid chain');
+    }
+
+    if (!AccAddress.validate(address)) {
+      throw new BadRequestError('Invalid terra account address');
+    }
+
+    const blacklistLoader: BlacklistLoader =
+      await BlacklistLoader.getInstance();
+
+    if (blacklistLoader.isInBlackList(address)) {
+      return {
+        numberOfNewParsedTxs: 0,
+        status: ParsingStatus.FAILED,
+        msg: blacklistLoader.addressBlockMessage(address),
+      };
+    }
+    let wallet: WalletEntity = await this.walletRepository.findOne(
+      {
+        chain,
+        address,
+      },
+      true,
+    );
+
+    if (!wallet) {
+      wallet = await this.walletRepository.create({
+        chain,
+        address,
+        status: ParsingStatus.PARSING,
+      });
+      this.logger.log('Create new wallet address');
+    } else if (wallet.status === ParsingStatus.PARSING) {
+      const msg = 'Wallet is already parsing!';
+      this.logger.log(msg);
+      return {
+        numberOfNewParsedTxs: 0,
+        status: ParsingStatus.PARSING,
+        msg,
+      };
+    } else if (moment(moment()).diff(wallet.updatedAt) < 60000) {
+      const tryAgain = 59 - moment().diff(wallet.updatedAt, 'seconds');
+      const msg = `Wallet already parsed. Please try again in ${tryAgain} seconds!`;
+      this.logger.log(msg);
+      return {
+        numberOfNewParsedTxs: 0,
+        status: ParsingStatus.FAILED,
+        msg,
+      };
+    }
     try {
-      if (!this.validatorService.isValidChain(chain)) {
-        throw new BadRequestError('Please select a valid chain');
-      }
-
-      if (!AccAddress.validate(address)) {
-        throw new BadRequestError('Invalid terra account address');
-      }
-
-      const blacklistLoader: BlacklistLoader =
-        await BlacklistLoader.getInstance();
-
-      if (blacklistLoader.isInBlackList(address)) {
-        return {
-          numberOfNewParsedTxs: 0,
-          status: ParsingStatus.FAILED,
-          msg: blacklistLoader.addressBlockMessage(address),
-        };
-      }
-
-      let wallet: WalletEntity = await this.walletRepository.findOne(
-        {
-          chain,
-          address,
-        },
-        true,
-      );
-
-      if (!wallet) {
-        wallet = await this.walletRepository.create({
-          chain,
-          address,
-          status: ParsingStatus.PARSING,
-        });
-        this.logger.log('Create new wallet address');
-      } else if (wallet.status === ParsingStatus.PARSING) {
-        const msg = 'Wallet is already parsing!';
-        this.logger.log(msg);
-        return {
-          numberOfNewParsedTxs: 0,
-          status: ParsingStatus.PARSING,
-          msg,
-        };
-      } else if (moment(moment()).diff(wallet.updatedAt) < 60000) {
-        const tryAgain = 59 - moment().diff(wallet.updatedAt, 'seconds');
-        const msg = `Wallet already parsed. Please try again in ${tryAgain} seconds!`;
-        this.logger.log(msg);
-        return {
-          numberOfNewParsedTxs: 0,
-          status: ParsingStatus.FAILED,
-          msg,
-        };
-      }
-
       await this.commandBus.execute(
         new UpdateWalletCommand(
           {
@@ -113,32 +111,28 @@ export class ParseWalletHandler implements ICommandHandler<ParseWalletCommand> {
         ),
       );
 
-      try {
-        const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
+      const highestParsedBlockHeight = wallet.highestParsedBlock ?? 0;
 
-        let parsingResult = await this.parserService.doParse({
-          chain,
-          address: wallet.address,
-          highestParsedBlockHeight,
-        });
+      let parsingResult = await this.parserService.doParse({
+        chain,
+        address: wallet.address,
+        highestParsedBlockHeight,
+      });
 
-        this.cacheManager.reset();
-        return {
-          ...parsingResult,
-          status: parsingResult.status as unknown as ParsingStatus,
-        };
-      } catch (e) {
-        await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
-          updates: {
-            $set: {
-              status: ParsingStatus.FAILED,
-            },
-          },
-        });
-      }
+      this.cacheManager.reset();
+      return {
+        ...parsingResult,
+        status: parsingResult.status as unknown as ParsingStatus,
+      };
     } catch (error) {
+      await this.walletRepository.findOneByIdAndUpdate(wallet.id, {
+        updates: {
+          $set: {
+            status: ParsingStatus.FAILED,
+          },
+        },
+      });
       this.logger.log(error);
-      throw new InternalServerErrorException(error);
     }
   }
 }

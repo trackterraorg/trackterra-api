@@ -22,6 +22,10 @@ export class ParserService {
   }
 
   doParse(request: WalletRequest): Promise<ParseWalletResponse> {
-    return this.commandBus.execute(new DoParseCommand(request));
+    try {
+      return this.commandBus.execute(new DoParseCommand(request));
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

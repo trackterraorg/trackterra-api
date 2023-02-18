@@ -41,112 +41,108 @@ export class DoParseHandler implements ICommandHandler<DoParseCommand> {
     this.logger.log(`Async ${command.constructor.name}...`);
 
     const { chain, address, highestParsedBlockHeight } = command.input;
-    try {
-      if (!AccAddress.validate(address)) {
-        throw new BadRequestException('Invalid terra account address');
+
+    if (!AccAddress.validate(address)) {
+      throw new BadRequestException('Invalid terra account address');
+    }
+
+    const prevHighestParsedBlockHeight = highestParsedBlockHeight;
+
+    let next: number;
+
+    let newHighestBlockHeight = prevHighestParsedBlockHeight;
+
+    let parsedTxs = [];
+    let unparsedTxs = [];
+    let numberOfNewParsedTxs = 0;
+
+    while (true) {
+      this.logger.log('Fetching txs from fcd ');
+
+      const result = await this.fcdApiService.api(chain).getByAccount({
+        account: address,
+        limit: 100,
+        offset: next,
+      });
+
+      const txsToBeParsed = result.txs.filter(
+        (tx) => tx.height > prevHighestParsedBlockHeight,
+      );
+
+      if (!txsToBeParsed.length) {
+        break;
       }
 
-      const prevHighestParsedBlockHeight = highestParsedBlockHeight;
+      for await (const tx of txsToBeParsed) {
+        try {
+          this.logger.log(`Started parsing tx: ${tx.txhash}`);
+          const result = await this.parserService.parseTx(address, tx);
 
-      let next: number;
-
-      let newHighestBlockHeight = prevHighestParsedBlockHeight;
-
-      let parsedTxs = [];
-      let unparsedTxs = [];
-      let numberOfNewParsedTxs = 0;
-
-      while (true) {
-        this.logger.log('Fetching txs from fcd ');
-
-        const result = await this.fcdApiService.api(chain).getByAccount({
-          account: address,
-          limit: 100,
-          offset: next,
-        });
-
-        const txsToBeParsed = result.txs.filter(
-          (tx) => tx.height > prevHighestParsedBlockHeight,
-        );
-
-        if (!txsToBeParsed.length) {
-          break;
-        }
-
-        for await (const tx of txsToBeParsed) {
-          try {
-            this.logger.log(`Started parsing tx: ${tx.txhash}`);
-            const result = await this.parserService.parseTx(address, tx);
-
-            if (_.isEmpty(result)) {
-              const unparsedTx = await txToUnparsedTxCreateRequest(
-                chain,
-                address,
-                tx,
-              );
-              unparsedTxs = unparsedTxs.concat(unparsedTx);
-              continue;
-            }
-
-            this.logger.log(`Finished parsing tx: ${tx.txhash}`);
-            numberOfNewParsedTxs++;
-            for (const resultTx of result) {
-              const mappedResult = await txToTxCreateRequest(
-                resultTx,
-                chain,
-                address,
-                this.currenciesService,
-              );
-              // parsedTxs = parsedTxs.concat(mappedResult);
-              this.walletService.createTxs({
-                txs: [mappedResult],
-              });
-            }
-          } catch (e) {
+          if (_.isEmpty(result)) {
             const unparsedTx = await txToUnparsedTxCreateRequest(
               chain,
               address,
               tx,
             );
-            // unparsedTxs = unparsedTxs.concat(unparsedTx);
-            this.walletService.createTxs({
-              txs: [unparsedTx],
-            });
-            this.logger.error(e);
-          } finally {
-            if (tx.height > newHighestBlockHeight) {
-              newHighestBlockHeight = tx.height;
-            }
+            unparsedTxs = unparsedTxs.concat(unparsedTx);
+            continue;
           }
-        }
 
-        parsedTxs = [];
-        unparsedTxs = [];
-
-        next = result.next ?? 0;
-
-        if (next <= prevHighestParsedBlockHeight) {
-          break;
+          this.logger.log(`Finished parsing tx: ${tx.txhash}`);
+          numberOfNewParsedTxs++;
+          for (const resultTx of result) {
+            const mappedResult = await txToTxCreateRequest(
+              resultTx,
+              chain,
+              address,
+              this.currenciesService,
+            );
+            // parsedTxs = parsedTxs.concat(mappedResult);
+            this.walletService.createTxs({
+              txs: [mappedResult],
+            });
+          }
+        } catch (e) {
+          const unparsedTx = await txToUnparsedTxCreateRequest(
+            chain,
+            address,
+            tx,
+          );
+          // unparsedTxs = unparsedTxs.concat(unparsedTx);
+          this.walletService.createTxs({
+            txs: [unparsedTx],
+          });
+          this.logger.error(e);
+        } finally {
+          if (tx.height > newHighestBlockHeight) {
+            newHighestBlockHeight = tx.height;
+          }
         }
       }
 
-      await this.commandBus.execute(
-        new UpdateWalletCommand({
-          chain,
-          highestParsedBlock: newHighestBlockHeight,
-          status: ParsingStatus.DONE,
-          address,
-        }),
-      );
+      parsedTxs = [];
+      unparsedTxs = [];
 
-      return {
-        numberOfNewParsedTxs,
-        status: ParsingStatus.DONE,
-        msg: 'Successfully parsed wallet!',
-      };
-    } catch (error) {
-      this.logger.log(error);
-      throw new InternalServerErrorException(error);
+      next = result.next ?? 0;
+
+      if (next <= prevHighestParsedBlockHeight) {
+        break;
+      }
     }
+
+    await this.commandBus.execute(
+      new UpdateWalletCommand({
+        chain,
+        highestParsedBlock: newHighestBlockHeight,
+        status: ParsingStatus.DONE,
+        address,
+      }),
+    );
+
+    return {
+      numberOfNewParsedTxs,
+      status: ParsingStatus.DONE,
+      msg: 'Successfully parsed wallet!',
+    };
   }
 }
