@@ -16,6 +16,9 @@ export class MongoConfigService implements MongoOptionsFactory {
     return {
       uri: jestMongoDb || `${database?.mongodb?.uri}${database?.mongodb?.name}`,
       dbName: global.__MONGO_DB_NAME__ || database?.mongodb?.name,
+      clientOptions: {
+        connectTimeoutMS: 60000,
+      },
     };
   }
 }
